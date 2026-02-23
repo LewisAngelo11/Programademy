@@ -9,7 +9,7 @@ export default function HeaderAdminDashboard() {
         <header className="header-admin">
             <div className="header-title">
                 <h2>Programademy Admin</h2>
-                <small>Panel de Administradror</small>
+                <small>Panel de Administrador</small>
             </div>
             <div className="data-admin">
                 <div className="info-admin">
