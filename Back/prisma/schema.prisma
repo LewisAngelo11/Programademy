@@ -1,0 +1,102 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model intento_quiz {
+  id_intento    Int       @id @default(autoincrement())
+  id_usuario    Int
+  id_quiz       Int
+  calificacion  Int?
+  tiempo_tomado Int?
+  fecha_intento DateTime? @default(now()) @db.Timestamp(6)
+  quiz          quiz      @relation(fields: [id_quiz], references: [id_quiz], onDelete: Cascade, onUpdate: NoAction, map: "fk_intento_quiz")
+  usuario       usuario   @relation(fields: [id_usuario], references: [id_usuario], onDelete: Cascade, onUpdate: NoAction, map: "fk_intento_usuario")
+}
+
+model leccion {
+  id_leccion        Int     @id @default(autoincrement())
+  id_modulo         Int
+  titulo            String  @db.VarChar(150)
+  contenido_teorico String?
+  orden             Int
+  modulo            modulo  @relation(fields: [id_modulo], references: [id_modulo], onDelete: Cascade, onUpdate: NoAction, map: "fk_leccion_modulo")
+}
+
+model logro {
+  id_logro      Int             @id @default(autoincrement())
+  titulo        String          @db.VarChar(150)
+  descripcion   String?
+  condicion     String?         @db.VarChar(255)
+  icono         String?         @db.VarChar(255)
+  usuario_logro usuario_logro[]
+}
+
+model modulo {
+  id_modulo   Int       @id @default(autoincrement())
+  titulo      String    @db.VarChar(150)
+  descripcion String?
+  orden       Int
+  leccion     leccion[]
+  quiz        quiz[]
+}
+
+model pregunta {
+  id_pregunta     Int    @id @default(autoincrement())
+  id_quiz         Int
+  enunciado       String
+  opciones        Json   @db.Json
+  indice_correcta Int
+  quiz            quiz   @relation(fields: [id_quiz], references: [id_quiz], onDelete: Cascade, onUpdate: NoAction, map: "fk_pregunta_quiz")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model quiz {
+  id_quiz                Int            @id @default(autoincrement())
+  id_modulo              Int
+  titulo                 String         @db.VarChar(150)
+  tiempo_limite_segundos Int?
+  puntos_recompensa      Int?           @default(0)
+  intento_quiz           intento_quiz[]
+  pregunta               pregunta[]
+  modulo                 modulo         @relation(fields: [id_modulo], references: [id_modulo], onDelete: Cascade, onUpdate: NoAction, map: "fk_quiz_modulo")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model rango {
+  id_rango        Int       @id @default(autoincrement())
+  titulo          String    @db.VarChar(100)
+  min_experiencia Int
+  icono           String?   @db.VarChar(255)
+  usuario         usuario[]
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model usuario {
+  id_usuario        Int             @id @default(autoincrement())
+  nombre            String          @db.VarChar(100)
+  email             String          @unique @db.VarChar(150)
+  password          String          @db.VarChar(255)
+  id_rango_actual   Int?
+  experiencia_total Int?            @default(0)
+  fecha_registro    DateTime?       @default(dbgenerated("CURRENT_DATE")) @db.Date
+  intento_quiz      intento_quiz[]
+  rango             rango?          @relation(fields: [id_rango_actual], references: [id_rango], onUpdate: NoAction, map: "fk_usuario_rango")
+  usuario_logro     usuario_logro[]
+}
+
+model usuario_logro {
+  id_relacion     Int       @id @default(autoincrement())
+  id_usuario      Int
+  id_logro        Int
+  fecha_obtencion DateTime? @default(dbgenerated("CURRENT_DATE")) @db.Date
+  logro           logro     @relation(fields: [id_logro], references: [id_logro], onDelete: Cascade, onUpdate: NoAction, map: "fk_usuario_logro_logro")
+  usuario         usuario   @relation(fields: [id_usuario], references: [id_usuario], onDelete: Cascade, onUpdate: NoAction, map: "fk_usuario_logro_usuario")
+
+  @@unique([id_usuario, id_logro], map: "unique_usuario_logro")
+}

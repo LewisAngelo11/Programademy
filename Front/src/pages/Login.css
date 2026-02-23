@@ -1,0 +1,92 @@
+.login-page {
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.6rem;
+    background-color: #f9fafb;
+}
+
+.login-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: .6rem;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .6rem;
+}
+
+.bg-logo{
+    background-color: #3e00ff;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    padding: .5rem;
+}
+
+.login-form {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 1px solid #d9d9d9;
+    background: #ffff;
+    border-radius: 10px;
+    gap: 1.4rem;
+    min-width: 400px;
+    height: clamp(200px, 50vh, 400px);
+}
+
+.login-form-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.email-container,
+.passw-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: .4rem;
+}
+
+.email-container input,
+.passw-container input {
+    padding: .6rem;
+    border-radius: 10px;
+    border: none;
+    background-color: #f0f0f0;
+}
+
+.forgot-passw {
+    text-decoration: none;
+    font-size: .8rem;
+    color: #626262;
+    text-align: end;
+}
+
+.login-button {
+    padding: .6rem;
+    background-color: #191919;
+    border: none;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .4rem;
+    color: #ffff;
+    transition: all .1s ease;
+}
+
+.login-button:hover {
+    background-color: #303030;
+}

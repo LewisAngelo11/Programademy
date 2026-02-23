@@ -1,0 +1,56 @@
+.quick-actions {
+    padding: 0 2rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: .8rem;
+}
+
+.modules-actions {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: .6rem;
+}
+
+.manage-courses,
+.manage-module,
+.manage-quizzes {
+    display: flex;
+    flex-direction: column;
+    padding: 1.2rem;
+    background-color: #ffff;
+    border: 1px solid #dddddd;
+    border-radius: 10px;
+    gap: 1rem;
+}
+
+.header-module {
+    display: flex;
+    gap: .4rem;
+    align-items: center;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.button-manage-courses,
+.button-manage-modules,
+.button-manage-quizzes {
+    padding: .4rem;
+    background-color: #191919;
+    border: none;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .4rem;
+    color: #ffff;
+    transition: all .1s ease;
+}
+
+.button-manage-courses:hover,
+.button-manage-modules:hover,
+.button-manage-quizzes:hover {
+    background-color: #303030;
+}

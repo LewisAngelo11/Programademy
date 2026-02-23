@@ -1,0 +1,90 @@
+.courses-list {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    gap: 1rem;
+}
+
+.courses-container {
+    width: 100%;
+    border: 1px solid #dddddd;
+    background-color: #ffff;
+    padding: 1rem;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: space-between;
+    gap: 2rem;
+}
+
+.header-container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.info-course {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: .4rem;
+}
+
+.info-course span {
+    font-size: .9rem;
+    color: #636363;
+}
+
+.principal-info {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 1rem;
+}
+
+.principal-info h2 {
+    font-size: 1rem;
+}
+
+.principal-info span {
+    font-size: .8rem;
+    background-color: #eeeeee;
+    color: #1a1a1a;
+    padding: .4rem;
+    border-radius: 10px;
+}
+
+.buttons-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .6rem;
+}
+
+.buttons-container button {
+    padding: .2rem .4rem;
+    border: 1px solid #dddddd;
+    background-color: #ffff;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .4rem;
+    transition: all .1s ease;
+}
+
+.buttons-container button:hover {
+    background-color: #e1e1e1;
+}
+
+.more-info {
+    display: flex;
+    align-items: center;
+    gap: .8rem;
+    font-size: .8rem;
+    color: #636363;
+}

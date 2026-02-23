@@ -1,0 +1,63 @@
+.admin-courses-page {
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    background-color: #f9fafb;
+}
+
+.header-admin-courses {
+    width: 100%;
+    border-bottom: 1px solid #dddddd;
+    padding: 1rem 1.2rem;
+}
+
+.button-back-dashboard {
+    background-color: transparent;
+    border: none;
+    border-radius: 10px;
+    padding: .4rem .8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .4rem;
+    transition: all 100ms ease;
+}
+
+.button-back-dashboard:hover {
+    background-color: #a0a0a0;
+}
+
+.body-admin-courses {
+    width: 100%;
+    padding: 1.4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.2rem;
+}
+
+.header-body-courses {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.button-add-courses {
+    padding: .4rem;
+    background-color: #191919;
+    border: none;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .4rem;
+    color: #ffff;
+    transition: all .1s ease;
+}
+
+.button-add-courses:hover {
+    background-color: #303030;
+}

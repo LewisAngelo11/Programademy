@@ -1,0 +1,9 @@
+.admin-dashboard-page {
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    gap: 1rem;
+    background-color: #f9fafb;
+}
