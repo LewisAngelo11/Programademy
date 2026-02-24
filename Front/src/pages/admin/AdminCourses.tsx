@@ -29,7 +29,9 @@ export default function AdminCourses() {
                         <h1>Gestión de Cursos</h1>
                         <span>Crea, edita, o elimina cursos</span>
                     </div>
-                    <button className="button-add-courses">
+                    <button 
+                        className="button-add-courses"
+                        onClick={() => navigate("/courses/create")}>
                         <Plus />
                         Nuevo Curso
                     </button>
