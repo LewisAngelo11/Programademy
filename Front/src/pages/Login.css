@@ -87,6 +87,11 @@
     transition: all .1s ease;
 }
 
+.login-button:disabled {
+    cursor: progress;
+    opacity: 80%;
+}
+
 .login-button:hover {
     background-color: #303030;
 }

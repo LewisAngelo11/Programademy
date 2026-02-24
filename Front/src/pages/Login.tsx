@@ -24,23 +24,45 @@ export default function Login() {
 function LoginForm() {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
+    const [loading, setLoading] = useState<boolean>(false);
     const navigate = useNavigate();
 
-    const signIn = () => {
-        if (email.trim() === "student@prueba.com" && password.trim() === "12345678") {
-            alert("Bienvenido estudiante");
-            navigate("/student/dashboard");
-            return;
+    const API_URL = "http://localhost:3000/auth/login";
+
+    const signIn = async () => {
+        const bodyLogin = {
+            email: email,
+            passw: password
+        };
+
+        try {
+            setLoading(true);
+
+            const response = await fetch(API_URL, {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(bodyLogin)
+            });
+
+            if (!response.ok) {
+                throw new Error("Error al iniciar sesión");
+            }
+
+            const dataUser = await response.json();
+            localStorage.setItem("token", dataUser.token); // Guarda el token en local storage
+            // Simula la protección de rutas de admin y student
+            if (dataUser.user.rol === "admin") {
+                navigate("admin/dashboard");
+            }
+
+            console.log("Rol del usuario: ", dataUser.user.rol);
+        } catch (err) {
+            console.error("Error en la petición: ", err);
+        } finally {
+            setLoading(false);
         }
-
-        if (email.trim() === "admin@prueba.com" && password.trim() === "123456789") {
-            alert("Bienvenido administrador");
-            navigate("/admin/dashboard");
-            return;
-        }
-
-        alert("Credenciales incorrectas");
-
     }
     return (
         <form onSubmit={signIn} className="login-form">
@@ -69,9 +91,8 @@ function LoginForm() {
                     required/>
                 <a href="#" className="forgot-passw">¿Olvidó su Contraseña?</a>
             </div>
-            <button className="login-button">Iniciar Sesión</button>
+            <button className="login-button" disabled={loading}> { !loading ? "Iniciar Sesión" : "Validando..." }</button>
             <hr />
-
         </form>
     );
 }

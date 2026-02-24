@@ -1,6 +1,7 @@
 import express from 'express';
 import type { Request, Response } from 'express';
 import dotenv from "dotenv";
+import morgan from 'morgan';
 import cors from 'cors';
 
 import login from './routes/auth.routes'
@@ -9,6 +10,7 @@ dotenv.config();
 
 const app = express();
 
+app.use(morgan('dev'));
 app.use(cors());
 app.use(express.json()); 
 
