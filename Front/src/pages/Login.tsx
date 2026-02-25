@@ -29,7 +29,8 @@ function LoginForm() {
 
     const API_URL = "http://localhost:3000/auth/login";
 
-    const signIn = async () => {
+    const signIn = async (e: React.FormEvent) => {
+        e.preventDefault(); // Evita que la pagina se refresque
         const bodyLogin = {
             email: email,
             passw: password
@@ -54,7 +55,7 @@ function LoginForm() {
             localStorage.setItem("token", dataUser.token); // Guarda el token en local storage
             // Simula la protección de rutas de admin y student
             if (dataUser.user.rol === "admin") {
-                navigate("admin/dashboard");
+                navigate('/admin/dashboard');
             }
 
             console.log("Rol del usuario: ", dataUser.user.rol);

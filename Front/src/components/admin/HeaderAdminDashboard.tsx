@@ -2,7 +2,16 @@ import "./HeaderAdminDashboard.css";
 import { useNavigate } from "react-router";
 import { ArrowOutRightSquareHalf } from "@boxicons/react";
 
-export default function HeaderAdminDashboard() {
+interface UsuarioInfoProp {
+    adminName: string;
+    adminEmail: string;
+}
+
+interface LoadingProp {
+    loading: boolean;
+}
+
+export default function HeaderAdminDashboard({ adminName, adminEmail, loading }: UsuarioInfoProp & LoadingProp) {
     const navigate = useNavigate();
 
     return(
@@ -13,8 +22,8 @@ export default function HeaderAdminDashboard() {
             </div>
             <div className="data-admin">
                 <div className="info-admin">
-                    <span>Nombre del Admin</span>
-                    <small>Correo del admin</small>
+                    <span>{!loading && adminName}</span>
+                    <small>{!loading && adminEmail}</small>
                 </div>
                 <button
                     onClick={() => navigate("/")}
