@@ -94,6 +94,10 @@ function LoginForm() {
             </div>
             <button className="login-button" disabled={loading}> { !loading ? "Iniciar Sesión" : "Validando..." }</button>
             <hr />
+            <div className="create-account">
+                <span>¿No tiene cuenta?</span>
+                <a href="/register">Crear Cuenta</a>
+            </div>
         </form>
     );
 }

@@ -1,4 +1,4 @@
-.login-page {
+.register-page {
     height: 100dvh;
     display: flex;
     flex-direction: column;
@@ -8,7 +8,7 @@
     background-color: #f9fafb;
 }
 
-.login-header {
+.register-header {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -31,7 +31,7 @@
     padding: .5rem;
 }
 
-.login-form {
+.register-form {
     padding: 2rem;
     display: flex;
     flex-direction: column;
@@ -41,16 +41,17 @@
     border-radius: 10px;
     gap: 1.4rem;
     min-width: 400px;
-    height: clamp(200px, 50vh, 400px);
+    height: clamp(200px, 60vh, 500px);
 }
 
-.login-form-header {
+.register-form-header {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
+.name-container,
 .email-container,
 .passw-container {
     width: 100%;
@@ -59,6 +60,7 @@
     gap: .4rem;
 }
 
+.name-container input,
 .email-container input,
 .passw-container input {
     padding: .6rem;
@@ -67,14 +69,7 @@
     background-color: #f0f0f0;
 }
 
-.forgot-passw {
-    text-decoration: none;
-    font-size: .8rem;
-    color: #626262;
-    text-align: end;
-}
-
-.login-button {
+.register-button {
     padding: .6rem;
     background-color: #191919;
     border: none;
@@ -87,16 +82,16 @@
     transition: all .1s ease;
 }
 
-.login-button:disabled {
+.register-button:disabled {
     cursor: progress;
     opacity: 80%;
 }
 
-.login-button:hover {
+.register-button:hover {
     background-color: #303030;
 }
 
-.create-account {
+.log-in {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -104,7 +99,7 @@
     font-size: .8rem;
 }
 
-.create-account a {
+.log-in a {
     text-decoration: none;
     color: #3e00ff;
 }

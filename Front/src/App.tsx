@@ -3,6 +3,7 @@ import Login from './pages/Login'
 import AdminDashboard from './pages/admin/AdminDashboard'
 import AdminCourses from './pages/admin/AdminCourses'
 import CreateCourse from './pages/admin/CreateCourse'
+import Register from './pages/Register'
 import './App.css'
 
 function App() {
@@ -11,6 +12,7 @@ function App() {
     <>
       <Routes>
         <Route path={"/"} element={<Login/>}/>
+        <Route path={"/register"} element={<Register/>}/>
         <Route path={"admin/dashboard"} element={<AdminDashboard/>}/>
         <Route path={'courses-admin'} element={<AdminCourses/>}/>
         <Route path={'courses/create'} element={<CreateCourse/>}/>
