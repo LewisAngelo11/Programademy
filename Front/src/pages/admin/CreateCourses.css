@@ -70,3 +70,8 @@
     background-color: #f0f0f0;
     resize: none;
 }
+
+.course-banner input:disabled {
+    cursor: no-drop;
+    opacity: 70%;
+}

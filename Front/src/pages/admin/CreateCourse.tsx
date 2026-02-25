@@ -55,7 +55,9 @@ function FormCreateCourse() {
                 <input
                     type="text"
                     id="banner-course"
-                    placeholder="https://ejemplo.com/imagen.jpg"/>
+                    placeholder="https://ejemplo.com/imagen.jpg"
+                    disabled/>
+                <small>Pronto estará habilitado...</small>
             </div>
         </form>
     );
