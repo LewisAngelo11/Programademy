@@ -102,6 +102,13 @@ model usuario_logro {
   @@unique([id_usuario, id_logro], map: "unique_usuario_logro")
 }
 
+model curso {
+  id_curso       Int       @id @default(autoincrement())
+  nombre         String    @db.VarChar(50)
+  descripcion    String    @db.VarChar(255)
+  fecha_creacion DateTime? @default(dbgenerated("CURRENT_DATE")) @db.Date
+}
+
 enum rol_usuario {
   student
   admin

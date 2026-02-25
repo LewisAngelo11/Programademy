@@ -59,7 +59,8 @@ export const ModelName = {
   quiz: 'quiz',
   rango: 'rango',
   usuario: 'usuario',
-  usuario_logro: 'usuario_logro'
+  usuario_logro: 'usuario_logro',
+  curso: 'curso'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -176,6 +177,16 @@ export const Usuario_logroScalarFieldEnum = {
 } as const
 
 export type Usuario_logroScalarFieldEnum = (typeof Usuario_logroScalarFieldEnum)[keyof typeof Usuario_logroScalarFieldEnum]
+
+
+export const CursoScalarFieldEnum = {
+  id_curso: 'id_curso',
+  nombre: 'nombre',
+  descripcion: 'descripcion',
+  fecha_creacion: 'fecha_creacion'
+} as const
+
+export type CursoScalarFieldEnum = (typeof CursoScalarFieldEnum)[keyof typeof CursoScalarFieldEnum]
 
 
 export const SortOrder = {

@@ -62,3 +62,8 @@ export type usuario = Prisma.usuarioModel
  * 
  */
 export type usuario_logro = Prisma.usuario_logroModel
+/**
+ * Model curso
+ * 
+ */
+export type curso = Prisma.cursoModel

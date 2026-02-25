@@ -5,6 +5,13 @@ CREATE TABLE rango (
     icono VARCHAR(255)
 );
 
+CREATE TABLE curso (
+	id_curso SERIAL PRIMARY KEY,
+	nombre VARCHAR(50) NOT NULL,
+	descripcion VARCHAR(255) NOT NULL,
+	fecha_creacion DATE DEFAULT CURRENT_DATE
+);
+
 CREATE TABLE modulo (
     id_modulo SERIAL PRIMARY KEY,
     titulo VARCHAR(150) NOT NULL,
