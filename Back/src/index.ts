@@ -5,6 +5,7 @@ import morgan from 'morgan';
 import cors from 'cors';
 
 import login from './routes/auth.routes'
+import usuario from './routes/user.routes'
 
 dotenv.config();
 
@@ -16,6 +17,7 @@ app.use(express.json());
 
 // Importación de las rutas
 app.use('/auth', login);
+app.use('/usuario', usuario);
 
 const PORT = process.env.PORT || 3000;
 
