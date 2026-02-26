@@ -31,7 +31,8 @@
     gap: .6rem;
 }
 
-.basic-info-course {
+.basic-info-course,
+.modules-selection {
     padding: 1.5rem;
     width: 100%;
     display: flex;
@@ -74,4 +75,44 @@
 .course-banner input:disabled {
     cursor: no-drop;
     opacity: 70%;
+}
+
+.actions-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.button-create-course {
+    padding: .4rem;
+    background-color: #191919;
+    border: none;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .4rem;
+    color: #ffff;
+    transition: all .1s ease;
+}
+
+.button-create-course:hover {
+    background-color: #303030;
+}
+
+.button-cancel {
+    padding: .4rem;
+    background-color: transparent;
+    border: 1px solid #191919;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .4rem;
+    transition: all .1s ease;
+}
+
+.button-cancel:hover {
+    background-color: #f0f0f0;
 }

@@ -2,11 +2,9 @@ import HeaderAdminDashboard from "../../components/admin/HeaderAdminDashboard";
 import ResumeDashboard from "../../components/admin/ResumeDashboard";
 import QuickActions from "../../components/admin/QuickActions";
 import "./AdminDashboard.css"
-import { useParams } from "react-router";
 import { useEffect, useState } from "react";
 
 export default function AdminDashboard() {
-    const idUsuario = useParams();
     const [loading, setLoading] = useState<boolean>(false);
     const [adminName, setAdminName] = useState<string>("");
     const [adminEmail, setAdminEmail] = useState<string>("");
@@ -18,8 +16,6 @@ export default function AdminDashboard() {
     
                 try {
                     setLoading(true);
-    
-                    console.log(idUsuario.id);
     
                     const response = await fetch(API_URL, {
                         method: "GET",
