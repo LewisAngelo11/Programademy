@@ -1,6 +1,4 @@
 import { Response, Router } from "express";
-import jwt from "jsonwebtoken";
-import dotenv from 'dotenv';
 import { prisma } from "../../lib/prisma";
 import { verifyTokenJWT } from "../middlewares/auth.middleware";
 

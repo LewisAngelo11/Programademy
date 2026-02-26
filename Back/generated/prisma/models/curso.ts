@@ -36,21 +36,21 @@ export type CursoSumAggregateOutputType = {
 
 export type CursoMinAggregateOutputType = {
   id_curso: number | null
-  nombre: string | null
+  titulo: string | null
   descripcion: string | null
   fecha_creacion: Date | null
 }
 
 export type CursoMaxAggregateOutputType = {
   id_curso: number | null
-  nombre: string | null
+  titulo: string | null
   descripcion: string | null
   fecha_creacion: Date | null
 }
 
 export type CursoCountAggregateOutputType = {
   id_curso: number
-  nombre: number
+  titulo: number
   descripcion: number
   fecha_creacion: number
   _all: number
@@ -67,21 +67,21 @@ export type CursoSumAggregateInputType = {
 
 export type CursoMinAggregateInputType = {
   id_curso?: true
-  nombre?: true
+  titulo?: true
   descripcion?: true
   fecha_creacion?: true
 }
 
 export type CursoMaxAggregateInputType = {
   id_curso?: true
-  nombre?: true
+  titulo?: true
   descripcion?: true
   fecha_creacion?: true
 }
 
 export type CursoCountAggregateInputType = {
   id_curso?: true
-  nombre?: true
+  titulo?: true
   descripcion?: true
   fecha_creacion?: true
   _all?: true
@@ -175,7 +175,7 @@ export type cursoGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
 
 export type CursoGroupByOutputType = {
   id_curso: number
-  nombre: string
+  titulo: string
   descripcion: string
   fecha_creacion: Date | null
   _count: CursoCountAggregateOutputType | null
@@ -205,14 +205,14 @@ export type cursoWhereInput = {
   OR?: Prisma.cursoWhereInput[]
   NOT?: Prisma.cursoWhereInput | Prisma.cursoWhereInput[]
   id_curso?: Prisma.IntFilter<"curso"> | number
-  nombre?: Prisma.StringFilter<"curso"> | string
+  titulo?: Prisma.StringFilter<"curso"> | string
   descripcion?: Prisma.StringFilter<"curso"> | string
   fecha_creacion?: Prisma.DateTimeNullableFilter<"curso"> | Date | string | null
 }
 
 export type cursoOrderByWithRelationInput = {
   id_curso?: Prisma.SortOrder
-  nombre?: Prisma.SortOrder
+  titulo?: Prisma.SortOrder
   descripcion?: Prisma.SortOrder
   fecha_creacion?: Prisma.SortOrderInput | Prisma.SortOrder
 }
@@ -222,14 +222,14 @@ export type cursoWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.cursoWhereInput | Prisma.cursoWhereInput[]
   OR?: Prisma.cursoWhereInput[]
   NOT?: Prisma.cursoWhereInput | Prisma.cursoWhereInput[]
-  nombre?: Prisma.StringFilter<"curso"> | string
+  titulo?: Prisma.StringFilter<"curso"> | string
   descripcion?: Prisma.StringFilter<"curso"> | string
   fecha_creacion?: Prisma.DateTimeNullableFilter<"curso"> | Date | string | null
 }, "id_curso">
 
 export type cursoOrderByWithAggregationInput = {
   id_curso?: Prisma.SortOrder
-  nombre?: Prisma.SortOrder
+  titulo?: Prisma.SortOrder
   descripcion?: Prisma.SortOrder
   fecha_creacion?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.cursoCountOrderByAggregateInput
@@ -244,60 +244,60 @@ export type cursoScalarWhereWithAggregatesInput = {
   OR?: Prisma.cursoScalarWhereWithAggregatesInput[]
   NOT?: Prisma.cursoScalarWhereWithAggregatesInput | Prisma.cursoScalarWhereWithAggregatesInput[]
   id_curso?: Prisma.IntWithAggregatesFilter<"curso"> | number
-  nombre?: Prisma.StringWithAggregatesFilter<"curso"> | string
+  titulo?: Prisma.StringWithAggregatesFilter<"curso"> | string
   descripcion?: Prisma.StringWithAggregatesFilter<"curso"> | string
   fecha_creacion?: Prisma.DateTimeNullableWithAggregatesFilter<"curso"> | Date | string | null
 }
 
 export type cursoCreateInput = {
-  nombre: string
+  titulo: string
   descripcion: string
   fecha_creacion?: Date | string | null
 }
 
 export type cursoUncheckedCreateInput = {
   id_curso?: number
-  nombre: string
+  titulo: string
   descripcion: string
   fecha_creacion?: Date | string | null
 }
 
 export type cursoUpdateInput = {
-  nombre?: Prisma.StringFieldUpdateOperationsInput | string
+  titulo?: Prisma.StringFieldUpdateOperationsInput | string
   descripcion?: Prisma.StringFieldUpdateOperationsInput | string
   fecha_creacion?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type cursoUncheckedUpdateInput = {
   id_curso?: Prisma.IntFieldUpdateOperationsInput | number
-  nombre?: Prisma.StringFieldUpdateOperationsInput | string
+  titulo?: Prisma.StringFieldUpdateOperationsInput | string
   descripcion?: Prisma.StringFieldUpdateOperationsInput | string
   fecha_creacion?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type cursoCreateManyInput = {
   id_curso?: number
-  nombre: string
+  titulo: string
   descripcion: string
   fecha_creacion?: Date | string | null
 }
 
 export type cursoUpdateManyMutationInput = {
-  nombre?: Prisma.StringFieldUpdateOperationsInput | string
+  titulo?: Prisma.StringFieldUpdateOperationsInput | string
   descripcion?: Prisma.StringFieldUpdateOperationsInput | string
   fecha_creacion?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type cursoUncheckedUpdateManyInput = {
   id_curso?: Prisma.IntFieldUpdateOperationsInput | number
-  nombre?: Prisma.StringFieldUpdateOperationsInput | string
+  titulo?: Prisma.StringFieldUpdateOperationsInput | string
   descripcion?: Prisma.StringFieldUpdateOperationsInput | string
   fecha_creacion?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type cursoCountOrderByAggregateInput = {
   id_curso?: Prisma.SortOrder
-  nombre?: Prisma.SortOrder
+  titulo?: Prisma.SortOrder
   descripcion?: Prisma.SortOrder
   fecha_creacion?: Prisma.SortOrder
 }
@@ -308,14 +308,14 @@ export type cursoAvgOrderByAggregateInput = {
 
 export type cursoMaxOrderByAggregateInput = {
   id_curso?: Prisma.SortOrder
-  nombre?: Prisma.SortOrder
+  titulo?: Prisma.SortOrder
   descripcion?: Prisma.SortOrder
   fecha_creacion?: Prisma.SortOrder
 }
 
 export type cursoMinOrderByAggregateInput = {
   id_curso?: Prisma.SortOrder
-  nombre?: Prisma.SortOrder
+  titulo?: Prisma.SortOrder
   descripcion?: Prisma.SortOrder
   fecha_creacion?: Prisma.SortOrder
 }
@@ -328,40 +328,40 @@ export type cursoSumOrderByAggregateInput = {
 
 export type cursoSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id_curso?: boolean
-  nombre?: boolean
+  titulo?: boolean
   descripcion?: boolean
   fecha_creacion?: boolean
 }, ExtArgs["result"]["curso"]>
 
 export type cursoSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id_curso?: boolean
-  nombre?: boolean
+  titulo?: boolean
   descripcion?: boolean
   fecha_creacion?: boolean
 }, ExtArgs["result"]["curso"]>
 
 export type cursoSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id_curso?: boolean
-  nombre?: boolean
+  titulo?: boolean
   descripcion?: boolean
   fecha_creacion?: boolean
 }, ExtArgs["result"]["curso"]>
 
 export type cursoSelectScalar = {
   id_curso?: boolean
-  nombre?: boolean
+  titulo?: boolean
   descripcion?: boolean
   fecha_creacion?: boolean
 }
 
-export type cursoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id_curso" | "nombre" | "descripcion" | "fecha_creacion", ExtArgs["result"]["curso"]>
+export type cursoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id_curso" | "titulo" | "descripcion" | "fecha_creacion", ExtArgs["result"]["curso"]>
 
 export type $cursoPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "curso"
   objects: {}
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id_curso: number
-    nombre: string
+    titulo: string
     descripcion: string
     fecha_creacion: Date | null
   }, ExtArgs["result"]["curso"]>
@@ -788,7 +788,7 @@ export interface Prisma__cursoClient<T, Null = never, ExtArgs extends runtime.Ty
  */
 export interface cursoFieldRefs {
   readonly id_curso: Prisma.FieldRef<"curso", 'Int'>
-  readonly nombre: Prisma.FieldRef<"curso", 'String'>
+  readonly titulo: Prisma.FieldRef<"curso", 'String'>
   readonly descripcion: Prisma.FieldRef<"curso", 'String'>
   readonly fecha_creacion: Prisma.FieldRef<"curso", 'DateTime'>
 }

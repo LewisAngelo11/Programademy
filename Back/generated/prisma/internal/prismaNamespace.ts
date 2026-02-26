@@ -1294,7 +1294,7 @@ export type Usuario_logroScalarFieldEnum = (typeof Usuario_logroScalarFieldEnum)
 
 export const CursoScalarFieldEnum = {
   id_curso: 'id_curso',
-  nombre: 'nombre',
+  titulo: 'titulo',
   descripcion: 'descripcion',
   fecha_creacion: 'fecha_creacion'
 } as const

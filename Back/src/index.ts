@@ -4,8 +4,10 @@ import dotenv from "dotenv";
 import morgan from 'morgan';
 import cors from 'cors';
 
+// Importar las rutas
 import auth from './routes/auth.routes'
 import usuario from './routes/user.routes'
+import curso from './routes/courses.routes';
 
 dotenv.config();
 
@@ -15,9 +17,10 @@ app.use(morgan('dev'));
 app.use(cors());
 app.use(express.json()); 
 
-// Importación de las rutas
+// Implementación de las rutas en la app
 app.use('/auth', auth);
 app.use('/usuario', usuario);
+app.use('/curso', curso);
 
 const PORT = process.env.PORT || 3000;
 
