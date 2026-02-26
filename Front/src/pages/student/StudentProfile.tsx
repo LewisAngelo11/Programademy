@@ -40,7 +40,7 @@ export default function StudentProfile() {
         }
 
         getInfoUser();
-    });
+    }, []);
 
     return (
         <main className="student-profile-page">
@@ -85,6 +85,7 @@ export default function StudentProfile() {
                         setStudentName={setStudentName}
                         studentEmail={studentEmail}
                         setStudentEmail={setStudentEmail}
+                        setOpenModal={setOpenModal}
                         />
                 } setOpenModal={setOpenModal}/>}
         </main>
