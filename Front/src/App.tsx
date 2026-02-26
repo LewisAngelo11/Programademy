@@ -6,6 +6,7 @@ import StudentDashboard from './pages/student/StudentDashboard'
 import CreateCourse from './pages/admin/CreateCourse'
 import Register from './pages/Register'
 import StudentProfile from './pages/student/StudentProfile'
+import AdminProfile from './pages/admin/AdminProfile'
 import './App.css'
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
         <Route path={"/register"} element={<Register/>}/>
         <Route path={"student/dashboard"} element={<StudentDashboard/>}/>
         <Route path={"student/profile"} element={<StudentProfile/>}/>
+        <Route path={"admin/profile"} element={<AdminProfile/>}/>
         <Route path={"admin/dashboard"} element={<AdminDashboard/>}/>
         <Route path={'courses-admin'} element={<AdminCourses/>}/>
         <Route path={'courses/create'} element={<CreateCourse/>}/>
