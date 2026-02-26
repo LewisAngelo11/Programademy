@@ -1,0 +1,49 @@
+.edit-info-student {
+    display: flex;
+    flex-direction: column;
+    gap: .6rem;
+    min-width: 400px;
+}
+
+.form-edit-student {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.input-name-student,
+.input-email-student {
+    display: flex;
+    flex-direction: column;
+    gap: .6rem;
+}
+
+.input-name-student input,
+.input-email-student input {
+    padding: .8rem;
+    border-radius: 10px;
+    border: none;
+    background-color: #f0f0f0;
+}
+
+.confirm-edit-info {
+    padding: .8rem;
+    background-color: #191919;
+    border: none;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .4rem;
+    color: #ffff;
+    transition: all .1s ease;
+}
+
+.confirm-edit-info:disabled {
+    cursor: progress;
+    opacity: 80%;
+}
+
+.confirm-edit-info:hover {
+    background-color: #303030;
+}

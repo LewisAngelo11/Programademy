@@ -56,6 +56,8 @@ function LoginForm() {
             // Simula la protección de rutas de admin y student
             if (dataUser.user.rol === "admin") {
                 navigate('/admin/dashboard');
+            } else {
+                navigate('/student/dashboard');
             }
 
             console.log("Rol del usuario: ", dataUser.user.rol);

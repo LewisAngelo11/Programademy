@@ -1,0 +1,80 @@
+.student-profile-page {
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    background-color: #f9fafb;
+}
+
+.header-student-profile {
+    width: 100%;
+    border-bottom: 1px solid #dddddd;
+    padding: 1rem 1.2rem;
+}
+
+.button-back-dashboard {
+    background-color: transparent;
+    border: none;
+    border-radius: 10px;
+    padding: .4rem .8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .4rem;
+    transition: all 100ms ease;
+}
+
+.button-back-dashboard:hover {
+    background-color: #a0a0a0;
+}
+
+.info-student-profile {
+    width: 100%;
+    padding: 1.6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.header-info-student {
+    display: flex;
+    flex-direction: column;
+}
+
+.info-student-container {
+    width: 100%;
+    background-color: #ffff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.100);
+    padding: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 1.6rem;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 1.2rem;
+}
+
+.name-student,
+.email-student,
+.register-date-student {
+    font-size: .9rem;
+    display: flex;
+    flex-direction: column;
+    gap: .4rem;
+}
+
+dt {
+    color: #616161;
+}
+
+.button-edit-info {
+    border: none;
+    background-color: transparent;
+}
