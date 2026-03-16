@@ -1,3 +1,5 @@
+CREATE TYPE estado_curso AS ENUM ('activo', 'eliminado');
+
 CREATE TABLE rango (
     id_rango SERIAL PRIMARY KEY,
     titulo VARCHAR(100) NOT NULL,
@@ -10,6 +12,7 @@ CREATE TABLE curso (
 	nombre VARCHAR(50) NOT NULL,
 	descripcion VARCHAR(255) NOT NULL,
 	fecha_creacion DATE DEFAULT CURRENT_DATE
+    estado estado_curso DEFAULT 'activo' NOT NULL;
 );
 
 CREATE TABLE modulo (
