@@ -15,3 +15,11 @@ export const rol_usuario = {
 } as const
 
 export type rol_usuario = (typeof rol_usuario)[keyof typeof rol_usuario]
+
+
+export const estado_curso = {
+  activo: 'activo',
+  eliminado: 'eliminado'
+} as const
+
+export type estado_curso = (typeof estado_curso)[keyof typeof estado_curso]

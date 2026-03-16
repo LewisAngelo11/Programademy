@@ -183,7 +183,8 @@ export const CursoScalarFieldEnum = {
   id_curso: 'id_curso',
   titulo: 'titulo',
   descripcion: 'descripcion',
-  fecha_creacion: 'fecha_creacion'
+  fecha_creacion: 'fecha_creacion',
+  estado: 'estado'
 } as const
 
 export type CursoScalarFieldEnum = (typeof CursoScalarFieldEnum)[keyof typeof CursoScalarFieldEnum]

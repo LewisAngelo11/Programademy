@@ -103,13 +103,19 @@ model usuario_logro {
 }
 
 model curso {
-  id_curso       Int       @id @default(autoincrement())
-  titulo         String    @db.VarChar(50)
-  descripcion    String    @db.VarChar(255)
-  fecha_creacion DateTime? @default(dbgenerated("CURRENT_DATE")) @db.Date
+  id_curso       Int          @id @default(autoincrement())
+  titulo         String       @db.VarChar(50)
+  descripcion    String       @db.VarChar(255)
+  fecha_creacion DateTime?    @default(dbgenerated("CURRENT_DATE")) @db.Date
+  estado         estado_curso @default(activo)
 }
 
 enum rol_usuario {
   student
   admin
+}
+
+enum estado_curso {
+  activo
+  eliminado
 }

@@ -1,17 +1,57 @@
 import { useNavigate } from "react-router";
+import { useState, useEffect } from "react";
 import { ArrowLeftStroke, Plus } from "@boxicons/react";
 import AdminCoursesList from "../../components/admin/CoursesPage/AdminCoursesList";
 import "./AdminCourses.css"
 
-// Mock data
-const courses = [
-    {id: 1, nombre: "Fundamentos de Programación", descripcion: "Aprende los conceptos básicos de la lógica de programación", modulos: 3, fechaCreacion: "20/2/2026"},
-    {id: 2, nombre: "Estructuras de Control", descripcion: "Domina los ciclos, condicionales y el flujo de control en programación.", modulos: 2, fechaCreacion: "21/2/2026"},
-    {id: 3, nombre: "Estructuras de Datos", descripcion: "Comprende arrays, listas, pilas, colas y otras estructuras fundamentales.", modulos: 1, fechaCreacion: "22/2/2026"},
-];
+interface Course {
+    id_curso: number;
+    titulo: string;
+    descripcion: string;
+    fecha_creacion: string;
+    estado: string;
+}
 
 export default function AdminCourses() {
     const navigate = useNavigate();
+    const [courses, setCourses] = useState<Course[]>([]);
+    const [loading, setLoading] = useState<boolean>(true);
+    const [error, setError] = useState<string>("");
+
+    const API_URL = "http://localhost:3000/curso/all";
+
+    // Función para obtener los cursos
+    const fetchCourses = async () => {
+        const token = localStorage.getItem("token");
+
+        try {
+            setLoading(true);
+            const response = await fetch(API_URL, {
+                method: "GET",
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error("Error al obtener los cursos");
+            }
+
+            const data = await response.json();
+            setCourses(data);
+        } catch (err) {
+            console.error("Error en la petición:", err);
+            setError("No se pudieron cargar los cursos");
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    // Cargar cursos al montar el componente
+    useEffect(() => {
+        fetchCourses();
+    }, []);
 
     return (
         <main className="admin-courses-page">
@@ -32,11 +72,23 @@ export default function AdminCourses() {
                     <button 
                         className="button-add-courses"
                         onClick={() => navigate("/courses/create")}>
-                        <Plus />
+                        <Plus size="xs"/>
                         Nuevo Curso
                     </button>
                 </header>
-                <AdminCoursesList courses={courses}/>
+
+                {loading && <p>Cargando cursos...</p>}
+                {error && <p style={{ color: 'red' }}>{error}</p>}
+                {!loading && !error && courses.length === 0 && (
+                    <p>No hay cursos disponibles. ¡Crea uno nuevo!</p>
+                )}
+
+                {!loading && !error && courses.length > 0 && (
+                    <AdminCoursesList 
+                        courses={courses} 
+                        onCoursesUpdate={fetchCourses}  // Pasamos la función para recargar
+                    />
+                )}
             </section>
         </main>
     );

@@ -1,6 +1,6 @@
 import "./HeaderAdminDashboard.css";
 import { useNavigate } from "react-router";
-import { ArrowOutRightSquareHalf } from "@boxicons/react";
+import { ArrowOutRightSquareHalf, User } from "@boxicons/react";
 
 interface UsuarioInfoProp {
     adminName: string;
@@ -14,6 +14,12 @@ interface LoadingProp {
 export default function HeaderAdminDashboard({ adminName, adminEmail, loading }: UsuarioInfoProp & LoadingProp) {
     const navigate = useNavigate();
 
+    const logOut = () => {
+        localStorage.removeItem("token");
+
+        navigate("/");
+    };
+
     return(
         <header className="header-admin">
             <div className="header-title">
@@ -25,13 +31,21 @@ export default function HeaderAdminDashboard({ adminName, adminEmail, loading }:
                     <span>{!loading && adminName}</span>
                     <small>{!loading && adminEmail}</small>
                 </div>
-                <button
-                    onClick={() => navigate("/")}
-                    className="log-out-button"
-                    >
-                    <ArrowOutRightSquareHalf />
-                    Salir
-                </button>
+                <div className="buttons-actions">
+                    <button
+                        onClick={() => navigate("/admin/profile")}
+                        className="profile-button">
+                        <User size="xs"/>
+                        Perfil
+                    </button>
+                    <button 
+                        onClick={logOut}
+                        className="log-out-button"
+                        >
+                        <ArrowOutRightSquareHalf size="xs"/>
+                        Salir
+                    </button>
+                </div>
             </div>
         </header>
     );

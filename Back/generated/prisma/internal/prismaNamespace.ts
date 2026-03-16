@@ -1296,7 +1296,8 @@ export const CursoScalarFieldEnum = {
   id_curso: 'id_curso',
   titulo: 'titulo',
   descripcion: 'descripcion',
-  fecha_creacion: 'fecha_creacion'
+  fecha_creacion: 'fecha_creacion',
+  estado: 'estado'
 } as const
 
 export type CursoScalarFieldEnum = (typeof CursoScalarFieldEnum)[keyof typeof CursoScalarFieldEnum]
@@ -1415,6 +1416,20 @@ export type Enumrol_usuarioFieldRefInput<$PrismaModel> = FieldRefInputType<$Pris
  * Reference to a field of type 'rol_usuario[]'
  */
 export type ListEnumrol_usuarioFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'rol_usuario[]'>
+    
+
+
+/**
+ * Reference to a field of type 'estado_curso'
+ */
+export type Enumestado_cursoFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'estado_curso'>
+    
+
+
+/**
+ * Reference to a field of type 'estado_curso[]'
+ */
+export type ListEnumestado_cursoFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'estado_curso[]'>
     
 
 
