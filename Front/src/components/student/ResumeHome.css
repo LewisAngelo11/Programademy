@@ -1,7 +1,6 @@
 .resume-home {
     padding: 1rem 2rem;
     width: 100%;
-    width: 100%;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 1rem;

@@ -9,6 +9,7 @@ import StudentProfile from './pages/student/StudentProfile'
 import AdminProfile from './pages/admin/AdminProfile'
 import './App.css'
 import EditCourses from './pages/admin/EditCourses'
+import InfoCourse from './pages/student/InfoCourse'
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
         <Route path={"/register"} element={<Register/>}/>
         <Route path={"student/dashboard"} element={<StudentDashboard/>}/>
         <Route path={"student/profile"} element={<StudentProfile/>}/>
+        <Route path={"info-course/:id"} element={<InfoCourse/>}/>
         <Route path={"admin/profile"} element={<AdminProfile/>}/>
         <Route path={"admin/dashboard"} element={<AdminDashboard/>}/>
         <Route path={'courses-admin'} element={<AdminCourses/>}/>

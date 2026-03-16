@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import HeaderStudentDashboard from "../../components/student/HeaderStudentDashboard";
 import "./StudentDashboard.css";
 import ResumeHome from "../../components/student/ResumeHome";
+import CoursesList from "../../components/student/CoursesList";
 
 export default function StudentDashboard() {
     const [loading, setLoading] = useState<boolean>(false);
@@ -49,6 +50,7 @@ export default function StudentDashboard() {
                 loading={loading}
             />
             <ResumeHome/>
+            <CoursesList/>
         </main>
     );
 }

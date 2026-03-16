@@ -1,12 +1,11 @@
-import { useNavigate } from "react-router";
-import { ArrowLeftStroke, Pencil } from "@boxicons/react";
+import { Pencil } from "@boxicons/react";
 import Modal from "../../Modals/Modal";
 import "./StudentProfile.css";
 import { useEffect, useState } from "react";
 import EditInfoStudent from "../../components/student/EditInfoStudent";
+import HeaderStudentsPages from "../../components/student/HeaderStudentsPages";
 
 export default function StudentProfile() {
-    const navigate = useNavigate();
     const [studentName, setStudentName] = useState<string>("");
     const [studentEmail, setStudentEmail] = useState<string>("");
     const [studentRegisterDate, setStudentRegisterDate] = useState<string>("");
@@ -44,14 +43,7 @@ export default function StudentProfile() {
 
     return (
         <main className="student-profile-page">
-            <header className="header-student-profile">
-                <button
-                    className="button-back-dashboard"
-                    onClick={() => navigate("/student/dashboard")}>
-                    <ArrowLeftStroke />
-                    Volver al Dashboard
-                </button>
-            </header>
+            <HeaderStudentsPages/>
             <section className="info-student-profile">
                 <header className="header-info-student">
                     <h1>Perfil de Estudiante</h1>
