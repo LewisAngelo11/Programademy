@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import HeaderStudentDashboard from "../../components/student/HeaderStudentDashboard";
 import "./StudentDashboard.css";
+import ResumeHome from "../../components/student/ResumeHome";
 
 export default function StudentDashboard() {
     const [loading, setLoading] = useState<boolean>(false);
@@ -47,6 +48,7 @@ export default function StudentDashboard() {
                 studentEmail={studentEmail}
                 loading={loading}
             />
+            <ResumeHome/>
         </main>
     );
 }

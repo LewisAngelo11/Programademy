@@ -1,0 +1,39 @@
+.resume-home {
+    padding: 1rem 2rem;
+    width: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+}
+
+.started-courses,
+.total-average,
+.completed-quizzes {
+    padding: 1.2rem;
+    background-color: #ffff;
+    border: 1px solid #dddddd;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.started-courses header,
+.total-average header,
+.completed-quizzes header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.counter-started-courses,
+.average,
+.completed-counter {
+    display: flex;
+    flex-direction: column;
+    gap: .2rem;
+    font-size: 24px;
+    font-weight: 600;
+}
