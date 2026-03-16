@@ -72,7 +72,7 @@ export default function AdminCourses() {
                     <button 
                         className="button-add-courses"
                         onClick={() => navigate("/courses/create")}>
-                        <Plus />
+                        <Plus size="xs"/>
                         Nuevo Curso
                     </button>
                 </header>

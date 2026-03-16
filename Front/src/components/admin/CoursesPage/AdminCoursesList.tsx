@@ -1,5 +1,6 @@
 import { Trash, Pencil } from "@boxicons/react";
 import "./AdminCoursesList.css";
+import { useNavigate } from "react-router";
 
 interface Course {
     id_curso: number;
@@ -40,6 +41,7 @@ interface CourseProp {
 }
 
 function Course({ id, titulo, descripcion, fechaCreacion, onCoursesUpdate }: CourseProp) {
+    const navigate = useNavigate();
     const API_URL = "http://localhost:3000/curso/delete";
 
     const handleDelete = async () => {
@@ -76,12 +78,6 @@ function Course({ id, titulo, descripcion, fechaCreacion, onCoursesUpdate }: Cou
         }
     };
 
-    const handleEdit = () => {
-        // Por ahora solo muestra un alert, después implementaremos la edición
-        alert(`Editar curso: ${titulo} (ID: ${id})`);
-        // TODO: Navegar a página de edición o abrir modal
-    };
-
 
     // Esta función le da un mejor formato a la fecha
     const formatDate = (dateString: string) => {
@@ -104,11 +100,11 @@ function Course({ id, titulo, descripcion, fechaCreacion, onCoursesUpdate }: Cou
                     <span>{descripcion}</span>
                 </div>
                 <div className="buttons-container">
-                    <button onClick={handleEdit}>
-                        <Pencil /> Editar
+                    <button onClick={() => navigate(`/courses/edit/${id}`)}>
+                        <Pencil size="xs"/> Editar
                     </button>
                     <button onClick={handleDelete}>
-                        <Trash fill="#ff0000"/>
+                        <Trash size="xs" fill="#ff0000"/>
                     </button>
                 </div>
             </header>

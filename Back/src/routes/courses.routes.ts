@@ -49,6 +49,29 @@ router.get('/all', verifyTokenJWT, async (req: any, res: Response) => {
     }
 });
 
+// Método para obtener un curso por su id
+router.get('/getOne/:id', verifyTokenJWT, async (req: any, res: Response) => {
+    const { id } = req.params;
+    
+    try {
+        const course = await prisma.curso.findUnique({
+            where: {
+                id_curso: Number(id),
+                estado: 'activo',
+            },
+        });
+
+        if (!course) {
+            return res.status(404).json({ message: "Curso no encontrado o ya fue eliminado" });
+        }
+
+        res.json(course);
+    } catch (error) {
+        console.error("Error al consultar el curso:", error);
+        res.status(500).json({ message: "Error al consultar el curso" });
+    }
+});
+
 // Método que actualiza un curso existente
 router.put('/update/:id', verifyTokenJWT, async (req: any, res: Response) => {
     const { id } = req.params;
