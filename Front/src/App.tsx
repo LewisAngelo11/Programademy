@@ -10,6 +10,7 @@ import AdminProfile from './pages/admin/AdminProfile'
 import './App.css'
 import EditCourses from './pages/admin/EditCourses'
 import InfoCourse from './pages/student/InfoCourse'
+import AdminModules from './pages/admin/AdminModules'
 
 function App() {
 
@@ -21,11 +22,13 @@ function App() {
         <Route path={"student/dashboard"} element={<StudentDashboard/>}/>
         <Route path={"student/profile"} element={<StudentProfile/>}/>
         <Route path={"info-course/:id"} element={<InfoCourse/>}/>
+
         <Route path={"admin/profile"} element={<AdminProfile/>}/>
         <Route path={"admin/dashboard"} element={<AdminDashboard/>}/>
         <Route path={'courses-admin'} element={<AdminCourses/>}/>
         <Route path={'courses/create'} element={<CreateCourse/>}/>
         <Route path={'courses/edit/:id'} element={<EditCourses/>}/>
+        <Route path={"modules-admin"} element={<AdminModules/>}/>
       </Routes>
     </>
   )

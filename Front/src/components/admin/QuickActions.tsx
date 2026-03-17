@@ -38,6 +38,8 @@ function ManageCourses() {
 }
 
 function ManageModules() {
+    const navigate = useNavigate();
+
     return(
         <article className="manage-module">
             <div className="header-module">
@@ -45,7 +47,9 @@ function ManageModules() {
                 <span>Gestionar Módulos</span>
             </div>
             <small>Administra contenido de módulos</small>
-            <button className="button-manage-modules">
+            <button
+                className="button-manage-modules"
+                onClick={() => navigate("/modules-admin")}>
                 <Plus/>
                 Ver Módulos
             </button>

@@ -1,0 +1,166 @@
+/* Admin Modules Page Styles */
+.admin-modules-page {
+    min-height: 100vh;
+    background-color: #f5f5f7;
+}
+
+.admin-modules-section {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.header-modules-sections {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 2rem;
+}
+
+.header-modules-sections h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1d1d1f;
+    margin: 0 0 0.5rem 0;
+}
+
+.header-modules-sections small {
+    color: #86868b;
+    font-size: 0.95rem;
+}
+
+.add-new-module {
+    padding: .6rem;
+    background-color: #191919;
+    border: none;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .4rem;
+    color: #ffff;
+    transition: all .1s ease;
+}
+
+.add-new-module:hover {
+    background-color: #303030;
+}
+
+/* Search Container */
+.search-container {
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+
+.search-icon {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #86868b;
+}
+
+.search-input {
+    width: 100%;
+    padding: 0.75rem 1rem 0.75rem 2.75rem;
+    border: 1px solid #e5e5e7;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    background-color: #fff;
+    outline: none;
+}
+
+.search-input:focus {
+    border-color: #000;
+}
+
+.search-input::placeholder {
+    color: #86868b;
+}
+
+.modules-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 1.5rem;
+}
+
+.module-container {
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 1.5rem;
+    border: 1px solid #e5e5e7;
+}
+
+.secundary-module-info {
+    display: flex;
+    gap: 0.7rem;
+    margin-bottom: 1rem;
+}
+
+.orden-modulo {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    background-color: #e5e5e7;
+    font-size: .8rem;
+    border-radius: 8px;
+    font-weight: 400;
+    color: #1d1d1f;
+}
+
+.curso-modulo {
+    border: 1px solid #e5e5e7;
+    border-radius: 8px;
+    padding: .2rem .6rem;
+    color: #1d1d1f;
+    font-size: .8rem;
+    font-weight: 500;
+    display: inline-block;
+}
+
+.module-container h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1d1d1f;
+    margin: 0 0 0.5rem 0;
+}
+
+.buttons-actions-module {
+    display: flex;
+    gap: 0.75rem;
+    padding-top: 1rem;
+}
+
+.buttons-actions-module button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.65rem 1rem;
+    background-color: transparent;
+    border: 1px solid #e5e5e7;
+    border-radius: 8px;
+    font-size: .9rem;
+    font-weight: 500;
+    color: #1d1d1f;
+    cursor: pointer;
+}
+
+.edit-btn {
+    flex: 1;
+}
+
+.edit-btn:hover {
+    background-color: #f5f5f7;
+}
+
+.delete-btn {
+    border-color: #ff3b30;
+}
+
+.delete-btn:hover {
+    background-color: #fff5f4;
+}
+
+.empty-state.error {
+    color: #ff3b30;
+}
