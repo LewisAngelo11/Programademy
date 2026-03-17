@@ -8,6 +8,7 @@ import cors from 'cors';
 import auth from './routes/auth.routes'
 import usuario from './routes/user.routes'
 import curso from './routes/courses.routes';
+import modulo from './routes/modules.routes';
 
 dotenv.config();
 
@@ -21,6 +22,7 @@ app.use(express.json());
 app.use('/auth', auth);
 app.use('/usuario', usuario);
 app.use('/curso', curso);
+app.use('/modulo', modulo);
 
 const PORT = process.env.PORT || 3000;
 

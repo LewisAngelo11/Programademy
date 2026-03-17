@@ -29,11 +29,13 @@ export type AggregateModulo = {
 export type ModuloAvgAggregateOutputType = {
   id_modulo: number | null
   orden: number | null
+  id_curso: number | null
 }
 
 export type ModuloSumAggregateOutputType = {
   id_modulo: number | null
   orden: number | null
+  id_curso: number | null
 }
 
 export type ModuloMinAggregateOutputType = {
@@ -41,6 +43,8 @@ export type ModuloMinAggregateOutputType = {
   titulo: string | null
   descripcion: string | null
   orden: number | null
+  contenido_teorico: string | null
+  id_curso: number | null
 }
 
 export type ModuloMaxAggregateOutputType = {
@@ -48,6 +52,8 @@ export type ModuloMaxAggregateOutputType = {
   titulo: string | null
   descripcion: string | null
   orden: number | null
+  contenido_teorico: string | null
+  id_curso: number | null
 }
 
 export type ModuloCountAggregateOutputType = {
@@ -55,6 +61,8 @@ export type ModuloCountAggregateOutputType = {
   titulo: number
   descripcion: number
   orden: number
+  contenido_teorico: number
+  id_curso: number
   _all: number
 }
 
@@ -62,11 +70,13 @@ export type ModuloCountAggregateOutputType = {
 export type ModuloAvgAggregateInputType = {
   id_modulo?: true
   orden?: true
+  id_curso?: true
 }
 
 export type ModuloSumAggregateInputType = {
   id_modulo?: true
   orden?: true
+  id_curso?: true
 }
 
 export type ModuloMinAggregateInputType = {
@@ -74,6 +84,8 @@ export type ModuloMinAggregateInputType = {
   titulo?: true
   descripcion?: true
   orden?: true
+  contenido_teorico?: true
+  id_curso?: true
 }
 
 export type ModuloMaxAggregateInputType = {
@@ -81,6 +93,8 @@ export type ModuloMaxAggregateInputType = {
   titulo?: true
   descripcion?: true
   orden?: true
+  contenido_teorico?: true
+  id_curso?: true
 }
 
 export type ModuloCountAggregateInputType = {
@@ -88,6 +102,8 @@ export type ModuloCountAggregateInputType = {
   titulo?: true
   descripcion?: true
   orden?: true
+  contenido_teorico?: true
+  id_curso?: true
   _all?: true
 }
 
@@ -182,6 +198,8 @@ export type ModuloGroupByOutputType = {
   titulo: string
   descripcion: string | null
   orden: number
+  contenido_teorico: string | null
+  id_curso: number
   _count: ModuloCountAggregateOutputType | null
   _avg: ModuloAvgAggregateOutputType | null
   _sum: ModuloSumAggregateOutputType | null
@@ -212,7 +230,10 @@ export type moduloWhereInput = {
   titulo?: Prisma.StringFilter<"modulo"> | string
   descripcion?: Prisma.StringNullableFilter<"modulo"> | string | null
   orden?: Prisma.IntFilter<"modulo"> | number
+  contenido_teorico?: Prisma.StringNullableFilter<"modulo"> | string | null
+  id_curso?: Prisma.IntFilter<"modulo"> | number
   leccion?: Prisma.LeccionListRelationFilter
+  curso?: Prisma.XOR<Prisma.CursoScalarRelationFilter, Prisma.cursoWhereInput>
   quiz?: Prisma.QuizListRelationFilter
 }
 
@@ -221,7 +242,10 @@ export type moduloOrderByWithRelationInput = {
   titulo?: Prisma.SortOrder
   descripcion?: Prisma.SortOrderInput | Prisma.SortOrder
   orden?: Prisma.SortOrder
+  contenido_teorico?: Prisma.SortOrderInput | Prisma.SortOrder
+  id_curso?: Prisma.SortOrder
   leccion?: Prisma.leccionOrderByRelationAggregateInput
+  curso?: Prisma.cursoOrderByWithRelationInput
   quiz?: Prisma.quizOrderByRelationAggregateInput
 }
 
@@ -233,7 +257,10 @@ export type moduloWhereUniqueInput = Prisma.AtLeast<{
   titulo?: Prisma.StringFilter<"modulo"> | string
   descripcion?: Prisma.StringNullableFilter<"modulo"> | string | null
   orden?: Prisma.IntFilter<"modulo"> | number
+  contenido_teorico?: Prisma.StringNullableFilter<"modulo"> | string | null
+  id_curso?: Prisma.IntFilter<"modulo"> | number
   leccion?: Prisma.LeccionListRelationFilter
+  curso?: Prisma.XOR<Prisma.CursoScalarRelationFilter, Prisma.cursoWhereInput>
   quiz?: Prisma.QuizListRelationFilter
 }, "id_modulo">
 
@@ -242,6 +269,8 @@ export type moduloOrderByWithAggregationInput = {
   titulo?: Prisma.SortOrder
   descripcion?: Prisma.SortOrderInput | Prisma.SortOrder
   orden?: Prisma.SortOrder
+  contenido_teorico?: Prisma.SortOrderInput | Prisma.SortOrder
+  id_curso?: Prisma.SortOrder
   _count?: Prisma.moduloCountOrderByAggregateInput
   _avg?: Prisma.moduloAvgOrderByAggregateInput
   _max?: Prisma.moduloMaxOrderByAggregateInput
@@ -257,13 +286,17 @@ export type moduloScalarWhereWithAggregatesInput = {
   titulo?: Prisma.StringWithAggregatesFilter<"modulo"> | string
   descripcion?: Prisma.StringNullableWithAggregatesFilter<"modulo"> | string | null
   orden?: Prisma.IntWithAggregatesFilter<"modulo"> | number
+  contenido_teorico?: Prisma.StringNullableWithAggregatesFilter<"modulo"> | string | null
+  id_curso?: Prisma.IntWithAggregatesFilter<"modulo"> | number
 }
 
 export type moduloCreateInput = {
   titulo: string
   descripcion?: string | null
   orden: number
+  contenido_teorico?: string | null
   leccion?: Prisma.leccionCreateNestedManyWithoutModuloInput
+  curso: Prisma.cursoCreateNestedOneWithoutModuloInput
   quiz?: Prisma.quizCreateNestedManyWithoutModuloInput
 }
 
@@ -272,6 +305,8 @@ export type moduloUncheckedCreateInput = {
   titulo: string
   descripcion?: string | null
   orden: number
+  contenido_teorico?: string | null
+  id_curso: number
   leccion?: Prisma.leccionUncheckedCreateNestedManyWithoutModuloInput
   quiz?: Prisma.quizUncheckedCreateNestedManyWithoutModuloInput
 }
@@ -280,7 +315,9 @@ export type moduloUpdateInput = {
   titulo?: Prisma.StringFieldUpdateOperationsInput | string
   descripcion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orden?: Prisma.IntFieldUpdateOperationsInput | number
+  contenido_teorico?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   leccion?: Prisma.leccionUpdateManyWithoutModuloNestedInput
+  curso?: Prisma.cursoUpdateOneRequiredWithoutModuloNestedInput
   quiz?: Prisma.quizUpdateManyWithoutModuloNestedInput
 }
 
@@ -289,6 +326,8 @@ export type moduloUncheckedUpdateInput = {
   titulo?: Prisma.StringFieldUpdateOperationsInput | string
   descripcion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orden?: Prisma.IntFieldUpdateOperationsInput | number
+  contenido_teorico?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  id_curso?: Prisma.IntFieldUpdateOperationsInput | number
   leccion?: Prisma.leccionUncheckedUpdateManyWithoutModuloNestedInput
   quiz?: Prisma.quizUncheckedUpdateManyWithoutModuloNestedInput
 }
@@ -298,12 +337,15 @@ export type moduloCreateManyInput = {
   titulo: string
   descripcion?: string | null
   orden: number
+  contenido_teorico?: string | null
+  id_curso: number
 }
 
 export type moduloUpdateManyMutationInput = {
   titulo?: Prisma.StringFieldUpdateOperationsInput | string
   descripcion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orden?: Prisma.IntFieldUpdateOperationsInput | number
+  contenido_teorico?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type moduloUncheckedUpdateManyInput = {
@@ -311,6 +353,8 @@ export type moduloUncheckedUpdateManyInput = {
   titulo?: Prisma.StringFieldUpdateOperationsInput | string
   descripcion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orden?: Prisma.IntFieldUpdateOperationsInput | number
+  contenido_teorico?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  id_curso?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type ModuloScalarRelationFilter = {
@@ -323,11 +367,14 @@ export type moduloCountOrderByAggregateInput = {
   titulo?: Prisma.SortOrder
   descripcion?: Prisma.SortOrder
   orden?: Prisma.SortOrder
+  contenido_teorico?: Prisma.SortOrder
+  id_curso?: Prisma.SortOrder
 }
 
 export type moduloAvgOrderByAggregateInput = {
   id_modulo?: Prisma.SortOrder
   orden?: Prisma.SortOrder
+  id_curso?: Prisma.SortOrder
 }
 
 export type moduloMaxOrderByAggregateInput = {
@@ -335,6 +382,8 @@ export type moduloMaxOrderByAggregateInput = {
   titulo?: Prisma.SortOrder
   descripcion?: Prisma.SortOrder
   orden?: Prisma.SortOrder
+  contenido_teorico?: Prisma.SortOrder
+  id_curso?: Prisma.SortOrder
 }
 
 export type moduloMinOrderByAggregateInput = {
@@ -342,11 +391,24 @@ export type moduloMinOrderByAggregateInput = {
   titulo?: Prisma.SortOrder
   descripcion?: Prisma.SortOrder
   orden?: Prisma.SortOrder
+  contenido_teorico?: Prisma.SortOrder
+  id_curso?: Prisma.SortOrder
 }
 
 export type moduloSumOrderByAggregateInput = {
   id_modulo?: Prisma.SortOrder
   orden?: Prisma.SortOrder
+  id_curso?: Prisma.SortOrder
+}
+
+export type ModuloListRelationFilter = {
+  every?: Prisma.moduloWhereInput
+  some?: Prisma.moduloWhereInput
+  none?: Prisma.moduloWhereInput
+}
+
+export type moduloOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
 }
 
 export type moduloCreateNestedOneWithoutLeccionInput = {
@@ -377,10 +439,54 @@ export type moduloUpdateOneRequiredWithoutQuizNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.moduloUpdateToOneWithWhereWithoutQuizInput, Prisma.moduloUpdateWithoutQuizInput>, Prisma.moduloUncheckedUpdateWithoutQuizInput>
 }
 
+export type moduloCreateNestedManyWithoutCursoInput = {
+  create?: Prisma.XOR<Prisma.moduloCreateWithoutCursoInput, Prisma.moduloUncheckedCreateWithoutCursoInput> | Prisma.moduloCreateWithoutCursoInput[] | Prisma.moduloUncheckedCreateWithoutCursoInput[]
+  connectOrCreate?: Prisma.moduloCreateOrConnectWithoutCursoInput | Prisma.moduloCreateOrConnectWithoutCursoInput[]
+  createMany?: Prisma.moduloCreateManyCursoInputEnvelope
+  connect?: Prisma.moduloWhereUniqueInput | Prisma.moduloWhereUniqueInput[]
+}
+
+export type moduloUncheckedCreateNestedManyWithoutCursoInput = {
+  create?: Prisma.XOR<Prisma.moduloCreateWithoutCursoInput, Prisma.moduloUncheckedCreateWithoutCursoInput> | Prisma.moduloCreateWithoutCursoInput[] | Prisma.moduloUncheckedCreateWithoutCursoInput[]
+  connectOrCreate?: Prisma.moduloCreateOrConnectWithoutCursoInput | Prisma.moduloCreateOrConnectWithoutCursoInput[]
+  createMany?: Prisma.moduloCreateManyCursoInputEnvelope
+  connect?: Prisma.moduloWhereUniqueInput | Prisma.moduloWhereUniqueInput[]
+}
+
+export type moduloUpdateManyWithoutCursoNestedInput = {
+  create?: Prisma.XOR<Prisma.moduloCreateWithoutCursoInput, Prisma.moduloUncheckedCreateWithoutCursoInput> | Prisma.moduloCreateWithoutCursoInput[] | Prisma.moduloUncheckedCreateWithoutCursoInput[]
+  connectOrCreate?: Prisma.moduloCreateOrConnectWithoutCursoInput | Prisma.moduloCreateOrConnectWithoutCursoInput[]
+  upsert?: Prisma.moduloUpsertWithWhereUniqueWithoutCursoInput | Prisma.moduloUpsertWithWhereUniqueWithoutCursoInput[]
+  createMany?: Prisma.moduloCreateManyCursoInputEnvelope
+  set?: Prisma.moduloWhereUniqueInput | Prisma.moduloWhereUniqueInput[]
+  disconnect?: Prisma.moduloWhereUniqueInput | Prisma.moduloWhereUniqueInput[]
+  delete?: Prisma.moduloWhereUniqueInput | Prisma.moduloWhereUniqueInput[]
+  connect?: Prisma.moduloWhereUniqueInput | Prisma.moduloWhereUniqueInput[]
+  update?: Prisma.moduloUpdateWithWhereUniqueWithoutCursoInput | Prisma.moduloUpdateWithWhereUniqueWithoutCursoInput[]
+  updateMany?: Prisma.moduloUpdateManyWithWhereWithoutCursoInput | Prisma.moduloUpdateManyWithWhereWithoutCursoInput[]
+  deleteMany?: Prisma.moduloScalarWhereInput | Prisma.moduloScalarWhereInput[]
+}
+
+export type moduloUncheckedUpdateManyWithoutCursoNestedInput = {
+  create?: Prisma.XOR<Prisma.moduloCreateWithoutCursoInput, Prisma.moduloUncheckedCreateWithoutCursoInput> | Prisma.moduloCreateWithoutCursoInput[] | Prisma.moduloUncheckedCreateWithoutCursoInput[]
+  connectOrCreate?: Prisma.moduloCreateOrConnectWithoutCursoInput | Prisma.moduloCreateOrConnectWithoutCursoInput[]
+  upsert?: Prisma.moduloUpsertWithWhereUniqueWithoutCursoInput | Prisma.moduloUpsertWithWhereUniqueWithoutCursoInput[]
+  createMany?: Prisma.moduloCreateManyCursoInputEnvelope
+  set?: Prisma.moduloWhereUniqueInput | Prisma.moduloWhereUniqueInput[]
+  disconnect?: Prisma.moduloWhereUniqueInput | Prisma.moduloWhereUniqueInput[]
+  delete?: Prisma.moduloWhereUniqueInput | Prisma.moduloWhereUniqueInput[]
+  connect?: Prisma.moduloWhereUniqueInput | Prisma.moduloWhereUniqueInput[]
+  update?: Prisma.moduloUpdateWithWhereUniqueWithoutCursoInput | Prisma.moduloUpdateWithWhereUniqueWithoutCursoInput[]
+  updateMany?: Prisma.moduloUpdateManyWithWhereWithoutCursoInput | Prisma.moduloUpdateManyWithWhereWithoutCursoInput[]
+  deleteMany?: Prisma.moduloScalarWhereInput | Prisma.moduloScalarWhereInput[]
+}
+
 export type moduloCreateWithoutLeccionInput = {
   titulo: string
   descripcion?: string | null
   orden: number
+  contenido_teorico?: string | null
+  curso: Prisma.cursoCreateNestedOneWithoutModuloInput
   quiz?: Prisma.quizCreateNestedManyWithoutModuloInput
 }
 
@@ -389,6 +495,8 @@ export type moduloUncheckedCreateWithoutLeccionInput = {
   titulo: string
   descripcion?: string | null
   orden: number
+  contenido_teorico?: string | null
+  id_curso: number
   quiz?: Prisma.quizUncheckedCreateNestedManyWithoutModuloInput
 }
 
@@ -412,6 +520,8 @@ export type moduloUpdateWithoutLeccionInput = {
   titulo?: Prisma.StringFieldUpdateOperationsInput | string
   descripcion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orden?: Prisma.IntFieldUpdateOperationsInput | number
+  contenido_teorico?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  curso?: Prisma.cursoUpdateOneRequiredWithoutModuloNestedInput
   quiz?: Prisma.quizUpdateManyWithoutModuloNestedInput
 }
 
@@ -420,6 +530,8 @@ export type moduloUncheckedUpdateWithoutLeccionInput = {
   titulo?: Prisma.StringFieldUpdateOperationsInput | string
   descripcion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orden?: Prisma.IntFieldUpdateOperationsInput | number
+  contenido_teorico?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  id_curso?: Prisma.IntFieldUpdateOperationsInput | number
   quiz?: Prisma.quizUncheckedUpdateManyWithoutModuloNestedInput
 }
 
@@ -427,7 +539,9 @@ export type moduloCreateWithoutQuizInput = {
   titulo: string
   descripcion?: string | null
   orden: number
+  contenido_teorico?: string | null
   leccion?: Prisma.leccionCreateNestedManyWithoutModuloInput
+  curso: Prisma.cursoCreateNestedOneWithoutModuloInput
 }
 
 export type moduloUncheckedCreateWithoutQuizInput = {
@@ -435,6 +549,8 @@ export type moduloUncheckedCreateWithoutQuizInput = {
   titulo: string
   descripcion?: string | null
   orden: number
+  contenido_teorico?: string | null
+  id_curso: number
   leccion?: Prisma.leccionUncheckedCreateNestedManyWithoutModuloInput
 }
 
@@ -458,7 +574,9 @@ export type moduloUpdateWithoutQuizInput = {
   titulo?: Prisma.StringFieldUpdateOperationsInput | string
   descripcion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orden?: Prisma.IntFieldUpdateOperationsInput | number
+  contenido_teorico?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   leccion?: Prisma.leccionUpdateManyWithoutModuloNestedInput
+  curso?: Prisma.cursoUpdateOneRequiredWithoutModuloNestedInput
 }
 
 export type moduloUncheckedUpdateWithoutQuizInput = {
@@ -466,7 +584,101 @@ export type moduloUncheckedUpdateWithoutQuizInput = {
   titulo?: Prisma.StringFieldUpdateOperationsInput | string
   descripcion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orden?: Prisma.IntFieldUpdateOperationsInput | number
+  contenido_teorico?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  id_curso?: Prisma.IntFieldUpdateOperationsInput | number
   leccion?: Prisma.leccionUncheckedUpdateManyWithoutModuloNestedInput
+}
+
+export type moduloCreateWithoutCursoInput = {
+  titulo: string
+  descripcion?: string | null
+  orden: number
+  contenido_teorico?: string | null
+  leccion?: Prisma.leccionCreateNestedManyWithoutModuloInput
+  quiz?: Prisma.quizCreateNestedManyWithoutModuloInput
+}
+
+export type moduloUncheckedCreateWithoutCursoInput = {
+  id_modulo?: number
+  titulo: string
+  descripcion?: string | null
+  orden: number
+  contenido_teorico?: string | null
+  leccion?: Prisma.leccionUncheckedCreateNestedManyWithoutModuloInput
+  quiz?: Prisma.quizUncheckedCreateNestedManyWithoutModuloInput
+}
+
+export type moduloCreateOrConnectWithoutCursoInput = {
+  where: Prisma.moduloWhereUniqueInput
+  create: Prisma.XOR<Prisma.moduloCreateWithoutCursoInput, Prisma.moduloUncheckedCreateWithoutCursoInput>
+}
+
+export type moduloCreateManyCursoInputEnvelope = {
+  data: Prisma.moduloCreateManyCursoInput | Prisma.moduloCreateManyCursoInput[]
+  skipDuplicates?: boolean
+}
+
+export type moduloUpsertWithWhereUniqueWithoutCursoInput = {
+  where: Prisma.moduloWhereUniqueInput
+  update: Prisma.XOR<Prisma.moduloUpdateWithoutCursoInput, Prisma.moduloUncheckedUpdateWithoutCursoInput>
+  create: Prisma.XOR<Prisma.moduloCreateWithoutCursoInput, Prisma.moduloUncheckedCreateWithoutCursoInput>
+}
+
+export type moduloUpdateWithWhereUniqueWithoutCursoInput = {
+  where: Prisma.moduloWhereUniqueInput
+  data: Prisma.XOR<Prisma.moduloUpdateWithoutCursoInput, Prisma.moduloUncheckedUpdateWithoutCursoInput>
+}
+
+export type moduloUpdateManyWithWhereWithoutCursoInput = {
+  where: Prisma.moduloScalarWhereInput
+  data: Prisma.XOR<Prisma.moduloUpdateManyMutationInput, Prisma.moduloUncheckedUpdateManyWithoutCursoInput>
+}
+
+export type moduloScalarWhereInput = {
+  AND?: Prisma.moduloScalarWhereInput | Prisma.moduloScalarWhereInput[]
+  OR?: Prisma.moduloScalarWhereInput[]
+  NOT?: Prisma.moduloScalarWhereInput | Prisma.moduloScalarWhereInput[]
+  id_modulo?: Prisma.IntFilter<"modulo"> | number
+  titulo?: Prisma.StringFilter<"modulo"> | string
+  descripcion?: Prisma.StringNullableFilter<"modulo"> | string | null
+  orden?: Prisma.IntFilter<"modulo"> | number
+  contenido_teorico?: Prisma.StringNullableFilter<"modulo"> | string | null
+  id_curso?: Prisma.IntFilter<"modulo"> | number
+}
+
+export type moduloCreateManyCursoInput = {
+  id_modulo?: number
+  titulo: string
+  descripcion?: string | null
+  orden: number
+  contenido_teorico?: string | null
+}
+
+export type moduloUpdateWithoutCursoInput = {
+  titulo?: Prisma.StringFieldUpdateOperationsInput | string
+  descripcion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  orden?: Prisma.IntFieldUpdateOperationsInput | number
+  contenido_teorico?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  leccion?: Prisma.leccionUpdateManyWithoutModuloNestedInput
+  quiz?: Prisma.quizUpdateManyWithoutModuloNestedInput
+}
+
+export type moduloUncheckedUpdateWithoutCursoInput = {
+  id_modulo?: Prisma.IntFieldUpdateOperationsInput | number
+  titulo?: Prisma.StringFieldUpdateOperationsInput | string
+  descripcion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  orden?: Prisma.IntFieldUpdateOperationsInput | number
+  contenido_teorico?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  leccion?: Prisma.leccionUncheckedUpdateManyWithoutModuloNestedInput
+  quiz?: Prisma.quizUncheckedUpdateManyWithoutModuloNestedInput
+}
+
+export type moduloUncheckedUpdateManyWithoutCursoInput = {
+  id_modulo?: Prisma.IntFieldUpdateOperationsInput | number
+  titulo?: Prisma.StringFieldUpdateOperationsInput | string
+  descripcion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  orden?: Prisma.IntFieldUpdateOperationsInput | number
+  contenido_teorico?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -514,7 +726,10 @@ export type moduloSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   titulo?: boolean
   descripcion?: boolean
   orden?: boolean
+  contenido_teorico?: boolean
+  id_curso?: boolean
   leccion?: boolean | Prisma.modulo$leccionArgs<ExtArgs>
+  curso?: boolean | Prisma.cursoDefaultArgs<ExtArgs>
   quiz?: boolean | Prisma.modulo$quizArgs<ExtArgs>
   _count?: boolean | Prisma.ModuloCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["modulo"]>
@@ -524,6 +739,9 @@ export type moduloSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   titulo?: boolean
   descripcion?: boolean
   orden?: boolean
+  contenido_teorico?: boolean
+  id_curso?: boolean
+  curso?: boolean | Prisma.cursoDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["modulo"]>
 
 export type moduloSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -531,6 +749,9 @@ export type moduloSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   titulo?: boolean
   descripcion?: boolean
   orden?: boolean
+  contenido_teorico?: boolean
+  id_curso?: boolean
+  curso?: boolean | Prisma.cursoDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["modulo"]>
 
 export type moduloSelectScalar = {
@@ -538,21 +759,29 @@ export type moduloSelectScalar = {
   titulo?: boolean
   descripcion?: boolean
   orden?: boolean
+  contenido_teorico?: boolean
+  id_curso?: boolean
 }
 
-export type moduloOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id_modulo" | "titulo" | "descripcion" | "orden", ExtArgs["result"]["modulo"]>
+export type moduloOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id_modulo" | "titulo" | "descripcion" | "orden" | "contenido_teorico" | "id_curso", ExtArgs["result"]["modulo"]>
 export type moduloInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   leccion?: boolean | Prisma.modulo$leccionArgs<ExtArgs>
+  curso?: boolean | Prisma.cursoDefaultArgs<ExtArgs>
   quiz?: boolean | Prisma.modulo$quizArgs<ExtArgs>
   _count?: boolean | Prisma.ModuloCountOutputTypeDefaultArgs<ExtArgs>
 }
-export type moduloIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
-export type moduloIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type moduloIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  curso?: boolean | Prisma.cursoDefaultArgs<ExtArgs>
+}
+export type moduloIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  curso?: boolean | Prisma.cursoDefaultArgs<ExtArgs>
+}
 
 export type $moduloPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "modulo"
   objects: {
     leccion: Prisma.$leccionPayload<ExtArgs>[]
+    curso: Prisma.$cursoPayload<ExtArgs>
     quiz: Prisma.$quizPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -560,6 +789,8 @@ export type $moduloPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     titulo: string
     descripcion: string | null
     orden: number
+    contenido_teorico: string | null
+    id_curso: number
   }, ExtArgs["result"]["modulo"]>
   composites: {}
 }
@@ -955,6 +1186,7 @@ readonly fields: moduloFieldRefs;
 export interface Prisma__moduloClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   leccion<T extends Prisma.modulo$leccionArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.modulo$leccionArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$leccionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  curso<T extends Prisma.cursoDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.cursoDefaultArgs<ExtArgs>>): Prisma.Prisma__cursoClient<runtime.Types.Result.GetResult<Prisma.$cursoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   quiz<T extends Prisma.modulo$quizArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.modulo$quizArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$quizPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -989,6 +1221,8 @@ export interface moduloFieldRefs {
   readonly titulo: Prisma.FieldRef<"modulo", 'String'>
   readonly descripcion: Prisma.FieldRef<"modulo", 'String'>
   readonly orden: Prisma.FieldRef<"modulo", 'Int'>
+  readonly contenido_teorico: Prisma.FieldRef<"modulo", 'String'>
+  readonly id_curso: Prisma.FieldRef<"modulo", 'Int'>
 }
     
 
@@ -1238,6 +1472,10 @@ export type moduloCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensio
    */
   data: Prisma.moduloCreateManyInput | Prisma.moduloCreateManyInput[]
   skipDuplicates?: boolean
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.moduloIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1308,6 +1546,10 @@ export type moduloUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensio
    * Limit how many modulos to update.
    */
   limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.moduloIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**

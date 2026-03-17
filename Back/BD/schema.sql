@@ -19,7 +19,13 @@ CREATE TABLE modulo (
     id_modulo SERIAL PRIMARY KEY,
     titulo VARCHAR(150) NOT NULL,
     descripcion TEXT,
-    orden INT NOT NULL
+    contenido_teorico VARCHAR(500),
+    orden INT NOT NULL,
+    id_curso INT NOT NULL,
+    CONSTRAINT fk_modulo_curso 
+        FOREIGN KEY (id_curso) 
+        REFERENCES curso(id_curso) 
+        ON DELETE CASCADE
 );
 
 CREATE TABLE usuario (
