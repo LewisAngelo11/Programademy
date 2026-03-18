@@ -164,6 +164,23 @@ export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedStringNullableFilter<$PrismaModel>
 }
 
+export type Enumestatus_moduloFilter<$PrismaModel = never> = {
+  equals?: $Enums.estatus_modulo | Prisma.Enumestatus_moduloFieldRefInput<$PrismaModel>
+  in?: $Enums.estatus_modulo[] | Prisma.ListEnumestatus_moduloFieldRefInput<$PrismaModel>
+  notIn?: $Enums.estatus_modulo[] | Prisma.ListEnumestatus_moduloFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumestatus_moduloFilter<$PrismaModel> | $Enums.estatus_modulo
+}
+
+export type Enumestatus_moduloWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.estatus_modulo | Prisma.Enumestatus_moduloFieldRefInput<$PrismaModel>
+  in?: $Enums.estatus_modulo[] | Prisma.ListEnumestatus_moduloFieldRefInput<$PrismaModel>
+  notIn?: $Enums.estatus_modulo[] | Prisma.ListEnumestatus_moduloFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumestatus_moduloWithAggregatesFilter<$PrismaModel> | $Enums.estatus_modulo
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumestatus_moduloFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumestatus_moduloFilter<$PrismaModel>
+}
+
 export type JsonFilter<$PrismaModel = never> =
 | Prisma.PatchUndefined<
     Prisma.Either<Required<JsonFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonFilterBase<$PrismaModel>>, 'path'>>,
@@ -410,6 +427,23 @@ export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
   _min?: Prisma.NestedStringNullableFilter<$PrismaModel>
   _max?: Prisma.NestedStringNullableFilter<$PrismaModel>
+}
+
+export type NestedEnumestatus_moduloFilter<$PrismaModel = never> = {
+  equals?: $Enums.estatus_modulo | Prisma.Enumestatus_moduloFieldRefInput<$PrismaModel>
+  in?: $Enums.estatus_modulo[] | Prisma.ListEnumestatus_moduloFieldRefInput<$PrismaModel>
+  notIn?: $Enums.estatus_modulo[] | Prisma.ListEnumestatus_moduloFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumestatus_moduloFilter<$PrismaModel> | $Enums.estatus_modulo
+}
+
+export type NestedEnumestatus_moduloWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.estatus_modulo | Prisma.Enumestatus_moduloFieldRefInput<$PrismaModel>
+  in?: $Enums.estatus_modulo[] | Prisma.ListEnumestatus_moduloFieldRefInput<$PrismaModel>
+  notIn?: $Enums.estatus_modulo[] | Prisma.ListEnumestatus_moduloFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumestatus_moduloWithAggregatesFilter<$PrismaModel> | $Enums.estatus_modulo
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumestatus_moduloFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumestatus_moduloFilter<$PrismaModel>
 }
 
 export type NestedJsonFilter<$PrismaModel = never> =

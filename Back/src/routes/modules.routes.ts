@@ -8,6 +8,9 @@ const router = Router();
 router.get('/all', verifyTokenJWT, async (req: Request, res: Response) => {
     try {
         const modulos = await prisma.modulo.findMany({
+            where: {
+                estatus: "activo"
+            },
             include: {
                 curso: {
                     select: {
@@ -35,7 +38,8 @@ router.get('/get/:id', verifyTokenJWT, async (req: Request, res: Response) => {
 
         const modulo = await prisma.modulo.findUnique({
             where: { 
-                id_modulo: Number(id) 
+                id_modulo: Number(id),
+                estatus: "activo"
             },
             include: {
                 curso: true,
@@ -146,6 +150,57 @@ router.put('/update/:id', verifyTokenJWT, async (req: Request, res: Response) =>
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Error al actualizar el módulo' });
+    }
+});
+
+// Método que cambia el estatus del módulo a eliminado
+router.put('/delete/:id', verifyTokenJWT, async (req: any, res: Response) => {
+    try {
+        const { id } = req.params;
+        const idModulo = parseInt(id);
+
+        // Verificar que el módulo exista
+        const moduloExiste = await prisma.modulo.findUnique({
+            where: { id_modulo: idModulo }
+        });
+
+        if (!moduloExiste) {
+            return res.status(404).json({ 
+                error: 'Módulo no encontrado' 
+            });
+        }
+
+        // Verificar que no esté ya eliminado el módulo
+        if (moduloExiste.estatus === 'eliminado') {
+            return res.status(400).json({ error: 'El módulo ya está eliminado' });
+        }
+
+        // Cambiar el estatus a eliminado
+        const moduloActualizado = await prisma.modulo.update({
+            where: {
+                id_modulo: idModulo
+            },
+            data: {
+                estatus: 'eliminado'
+            },
+            include: {
+                curso: {
+                    select: {
+                        id_curso: true,
+                        titulo: true
+                    }
+                }
+            }
+        });
+
+        return res.status(200).json({
+            mensaje: 'Módulo marcado como eliminado exitosamente',
+            modulo: moduloActualizado
+        });
+
+    } catch (error) {
+        console.error('Error al eliminar módulo:', error);
+        return res.status(500).json({ error: 'Error interno del servidor al eliminar el módulo' });
     }
 });
 

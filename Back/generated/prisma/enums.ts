@@ -23,3 +23,11 @@ export const estado_curso = {
 } as const
 
 export type estado_curso = (typeof estado_curso)[keyof typeof estado_curso]
+
+
+export const estatus_modulo = {
+  activo: 'activo',
+  eliminado: 'eliminado'
+} as const
+
+export type estatus_modulo = (typeof estatus_modulo)[keyof typeof estatus_modulo]

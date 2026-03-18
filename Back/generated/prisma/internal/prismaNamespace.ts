@@ -1232,7 +1232,8 @@ export const ModuloScalarFieldEnum = {
   descripcion: 'descripcion',
   orden: 'orden',
   contenido_teorico: 'contenido_teorico',
-  id_curso: 'id_curso'
+  id_curso: 'id_curso',
+  estatus: 'estatus'
 } as const
 
 export type ModuloScalarFieldEnum = (typeof ModuloScalarFieldEnum)[keyof typeof ModuloScalarFieldEnum]
@@ -1390,6 +1391,20 @@ export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 
  * Reference to a field of type 'String[]'
  */
 export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String[]'>
+    
+
+
+/**
+ * Reference to a field of type 'estatus_modulo'
+ */
+export type Enumestatus_moduloFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'estatus_modulo'>
+    
+
+
+/**
+ * Reference to a field of type 'estatus_modulo[]'
+ */
+export type ListEnumestatus_moduloFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'estatus_modulo[]'>
     
 
 

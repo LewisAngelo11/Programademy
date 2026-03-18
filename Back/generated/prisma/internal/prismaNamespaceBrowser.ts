@@ -119,7 +119,8 @@ export const ModuloScalarFieldEnum = {
   descripcion: 'descripcion',
   orden: 'orden',
   contenido_teorico: 'contenido_teorico',
-  id_curso: 'id_curso'
+  id_curso: 'id_curso',
+  estatus: 'estatus'
 } as const
 
 export type ModuloScalarFieldEnum = (typeof ModuloScalarFieldEnum)[keyof typeof ModuloScalarFieldEnum]

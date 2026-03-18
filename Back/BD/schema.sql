@@ -1,4 +1,5 @@
 CREATE TYPE estado_curso AS ENUM ('activo', 'eliminado');
+CREATE TYPE estatus_modulo AS ENUM ('activo', 'eliminado');
 
 CREATE TABLE rango (
     id_rango SERIAL PRIMARY KEY,
@@ -21,6 +22,7 @@ CREATE TABLE modulo (
     descripcion TEXT,
     contenido_teorico VARCHAR(500),
     orden INT NOT NULL,
+    estatus estatus_modulo NOT NULL DEFAULT 'activo',
     id_curso INT NOT NULL,
     CONSTRAINT fk_modulo_curso 
         FOREIGN KEY (id_curso) 

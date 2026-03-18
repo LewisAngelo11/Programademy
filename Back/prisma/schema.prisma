@@ -38,14 +38,15 @@ model logro {
 }
 
 model modulo {
-  id_modulo         Int       @id @default(autoincrement())
-  titulo            String    @db.VarChar(150)
+  id_modulo         Int            @id @default(autoincrement())
+  titulo            String         @db.VarChar(150)
   descripcion       String?
   orden             Int
-  contenido_teorico String?   @db.VarChar(500)
+  contenido_teorico String?        @db.VarChar(500)
   id_curso          Int
+  estatus           estatus_modulo @default(activo)
   leccion           leccion[]
-  curso             curso     @relation(fields: [id_curso], references: [id_curso], onDelete: Cascade, onUpdate: NoAction, map: "fk_modulo_curso")
+  curso             curso          @relation(fields: [id_curso], references: [id_curso], onDelete: Cascade, onUpdate: NoAction, map: "fk_modulo_curso")
   quiz              quiz[]
 }
 
@@ -120,6 +121,11 @@ enum rol_usuario {
 }
 
 enum estado_curso {
+  activo
+  eliminado
+}
+
+enum estatus_modulo {
   activo
   eliminado
 }
