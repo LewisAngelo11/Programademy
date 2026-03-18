@@ -48,7 +48,7 @@ export default function AdminCourses() {
         }
     };
 
-    // Cargar cursos al montar el componente
+    // Cargar los cursos al montar el componente
     useEffect(() => {
         fetchCourses();
     }, []);

@@ -29,7 +29,7 @@ router.get('/all', verifyTokenJWT, async (req: Request, res: Response) => {
 });
 
 // Método para obtener un módulo por su Id
-router.get('/module/:id', verifyTokenJWT, async (req: Request, res: Response) => {
+router.get('/get/:id', verifyTokenJWT, async (req: Request, res: Response) => {
     try {
         const { id } = req.params;
 
@@ -103,7 +103,7 @@ router.post('/create', verifyTokenJWT, async (req: Request, res: Response) => {
 });
 
 // Método para actualizar un módulo
-router.put('/module/:id', verifyTokenJWT, async (req: Request, res: Response) => {
+router.put('/update/:id', verifyTokenJWT, async (req: Request, res: Response) => {
     try {
         const { id } = req.params;
         const { titulo, descripcion, contenido_teorico, orden, id_curso } = req.body;

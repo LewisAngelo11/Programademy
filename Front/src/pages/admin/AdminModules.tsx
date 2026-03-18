@@ -2,6 +2,7 @@ import HeaderAdminPages from "../../components/admin/HeaderAdminPages";
 import { Plus, Pencil, Trash, Search } from "@boxicons/react";
 import { useEffect, useState } from "react";
 import "./AdminModules.css";
+import { useNavigate } from "react-router";
 
 interface Modulo {
     id_modulo: number;
@@ -18,6 +19,7 @@ interface Modulo {
 
 
 export default function AdminModules() {
+    const navigate = useNavigate();
     const [searchTerm, setSearchTerm] = useState("");
     const [modulos, setModulos] = useState<Modulo[]>([]);
     const [loading, setLoading] = useState(true);
@@ -67,7 +69,9 @@ export default function AdminModules() {
                         <h1>Gestión de Módulos</h1>
                         <small>Administra el contenido teórico de los cursos educativos</small>
                     </div>
-                    <button className="add-new-module">
+                    <button
+                        className="add-new-module"
+                        onClick={() => navigate("/modules/create")}>
                         <Plus size="xs"/>
                         Nuevo Módulo
                     </button>
@@ -122,7 +126,8 @@ interface ModulesProp {
     };
 }
 
-function Module({ titulo, descripcion, orden, curso }: ModulesProp) {
+function Module({ id_modulo, titulo, descripcion, orden, curso }: ModulesProp) {
+    const navigate = useNavigate();
     return (
         <article className="module-container">
             <div className="secundary-module-info">
@@ -134,7 +139,10 @@ function Module({ titulo, descripcion, orden, curso }: ModulesProp) {
                 <small>{descripcion}</small>
             </div>
             <div className="buttons-actions-module">
-                <button className="edit-btn">
+                <button
+                    className="edit-btn"
+                    onClick={() => navigate(`/modules/edit/${id_modulo}`)}
+                >
                     <Pencil size="xs"/>
                     Editar
                 </button>

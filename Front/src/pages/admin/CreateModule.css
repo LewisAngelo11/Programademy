@@ -1,0 +1,186 @@
+.page-create-module {
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+}
+
+.header-admin-pages {
+    width: 100%;
+    border-bottom: 1px solid #dddddd;
+    padding: 1rem 1.2rem;
+    background-color: #ffff;
+}
+
+.button-back-modules {
+    background-color: transparent;
+    border: none;
+    border-radius: 10px;
+    padding: .4rem .8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .4rem;
+    transition: all 100ms ease;
+}
+
+.button-back-modules:hover {
+    background-color: #a0a0a0;
+}
+
+.form-create-module {
+    padding: 2.2rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 1.4rem;
+    background-color: #f9fafb;
+}
+
+.header-create-module {
+    display: flex;
+    flex-direction: column;
+    gap: .2rem;
+}
+
+.principal-info-module {
+    width: 100%;
+    border-radius: 10px;
+    padding: 1.5rem;
+    border: 1px solid #dddddd;
+    background-color: #ffff;
+    display: flex;
+    flex-direction: column;
+    gap: .8rem;
+}
+
+.principal-info-module header {
+    display: flex;
+    flex-direction: column;
+    gap: .6rem;
+}
+
+.principal-info-module header h2 {
+    font-size: 1.2rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: .4rem;
+}
+
+.principal-info-module header small {
+    font-weight: 500;
+    color: #616161;
+}
+
+.more-info-container {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.div-curso-select,
+.div-orden-module {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: .4rem;
+}
+
+.div-curso-select select,
+.div-orden-module input {
+    padding: .6rem;
+    border-radius: 10px;
+    border: none;
+    background-color: #f0f0f0;
+}
+
+.title-module,
+.description-module,
+.content-module {
+    display: flex;
+    flex-direction: column;
+    gap: .2rem;
+}
+
+.title-module input,
+.description-module textarea,
+.content-module textarea {
+    padding: .6rem;
+    border-radius: 10px;
+    border: none;
+    background-color: #f0f0f0;
+}
+
+.content-module textarea {
+    height: 120px;
+}
+
+.codes-examples {
+    width: 100%;
+    border-radius: 10px;
+    padding: 1.5rem;
+    border: 1px solid #dddddd;
+    background-color: #ffff;
+    display: flex;
+    flex-direction: column;
+    gap: .8rem;
+}
+
+.codes-examples header {
+    display: flex;
+    flex-direction: column;
+    gap: .6rem;
+}
+
+.codes-examples header h2 {
+    font-size: 1.2rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: .4rem;
+}
+
+.btns-options-module {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.button-create-module{
+    padding: .4rem;
+    background-color: #191919;
+    border: none;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .4rem;
+    color: #ffff;
+    transition: all .1s ease;
+}
+
+.button-create-module:hover {
+    background-color: #303030;
+}
+
+.button-cancel-module {
+    padding: .4rem;
+    background-color: transparent;
+    border: 1px solid #191919;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .4rem;
+    transition: all .1s ease;
+}
+
+.button-cancel-module:hover {
+    background-color: #f0f0f0;
+}

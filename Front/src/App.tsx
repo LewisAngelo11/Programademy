@@ -11,6 +11,8 @@ import './App.css'
 import EditCourses from './pages/admin/EditCourses'
 import InfoCourse from './pages/student/InfoCourse'
 import AdminModules from './pages/admin/AdminModules'
+import CreateModule from './pages/admin/CreateModule'
+import EditModule from './pages/admin/EditModule'
 
 function App() {
 
@@ -19,6 +21,7 @@ function App() {
       <Routes>
         <Route path={"/"} element={<Login/>}/>
         <Route path={"/register"} element={<Register/>}/>
+        
         <Route path={"student/dashboard"} element={<StudentDashboard/>}/>
         <Route path={"student/profile"} element={<StudentProfile/>}/>
         <Route path={"info-course/:id"} element={<InfoCourse/>}/>
@@ -29,6 +32,8 @@ function App() {
         <Route path={'courses/create'} element={<CreateCourse/>}/>
         <Route path={'courses/edit/:id'} element={<EditCourses/>}/>
         <Route path={"modules-admin"} element={<AdminModules/>}/>
+        <Route path={"modules/create"} element={<CreateModule/>}/>
+        <Route path={'modules/edit/:id'} element={<EditModule/>}/>
       </Routes>
     </>
   )
