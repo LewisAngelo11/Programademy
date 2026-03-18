@@ -3,6 +3,7 @@ import { Plus, Pencil, Trash, Search } from "@boxicons/react";
 import { useEffect, useState } from "react";
 import "./AdminModules.css";
 import { useNavigate } from "react-router";
+import { deleteModulo } from "../../services/moduleServices";
 
 interface Modulo {
     id_modulo: number;
@@ -29,6 +30,14 @@ export default function AdminModules() {
         m.titulo.toLowerCase().includes(searchTerm.toLowerCase()) ||
         m.descripcion.toLowerCase().includes(searchTerm.toLowerCase())
     );
+
+    // Función para manejar la eliminación
+    const handleModuloDeleted = (idModulo: number) => {
+        // Remover el módulo de la lista local sin necesidad de recargar todo
+        setModulos(previusModulos => 
+            previusModulos.filter(m => m.id_modulo !== idModulo)
+        );
+    };
 
     const getAllModules = async () => {
         try {
@@ -107,7 +116,8 @@ export default function AdminModules() {
                             descripcion={m.descripcion}
                             orden={m.orden}
                             curso={m.curso}
-                            />
+                            onDelete={handleModuloDeleted}
+                        />
                     )))}
                 </div>
             </section>
@@ -118,16 +128,53 @@ export default function AdminModules() {
 interface ModulesProp {
     id_modulo: number;
     titulo: string;
-    descripcion: string | null;
+    descripcion: string;
     orden: number;
     curso: {
         id_curso: number;
         titulo: string;
     };
+    onDelete?: (id: number) => void; // Callback opcional
 }
 
-function Module({ id_modulo, titulo, descripcion, orden, curso }: ModulesProp) {
+function Module({ id_modulo, titulo, descripcion, orden, curso, onDelete }: ModulesProp) {
     const navigate = useNavigate();
+    const [isDeleting, setIsDeleting] = useState(false);
+
+    const handleDelete = async () => {
+        // Confirmar antes de eliminar
+        const confirmacion = window.confirm(
+            `¿Estás seguro de que deseas eliminar el módulo "${titulo}"?`
+        );
+
+        if (!confirmacion) return;
+        setIsDeleting(true);
+
+        const token = localStorage.getItem("token");
+        if (!token) {
+            navigate("/");
+            throw new Error("No hay token de autenticación");
+        }
+
+        try {
+            await deleteModulo(token, id_modulo);
+            
+            // Notificar éxito
+            alert('Módulo eliminado exitosamente');
+            
+            // Llamar al callback para actualizar la lista en el componente padre
+            if (onDelete) {
+                onDelete(id_modulo);
+            }
+            
+        } catch (error) {
+            console.error('Error al eliminar módulo:', error);
+            alert(error instanceof Error ? error.message : 'Error al eliminar el módulo');
+        } finally {
+            setIsDeleting(false);
+        }
+    };
+
     return (
         <article className="module-container">
             <div className="secundary-module-info">
@@ -146,7 +193,11 @@ function Module({ id_modulo, titulo, descripcion, orden, curso }: ModulesProp) {
                     <Pencil size="xs"/>
                     Editar
                 </button>
-                <button className="delete-btn">
+                <button 
+                    className="delete-btn"
+                    onClick={handleDelete}
+                    disabled={isDeleting}
+                >
                     <Trash fill="#ff3b30" size="xs"/>
                 </button>
             </div>
