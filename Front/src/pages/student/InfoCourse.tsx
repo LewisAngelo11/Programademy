@@ -16,6 +16,7 @@ export default function InfoCourse() {
     const idCurso = curso.id;
     const [courseTitulo, setCourseTitulo] = useState<string>("");
     const [courseDescription, setCourseDescription] = useState<string>("");
+    const [courseImgUrl, setCourseImgUrl] = useState<string>("");
     const [modulos, setModulos] = useState<Modulo[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -41,6 +42,7 @@ export default function InfoCourse() {
             const data = await response.json();
             setCourseTitulo(data.titulo);
             setCourseDescription(data.descripcion);
+            setCourseImgUrl(data.imagen_url);
         } catch (err) {
             console.error("Error en la petición:", err);
         }
@@ -79,7 +81,9 @@ export default function InfoCourse() {
             <HeaderStudentsPages/>
             <section className="principal-info-course">
                 <header className="header-principal-info">
-                    <div className="banner-image">Imagen del curso</div>
+                    <div className="banner-image">
+                        <img src={courseImgUrl} alt="Imagen del curso" />
+                    </div>
                     <h1>{courseTitulo}</h1>
                     <p>{courseDescription}</p>
                 </header>
