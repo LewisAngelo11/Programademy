@@ -31,6 +31,36 @@ router.get('/all', verifyTokenJWT, async (req: Request, res: Response) => {
     }
 });
 
+// Método para obtener todos los módulos pertenecientes a un curso en específico
+router.get('/course/all/:id', verifyTokenJWT, async (req: Request, res: Response) => {
+    const { id } = req.params; // Obtiene el id del curso
+
+    try {
+        const modulos = await prisma.modulo.findMany({
+            where: {
+                id_curso: Number(id),
+                estatus: "activo"
+            },
+            include: {
+                curso: {
+                    select: {
+                        id_curso: true,
+                        titulo: true
+                    }
+                }
+            },
+            orderBy: {
+                orden: 'asc'
+            }
+        }); 
+
+        res.json(modulos);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Error al obtener módulos' });
+    }
+});
+
 // Método para obtener un módulo por su Id
 router.get('/get/:id', verifyTokenJWT, async (req: Request, res: Response) => {
     try {

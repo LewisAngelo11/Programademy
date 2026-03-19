@@ -20,7 +20,7 @@ CREATE TABLE modulo (
     id_modulo SERIAL PRIMARY KEY,
     titulo VARCHAR(150) NOT NULL,
     descripcion TEXT,
-    contenido_teorico VARCHAR(500),
+    contenido_teorico TEXT,
     orden INT NOT NULL,
     estatus estatus_modulo NOT NULL DEFAULT 'activo',
     id_curso INT NOT NULL,

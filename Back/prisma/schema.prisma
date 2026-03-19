@@ -42,7 +42,7 @@ model modulo {
   titulo            String         @db.VarChar(150)
   descripcion       String?
   orden             Int
-  contenido_teorico String?        @db.VarChar(500)
+  contenido_teorico String?
   id_curso          Int
   estatus           estatus_modulo @default(activo)
   leccion           leccion[]
