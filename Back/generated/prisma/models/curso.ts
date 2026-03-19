@@ -40,6 +40,7 @@ export type CursoMinAggregateOutputType = {
   descripcion: string | null
   fecha_creacion: Date | null
   estado: $Enums.estado_curso | null
+  imagen_url: string | null
 }
 
 export type CursoMaxAggregateOutputType = {
@@ -48,6 +49,7 @@ export type CursoMaxAggregateOutputType = {
   descripcion: string | null
   fecha_creacion: Date | null
   estado: $Enums.estado_curso | null
+  imagen_url: string | null
 }
 
 export type CursoCountAggregateOutputType = {
@@ -56,6 +58,7 @@ export type CursoCountAggregateOutputType = {
   descripcion: number
   fecha_creacion: number
   estado: number
+  imagen_url: number
   _all: number
 }
 
@@ -74,6 +77,7 @@ export type CursoMinAggregateInputType = {
   descripcion?: true
   fecha_creacion?: true
   estado?: true
+  imagen_url?: true
 }
 
 export type CursoMaxAggregateInputType = {
@@ -82,6 +86,7 @@ export type CursoMaxAggregateInputType = {
   descripcion?: true
   fecha_creacion?: true
   estado?: true
+  imagen_url?: true
 }
 
 export type CursoCountAggregateInputType = {
@@ -90,6 +95,7 @@ export type CursoCountAggregateInputType = {
   descripcion?: true
   fecha_creacion?: true
   estado?: true
+  imagen_url?: true
   _all?: true
 }
 
@@ -185,6 +191,7 @@ export type CursoGroupByOutputType = {
   descripcion: string
   fecha_creacion: Date | null
   estado: $Enums.estado_curso
+  imagen_url: string | null
   _count: CursoCountAggregateOutputType | null
   _avg: CursoAvgAggregateOutputType | null
   _sum: CursoSumAggregateOutputType | null
@@ -216,6 +223,7 @@ export type cursoWhereInput = {
   descripcion?: Prisma.StringFilter<"curso"> | string
   fecha_creacion?: Prisma.DateTimeNullableFilter<"curso"> | Date | string | null
   estado?: Prisma.Enumestado_cursoFilter<"curso"> | $Enums.estado_curso
+  imagen_url?: Prisma.StringNullableFilter<"curso"> | string | null
   modulo?: Prisma.ModuloListRelationFilter
 }
 
@@ -225,6 +233,7 @@ export type cursoOrderByWithRelationInput = {
   descripcion?: Prisma.SortOrder
   fecha_creacion?: Prisma.SortOrderInput | Prisma.SortOrder
   estado?: Prisma.SortOrder
+  imagen_url?: Prisma.SortOrderInput | Prisma.SortOrder
   modulo?: Prisma.moduloOrderByRelationAggregateInput
 }
 
@@ -237,6 +246,7 @@ export type cursoWhereUniqueInput = Prisma.AtLeast<{
   descripcion?: Prisma.StringFilter<"curso"> | string
   fecha_creacion?: Prisma.DateTimeNullableFilter<"curso"> | Date | string | null
   estado?: Prisma.Enumestado_cursoFilter<"curso"> | $Enums.estado_curso
+  imagen_url?: Prisma.StringNullableFilter<"curso"> | string | null
   modulo?: Prisma.ModuloListRelationFilter
 }, "id_curso">
 
@@ -246,6 +256,7 @@ export type cursoOrderByWithAggregationInput = {
   descripcion?: Prisma.SortOrder
   fecha_creacion?: Prisma.SortOrderInput | Prisma.SortOrder
   estado?: Prisma.SortOrder
+  imagen_url?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.cursoCountOrderByAggregateInput
   _avg?: Prisma.cursoAvgOrderByAggregateInput
   _max?: Prisma.cursoMaxOrderByAggregateInput
@@ -262,6 +273,7 @@ export type cursoScalarWhereWithAggregatesInput = {
   descripcion?: Prisma.StringWithAggregatesFilter<"curso"> | string
   fecha_creacion?: Prisma.DateTimeNullableWithAggregatesFilter<"curso"> | Date | string | null
   estado?: Prisma.Enumestado_cursoWithAggregatesFilter<"curso"> | $Enums.estado_curso
+  imagen_url?: Prisma.StringNullableWithAggregatesFilter<"curso"> | string | null
 }
 
 export type cursoCreateInput = {
@@ -269,6 +281,7 @@ export type cursoCreateInput = {
   descripcion: string
   fecha_creacion?: Date | string | null
   estado?: $Enums.estado_curso
+  imagen_url?: string | null
   modulo?: Prisma.moduloCreateNestedManyWithoutCursoInput
 }
 
@@ -278,6 +291,7 @@ export type cursoUncheckedCreateInput = {
   descripcion: string
   fecha_creacion?: Date | string | null
   estado?: $Enums.estado_curso
+  imagen_url?: string | null
   modulo?: Prisma.moduloUncheckedCreateNestedManyWithoutCursoInput
 }
 
@@ -286,6 +300,7 @@ export type cursoUpdateInput = {
   descripcion?: Prisma.StringFieldUpdateOperationsInput | string
   fecha_creacion?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   estado?: Prisma.Enumestado_cursoFieldUpdateOperationsInput | $Enums.estado_curso
+  imagen_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   modulo?: Prisma.moduloUpdateManyWithoutCursoNestedInput
 }
 
@@ -295,6 +310,7 @@ export type cursoUncheckedUpdateInput = {
   descripcion?: Prisma.StringFieldUpdateOperationsInput | string
   fecha_creacion?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   estado?: Prisma.Enumestado_cursoFieldUpdateOperationsInput | $Enums.estado_curso
+  imagen_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   modulo?: Prisma.moduloUncheckedUpdateManyWithoutCursoNestedInput
 }
 
@@ -304,6 +320,7 @@ export type cursoCreateManyInput = {
   descripcion: string
   fecha_creacion?: Date | string | null
   estado?: $Enums.estado_curso
+  imagen_url?: string | null
 }
 
 export type cursoUpdateManyMutationInput = {
@@ -311,6 +328,7 @@ export type cursoUpdateManyMutationInput = {
   descripcion?: Prisma.StringFieldUpdateOperationsInput | string
   fecha_creacion?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   estado?: Prisma.Enumestado_cursoFieldUpdateOperationsInput | $Enums.estado_curso
+  imagen_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type cursoUncheckedUpdateManyInput = {
@@ -319,6 +337,7 @@ export type cursoUncheckedUpdateManyInput = {
   descripcion?: Prisma.StringFieldUpdateOperationsInput | string
   fecha_creacion?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   estado?: Prisma.Enumestado_cursoFieldUpdateOperationsInput | $Enums.estado_curso
+  imagen_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type CursoScalarRelationFilter = {
@@ -332,6 +351,7 @@ export type cursoCountOrderByAggregateInput = {
   descripcion?: Prisma.SortOrder
   fecha_creacion?: Prisma.SortOrder
   estado?: Prisma.SortOrder
+  imagen_url?: Prisma.SortOrder
 }
 
 export type cursoAvgOrderByAggregateInput = {
@@ -344,6 +364,7 @@ export type cursoMaxOrderByAggregateInput = {
   descripcion?: Prisma.SortOrder
   fecha_creacion?: Prisma.SortOrder
   estado?: Prisma.SortOrder
+  imagen_url?: Prisma.SortOrder
 }
 
 export type cursoMinOrderByAggregateInput = {
@@ -352,6 +373,7 @@ export type cursoMinOrderByAggregateInput = {
   descripcion?: Prisma.SortOrder
   fecha_creacion?: Prisma.SortOrder
   estado?: Prisma.SortOrder
+  imagen_url?: Prisma.SortOrder
 }
 
 export type cursoSumOrderByAggregateInput = {
@@ -381,6 +403,7 @@ export type cursoCreateWithoutModuloInput = {
   descripcion: string
   fecha_creacion?: Date | string | null
   estado?: $Enums.estado_curso
+  imagen_url?: string | null
 }
 
 export type cursoUncheckedCreateWithoutModuloInput = {
@@ -389,6 +412,7 @@ export type cursoUncheckedCreateWithoutModuloInput = {
   descripcion: string
   fecha_creacion?: Date | string | null
   estado?: $Enums.estado_curso
+  imagen_url?: string | null
 }
 
 export type cursoCreateOrConnectWithoutModuloInput = {
@@ -412,6 +436,7 @@ export type cursoUpdateWithoutModuloInput = {
   descripcion?: Prisma.StringFieldUpdateOperationsInput | string
   fecha_creacion?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   estado?: Prisma.Enumestado_cursoFieldUpdateOperationsInput | $Enums.estado_curso
+  imagen_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type cursoUncheckedUpdateWithoutModuloInput = {
@@ -420,6 +445,7 @@ export type cursoUncheckedUpdateWithoutModuloInput = {
   descripcion?: Prisma.StringFieldUpdateOperationsInput | string
   fecha_creacion?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   estado?: Prisma.Enumestado_cursoFieldUpdateOperationsInput | $Enums.estado_curso
+  imagen_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -459,6 +485,7 @@ export type cursoSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   descripcion?: boolean
   fecha_creacion?: boolean
   estado?: boolean
+  imagen_url?: boolean
   modulo?: boolean | Prisma.curso$moduloArgs<ExtArgs>
   _count?: boolean | Prisma.CursoCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["curso"]>
@@ -469,6 +496,7 @@ export type cursoSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   descripcion?: boolean
   fecha_creacion?: boolean
   estado?: boolean
+  imagen_url?: boolean
 }, ExtArgs["result"]["curso"]>
 
 export type cursoSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -477,6 +505,7 @@ export type cursoSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   descripcion?: boolean
   fecha_creacion?: boolean
   estado?: boolean
+  imagen_url?: boolean
 }, ExtArgs["result"]["curso"]>
 
 export type cursoSelectScalar = {
@@ -485,9 +514,10 @@ export type cursoSelectScalar = {
   descripcion?: boolean
   fecha_creacion?: boolean
   estado?: boolean
+  imagen_url?: boolean
 }
 
-export type cursoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id_curso" | "titulo" | "descripcion" | "fecha_creacion" | "estado", ExtArgs["result"]["curso"]>
+export type cursoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id_curso" | "titulo" | "descripcion" | "fecha_creacion" | "estado" | "imagen_url", ExtArgs["result"]["curso"]>
 export type cursoInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   modulo?: boolean | Prisma.curso$moduloArgs<ExtArgs>
   _count?: boolean | Prisma.CursoCountOutputTypeDefaultArgs<ExtArgs>
@@ -506,6 +536,7 @@ export type $cursoPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     descripcion: string
     fecha_creacion: Date | null
     estado: $Enums.estado_curso
+    imagen_url: string | null
   }, ExtArgs["result"]["curso"]>
   composites: {}
 }
@@ -935,6 +966,7 @@ export interface cursoFieldRefs {
   readonly descripcion: Prisma.FieldRef<"curso", 'String'>
   readonly fecha_creacion: Prisma.FieldRef<"curso", 'DateTime'>
   readonly estado: Prisma.FieldRef<"curso", 'estado_curso'>
+  readonly imagen_url: Prisma.FieldRef<"curso", 'String'>
 }
     
 

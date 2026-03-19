@@ -6,13 +6,14 @@ const router = Router();
 
 // Método que crea un nuevo curso
 router.post('/create', verifyTokenJWT, async (req: any, res: Response) => {
-    const { title, descripcion } = req.body;
+    const { title, descripcion, imagenUrl } = req.body;
 
     try {
         const newCourse = await prisma.curso.create({
             data: {
                 titulo: title,
-                descripcion: descripcion
+                descripcion: descripcion,
+                imagen_url: imagenUrl
             }
         });
 
@@ -75,7 +76,7 @@ router.get('/getOne/:id', verifyTokenJWT, async (req: any, res: Response) => {
 // Método que actualiza un curso existente
 router.put('/update/:id', verifyTokenJWT, async (req: any, res: Response) => {
     const { id } = req.params;
-    const { titulo, descripcion } = req.body;
+    const { titulo, descripcion, imagenUrl } = req.body;
 
     try {
         // Verificar si el curso existe y está activo
@@ -97,7 +98,8 @@ router.put('/update/:id', verifyTokenJWT, async (req: any, res: Response) => {
             },
             data: {
                 titulo: titulo,
-                descripcion: descripcion
+                descripcion: descripcion,
+                imagen_url: imagenUrl
             }
         });
 
