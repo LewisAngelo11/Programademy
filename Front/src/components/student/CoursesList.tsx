@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Code } from "@boxicons/react";
+// import { Code } from "@boxicons/react";
 import "./CoursesList.css";
 import { useNavigate } from "react-router";
 
@@ -90,7 +90,8 @@ function Course({ idCurso, titulo, descripcion }: CourseProp) {
     return (
         <article className="course-container">
             <div className="banner-course">
-                <Code size="lg"/>
+                { /*<Code size="lg"/> */ }
+                <img src="" alt="imagen de prueba" />
             </div>
             <div className="course-info">
                 <span>{titulo}</span>

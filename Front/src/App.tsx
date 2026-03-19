@@ -13,6 +13,7 @@ import InfoCourse from './pages/student/InfoCourse'
 import AdminModules from './pages/admin/AdminModules'
 import CreateModule from './pages/admin/CreateModule'
 import EditModule from './pages/admin/EditModule'
+import CourseLesson from './pages/student/CourseLesson'
 
 function App() {
 
@@ -25,6 +26,7 @@ function App() {
         <Route path={"student/dashboard"} element={<StudentDashboard/>}/>
         <Route path={"student/profile"} element={<StudentProfile/>}/>
         <Route path={"info-course/:id"} element={<InfoCourse/>}/>
+        <Route path={'student/lesson/:id'} element={<CourseLesson/>}/>
 
         <Route path={"admin/profile"} element={<AdminProfile/>}/>
         <Route path={"admin/dashboard"} element={<AdminDashboard/>}/>
