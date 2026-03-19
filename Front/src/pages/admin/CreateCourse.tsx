@@ -32,6 +32,7 @@ function FormCreateCourse() {
     const navigate = useNavigate();
     const [courseTitle, setCourseTitle] = useState<string>("");
     const [courseDescription, setCourseDescription] = useState<string>("");
+    const [courseImgUrl, setCourseImgUrl] = useState<string>("");
 
     const API_URL = "http://localhost:3000/curso/create";
 
@@ -40,7 +41,8 @@ function FormCreateCourse() {
 
         const bodyCourse = {
             title: courseTitle,
-            descripcion: courseDescription
+            descripcion: courseDescription,
+            imagenUrl: courseImgUrl
         };
 
         const token = localStorage.getItem("token");
@@ -101,9 +103,9 @@ function FormCreateCourse() {
                     <input
                         type="text"
                         id="banner-course"
-                        placeholder="https://ejemplo.com/imagen.jpg"
-                        disabled/>
-                    <small>Pronto estará habilitado...</small>
+                        value={courseImgUrl}
+                        onChange={(e) => setCourseImgUrl(e.target.value)}
+                        placeholder="https://ejemplo.com/imagen.jpg"/>
                 </div>
             </section>
             <section className="modules-selection">

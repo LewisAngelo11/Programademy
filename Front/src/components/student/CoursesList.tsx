@@ -9,6 +9,7 @@ interface Course {
     descripcion: string;
     fecha_creacion: string;
     estado: string;
+    imagen_url: string;
 }
 
 export default function CoursesList() {
@@ -70,6 +71,7 @@ export default function CoursesList() {
                             idCurso={c.id_curso}
                             titulo={c.titulo}
                             descripcion={c.descripcion}
+                            imagen_url={c.imagen_url}
                             />
                     ))}
                 </div>
@@ -82,16 +84,16 @@ interface CourseProp {
     idCurso: number;
     titulo: string;
     descripcion: string;
+    imagen_url: string;
 }
 
-function Course({ idCurso, titulo, descripcion }: CourseProp) {
+function Course({ idCurso, titulo, descripcion, imagen_url }: CourseProp) {
     const navigate = useNavigate();
 
     return (
         <article className="course-container">
             <div className="banner-course">
-                { /*<Code size="lg"/> */ }
-                <img src="" alt="imagen de prueba" />
+                <img src={imagen_url} alt="Imagen previa del curso" />
             </div>
             <div className="course-info">
                 <span>{titulo}</span>

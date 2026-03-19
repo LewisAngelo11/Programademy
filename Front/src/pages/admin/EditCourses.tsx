@@ -9,6 +9,7 @@ export default function EditCourses() {
     const idCurso = Number(curso.id);
     const [courseEditTitle, setCourseEditTitle] = useState<string>("");
     const [courseEditDescription, setCourseEditDescription] = useState<string>("");
+    const [courseEditImgUrl, setCourseEditImgUrl] = useState<string>("");
     
     const API_URL = "http://localhost:3000/curso/getOne"
 
@@ -32,6 +33,7 @@ export default function EditCourses() {
             const data = await response.json();
             setCourseEditTitle(data.titulo);
             setCourseEditDescription(data.descripcion);
+            setCourseEditImgUrl(data.imagen_url);
         } catch (err) {
             console.error("Error en la petición:", err);
         }
@@ -61,7 +63,10 @@ export default function EditCourses() {
                     courseEditTitle={courseEditTitle} 
                     setCourseEditTitle={setCourseEditTitle}
                     courseEditDescription={courseEditDescription}
-                    setCourseEditDescription={setCourseEditDescription}/>
+                    setCourseEditDescription={setCourseEditDescription}
+                    courseEditImgUrl={courseEditImgUrl}
+                    setCourseEditImgUrl={setCourseEditImgUrl}
+                    />
             </section>
         </main>
     );
@@ -73,9 +78,14 @@ interface CourseEditProp {
     setCourseEditTitle: React.Dispatch<SetStateAction<string>>;
     courseEditDescription: string;
     setCourseEditDescription: React.Dispatch<SetStateAction<string>>;
+    courseEditImgUrl: string;
+    setCourseEditImgUrl: React.Dispatch<SetStateAction<string>>;
 }
 
-function FormEditCourse({ idCurso, courseEditTitle, setCourseEditTitle, courseEditDescription, setCourseEditDescription }: CourseEditProp) {
+function FormEditCourse({
+    idCurso, courseEditTitle, setCourseEditTitle,
+    courseEditDescription, setCourseEditDescription,
+    courseEditImgUrl, setCourseEditImgUrl}: CourseEditProp) {
     const navigate = useNavigate();
 
     const API_URL = "http://localhost:3000/curso/update"
@@ -86,7 +96,8 @@ function FormEditCourse({ idCurso, courseEditTitle, setCourseEditTitle, courseEd
 
         const bodyEditCourse = {
             titulo: courseEditTitle,
-            descripcion: courseEditDescription
+            descripcion: courseEditDescription,
+            imagenUrl: courseEditImgUrl
         }
 
         try {
@@ -145,9 +156,9 @@ function FormEditCourse({ idCurso, courseEditTitle, setCourseEditTitle, courseEd
                     <input
                         type="text"
                         id="banner-course"
-                        placeholder="https://ejemplo.com/imagen.jpg"
-                        disabled/>
-                    <small>Pronto estará habilitado...</small>
+                        value={courseEditImgUrl}
+                        onChange={(e) => setCourseEditImgUrl(e.target.value)}
+                        placeholder="https://ejemplo.com/imagen.jpg"/>
                 </div>
             </section>
             <section className="modules-selection">
