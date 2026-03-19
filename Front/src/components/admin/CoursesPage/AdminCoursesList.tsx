@@ -1,6 +1,8 @@
 import { Trash, Pencil } from "@boxicons/react";
+import { useEffect, useState } from "react";
 import "./AdminCoursesList.css";
 import { useNavigate } from "react-router";
+import { getAllModulesFromCourse } from "../../../services/moduleServices";
 
 interface Course {
     id_curso: number;
@@ -8,6 +10,13 @@ interface Course {
     descripcion: string;
     fecha_creacion: string;
     estado: string;
+}
+
+interface Module {
+    id_modulo: number;
+    titulo: string;
+    descripcion: string;
+    orden: number;
 }
 
 interface CoursesProps {
@@ -41,8 +50,26 @@ interface CourseProp {
 }
 
 function Course({ id, titulo, descripcion, fechaCreacion, onCoursesUpdate }: CourseProp) {
+    const [modules, setModules] = useState<Module[]>([]);
     const navigate = useNavigate();
     const API_URL = "http://localhost:3000/curso/delete";
+
+    const getModulesFromCourse = async () => {
+            try {
+                const token = localStorage.getItem("token");
+
+                if (!token) {
+                    navigate("/");
+                    throw new Error("No hay token de autenticación");
+                }
+    
+                const data = await getAllModulesFromCourse(token, id)
+
+                setModules(data);
+            } catch (err) {
+                
+            }
+        }
 
     const handleDelete = async () => {
         // Confirmación antes de eliminar
@@ -89,13 +116,19 @@ function Course({ id, titulo, descripcion, fechaCreacion, onCoursesUpdate }: Cou
         });
     };
 
+    const totalModulos = modules.length;
+
+    useEffect(() => {
+        getModulesFromCourse();
+    }, []);
+
     return (
         <article className="courses-container">
             <header className="header-container">
                 <div className="info-course">
                     <div className="principal-info">
                         <h2>{titulo}</h2>
-                        <span>0 módulos</span>
+                        <span>{totalModulos} módulos</span>
                     </div>
                     <span>{descripcion}</span>
                 </div>
@@ -112,7 +145,15 @@ function Course({ id, titulo, descripcion, fechaCreacion, onCoursesUpdate }: Cou
                 <span>Creado: {formatDate(fechaCreacion)}</span>
                 <span>ID: course-{id}</span>
             </div>
-            <span>Módulos: </span>
+            <div className="module-container-list">
+                <span>Módulos: </span>
+                <div className="modules-course-list">
+                    {modules.length === 0 && <div style={{fontSize: ".8rem"}}>Sin módulos asignados</div>}
+                    {modules.length > 0 && modules.map(m => (
+                        <div className="module-object-list">{m.orden}. {m.titulo}</div>
+                    ))}
+                </div>
+            </div>
         </article>
     );
 }

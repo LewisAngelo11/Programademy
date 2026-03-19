@@ -36,6 +36,7 @@
     flex-direction: column;
     align-items: center;
     gap: 1.2rem;
+    overflow-y: auto;
 }
 
 .header-body-courses {

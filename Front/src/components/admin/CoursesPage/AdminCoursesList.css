@@ -90,3 +90,22 @@
     font-size: .8rem;
     color: #636363;
 }
+
+.module-container-list {
+    display: flex;
+    flex-direction: column;
+    gap: .6rem;
+}
+
+.modules-course-list {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.module-object-list {
+    padding: .2rem .4rem;
+    border-radius: 8px;
+    border: 1px solid #1a1a1a;
+    font-size: .8rem;
+}
