@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router";
 import { ArrowLeftStroke } from "@boxicons/react";
-import "./CreateCourses.css";
+import "./CreateCourse.css";
 import { useState } from "react";
 import { Save, X } from "@boxicons/react"
 
