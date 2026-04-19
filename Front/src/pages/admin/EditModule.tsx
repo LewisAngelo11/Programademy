@@ -17,6 +17,21 @@ type Course = {
     titulo: string;
 };
 
+// Esta interfaz es para guardar los ejemplos de código
+// interface CodigoEjemplo {
+//     [key: string]: {
+//         id_codigo_ejemplo: number;
+//         explicacion_codigo: string;
+//         codigo: string;
+//         lenguaje: languagesExamples;
+//     }
+// }
+
+type languagesExamples = "C" | "C++" | "Python" | "JavaScript" | "Java" | "C#";
+
+// Lista dinámica para mostrar dinámicamente los botones de los lenguajes disponibles
+const languagesList: languagesExamples[] = ["C", "C++", "Python", "JavaScript", "Java", "C#"];
+
 export default function EditModule() {
     const navigate = useNavigate();
     const modulo = useParams(); // Obtener el ID del módulo desde la URL
@@ -33,6 +48,7 @@ export default function EditModule() {
     const [courses, setCourses] = useState<Course[]>([]);
     const [loadingCourses, setLoadingCourses] = useState<boolean>(true);
     const [loadingModule, setLoadingModule] = useState<boolean>(true);
+    const [languages, setLanguages] = useState<languagesExamples>("C");
 
     // Cargar los cursos disponibles
     const getAllCoursesData = async () => {
@@ -256,13 +272,7 @@ export default function EditModule() {
                             required/>
                     </div>
                 </section>
-                <section className="codes-examples">
-                    <header>
-                        <h2><Code size="sm"/> Ejemplos de Código</h2>
-                        <small>Agrega ejemplos en los 6 lenguajes soportados (0/6 completados)</small>
-                    </header>
-                    <span>Proximamente...</span>
-                </section>
+                <FormCodesExamples languages={languages} setLanguages={setLanguages} />
                 <div className="btns-options-module">
                     <button type="submit" className="button-edit-module">
                         <Save size="xs"/> Guardar Cambios
@@ -273,5 +283,43 @@ export default function EditModule() {
                 </div>
             </form>
         </main>
+    );
+}
+
+interface FormCodesExamplesProps {
+    languages: languagesExamples;
+    setLanguages: React.Dispatch<React.SetStateAction<languagesExamples>>;
+}
+
+function FormCodesExamples({ languages, setLanguages }: FormCodesExamplesProps) {
+    return (
+        <div className="codes-examples">
+            <header>
+                <h2><Code size="sm"/> Ejemplos de Código</h2>
+                <small>Agrega ejemplos en los 6 lenguajes soportados (0/6 completados)</small>
+            </header>
+            <div className="code-examples-buttons">
+                {languagesList.map((lang) => (
+                    <button
+                        key={lang}
+                        type="button"
+                        className={`button-language ${lang === languages ? "selected" : ""}`}
+                        onClick={() => setLanguages(lang)}
+                    >
+                        {lang}
+                    </button>
+                ))}
+            </div>
+            <section className="form-codes-examples">
+                <div className="code-explain-container">
+                    <label htmlFor="code-explain">Explicación teórica del {languages}</label>
+                    <textarea name="Explicacion Teorica Codigo" id="code-explain">{}</textarea>
+                </div>
+                <div className="code-example-container">
+                    <label htmlFor="code-example">Ejemplo de Código en {languages}</label>
+                    <textarea name="Ejemplo Codigo" id="code-example"></textarea>
+                </div>
+            </section>
+        </div>
     );
 }

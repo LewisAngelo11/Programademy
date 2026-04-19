@@ -17,6 +17,19 @@ type Course = {
     titulo: string;
 };
 
+type languagesExamples = "C" | "C++" | "Python" | "JavaScript" | "Java" | "C#";
+
+// Lista dinámica para mostrar dinámicamente los botones de los lenguajes disponibles
+const languagesList: languagesExamples[] = ["C", "C++", "Python", "JavaScript", "Java", "C#"];
+
+// interface CodigoEjemplo {
+//     [key: string]: {
+//         id_codigo_ejemplo: number;
+//         explicacion_codigo: string;
+//         codigo: string;
+//     }
+// }
+
 export default function CreateModule() {
     const navigate = useNavigate();
     const [form, setForm] = useState<FormBasicInfo>({
@@ -28,6 +41,8 @@ export default function CreateModule() {
     });
     const [courses, setCourses] = useState<Course[]>([]);
     const [loadingCourses, setLoadingCourses] = useState<boolean>(true);
+    const [languages, setLanguages] = useState<languagesExamples>("C");
+    //const [ejemplosCodigos, setEjemplosCodigos] = useState<CodigoEjemplo>({})
 
     // Función que maneja loc cambios de los inputs, select y textarea en el formulario
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -218,18 +233,56 @@ export default function CreateModule() {
                             required/>
                     </div>
                 </section>
-                <section className="codes-examples">
-                    <header>
-                        <h2><Code size="sm"/> Ejemplos de Código</h2>
-                        <small>Agrega ejemplos en los 6 lenguajes soportados (0/6 completados)</small>
-                    </header>
-                    <span>Proximamente...</span>
-                </section>
+                <FormCodesExamples languages={languages} setLanguages={setLanguages} />
                 <div className="btns-options-module">
                     <button type="submit" className="button-create-module"><Save size="xs"/> Crear Módulo</button>
                     <button type="button" className="button-cancel-module" onClick={handleCancel}><X size="xs"/> Cancelar</button>
                 </div>
             </form>
         </main>
+    );
+}
+
+interface FormCodesExamplesProps {
+    languages: languagesExamples;
+    setLanguages: React.Dispatch<React.SetStateAction<languagesExamples>>;
+}
+
+function FormCodesExamples({ languages, setLanguages }: FormCodesExamplesProps) {
+    return (
+        <div className="codes-examples">
+            <header>
+                <h2><Code size="sm"/> Ejemplos de Código</h2>
+                <small>Agrega ejemplos en los 6 lenguajes soportados (0/6 completados)</small>
+            </header>
+            <div className="code-examples-buttons">
+                {languagesList.map((lang) => (
+                    <button
+                        key={lang}
+                        type="button"
+                        className={`button-language ${lang === languages ? "selected" : ""}`}
+                        onClick={() => setLanguages(lang)}
+                    >   
+                        {lang}
+                    </button>
+                ))}
+            </div>
+            <section className="form-codes-examples">
+                <div className="code-explain-container">
+                    <label htmlFor="code-explain">Explicación teórica del {languages}</label>
+                    <textarea
+                        name="Explicacion Teorica Codigo"
+                        id="code-explain"
+                        placeholder="Ingrese la explicación teórica del código en este lenguaje."></textarea>
+                </div>
+                <div className="code-example-container">
+                    <label htmlFor="code-example">Ejemplo de Código en {languages}</label>
+                    <textarea
+                        name="Ejemplo Codigo"
+                        id="code-example"
+                        placeholder="Ingrese el ejemplo del código en este lenguaje."></textarea>
+                </div>
+            </section>
+        </div>
     );
 }
