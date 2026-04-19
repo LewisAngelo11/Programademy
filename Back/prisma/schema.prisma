@@ -19,15 +19,6 @@ model intento_quiz {
   usuario       usuario   @relation(fields: [id_usuario], references: [id_usuario], onDelete: Cascade, onUpdate: NoAction, map: "fk_intento_usuario")
 }
 
-model leccion {
-  id_leccion        Int     @id @default(autoincrement())
-  id_modulo         Int
-  titulo            String  @db.VarChar(150)
-  contenido_teorico String?
-  orden             Int
-  modulo            modulo  @relation(fields: [id_modulo], references: [id_modulo], onDelete: Cascade, onUpdate: NoAction, map: "fk_leccion_modulo")
-}
-
 model logro {
   id_logro      Int             @id @default(autoincrement())
   titulo        String          @db.VarChar(150)
@@ -38,25 +29,24 @@ model logro {
 }
 
 model modulo {
-  id_modulo         Int            @id @default(autoincrement())
-  titulo            String         @db.VarChar(150)
+  id_modulo         Int              @id @default(autoincrement())
+  titulo            String           @db.VarChar(150)
   descripcion       String?
   orden             Int
   contenido_teorico String?
   id_curso          Int
-  estatus           estatus_modulo @default(activo)
-  leccion           leccion[]
-  curso             curso          @relation(fields: [id_curso], references: [id_curso], onDelete: Cascade, onUpdate: NoAction, map: "fk_modulo_curso")
+  estatus           estatus_modulo   @default(activo)
+  codigo_ejemplo    codigo_ejemplo[]
+  curso             curso            @relation(fields: [id_curso], references: [id_curso], onDelete: Cascade, onUpdate: NoAction, map: "fk_modulo_curso")
   quiz              quiz[]
 }
 
 model pregunta {
-  id_pregunta     Int    @id @default(autoincrement())
-  id_quiz         Int
-  enunciado       String
-  opciones        Json   @db.Json
-  indice_correcta Int
-  quiz            quiz   @relation(fields: [id_quiz], references: [id_quiz], onDelete: Cascade, onUpdate: NoAction, map: "fk_pregunta_quiz")
+  id_pregunta Int      @id @default(autoincrement())
+  id_quiz     Int
+  enunciado   String
+  orden       Decimal? @db.Decimal
+  quiz        quiz     @relation(fields: [id_quiz], references: [id_quiz], onDelete: Cascade, onUpdate: NoAction, map: "fk_pregunta_quiz")
 }
 
 /// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
@@ -116,6 +106,23 @@ model curso {
   modulo         modulo[]
 }
 
+model opcion {
+  id_opcion   Int      @id @default(autoincrement())
+  id_pregunta Decimal? @db.Decimal
+  Texto       String
+  es_correcta Boolean  @default(false)
+  orden       Decimal? @db.Decimal
+}
+
+model codigo_ejemplo {
+  id_codigo_ejemplo  Int                    @id @default(autoincrement())
+  explicacion_codigo String?
+  codigo             String
+  lenguaje           lenguaje_programacion?
+  id_modulo          Int?
+  modulo             modulo?                @relation(fields: [id_modulo], references: [id_modulo], onDelete: NoAction, onUpdate: NoAction, map: "fk_modulo_codigo")
+}
+
 enum rol_usuario {
   student
   admin
@@ -129,4 +136,13 @@ enum estado_curso {
 enum estatus_modulo {
   activo
   eliminado
+}
+
+enum lenguaje_programacion {
+  C
+  C__        @map("C++")
+  Python
+  JavaScript
+  Java
+  C_         @map("C#")
 }

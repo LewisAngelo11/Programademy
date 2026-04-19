@@ -31,3 +31,15 @@ export const estatus_modulo = {
 } as const
 
 export type estatus_modulo = (typeof estatus_modulo)[keyof typeof estatus_modulo]
+
+
+export const lenguaje_programacion = {
+  C: 'C',
+  C__: 'C__',
+  Python: 'Python',
+  JavaScript: 'JavaScript',
+  Java: 'Java',
+  C_: 'C_'
+} as const
+
+export type lenguaje_programacion = (typeof lenguaje_programacion)[keyof typeof lenguaje_programacion]

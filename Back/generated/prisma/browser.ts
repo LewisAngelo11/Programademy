@@ -23,11 +23,6 @@ export * from './enums';
  */
 export type intento_quiz = Prisma.intento_quizModel
 /**
- * Model leccion
- * 
- */
-export type leccion = Prisma.leccionModel
-/**
  * Model logro
  * 
  */
@@ -67,3 +62,13 @@ export type usuario_logro = Prisma.usuario_logroModel
  * 
  */
 export type curso = Prisma.cursoModel
+/**
+ * Model opcion
+ * 
+ */
+export type opcion = Prisma.opcionModel
+/**
+ * Model codigo_ejemplo
+ * 
+ */
+export type codigo_ejemplo = Prisma.codigo_ejemploModel

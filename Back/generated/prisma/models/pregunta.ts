@@ -29,35 +29,34 @@ export type AggregatePregunta = {
 export type PreguntaAvgAggregateOutputType = {
   id_pregunta: number | null
   id_quiz: number | null
-  indice_correcta: number | null
+  orden: runtime.Decimal | null
 }
 
 export type PreguntaSumAggregateOutputType = {
   id_pregunta: number | null
   id_quiz: number | null
-  indice_correcta: number | null
+  orden: runtime.Decimal | null
 }
 
 export type PreguntaMinAggregateOutputType = {
   id_pregunta: number | null
   id_quiz: number | null
   enunciado: string | null
-  indice_correcta: number | null
+  orden: runtime.Decimal | null
 }
 
 export type PreguntaMaxAggregateOutputType = {
   id_pregunta: number | null
   id_quiz: number | null
   enunciado: string | null
-  indice_correcta: number | null
+  orden: runtime.Decimal | null
 }
 
 export type PreguntaCountAggregateOutputType = {
   id_pregunta: number
   id_quiz: number
   enunciado: number
-  opciones: number
-  indice_correcta: number
+  orden: number
   _all: number
 }
 
@@ -65,35 +64,34 @@ export type PreguntaCountAggregateOutputType = {
 export type PreguntaAvgAggregateInputType = {
   id_pregunta?: true
   id_quiz?: true
-  indice_correcta?: true
+  orden?: true
 }
 
 export type PreguntaSumAggregateInputType = {
   id_pregunta?: true
   id_quiz?: true
-  indice_correcta?: true
+  orden?: true
 }
 
 export type PreguntaMinAggregateInputType = {
   id_pregunta?: true
   id_quiz?: true
   enunciado?: true
-  indice_correcta?: true
+  orden?: true
 }
 
 export type PreguntaMaxAggregateInputType = {
   id_pregunta?: true
   id_quiz?: true
   enunciado?: true
-  indice_correcta?: true
+  orden?: true
 }
 
 export type PreguntaCountAggregateInputType = {
   id_pregunta?: true
   id_quiz?: true
   enunciado?: true
-  opciones?: true
-  indice_correcta?: true
+  orden?: true
   _all?: true
 }
 
@@ -187,8 +185,7 @@ export type PreguntaGroupByOutputType = {
   id_pregunta: number
   id_quiz: number
   enunciado: string
-  opciones: runtime.JsonValue
-  indice_correcta: number
+  orden: runtime.Decimal | null
   _count: PreguntaCountAggregateOutputType | null
   _avg: PreguntaAvgAggregateOutputType | null
   _sum: PreguntaSumAggregateOutputType | null
@@ -218,8 +215,7 @@ export type preguntaWhereInput = {
   id_pregunta?: Prisma.IntFilter<"pregunta"> | number
   id_quiz?: Prisma.IntFilter<"pregunta"> | number
   enunciado?: Prisma.StringFilter<"pregunta"> | string
-  opciones?: Prisma.JsonFilter<"pregunta">
-  indice_correcta?: Prisma.IntFilter<"pregunta"> | number
+  orden?: Prisma.DecimalNullableFilter<"pregunta"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   quiz?: Prisma.XOR<Prisma.QuizScalarRelationFilter, Prisma.quizWhereInput>
 }
 
@@ -227,8 +223,7 @@ export type preguntaOrderByWithRelationInput = {
   id_pregunta?: Prisma.SortOrder
   id_quiz?: Prisma.SortOrder
   enunciado?: Prisma.SortOrder
-  opciones?: Prisma.SortOrder
-  indice_correcta?: Prisma.SortOrder
+  orden?: Prisma.SortOrderInput | Prisma.SortOrder
   quiz?: Prisma.quizOrderByWithRelationInput
 }
 
@@ -239,8 +234,7 @@ export type preguntaWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.preguntaWhereInput | Prisma.preguntaWhereInput[]
   id_quiz?: Prisma.IntFilter<"pregunta"> | number
   enunciado?: Prisma.StringFilter<"pregunta"> | string
-  opciones?: Prisma.JsonFilter<"pregunta">
-  indice_correcta?: Prisma.IntFilter<"pregunta"> | number
+  orden?: Prisma.DecimalNullableFilter<"pregunta"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   quiz?: Prisma.XOR<Prisma.QuizScalarRelationFilter, Prisma.quizWhereInput>
 }, "id_pregunta">
 
@@ -248,8 +242,7 @@ export type preguntaOrderByWithAggregationInput = {
   id_pregunta?: Prisma.SortOrder
   id_quiz?: Prisma.SortOrder
   enunciado?: Prisma.SortOrder
-  opciones?: Prisma.SortOrder
-  indice_correcta?: Prisma.SortOrder
+  orden?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.preguntaCountOrderByAggregateInput
   _avg?: Prisma.preguntaAvgOrderByAggregateInput
   _max?: Prisma.preguntaMaxOrderByAggregateInput
@@ -264,14 +257,12 @@ export type preguntaScalarWhereWithAggregatesInput = {
   id_pregunta?: Prisma.IntWithAggregatesFilter<"pregunta"> | number
   id_quiz?: Prisma.IntWithAggregatesFilter<"pregunta"> | number
   enunciado?: Prisma.StringWithAggregatesFilter<"pregunta"> | string
-  opciones?: Prisma.JsonWithAggregatesFilter<"pregunta">
-  indice_correcta?: Prisma.IntWithAggregatesFilter<"pregunta"> | number
+  orden?: Prisma.DecimalNullableWithAggregatesFilter<"pregunta"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
 }
 
 export type preguntaCreateInput = {
   enunciado: string
-  opciones: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  indice_correcta: number
+  orden?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   quiz: Prisma.quizCreateNestedOneWithoutPreguntaInput
 }
 
@@ -279,14 +270,12 @@ export type preguntaUncheckedCreateInput = {
   id_pregunta?: number
   id_quiz: number
   enunciado: string
-  opciones: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  indice_correcta: number
+  orden?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
 }
 
 export type preguntaUpdateInput = {
   enunciado?: Prisma.StringFieldUpdateOperationsInput | string
-  opciones?: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  indice_correcta?: Prisma.IntFieldUpdateOperationsInput | number
+  orden?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   quiz?: Prisma.quizUpdateOneRequiredWithoutPreguntaNestedInput
 }
 
@@ -294,64 +283,59 @@ export type preguntaUncheckedUpdateInput = {
   id_pregunta?: Prisma.IntFieldUpdateOperationsInput | number
   id_quiz?: Prisma.IntFieldUpdateOperationsInput | number
   enunciado?: Prisma.StringFieldUpdateOperationsInput | string
-  opciones?: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  indice_correcta?: Prisma.IntFieldUpdateOperationsInput | number
+  orden?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
 }
 
 export type preguntaCreateManyInput = {
   id_pregunta?: number
   id_quiz: number
   enunciado: string
-  opciones: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  indice_correcta: number
+  orden?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
 }
 
 export type preguntaUpdateManyMutationInput = {
   enunciado?: Prisma.StringFieldUpdateOperationsInput | string
-  opciones?: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  indice_correcta?: Prisma.IntFieldUpdateOperationsInput | number
+  orden?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
 }
 
 export type preguntaUncheckedUpdateManyInput = {
   id_pregunta?: Prisma.IntFieldUpdateOperationsInput | number
   id_quiz?: Prisma.IntFieldUpdateOperationsInput | number
   enunciado?: Prisma.StringFieldUpdateOperationsInput | string
-  opciones?: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  indice_correcta?: Prisma.IntFieldUpdateOperationsInput | number
+  orden?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
 }
 
 export type preguntaCountOrderByAggregateInput = {
   id_pregunta?: Prisma.SortOrder
   id_quiz?: Prisma.SortOrder
   enunciado?: Prisma.SortOrder
-  opciones?: Prisma.SortOrder
-  indice_correcta?: Prisma.SortOrder
+  orden?: Prisma.SortOrder
 }
 
 export type preguntaAvgOrderByAggregateInput = {
   id_pregunta?: Prisma.SortOrder
   id_quiz?: Prisma.SortOrder
-  indice_correcta?: Prisma.SortOrder
+  orden?: Prisma.SortOrder
 }
 
 export type preguntaMaxOrderByAggregateInput = {
   id_pregunta?: Prisma.SortOrder
   id_quiz?: Prisma.SortOrder
   enunciado?: Prisma.SortOrder
-  indice_correcta?: Prisma.SortOrder
+  orden?: Prisma.SortOrder
 }
 
 export type preguntaMinOrderByAggregateInput = {
   id_pregunta?: Prisma.SortOrder
   id_quiz?: Prisma.SortOrder
   enunciado?: Prisma.SortOrder
-  indice_correcta?: Prisma.SortOrder
+  orden?: Prisma.SortOrder
 }
 
 export type preguntaSumOrderByAggregateInput = {
   id_pregunta?: Prisma.SortOrder
   id_quiz?: Prisma.SortOrder
-  indice_correcta?: Prisma.SortOrder
+  orden?: Prisma.SortOrder
 }
 
 export type PreguntaListRelationFilter = {
@@ -362,6 +346,14 @@ export type PreguntaListRelationFilter = {
 
 export type preguntaOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
+}
+
+export type NullableDecimalFieldUpdateOperationsInput = {
+  set?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  increment?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  decrement?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  multiply?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  divide?: runtime.Decimal | runtime.DecimalJsLike | number | string
 }
 
 export type preguntaCreateNestedManyWithoutQuizInput = {
@@ -408,15 +400,13 @@ export type preguntaUncheckedUpdateManyWithoutQuizNestedInput = {
 
 export type preguntaCreateWithoutQuizInput = {
   enunciado: string
-  opciones: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  indice_correcta: number
+  orden?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
 }
 
 export type preguntaUncheckedCreateWithoutQuizInput = {
   id_pregunta?: number
   enunciado: string
-  opciones: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  indice_correcta: number
+  orden?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
 }
 
 export type preguntaCreateOrConnectWithoutQuizInput = {
@@ -452,35 +442,30 @@ export type preguntaScalarWhereInput = {
   id_pregunta?: Prisma.IntFilter<"pregunta"> | number
   id_quiz?: Prisma.IntFilter<"pregunta"> | number
   enunciado?: Prisma.StringFilter<"pregunta"> | string
-  opciones?: Prisma.JsonFilter<"pregunta">
-  indice_correcta?: Prisma.IntFilter<"pregunta"> | number
+  orden?: Prisma.DecimalNullableFilter<"pregunta"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
 }
 
 export type preguntaCreateManyQuizInput = {
   id_pregunta?: number
   enunciado: string
-  opciones: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  indice_correcta: number
+  orden?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
 }
 
 export type preguntaUpdateWithoutQuizInput = {
   enunciado?: Prisma.StringFieldUpdateOperationsInput | string
-  opciones?: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  indice_correcta?: Prisma.IntFieldUpdateOperationsInput | number
+  orden?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
 }
 
 export type preguntaUncheckedUpdateWithoutQuizInput = {
   id_pregunta?: Prisma.IntFieldUpdateOperationsInput | number
   enunciado?: Prisma.StringFieldUpdateOperationsInput | string
-  opciones?: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  indice_correcta?: Prisma.IntFieldUpdateOperationsInput | number
+  orden?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
 }
 
 export type preguntaUncheckedUpdateManyWithoutQuizInput = {
   id_pregunta?: Prisma.IntFieldUpdateOperationsInput | number
   enunciado?: Prisma.StringFieldUpdateOperationsInput | string
-  opciones?: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  indice_correcta?: Prisma.IntFieldUpdateOperationsInput | number
+  orden?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
 }
 
 
@@ -489,8 +474,7 @@ export type preguntaSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   id_pregunta?: boolean
   id_quiz?: boolean
   enunciado?: boolean
-  opciones?: boolean
-  indice_correcta?: boolean
+  orden?: boolean
   quiz?: boolean | Prisma.quizDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["pregunta"]>
 
@@ -498,8 +482,7 @@ export type preguntaSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   id_pregunta?: boolean
   id_quiz?: boolean
   enunciado?: boolean
-  opciones?: boolean
-  indice_correcta?: boolean
+  orden?: boolean
   quiz?: boolean | Prisma.quizDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["pregunta"]>
 
@@ -507,8 +490,7 @@ export type preguntaSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   id_pregunta?: boolean
   id_quiz?: boolean
   enunciado?: boolean
-  opciones?: boolean
-  indice_correcta?: boolean
+  orden?: boolean
   quiz?: boolean | Prisma.quizDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["pregunta"]>
 
@@ -516,11 +498,10 @@ export type preguntaSelectScalar = {
   id_pregunta?: boolean
   id_quiz?: boolean
   enunciado?: boolean
-  opciones?: boolean
-  indice_correcta?: boolean
+  orden?: boolean
 }
 
-export type preguntaOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id_pregunta" | "id_quiz" | "enunciado" | "opciones" | "indice_correcta", ExtArgs["result"]["pregunta"]>
+export type preguntaOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id_pregunta" | "id_quiz" | "enunciado" | "orden", ExtArgs["result"]["pregunta"]>
 export type preguntaInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   quiz?: boolean | Prisma.quizDefaultArgs<ExtArgs>
 }
@@ -540,8 +521,7 @@ export type $preguntaPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     id_pregunta: number
     id_quiz: number
     enunciado: string
-    opciones: runtime.JsonValue
-    indice_correcta: number
+    orden: runtime.Decimal | null
   }, ExtArgs["result"]["pregunta"]>
   composites: {}
 }
@@ -969,8 +949,7 @@ export interface preguntaFieldRefs {
   readonly id_pregunta: Prisma.FieldRef<"pregunta", 'Int'>
   readonly id_quiz: Prisma.FieldRef<"pregunta", 'Int'>
   readonly enunciado: Prisma.FieldRef<"pregunta", 'String'>
-  readonly opciones: Prisma.FieldRef<"pregunta", 'Json'>
-  readonly indice_correcta: Prisma.FieldRef<"pregunta", 'Int'>
+  readonly orden: Prisma.FieldRef<"pregunta", 'Decimal'>
 }
     
 

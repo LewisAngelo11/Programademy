@@ -240,7 +240,7 @@ export type moduloWhereInput = {
   contenido_teorico?: Prisma.StringNullableFilter<"modulo"> | string | null
   id_curso?: Prisma.IntFilter<"modulo"> | number
   estatus?: Prisma.Enumestatus_moduloFilter<"modulo"> | $Enums.estatus_modulo
-  leccion?: Prisma.LeccionListRelationFilter
+  codigo_ejemplo?: Prisma.Codigo_ejemploListRelationFilter
   curso?: Prisma.XOR<Prisma.CursoScalarRelationFilter, Prisma.cursoWhereInput>
   quiz?: Prisma.QuizListRelationFilter
 }
@@ -253,7 +253,7 @@ export type moduloOrderByWithRelationInput = {
   contenido_teorico?: Prisma.SortOrderInput | Prisma.SortOrder
   id_curso?: Prisma.SortOrder
   estatus?: Prisma.SortOrder
-  leccion?: Prisma.leccionOrderByRelationAggregateInput
+  codigo_ejemplo?: Prisma.codigo_ejemploOrderByRelationAggregateInput
   curso?: Prisma.cursoOrderByWithRelationInput
   quiz?: Prisma.quizOrderByRelationAggregateInput
 }
@@ -269,7 +269,7 @@ export type moduloWhereUniqueInput = Prisma.AtLeast<{
   contenido_teorico?: Prisma.StringNullableFilter<"modulo"> | string | null
   id_curso?: Prisma.IntFilter<"modulo"> | number
   estatus?: Prisma.Enumestatus_moduloFilter<"modulo"> | $Enums.estatus_modulo
-  leccion?: Prisma.LeccionListRelationFilter
+  codigo_ejemplo?: Prisma.Codigo_ejemploListRelationFilter
   curso?: Prisma.XOR<Prisma.CursoScalarRelationFilter, Prisma.cursoWhereInput>
   quiz?: Prisma.QuizListRelationFilter
 }, "id_modulo">
@@ -308,7 +308,7 @@ export type moduloCreateInput = {
   orden: number
   contenido_teorico?: string | null
   estatus?: $Enums.estatus_modulo
-  leccion?: Prisma.leccionCreateNestedManyWithoutModuloInput
+  codigo_ejemplo?: Prisma.codigo_ejemploCreateNestedManyWithoutModuloInput
   curso: Prisma.cursoCreateNestedOneWithoutModuloInput
   quiz?: Prisma.quizCreateNestedManyWithoutModuloInput
 }
@@ -321,7 +321,7 @@ export type moduloUncheckedCreateInput = {
   contenido_teorico?: string | null
   id_curso: number
   estatus?: $Enums.estatus_modulo
-  leccion?: Prisma.leccionUncheckedCreateNestedManyWithoutModuloInput
+  codigo_ejemplo?: Prisma.codigo_ejemploUncheckedCreateNestedManyWithoutModuloInput
   quiz?: Prisma.quizUncheckedCreateNestedManyWithoutModuloInput
 }
 
@@ -331,7 +331,7 @@ export type moduloUpdateInput = {
   orden?: Prisma.IntFieldUpdateOperationsInput | number
   contenido_teorico?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estatus?: Prisma.Enumestatus_moduloFieldUpdateOperationsInput | $Enums.estatus_modulo
-  leccion?: Prisma.leccionUpdateManyWithoutModuloNestedInput
+  codigo_ejemplo?: Prisma.codigo_ejemploUpdateManyWithoutModuloNestedInput
   curso?: Prisma.cursoUpdateOneRequiredWithoutModuloNestedInput
   quiz?: Prisma.quizUpdateManyWithoutModuloNestedInput
 }
@@ -344,7 +344,7 @@ export type moduloUncheckedUpdateInput = {
   contenido_teorico?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   id_curso?: Prisma.IntFieldUpdateOperationsInput | number
   estatus?: Prisma.Enumestatus_moduloFieldUpdateOperationsInput | $Enums.estatus_modulo
-  leccion?: Prisma.leccionUncheckedUpdateManyWithoutModuloNestedInput
+  codigo_ejemplo?: Prisma.codigo_ejemploUncheckedUpdateManyWithoutModuloNestedInput
   quiz?: Prisma.quizUncheckedUpdateManyWithoutModuloNestedInput
 }
 
@@ -374,11 +374,6 @@ export type moduloUncheckedUpdateManyInput = {
   contenido_teorico?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   id_curso?: Prisma.IntFieldUpdateOperationsInput | number
   estatus?: Prisma.Enumestatus_moduloFieldUpdateOperationsInput | $Enums.estatus_modulo
-}
-
-export type ModuloScalarRelationFilter = {
-  is?: Prisma.moduloWhereInput
-  isNot?: Prisma.moduloWhereInput
 }
 
 export type moduloCountOrderByAggregateInput = {
@@ -423,6 +418,11 @@ export type moduloSumOrderByAggregateInput = {
   id_curso?: Prisma.SortOrder
 }
 
+export type ModuloScalarRelationFilter = {
+  is?: Prisma.moduloWhereInput
+  isNot?: Prisma.moduloWhereInput
+}
+
 export type ModuloListRelationFilter = {
   every?: Prisma.moduloWhereInput
   some?: Prisma.moduloWhereInput
@@ -433,18 +433,9 @@ export type moduloOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type moduloCreateNestedOneWithoutLeccionInput = {
-  create?: Prisma.XOR<Prisma.moduloCreateWithoutLeccionInput, Prisma.moduloUncheckedCreateWithoutLeccionInput>
-  connectOrCreate?: Prisma.moduloCreateOrConnectWithoutLeccionInput
-  connect?: Prisma.moduloWhereUniqueInput
-}
-
-export type moduloUpdateOneRequiredWithoutLeccionNestedInput = {
-  create?: Prisma.XOR<Prisma.moduloCreateWithoutLeccionInput, Prisma.moduloUncheckedCreateWithoutLeccionInput>
-  connectOrCreate?: Prisma.moduloCreateOrConnectWithoutLeccionInput
-  upsert?: Prisma.moduloUpsertWithoutLeccionInput
-  connect?: Prisma.moduloWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.moduloUpdateToOneWithWhereWithoutLeccionInput, Prisma.moduloUpdateWithoutLeccionInput>, Prisma.moduloUncheckedUpdateWithoutLeccionInput>
+export type ModuloNullableScalarRelationFilter = {
+  is?: Prisma.moduloWhereInput | null
+  isNot?: Prisma.moduloWhereInput | null
 }
 
 export type Enumestatus_moduloFieldUpdateOperationsInput = {
@@ -507,62 +498,20 @@ export type moduloUncheckedUpdateManyWithoutCursoNestedInput = {
   deleteMany?: Prisma.moduloScalarWhereInput | Prisma.moduloScalarWhereInput[]
 }
 
-export type moduloCreateWithoutLeccionInput = {
-  titulo: string
-  descripcion?: string | null
-  orden: number
-  contenido_teorico?: string | null
-  estatus?: $Enums.estatus_modulo
-  curso: Prisma.cursoCreateNestedOneWithoutModuloInput
-  quiz?: Prisma.quizCreateNestedManyWithoutModuloInput
+export type moduloCreateNestedOneWithoutCodigo_ejemploInput = {
+  create?: Prisma.XOR<Prisma.moduloCreateWithoutCodigo_ejemploInput, Prisma.moduloUncheckedCreateWithoutCodigo_ejemploInput>
+  connectOrCreate?: Prisma.moduloCreateOrConnectWithoutCodigo_ejemploInput
+  connect?: Prisma.moduloWhereUniqueInput
 }
 
-export type moduloUncheckedCreateWithoutLeccionInput = {
-  id_modulo?: number
-  titulo: string
-  descripcion?: string | null
-  orden: number
-  contenido_teorico?: string | null
-  id_curso: number
-  estatus?: $Enums.estatus_modulo
-  quiz?: Prisma.quizUncheckedCreateNestedManyWithoutModuloInput
-}
-
-export type moduloCreateOrConnectWithoutLeccionInput = {
-  where: Prisma.moduloWhereUniqueInput
-  create: Prisma.XOR<Prisma.moduloCreateWithoutLeccionInput, Prisma.moduloUncheckedCreateWithoutLeccionInput>
-}
-
-export type moduloUpsertWithoutLeccionInput = {
-  update: Prisma.XOR<Prisma.moduloUpdateWithoutLeccionInput, Prisma.moduloUncheckedUpdateWithoutLeccionInput>
-  create: Prisma.XOR<Prisma.moduloCreateWithoutLeccionInput, Prisma.moduloUncheckedCreateWithoutLeccionInput>
-  where?: Prisma.moduloWhereInput
-}
-
-export type moduloUpdateToOneWithWhereWithoutLeccionInput = {
-  where?: Prisma.moduloWhereInput
-  data: Prisma.XOR<Prisma.moduloUpdateWithoutLeccionInput, Prisma.moduloUncheckedUpdateWithoutLeccionInput>
-}
-
-export type moduloUpdateWithoutLeccionInput = {
-  titulo?: Prisma.StringFieldUpdateOperationsInput | string
-  descripcion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  orden?: Prisma.IntFieldUpdateOperationsInput | number
-  contenido_teorico?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  estatus?: Prisma.Enumestatus_moduloFieldUpdateOperationsInput | $Enums.estatus_modulo
-  curso?: Prisma.cursoUpdateOneRequiredWithoutModuloNestedInput
-  quiz?: Prisma.quizUpdateManyWithoutModuloNestedInput
-}
-
-export type moduloUncheckedUpdateWithoutLeccionInput = {
-  id_modulo?: Prisma.IntFieldUpdateOperationsInput | number
-  titulo?: Prisma.StringFieldUpdateOperationsInput | string
-  descripcion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  orden?: Prisma.IntFieldUpdateOperationsInput | number
-  contenido_teorico?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  id_curso?: Prisma.IntFieldUpdateOperationsInput | number
-  estatus?: Prisma.Enumestatus_moduloFieldUpdateOperationsInput | $Enums.estatus_modulo
-  quiz?: Prisma.quizUncheckedUpdateManyWithoutModuloNestedInput
+export type moduloUpdateOneWithoutCodigo_ejemploNestedInput = {
+  create?: Prisma.XOR<Prisma.moduloCreateWithoutCodigo_ejemploInput, Prisma.moduloUncheckedCreateWithoutCodigo_ejemploInput>
+  connectOrCreate?: Prisma.moduloCreateOrConnectWithoutCodigo_ejemploInput
+  upsert?: Prisma.moduloUpsertWithoutCodigo_ejemploInput
+  disconnect?: Prisma.moduloWhereInput | boolean
+  delete?: Prisma.moduloWhereInput | boolean
+  connect?: Prisma.moduloWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.moduloUpdateToOneWithWhereWithoutCodigo_ejemploInput, Prisma.moduloUpdateWithoutCodigo_ejemploInput>, Prisma.moduloUncheckedUpdateWithoutCodigo_ejemploInput>
 }
 
 export type moduloCreateWithoutQuizInput = {
@@ -571,7 +520,7 @@ export type moduloCreateWithoutQuizInput = {
   orden: number
   contenido_teorico?: string | null
   estatus?: $Enums.estatus_modulo
-  leccion?: Prisma.leccionCreateNestedManyWithoutModuloInput
+  codigo_ejemplo?: Prisma.codigo_ejemploCreateNestedManyWithoutModuloInput
   curso: Prisma.cursoCreateNestedOneWithoutModuloInput
 }
 
@@ -583,7 +532,7 @@ export type moduloUncheckedCreateWithoutQuizInput = {
   contenido_teorico?: string | null
   id_curso: number
   estatus?: $Enums.estatus_modulo
-  leccion?: Prisma.leccionUncheckedCreateNestedManyWithoutModuloInput
+  codigo_ejemplo?: Prisma.codigo_ejemploUncheckedCreateNestedManyWithoutModuloInput
 }
 
 export type moduloCreateOrConnectWithoutQuizInput = {
@@ -608,7 +557,7 @@ export type moduloUpdateWithoutQuizInput = {
   orden?: Prisma.IntFieldUpdateOperationsInput | number
   contenido_teorico?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estatus?: Prisma.Enumestatus_moduloFieldUpdateOperationsInput | $Enums.estatus_modulo
-  leccion?: Prisma.leccionUpdateManyWithoutModuloNestedInput
+  codigo_ejemplo?: Prisma.codigo_ejemploUpdateManyWithoutModuloNestedInput
   curso?: Prisma.cursoUpdateOneRequiredWithoutModuloNestedInput
 }
 
@@ -620,7 +569,7 @@ export type moduloUncheckedUpdateWithoutQuizInput = {
   contenido_teorico?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   id_curso?: Prisma.IntFieldUpdateOperationsInput | number
   estatus?: Prisma.Enumestatus_moduloFieldUpdateOperationsInput | $Enums.estatus_modulo
-  leccion?: Prisma.leccionUncheckedUpdateManyWithoutModuloNestedInput
+  codigo_ejemplo?: Prisma.codigo_ejemploUncheckedUpdateManyWithoutModuloNestedInput
 }
 
 export type moduloCreateWithoutCursoInput = {
@@ -629,7 +578,7 @@ export type moduloCreateWithoutCursoInput = {
   orden: number
   contenido_teorico?: string | null
   estatus?: $Enums.estatus_modulo
-  leccion?: Prisma.leccionCreateNestedManyWithoutModuloInput
+  codigo_ejemplo?: Prisma.codigo_ejemploCreateNestedManyWithoutModuloInput
   quiz?: Prisma.quizCreateNestedManyWithoutModuloInput
 }
 
@@ -640,7 +589,7 @@ export type moduloUncheckedCreateWithoutCursoInput = {
   orden: number
   contenido_teorico?: string | null
   estatus?: $Enums.estatus_modulo
-  leccion?: Prisma.leccionUncheckedCreateNestedManyWithoutModuloInput
+  codigo_ejemplo?: Prisma.codigo_ejemploUncheckedCreateNestedManyWithoutModuloInput
   quiz?: Prisma.quizUncheckedCreateNestedManyWithoutModuloInput
 }
 
@@ -683,6 +632,64 @@ export type moduloScalarWhereInput = {
   estatus?: Prisma.Enumestatus_moduloFilter<"modulo"> | $Enums.estatus_modulo
 }
 
+export type moduloCreateWithoutCodigo_ejemploInput = {
+  titulo: string
+  descripcion?: string | null
+  orden: number
+  contenido_teorico?: string | null
+  estatus?: $Enums.estatus_modulo
+  curso: Prisma.cursoCreateNestedOneWithoutModuloInput
+  quiz?: Prisma.quizCreateNestedManyWithoutModuloInput
+}
+
+export type moduloUncheckedCreateWithoutCodigo_ejemploInput = {
+  id_modulo?: number
+  titulo: string
+  descripcion?: string | null
+  orden: number
+  contenido_teorico?: string | null
+  id_curso: number
+  estatus?: $Enums.estatus_modulo
+  quiz?: Prisma.quizUncheckedCreateNestedManyWithoutModuloInput
+}
+
+export type moduloCreateOrConnectWithoutCodigo_ejemploInput = {
+  where: Prisma.moduloWhereUniqueInput
+  create: Prisma.XOR<Prisma.moduloCreateWithoutCodigo_ejemploInput, Prisma.moduloUncheckedCreateWithoutCodigo_ejemploInput>
+}
+
+export type moduloUpsertWithoutCodigo_ejemploInput = {
+  update: Prisma.XOR<Prisma.moduloUpdateWithoutCodigo_ejemploInput, Prisma.moduloUncheckedUpdateWithoutCodigo_ejemploInput>
+  create: Prisma.XOR<Prisma.moduloCreateWithoutCodigo_ejemploInput, Prisma.moduloUncheckedCreateWithoutCodigo_ejemploInput>
+  where?: Prisma.moduloWhereInput
+}
+
+export type moduloUpdateToOneWithWhereWithoutCodigo_ejemploInput = {
+  where?: Prisma.moduloWhereInput
+  data: Prisma.XOR<Prisma.moduloUpdateWithoutCodigo_ejemploInput, Prisma.moduloUncheckedUpdateWithoutCodigo_ejemploInput>
+}
+
+export type moduloUpdateWithoutCodigo_ejemploInput = {
+  titulo?: Prisma.StringFieldUpdateOperationsInput | string
+  descripcion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  orden?: Prisma.IntFieldUpdateOperationsInput | number
+  contenido_teorico?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estatus?: Prisma.Enumestatus_moduloFieldUpdateOperationsInput | $Enums.estatus_modulo
+  curso?: Prisma.cursoUpdateOneRequiredWithoutModuloNestedInput
+  quiz?: Prisma.quizUpdateManyWithoutModuloNestedInput
+}
+
+export type moduloUncheckedUpdateWithoutCodigo_ejemploInput = {
+  id_modulo?: Prisma.IntFieldUpdateOperationsInput | number
+  titulo?: Prisma.StringFieldUpdateOperationsInput | string
+  descripcion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  orden?: Prisma.IntFieldUpdateOperationsInput | number
+  contenido_teorico?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  id_curso?: Prisma.IntFieldUpdateOperationsInput | number
+  estatus?: Prisma.Enumestatus_moduloFieldUpdateOperationsInput | $Enums.estatus_modulo
+  quiz?: Prisma.quizUncheckedUpdateManyWithoutModuloNestedInput
+}
+
 export type moduloCreateManyCursoInput = {
   id_modulo?: number
   titulo: string
@@ -698,7 +705,7 @@ export type moduloUpdateWithoutCursoInput = {
   orden?: Prisma.IntFieldUpdateOperationsInput | number
   contenido_teorico?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estatus?: Prisma.Enumestatus_moduloFieldUpdateOperationsInput | $Enums.estatus_modulo
-  leccion?: Prisma.leccionUpdateManyWithoutModuloNestedInput
+  codigo_ejemplo?: Prisma.codigo_ejemploUpdateManyWithoutModuloNestedInput
   quiz?: Prisma.quizUpdateManyWithoutModuloNestedInput
 }
 
@@ -709,7 +716,7 @@ export type moduloUncheckedUpdateWithoutCursoInput = {
   orden?: Prisma.IntFieldUpdateOperationsInput | number
   contenido_teorico?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estatus?: Prisma.Enumestatus_moduloFieldUpdateOperationsInput | $Enums.estatus_modulo
-  leccion?: Prisma.leccionUncheckedUpdateManyWithoutModuloNestedInput
+  codigo_ejemplo?: Prisma.codigo_ejemploUncheckedUpdateManyWithoutModuloNestedInput
   quiz?: Prisma.quizUncheckedUpdateManyWithoutModuloNestedInput
 }
 
@@ -728,12 +735,12 @@ export type moduloUncheckedUpdateManyWithoutCursoInput = {
  */
 
 export type ModuloCountOutputType = {
-  leccion: number
+  codigo_ejemplo: number
   quiz: number
 }
 
 export type ModuloCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  leccion?: boolean | ModuloCountOutputTypeCountLeccionArgs
+  codigo_ejemplo?: boolean | ModuloCountOutputTypeCountCodigo_ejemploArgs
   quiz?: boolean | ModuloCountOutputTypeCountQuizArgs
 }
 
@@ -750,8 +757,8 @@ export type ModuloCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Exten
 /**
  * ModuloCountOutputType without action
  */
-export type ModuloCountOutputTypeCountLeccionArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.leccionWhereInput
+export type ModuloCountOutputTypeCountCodigo_ejemploArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.codigo_ejemploWhereInput
 }
 
 /**
@@ -770,7 +777,7 @@ export type moduloSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   contenido_teorico?: boolean
   id_curso?: boolean
   estatus?: boolean
-  leccion?: boolean | Prisma.modulo$leccionArgs<ExtArgs>
+  codigo_ejemplo?: boolean | Prisma.modulo$codigo_ejemploArgs<ExtArgs>
   curso?: boolean | Prisma.cursoDefaultArgs<ExtArgs>
   quiz?: boolean | Prisma.modulo$quizArgs<ExtArgs>
   _count?: boolean | Prisma.ModuloCountOutputTypeDefaultArgs<ExtArgs>
@@ -810,7 +817,7 @@ export type moduloSelectScalar = {
 
 export type moduloOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id_modulo" | "titulo" | "descripcion" | "orden" | "contenido_teorico" | "id_curso" | "estatus", ExtArgs["result"]["modulo"]>
 export type moduloInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  leccion?: boolean | Prisma.modulo$leccionArgs<ExtArgs>
+  codigo_ejemplo?: boolean | Prisma.modulo$codigo_ejemploArgs<ExtArgs>
   curso?: boolean | Prisma.cursoDefaultArgs<ExtArgs>
   quiz?: boolean | Prisma.modulo$quizArgs<ExtArgs>
   _count?: boolean | Prisma.ModuloCountOutputTypeDefaultArgs<ExtArgs>
@@ -825,7 +832,7 @@ export type moduloIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
 export type $moduloPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "modulo"
   objects: {
-    leccion: Prisma.$leccionPayload<ExtArgs>[]
+    codigo_ejemplo: Prisma.$codigo_ejemploPayload<ExtArgs>[]
     curso: Prisma.$cursoPayload<ExtArgs>
     quiz: Prisma.$quizPayload<ExtArgs>[]
   }
@@ -1231,7 +1238,7 @@ readonly fields: moduloFieldRefs;
  */
 export interface Prisma__moduloClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  leccion<T extends Prisma.modulo$leccionArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.modulo$leccionArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$leccionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  codigo_ejemplo<T extends Prisma.modulo$codigo_ejemploArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.modulo$codigo_ejemploArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$codigo_ejemploPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   curso<T extends Prisma.cursoDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.cursoDefaultArgs<ExtArgs>>): Prisma.Prisma__cursoClient<runtime.Types.Result.GetResult<Prisma.$cursoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   quiz<T extends Prisma.modulo$quizArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.modulo$quizArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$quizPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
@@ -1666,27 +1673,27 @@ export type moduloDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Intern
 }
 
 /**
- * modulo.leccion
+ * modulo.codigo_ejemplo
  */
-export type modulo$leccionArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type modulo$codigo_ejemploArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the leccion
+   * Select specific fields to fetch from the codigo_ejemplo
    */
-  select?: Prisma.leccionSelect<ExtArgs> | null
+  select?: Prisma.codigo_ejemploSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the leccion
+   * Omit specific fields from the codigo_ejemplo
    */
-  omit?: Prisma.leccionOmit<ExtArgs> | null
+  omit?: Prisma.codigo_ejemploOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.leccionInclude<ExtArgs> | null
-  where?: Prisma.leccionWhereInput
-  orderBy?: Prisma.leccionOrderByWithRelationInput | Prisma.leccionOrderByWithRelationInput[]
-  cursor?: Prisma.leccionWhereUniqueInput
+  include?: Prisma.codigo_ejemploInclude<ExtArgs> | null
+  where?: Prisma.codigo_ejemploWhereInput
+  orderBy?: Prisma.codigo_ejemploOrderByWithRelationInput | Prisma.codigo_ejemploOrderByWithRelationInput[]
+  cursor?: Prisma.codigo_ejemploWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.LeccionScalarFieldEnum | Prisma.LeccionScalarFieldEnum[]
+  distinct?: Prisma.Codigo_ejemploScalarFieldEnum | Prisma.Codigo_ejemploScalarFieldEnum[]
 }
 
 /**

@@ -73,11 +73,6 @@ router.get('/get/:id', verifyTokenJWT, async (req: Request, res: Response) => {
             },
             include: {
                 curso: true,
-                leccion: {
-                    orderBy: {
-                        orden: 'asc'
-                    }
-                },
                 quiz: true
             }
         });

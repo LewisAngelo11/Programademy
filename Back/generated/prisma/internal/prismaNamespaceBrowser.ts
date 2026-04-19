@@ -52,7 +52,6 @@ export const AnyNull = runtime.AnyNull
 
 export const ModelName = {
   intento_quiz: 'intento_quiz',
-  leccion: 'leccion',
   logro: 'logro',
   modulo: 'modulo',
   pregunta: 'pregunta',
@@ -60,7 +59,9 @@ export const ModelName = {
   rango: 'rango',
   usuario: 'usuario',
   usuario_logro: 'usuario_logro',
-  curso: 'curso'
+  curso: 'curso',
+  opcion: 'opcion',
+  codigo_ejemplo: 'codigo_ejemplo'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -91,17 +92,6 @@ export const Intento_quizScalarFieldEnum = {
 export type Intento_quizScalarFieldEnum = (typeof Intento_quizScalarFieldEnum)[keyof typeof Intento_quizScalarFieldEnum]
 
 
-export const LeccionScalarFieldEnum = {
-  id_leccion: 'id_leccion',
-  id_modulo: 'id_modulo',
-  titulo: 'titulo',
-  contenido_teorico: 'contenido_teorico',
-  orden: 'orden'
-} as const
-
-export type LeccionScalarFieldEnum = (typeof LeccionScalarFieldEnum)[keyof typeof LeccionScalarFieldEnum]
-
-
 export const LogroScalarFieldEnum = {
   id_logro: 'id_logro',
   titulo: 'titulo',
@@ -130,8 +120,7 @@ export const PreguntaScalarFieldEnum = {
   id_pregunta: 'id_pregunta',
   id_quiz: 'id_quiz',
   enunciado: 'enunciado',
-  opciones: 'opciones',
-  indice_correcta: 'indice_correcta'
+  orden: 'orden'
 } as const
 
 export type PreguntaScalarFieldEnum = (typeof PreguntaScalarFieldEnum)[keyof typeof PreguntaScalarFieldEnum]
@@ -194,19 +183,34 @@ export const CursoScalarFieldEnum = {
 export type CursoScalarFieldEnum = (typeof CursoScalarFieldEnum)[keyof typeof CursoScalarFieldEnum]
 
 
+export const OpcionScalarFieldEnum = {
+  id_opcion: 'id_opcion',
+  id_pregunta: 'id_pregunta',
+  Texto: 'Texto',
+  es_correcta: 'es_correcta',
+  orden: 'orden'
+} as const
+
+export type OpcionScalarFieldEnum = (typeof OpcionScalarFieldEnum)[keyof typeof OpcionScalarFieldEnum]
+
+
+export const Codigo_ejemploScalarFieldEnum = {
+  id_codigo_ejemplo: 'id_codigo_ejemplo',
+  explicacion_codigo: 'explicacion_codigo',
+  codigo: 'codigo',
+  lenguaje: 'lenguaje',
+  id_modulo: 'id_modulo'
+} as const
+
+export type Codigo_ejemploScalarFieldEnum = (typeof Codigo_ejemploScalarFieldEnum)[keyof typeof Codigo_ejemploScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
 } as const
 
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
-
-
-export const JsonNullValueInput = {
-  JsonNull: JsonNull
-} as const
-
-export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
 
 
 export const NullsOrder = {
@@ -223,13 +227,4 @@ export const QueryMode = {
 } as const
 
 export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
-
-
-export const JsonNullValueFilter = {
-  DbNull: DbNull,
-  JsonNull: JsonNull,
-  AnyNull: AnyNull
-} as const
-
-export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 

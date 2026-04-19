@@ -358,6 +358,14 @@ export type LogroScalarRelationFilter = {
   isNot?: Prisma.logroWhereInput
 }
 
+export type StringFieldUpdateOperationsInput = {
+  set?: string
+}
+
+export type NullableStringFieldUpdateOperationsInput = {
+  set?: string | null
+}
+
 export type logroCreateNestedOneWithoutUsuario_logroInput = {
   create?: Prisma.XOR<Prisma.logroCreateWithoutUsuario_logroInput, Prisma.logroUncheckedCreateWithoutUsuario_logroInput>
   connectOrCreate?: Prisma.logroCreateOrConnectWithoutUsuario_logroInput
