@@ -1,5 +1,5 @@
 import { prisma } from "../../lib/prisma";
-import { CreateModuloDTO, UpdateModuloDTO, ModuloFilters } from "../types/module.types";
+import { CreateModuloDTO, UpdateModuloDTO } from "../types/module.types";
 
 export class ModuloService {
     // Método para obtener todos los módulos activos
@@ -14,7 +14,8 @@ export class ModuloService {
                         id_curso: true,
                         titulo: true
                     }
-                }
+                },
+                codigo_ejemplo: true
             },
             orderBy: {
                 orden: 'asc'
@@ -35,7 +36,8 @@ export class ModuloService {
                         id_curso: true,
                         titulo: true
                     }
-                }
+                },
+                codigo_ejemplo: true
             },
             orderBy: {
                 orden: 'asc'
@@ -52,7 +54,8 @@ export class ModuloService {
             },
             include: {
                 curso: true,
-                quiz: true
+                quiz: true,
+                codigo_ejemplo: true
             }
         });
     }
@@ -83,10 +86,17 @@ export class ModuloService {
         if (data.orden !== undefined) createData.orden = data.orden;
         if (data.id_curso !== undefined) createData.id_curso = data.id_curso;
 
+        if (data.codigo_ejemplo && data.codigo_ejemplo.length > 0) {
+            createData.codigo_ejemplo = {
+                create: data.codigo_ejemplo
+            };
+        }
+
         return await prisma.modulo.create({
             data: createData,
             include: {
-                curso: true
+                curso: true,
+                codigo_ejemplo: true
             }
         });
     }
@@ -102,11 +112,19 @@ export class ModuloService {
         if (data.orden !== undefined) updateData.orden = data.orden;
         if (data.id_curso !== undefined) updateData.id_curso = data.id_curso;
 
+        if (data.codigo_ejemplo !== undefined) {
+            updateData.codigo_ejemplo = {
+                deleteMany: {},
+                create: data.codigo_ejemplo
+            };
+        }
+
         return await prisma.modulo.update({
             where: { id_modulo: idModulo },
             data: updateData,
             include: {
-                curso: true
+                curso: true,
+                codigo_ejemplo: true
             }
         });
     }
