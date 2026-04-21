@@ -1,3 +1,4 @@
+import { lenguaje_programacion } from "../../generated/prisma/enums";
 import { prisma } from "../../lib/prisma";
 import { CreateModuloDTO, UpdateModuloDTO } from "../types/module.types";
 
@@ -113,11 +114,30 @@ export class ModuloService {
         if (data.id_curso !== undefined) updateData.id_curso = data.id_curso;
 
         if (data.codigo_ejemplo !== undefined) {
+            // Mapa de conversión: string frontend → valor enum Prisma
+            const lenguajeMap: Record<string, string> = {
+                "C": "C",
+                "C++": "C__",
+                "Python": "Python",
+                "JavaScript": "JavaScript",
+                "Java": "Java",
+                "C#": "C_"
+            };
+
+            // Transformar objeto a array
+            const codigosArray = Object.entries(data.codigo_ejemplo).map(([lenguaje, datos]) => ({
+                lenguaje: lenguajeMap[lenguaje], // ← Convierte al valor correcto del enum
+                explicacion_codigo: datos.explicacion_codigo,
+                codigo: datos.codigo
+            }));
+
             updateData.codigo_ejemplo = {
-                deleteMany: {},
-                create: data.codigo_ejemplo
+                deleteMany: {}, // Elimina todos los códigos existentes
+                create: codigosArray // Crea los nuevos
             };
         }
+
+        console.log(updateData);
 
         return await prisma.modulo.update({
             where: { id_modulo: idModulo },
