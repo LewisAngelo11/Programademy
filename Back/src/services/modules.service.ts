@@ -87,9 +87,26 @@ export class ModuloService {
         if (data.orden !== undefined) createData.orden = data.orden;
         if (data.id_curso !== undefined) createData.id_curso = data.id_curso;
 
-        if (data.codigo_ejemplo && data.codigo_ejemplo.length > 0) {
+        if (data.codigo_ejemplo !== undefined) {
+            // Mapa de conversión: string frontend → valor enum Prisma
+            const lenguajeMap: Record<string, string> = {
+                "C": "C",
+                "C++": "C__",
+                "Python": "Python",
+                "JavaScript": "JavaScript",
+                "Java": "Java",
+                "C#": "C_"
+            };
+
+            // Transformar objeto a array
+            const codigosArray = Object.entries(data.codigo_ejemplo).map(([lenguaje, datos]) => ({
+                lenguaje: lenguajeMap[lenguaje], // ← Convierte al valor correcto del enum
+                explicacion_codigo: datos.explicacion_codigo,
+                codigo: datos.codigo
+            }));
+
             createData.codigo_ejemplo = {
-                create: data.codigo_ejemplo
+                create: codigosArray // Crea los nuevos
             };
         }
 
