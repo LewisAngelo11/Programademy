@@ -9,6 +9,7 @@ import auth from './routes/auth.routes'
 import usuario from './routes/user.routes'
 import curso from './routes/courses.routes';
 import modulo from './routes/modules.routes';
+import quiz from './routes/quizzes.routes';
 
 dotenv.config();
 
@@ -16,13 +17,14 @@ const app = express();
 
 app.use(morgan('dev'));
 app.use(cors());
-app.use(express.json()); 
+app.use(express.json());
 
 // Implementación de las rutas en la app
 app.use('/auth', auth);
 app.use('/usuario', usuario);
 app.use('/curso', curso);
 app.use('/modulo', modulo);
+app.use('/quiz', quiz);
 
 const PORT = process.env.PORT || 3000;
 

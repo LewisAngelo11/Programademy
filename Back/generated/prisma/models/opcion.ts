@@ -28,19 +28,19 @@ export type AggregateOpcion = {
 
 export type OpcionAvgAggregateOutputType = {
   id_opcion: number | null
-  id_pregunta: runtime.Decimal | null
+  id_pregunta: number | null
   orden: runtime.Decimal | null
 }
 
 export type OpcionSumAggregateOutputType = {
   id_opcion: number | null
-  id_pregunta: runtime.Decimal | null
+  id_pregunta: number | null
   orden: runtime.Decimal | null
 }
 
 export type OpcionMinAggregateOutputType = {
   id_opcion: number | null
-  id_pregunta: runtime.Decimal | null
+  id_pregunta: number | null
   Texto: string | null
   es_correcta: boolean | null
   orden: runtime.Decimal | null
@@ -48,7 +48,7 @@ export type OpcionMinAggregateOutputType = {
 
 export type OpcionMaxAggregateOutputType = {
   id_opcion: number | null
-  id_pregunta: runtime.Decimal | null
+  id_pregunta: number | null
   Texto: string | null
   es_correcta: boolean | null
   orden: runtime.Decimal | null
@@ -189,7 +189,7 @@ export type opcionGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalA
 
 export type OpcionGroupByOutputType = {
   id_opcion: number
-  id_pregunta: runtime.Decimal | null
+  id_pregunta: number | null
   Texto: string
   es_correcta: boolean
   orden: runtime.Decimal | null
@@ -220,10 +220,11 @@ export type opcionWhereInput = {
   OR?: Prisma.opcionWhereInput[]
   NOT?: Prisma.opcionWhereInput | Prisma.opcionWhereInput[]
   id_opcion?: Prisma.IntFilter<"opcion"> | number
-  id_pregunta?: Prisma.DecimalNullableFilter<"opcion"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  id_pregunta?: Prisma.IntNullableFilter<"opcion"> | number | null
   Texto?: Prisma.StringFilter<"opcion"> | string
   es_correcta?: Prisma.BoolFilter<"opcion"> | boolean
   orden?: Prisma.DecimalNullableFilter<"opcion"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  pregunta?: Prisma.XOR<Prisma.PreguntaNullableScalarRelationFilter, Prisma.preguntaWhereInput> | null
 }
 
 export type opcionOrderByWithRelationInput = {
@@ -232,6 +233,7 @@ export type opcionOrderByWithRelationInput = {
   Texto?: Prisma.SortOrder
   es_correcta?: Prisma.SortOrder
   orden?: Prisma.SortOrderInput | Prisma.SortOrder
+  pregunta?: Prisma.preguntaOrderByWithRelationInput
 }
 
 export type opcionWhereUniqueInput = Prisma.AtLeast<{
@@ -239,10 +241,11 @@ export type opcionWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.opcionWhereInput | Prisma.opcionWhereInput[]
   OR?: Prisma.opcionWhereInput[]
   NOT?: Prisma.opcionWhereInput | Prisma.opcionWhereInput[]
-  id_pregunta?: Prisma.DecimalNullableFilter<"opcion"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  id_pregunta?: Prisma.IntNullableFilter<"opcion"> | number | null
   Texto?: Prisma.StringFilter<"opcion"> | string
   es_correcta?: Prisma.BoolFilter<"opcion"> | boolean
   orden?: Prisma.DecimalNullableFilter<"opcion"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  pregunta?: Prisma.XOR<Prisma.PreguntaNullableScalarRelationFilter, Prisma.preguntaWhereInput> | null
 }, "id_opcion">
 
 export type opcionOrderByWithAggregationInput = {
@@ -263,37 +266,37 @@ export type opcionScalarWhereWithAggregatesInput = {
   OR?: Prisma.opcionScalarWhereWithAggregatesInput[]
   NOT?: Prisma.opcionScalarWhereWithAggregatesInput | Prisma.opcionScalarWhereWithAggregatesInput[]
   id_opcion?: Prisma.IntWithAggregatesFilter<"opcion"> | number
-  id_pregunta?: Prisma.DecimalNullableWithAggregatesFilter<"opcion"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  id_pregunta?: Prisma.IntNullableWithAggregatesFilter<"opcion"> | number | null
   Texto?: Prisma.StringWithAggregatesFilter<"opcion"> | string
   es_correcta?: Prisma.BoolWithAggregatesFilter<"opcion"> | boolean
   orden?: Prisma.DecimalNullableWithAggregatesFilter<"opcion"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
 }
 
 export type opcionCreateInput = {
-  id_pregunta?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   Texto: string
   es_correcta?: boolean
   orden?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  pregunta?: Prisma.preguntaCreateNestedOneWithoutOpcionInput
 }
 
 export type opcionUncheckedCreateInput = {
   id_opcion?: number
-  id_pregunta?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  id_pregunta?: number | null
   Texto: string
   es_correcta?: boolean
   orden?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
 }
 
 export type opcionUpdateInput = {
-  id_pregunta?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   Texto?: Prisma.StringFieldUpdateOperationsInput | string
   es_correcta?: Prisma.BoolFieldUpdateOperationsInput | boolean
   orden?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  pregunta?: Prisma.preguntaUpdateOneWithoutOpcionNestedInput
 }
 
 export type opcionUncheckedUpdateInput = {
   id_opcion?: Prisma.IntFieldUpdateOperationsInput | number
-  id_pregunta?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  id_pregunta?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   Texto?: Prisma.StringFieldUpdateOperationsInput | string
   es_correcta?: Prisma.BoolFieldUpdateOperationsInput | boolean
   orden?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -301,14 +304,13 @@ export type opcionUncheckedUpdateInput = {
 
 export type opcionCreateManyInput = {
   id_opcion?: number
-  id_pregunta?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  id_pregunta?: number | null
   Texto: string
   es_correcta?: boolean
   orden?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
 }
 
 export type opcionUpdateManyMutationInput = {
-  id_pregunta?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   Texto?: Prisma.StringFieldUpdateOperationsInput | string
   es_correcta?: Prisma.BoolFieldUpdateOperationsInput | boolean
   orden?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -316,10 +318,20 @@ export type opcionUpdateManyMutationInput = {
 
 export type opcionUncheckedUpdateManyInput = {
   id_opcion?: Prisma.IntFieldUpdateOperationsInput | number
-  id_pregunta?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  id_pregunta?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   Texto?: Prisma.StringFieldUpdateOperationsInput | string
   es_correcta?: Prisma.BoolFieldUpdateOperationsInput | boolean
   orden?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+}
+
+export type OpcionListRelationFilter = {
+  every?: Prisma.opcionWhereInput
+  some?: Prisma.opcionWhereInput
+  none?: Prisma.opcionWhereInput
+}
+
+export type opcionOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
 }
 
 export type opcionCountOrderByAggregateInput = {
@@ -358,8 +370,127 @@ export type opcionSumOrderByAggregateInput = {
   orden?: Prisma.SortOrder
 }
 
+export type opcionCreateNestedManyWithoutPreguntaInput = {
+  create?: Prisma.XOR<Prisma.opcionCreateWithoutPreguntaInput, Prisma.opcionUncheckedCreateWithoutPreguntaInput> | Prisma.opcionCreateWithoutPreguntaInput[] | Prisma.opcionUncheckedCreateWithoutPreguntaInput[]
+  connectOrCreate?: Prisma.opcionCreateOrConnectWithoutPreguntaInput | Prisma.opcionCreateOrConnectWithoutPreguntaInput[]
+  createMany?: Prisma.opcionCreateManyPreguntaInputEnvelope
+  connect?: Prisma.opcionWhereUniqueInput | Prisma.opcionWhereUniqueInput[]
+}
+
+export type opcionUncheckedCreateNestedManyWithoutPreguntaInput = {
+  create?: Prisma.XOR<Prisma.opcionCreateWithoutPreguntaInput, Prisma.opcionUncheckedCreateWithoutPreguntaInput> | Prisma.opcionCreateWithoutPreguntaInput[] | Prisma.opcionUncheckedCreateWithoutPreguntaInput[]
+  connectOrCreate?: Prisma.opcionCreateOrConnectWithoutPreguntaInput | Prisma.opcionCreateOrConnectWithoutPreguntaInput[]
+  createMany?: Prisma.opcionCreateManyPreguntaInputEnvelope
+  connect?: Prisma.opcionWhereUniqueInput | Prisma.opcionWhereUniqueInput[]
+}
+
+export type opcionUpdateManyWithoutPreguntaNestedInput = {
+  create?: Prisma.XOR<Prisma.opcionCreateWithoutPreguntaInput, Prisma.opcionUncheckedCreateWithoutPreguntaInput> | Prisma.opcionCreateWithoutPreguntaInput[] | Prisma.opcionUncheckedCreateWithoutPreguntaInput[]
+  connectOrCreate?: Prisma.opcionCreateOrConnectWithoutPreguntaInput | Prisma.opcionCreateOrConnectWithoutPreguntaInput[]
+  upsert?: Prisma.opcionUpsertWithWhereUniqueWithoutPreguntaInput | Prisma.opcionUpsertWithWhereUniqueWithoutPreguntaInput[]
+  createMany?: Prisma.opcionCreateManyPreguntaInputEnvelope
+  set?: Prisma.opcionWhereUniqueInput | Prisma.opcionWhereUniqueInput[]
+  disconnect?: Prisma.opcionWhereUniqueInput | Prisma.opcionWhereUniqueInput[]
+  delete?: Prisma.opcionWhereUniqueInput | Prisma.opcionWhereUniqueInput[]
+  connect?: Prisma.opcionWhereUniqueInput | Prisma.opcionWhereUniqueInput[]
+  update?: Prisma.opcionUpdateWithWhereUniqueWithoutPreguntaInput | Prisma.opcionUpdateWithWhereUniqueWithoutPreguntaInput[]
+  updateMany?: Prisma.opcionUpdateManyWithWhereWithoutPreguntaInput | Prisma.opcionUpdateManyWithWhereWithoutPreguntaInput[]
+  deleteMany?: Prisma.opcionScalarWhereInput | Prisma.opcionScalarWhereInput[]
+}
+
+export type opcionUncheckedUpdateManyWithoutPreguntaNestedInput = {
+  create?: Prisma.XOR<Prisma.opcionCreateWithoutPreguntaInput, Prisma.opcionUncheckedCreateWithoutPreguntaInput> | Prisma.opcionCreateWithoutPreguntaInput[] | Prisma.opcionUncheckedCreateWithoutPreguntaInput[]
+  connectOrCreate?: Prisma.opcionCreateOrConnectWithoutPreguntaInput | Prisma.opcionCreateOrConnectWithoutPreguntaInput[]
+  upsert?: Prisma.opcionUpsertWithWhereUniqueWithoutPreguntaInput | Prisma.opcionUpsertWithWhereUniqueWithoutPreguntaInput[]
+  createMany?: Prisma.opcionCreateManyPreguntaInputEnvelope
+  set?: Prisma.opcionWhereUniqueInput | Prisma.opcionWhereUniqueInput[]
+  disconnect?: Prisma.opcionWhereUniqueInput | Prisma.opcionWhereUniqueInput[]
+  delete?: Prisma.opcionWhereUniqueInput | Prisma.opcionWhereUniqueInput[]
+  connect?: Prisma.opcionWhereUniqueInput | Prisma.opcionWhereUniqueInput[]
+  update?: Prisma.opcionUpdateWithWhereUniqueWithoutPreguntaInput | Prisma.opcionUpdateWithWhereUniqueWithoutPreguntaInput[]
+  updateMany?: Prisma.opcionUpdateManyWithWhereWithoutPreguntaInput | Prisma.opcionUpdateManyWithWhereWithoutPreguntaInput[]
+  deleteMany?: Prisma.opcionScalarWhereInput | Prisma.opcionScalarWhereInput[]
+}
+
 export type BoolFieldUpdateOperationsInput = {
   set?: boolean
+}
+
+export type opcionCreateWithoutPreguntaInput = {
+  Texto: string
+  es_correcta?: boolean
+  orden?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+}
+
+export type opcionUncheckedCreateWithoutPreguntaInput = {
+  id_opcion?: number
+  Texto: string
+  es_correcta?: boolean
+  orden?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+}
+
+export type opcionCreateOrConnectWithoutPreguntaInput = {
+  where: Prisma.opcionWhereUniqueInput
+  create: Prisma.XOR<Prisma.opcionCreateWithoutPreguntaInput, Prisma.opcionUncheckedCreateWithoutPreguntaInput>
+}
+
+export type opcionCreateManyPreguntaInputEnvelope = {
+  data: Prisma.opcionCreateManyPreguntaInput | Prisma.opcionCreateManyPreguntaInput[]
+  skipDuplicates?: boolean
+}
+
+export type opcionUpsertWithWhereUniqueWithoutPreguntaInput = {
+  where: Prisma.opcionWhereUniqueInput
+  update: Prisma.XOR<Prisma.opcionUpdateWithoutPreguntaInput, Prisma.opcionUncheckedUpdateWithoutPreguntaInput>
+  create: Prisma.XOR<Prisma.opcionCreateWithoutPreguntaInput, Prisma.opcionUncheckedCreateWithoutPreguntaInput>
+}
+
+export type opcionUpdateWithWhereUniqueWithoutPreguntaInput = {
+  where: Prisma.opcionWhereUniqueInput
+  data: Prisma.XOR<Prisma.opcionUpdateWithoutPreguntaInput, Prisma.opcionUncheckedUpdateWithoutPreguntaInput>
+}
+
+export type opcionUpdateManyWithWhereWithoutPreguntaInput = {
+  where: Prisma.opcionScalarWhereInput
+  data: Prisma.XOR<Prisma.opcionUpdateManyMutationInput, Prisma.opcionUncheckedUpdateManyWithoutPreguntaInput>
+}
+
+export type opcionScalarWhereInput = {
+  AND?: Prisma.opcionScalarWhereInput | Prisma.opcionScalarWhereInput[]
+  OR?: Prisma.opcionScalarWhereInput[]
+  NOT?: Prisma.opcionScalarWhereInput | Prisma.opcionScalarWhereInput[]
+  id_opcion?: Prisma.IntFilter<"opcion"> | number
+  id_pregunta?: Prisma.IntNullableFilter<"opcion"> | number | null
+  Texto?: Prisma.StringFilter<"opcion"> | string
+  es_correcta?: Prisma.BoolFilter<"opcion"> | boolean
+  orden?: Prisma.DecimalNullableFilter<"opcion"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+}
+
+export type opcionCreateManyPreguntaInput = {
+  id_opcion?: number
+  Texto: string
+  es_correcta?: boolean
+  orden?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+}
+
+export type opcionUpdateWithoutPreguntaInput = {
+  Texto?: Prisma.StringFieldUpdateOperationsInput | string
+  es_correcta?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  orden?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+}
+
+export type opcionUncheckedUpdateWithoutPreguntaInput = {
+  id_opcion?: Prisma.IntFieldUpdateOperationsInput | number
+  Texto?: Prisma.StringFieldUpdateOperationsInput | string
+  es_correcta?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  orden?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+}
+
+export type opcionUncheckedUpdateManyWithoutPreguntaInput = {
+  id_opcion?: Prisma.IntFieldUpdateOperationsInput | number
+  Texto?: Prisma.StringFieldUpdateOperationsInput | string
+  es_correcta?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  orden?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
 }
 
 
@@ -370,6 +501,7 @@ export type opcionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   Texto?: boolean
   es_correcta?: boolean
   orden?: boolean
+  pregunta?: boolean | Prisma.opcion$preguntaArgs<ExtArgs>
 }, ExtArgs["result"]["opcion"]>
 
 export type opcionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -378,6 +510,7 @@ export type opcionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   Texto?: boolean
   es_correcta?: boolean
   orden?: boolean
+  pregunta?: boolean | Prisma.opcion$preguntaArgs<ExtArgs>
 }, ExtArgs["result"]["opcion"]>
 
 export type opcionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -386,6 +519,7 @@ export type opcionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   Texto?: boolean
   es_correcta?: boolean
   orden?: boolean
+  pregunta?: boolean | Prisma.opcion$preguntaArgs<ExtArgs>
 }, ExtArgs["result"]["opcion"]>
 
 export type opcionSelectScalar = {
@@ -397,13 +531,24 @@ export type opcionSelectScalar = {
 }
 
 export type opcionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id_opcion" | "id_pregunta" | "Texto" | "es_correcta" | "orden", ExtArgs["result"]["opcion"]>
+export type opcionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  pregunta?: boolean | Prisma.opcion$preguntaArgs<ExtArgs>
+}
+export type opcionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  pregunta?: boolean | Prisma.opcion$preguntaArgs<ExtArgs>
+}
+export type opcionIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  pregunta?: boolean | Prisma.opcion$preguntaArgs<ExtArgs>
+}
 
 export type $opcionPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "opcion"
-  objects: {}
+  objects: {
+    pregunta: Prisma.$preguntaPayload<ExtArgs> | null
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id_opcion: number
-    id_pregunta: runtime.Decimal | null
+    id_pregunta: number | null
     Texto: string
     es_correcta: boolean
     orden: runtime.Decimal | null
@@ -801,6 +946,7 @@ readonly fields: opcionFieldRefs;
  */
 export interface Prisma__opcionClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  pregunta<T extends Prisma.opcion$preguntaArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.opcion$preguntaArgs<ExtArgs>>): Prisma.Prisma__preguntaClient<runtime.Types.Result.GetResult<Prisma.$preguntaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -831,7 +977,7 @@ export interface Prisma__opcionClient<T, Null = never, ExtArgs extends runtime.T
  */
 export interface opcionFieldRefs {
   readonly id_opcion: Prisma.FieldRef<"opcion", 'Int'>
-  readonly id_pregunta: Prisma.FieldRef<"opcion", 'Decimal'>
+  readonly id_pregunta: Prisma.FieldRef<"opcion", 'Int'>
   readonly Texto: Prisma.FieldRef<"opcion", 'String'>
   readonly es_correcta: Prisma.FieldRef<"opcion", 'Boolean'>
   readonly orden: Prisma.FieldRef<"opcion", 'Decimal'>
@@ -852,6 +998,10 @@ export type opcionFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.Intern
    */
   omit?: Prisma.opcionOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.opcionInclude<ExtArgs> | null
+  /**
    * Filter, which opcion to fetch.
    */
   where: Prisma.opcionWhereUniqueInput
@@ -870,6 +1020,10 @@ export type opcionFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensions
    */
   omit?: Prisma.opcionOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.opcionInclude<ExtArgs> | null
+  /**
    * Filter, which opcion to fetch.
    */
   where: Prisma.opcionWhereUniqueInput
@@ -887,6 +1041,10 @@ export type opcionFindFirstArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * Omit specific fields from the opcion
    */
   omit?: Prisma.opcionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.opcionInclude<ExtArgs> | null
   /**
    * Filter, which opcion to fetch.
    */
@@ -936,6 +1094,10 @@ export type opcionFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions.
    */
   omit?: Prisma.opcionOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.opcionInclude<ExtArgs> | null
+  /**
    * Filter, which opcion to fetch.
    */
   where?: Prisma.opcionWhereInput
@@ -984,6 +1146,10 @@ export type opcionFindManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
    */
   omit?: Prisma.opcionOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.opcionInclude<ExtArgs> | null
+  /**
    * Filter, which opcions to fetch.
    */
   where?: Prisma.opcionWhereInput
@@ -1027,6 +1193,10 @@ export type opcionCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
    */
   omit?: Prisma.opcionOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.opcionInclude<ExtArgs> | null
+  /**
    * The data needed to create a opcion.
    */
   data: Prisma.XOR<Prisma.opcionCreateInput, Prisma.opcionUncheckedCreateInput>
@@ -1060,6 +1230,10 @@ export type opcionCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensio
    */
   data: Prisma.opcionCreateManyInput | Prisma.opcionCreateManyInput[]
   skipDuplicates?: boolean
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.opcionIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1074,6 +1248,10 @@ export type opcionUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
    * Omit specific fields from the opcion
    */
   omit?: Prisma.opcionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.opcionInclude<ExtArgs> | null
   /**
    * The data needed to update a opcion.
    */
@@ -1126,6 +1304,10 @@ export type opcionUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensio
    * Limit how many opcions to update.
    */
   limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.opcionIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1140,6 +1322,10 @@ export type opcionUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
    * Omit specific fields from the opcion
    */
   omit?: Prisma.opcionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.opcionInclude<ExtArgs> | null
   /**
    * The filter to search for the opcion to update in case it exists.
    */
@@ -1167,6 +1353,10 @@ export type opcionDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
    */
   omit?: Prisma.opcionOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.opcionInclude<ExtArgs> | null
+  /**
    * Filter which opcion to delete.
    */
   where: Prisma.opcionWhereUniqueInput
@@ -1187,6 +1377,25 @@ export type opcionDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Intern
 }
 
 /**
+ * opcion.pregunta
+ */
+export type opcion$preguntaArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the pregunta
+   */
+  select?: Prisma.preguntaSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the pregunta
+   */
+  omit?: Prisma.preguntaOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.preguntaInclude<ExtArgs> | null
+  where?: Prisma.preguntaWhereInput
+}
+
+/**
  * opcion without action
  */
 export type opcionDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1198,4 +1407,8 @@ export type opcionDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    * Omit specific fields from the opcion
    */
   omit?: Prisma.opcionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.opcionInclude<ExtArgs> | null
 }

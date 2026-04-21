@@ -46,6 +46,7 @@ model pregunta {
   id_quiz     Int
   enunciado   String
   orden       Decimal? @db.Decimal
+  opcion      opcion[]
   quiz        quiz     @relation(fields: [id_quiz], references: [id_quiz], onDelete: Cascade, onUpdate: NoAction, map: "fk_pregunta_quiz")
 }
 
@@ -107,11 +108,12 @@ model curso {
 }
 
 model opcion {
-  id_opcion   Int      @id @default(autoincrement())
-  id_pregunta Decimal? @db.Decimal
+  id_opcion   Int       @id @default(autoincrement())
+  id_pregunta Int?
   Texto       String
-  es_correcta Boolean  @default(false)
-  orden       Decimal? @db.Decimal
+  es_correcta Boolean   @default(false)
+  orden       Decimal?  @db.Decimal
+  pregunta    pregunta? @relation(fields: [id_pregunta], references: [id_pregunta], onDelete: Cascade, onUpdate: NoAction, map: "fk_opcion_pregunta")
 }
 
 model codigo_ejemplo {
