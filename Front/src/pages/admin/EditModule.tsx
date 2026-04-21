@@ -17,17 +17,12 @@ type Course = {
     titulo: string;
 };
 
-// Esta interfaz es para guardar los ejemplos de código
-// interface CodigoEjemplo {
-//     [key: string]: {
-//         id_codigo_ejemplo: number;
-//         explicacion_codigo: string;
-//         codigo: string;
-//         lenguaje: languagesExamples;
-//     }
-// }
-
 type languagesExamples = "C" | "C++" | "Python" | "JavaScript" | "Java" | "C#";
+
+type CodigoEjemplo = {
+    explicacion_codigo: string;
+    codigo: string;
+}
 
 // Lista dinámica para mostrar dinámicamente los botones de los lenguajes disponibles
 const languagesList: languagesExamples[] = ["C", "C++", "Python", "JavaScript", "Java", "C#"];
@@ -45,10 +40,29 @@ export default function EditModule() {
         contenido: ""
     });
 
+    // Estado que guarda los ejemplos de código de cada lenguaje
+    const [ejemplosCodigos, setEjemplosCodigos] = useState<Record<languagesExamples, CodigoEjemplo>>({
+        "C": { explicacion_codigo: "", codigo: "" },
+        "C++": { explicacion_codigo: "", codigo: "" },
+        "Python": { explicacion_codigo: "", codigo: "" },
+        "JavaScript": { explicacion_codigo: "", codigo: "" },
+        "Java": { explicacion_codigo: "", codigo: "" },
+        "C#": { explicacion_codigo: "", codigo: "" }
+    });
     const [courses, setCourses] = useState<Course[]>([]);
     const [loadingCourses, setLoadingCourses] = useState<boolean>(true);
     const [loadingModule, setLoadingModule] = useState<boolean>(true);
     const [languages, setLanguages] = useState<languagesExamples>("C");
+
+    const handleCodigoChange = (lenguaje: languagesExamples, field: 'explicacion_codigo' | 'codigo', value: string) => {
+        setEjemplosCodigos(prev => ({
+            ...prev,
+            [languages]: {
+                ...prev[lenguaje],
+                [field]: value,
+            }
+        }));
+    }
 
     // Cargar los cursos disponibles
     const getAllCoursesData = async () => {
@@ -75,6 +89,16 @@ export default function EditModule() {
     // Cargar los datos del módulo a editar
     const fetchModuleData = async () => {
         const token = localStorage.getItem("token");
+
+        // Mapa de conversión
+        const lenguajeMapInverso: Record<string, languagesExamples> = {
+            "C": "C",
+            "C__": "C++",
+            "Python": "Python",
+            "JavaScript": "JavaScript",
+            "Java": "Java",
+            "C_": "C#"
+        };
 
         if (!token || !idModulo) {
             console.error("No hay token o ID del módulo");
@@ -106,6 +130,28 @@ export default function EditModule() {
                 descripcion: data.descripcion || "",
                 contenido: data.contenido_teorico || ""
             });
+
+            // Transformar array a Record para mostrarlos en la UI
+            const ejemplosFormateados = data.codigo_ejemplo.reduce((acc: any, ejemplo: any) => {
+                const lenguajeFrontend = lenguajeMapInverso[ejemplo.lenguaje];
+                
+                acc[lenguajeFrontend] = {
+                    explicacion_codigo: ejemplo.explicacion_codigo || "",
+                    codigo: ejemplo.codigo || ""
+                };
+                
+                return acc;
+            }, {
+                // Valores por defecto para lenguajes sin datos
+                "C": { explicacion_codigo: "", codigo: "" },
+                "C++": { explicacion_codigo: "", codigo: "" },
+                "Python": { explicacion_codigo: "", codigo: "" },
+                "JavaScript": { explicacion_codigo: "", codigo: "" },
+                "Java": { explicacion_codigo: "", codigo: "" },
+                "C#": { explicacion_codigo: "", codigo: "" }
+            } as Record<languagesExamples, CodigoEjemplo>);
+
+            setEjemplosCodigos(ejemplosFormateados);
         } catch (error) {
             console.error("Error al cargar el módulo:", error);
             alert("No se pudo cargar el módulo");
@@ -153,7 +199,8 @@ export default function EditModule() {
                     descripcion: form.descripcion,
                     contenido_teorico: form.contenido,
                     orden: form.orden,
-                    id_curso: Number(form.curso)
+                    id_curso: Number(form.curso),
+                    codigo_ejemplo: ejemplosCodigos
                 })
             });
 
@@ -272,7 +319,12 @@ export default function EditModule() {
                             required/>
                     </div>
                 </section>
-                <FormCodesExamples languages={languages} setLanguages={setLanguages} />
+                <FormCodesExamples
+                    languages={languages}
+                    setLanguages={setLanguages}
+                    ejemplosCodigos={ejemplosCodigos}
+                    handleCodigoChange={handleCodigoChange}
+                />
                 <div className="btns-options-module">
                     <button type="submit" className="button-edit-module">
                         <Save size="xs"/> Guardar Cambios
@@ -289,9 +341,11 @@ export default function EditModule() {
 interface FormCodesExamplesProps {
     languages: languagesExamples;
     setLanguages: React.Dispatch<React.SetStateAction<languagesExamples>>;
+    ejemplosCodigos: Record<languagesExamples, CodigoEjemplo>;
+    handleCodigoChange: (language: languagesExamples, field: 'explicacion_codigo' | 'codigo', value: string) => void;
 }
 
-function FormCodesExamples({ languages, setLanguages }: FormCodesExamplesProps) {
+function FormCodesExamples({ languages, setLanguages, ejemplosCodigos, handleCodigoChange }: FormCodesExamplesProps) {
     return (
         <div className="codes-examples">
             <header>
@@ -313,11 +367,19 @@ function FormCodesExamples({ languages, setLanguages }: FormCodesExamplesProps) 
             <section className="form-codes-examples">
                 <div className="code-explain-container">
                     <label htmlFor="code-explain">Explicación teórica del {languages}</label>
-                    <textarea name="Explicacion Teorica Codigo" id="code-explain">{}</textarea>
+                    <textarea
+                        name="Explicacion Teorica Codigo" 
+                        onChange={(e) => handleCodigoChange(languages, "explicacion_codigo", e.target.value)}
+                        value={ejemplosCodigos[languages].explicacion_codigo}
+                        id="code-explain"></textarea>
                 </div>
                 <div className="code-example-container">
                     <label htmlFor="code-example">Ejemplo de Código en {languages}</label>
-                    <textarea name="Ejemplo Codigo" id="code-example"></textarea>
+                    <textarea
+                        name="Ejemplo Codigo"
+                        onChange={(e) => handleCodigoChange(languages, "codigo", e.target.value)}
+                        value={ejemplosCodigos[languages].codigo}
+                        id="code-example"></textarea>
                 </div>
             </section>
         </div>

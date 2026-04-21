@@ -19,16 +19,13 @@ type Course = {
 
 type languagesExamples = "C" | "C++" | "Python" | "JavaScript" | "Java" | "C#";
 
+type CodigoEjemplo = {
+    explicacion_codigo: string;
+    codigo: string;
+};
+
 // Lista dinámica para mostrar dinámicamente los botones de los lenguajes disponibles
 const languagesList: languagesExamples[] = ["C", "C++", "Python", "JavaScript", "Java", "C#"];
-
-// interface CodigoEjemplo {
-//     [key: string]: {
-//         id_codigo_ejemplo: number;
-//         explicacion_codigo: string;
-//         codigo: string;
-//     }
-// }
 
 export default function CreateModule() {
     const navigate = useNavigate();
@@ -39,10 +36,19 @@ export default function CreateModule() {
         descripcion: "",
         contenido: ""
     });
+
+    // State para manejar los ejemplos de códigos
+    const [ejemplosCodigos, setEjemplosCodigos] = useState<Record<languagesExamples, CodigoEjemplo>>({
+        "C": { explicacion_codigo: "", codigo: "" },
+        "C++": { explicacion_codigo: "", codigo: "" },
+        "Python": { explicacion_codigo: "", codigo: "" },
+        "JavaScript": { explicacion_codigo: "", codigo: "" },
+        "Java": { explicacion_codigo: "", codigo: "" },
+        "C#": { explicacion_codigo: "", codigo: "" }
+    });
     const [courses, setCourses] = useState<Course[]>([]);
     const [loadingCourses, setLoadingCourses] = useState<boolean>(true);
     const [languages, setLanguages] = useState<languagesExamples>("C");
-    //const [ejemplosCodigos, setEjemplosCodigos] = useState<CodigoEjemplo>({})
 
     // Función que maneja loc cambios de los inputs, select y textarea en el formulario
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -52,6 +58,16 @@ export default function CreateModule() {
         setForm((previousState) => ({
             ...previousState,
             [name]: name === "orden" ? Math.max(1, Number(value)) : value
+        }));
+    };
+    
+    const handleCodigoChange = (language: languagesExamples, field: 'explicacion_codigo' | 'codigo', value: string) => {
+        setEjemplosCodigos(prev => ({
+            ...prev,
+            [language]: {
+                ...prev[language],
+                [field]: value
+            }
         }));
     };
 
@@ -65,7 +81,8 @@ export default function CreateModule() {
             descripcion: form.descripcion,
             contenido_teorico: form.contenido,
             orden: form.orden,
-            id_curso: Number(form.curso)
+            id_curso: Number(form.curso),
+            codigo_ejemplo: ejemplosCodigos
         }
 
         try {
@@ -233,7 +250,12 @@ export default function CreateModule() {
                             required/>
                     </div>
                 </section>
-                <FormCodesExamples languages={languages} setLanguages={setLanguages} />
+                <FormCodesExamples 
+                    languages={languages} 
+                    setLanguages={setLanguages}
+                    ejemplosCodigos={ejemplosCodigos}
+                    handleCodigoChange={handleCodigoChange}
+                />
                 <div className="btns-options-module">
                     <button type="submit" className="button-create-module"><Save size="xs"/> Crear Módulo</button>
                     <button type="button" className="button-cancel-module" onClick={handleCancel}><X size="xs"/> Cancelar</button>
@@ -246,14 +268,19 @@ export default function CreateModule() {
 interface FormCodesExamplesProps {
     languages: languagesExamples;
     setLanguages: React.Dispatch<React.SetStateAction<languagesExamples>>;
+    ejemplosCodigos: Record<languagesExamples, CodigoEjemplo>;
+    handleCodigoChange: (language: languagesExamples, field: 'explicacion_codigo' | 'codigo', value: string) => void;
 }
 
-function FormCodesExamples({ languages, setLanguages }: FormCodesExamplesProps) {
+function FormCodesExamples({ languages, setLanguages, ejemplosCodigos, handleCodigoChange }: FormCodesExamplesProps) {
     return (
         <div className="codes-examples">
             <header>
                 <h2><Code size="sm"/> Ejemplos de Código</h2>
-                <small>Agrega ejemplos en los 6 lenguajes soportados (0/6 completados)</small>
+                <small>
+                    Agrega ejemplos en los 6 lenguajes soportados
+                    ({Object.values(ejemplosCodigos).filter(ej => ej.codigo.trim() !== "").length}/6 completados)
+                </small>
             </header>
             <div className="code-examples-buttons">
                 {languagesList.map((lang) => (
@@ -273,6 +300,8 @@ function FormCodesExamples({ languages, setLanguages }: FormCodesExamplesProps) 
                     <textarea
                         name="Explicacion Teorica Codigo"
                         id="code-explain"
+                        onChange={(e) => handleCodigoChange(languages, 'explicacion_codigo', e.target.value)}
+                        value={ejemplosCodigos[languages].explicacion_codigo}
                         placeholder="Ingrese la explicación teórica del código en este lenguaje."></textarea>
                 </div>
                 <div className="code-example-container">
@@ -280,6 +309,8 @@ function FormCodesExamples({ languages, setLanguages }: FormCodesExamplesProps) 
                     <textarea
                         name="Ejemplo Codigo"
                         id="code-example"
+                        value={ejemplosCodigos[languages].codigo}
+                        onChange={(e) => handleCodigoChange(languages, 'codigo', e.target.value)}
                         placeholder="Ingrese el ejemplo del código en este lenguaje."></textarea>
                 </div>
             </section>
