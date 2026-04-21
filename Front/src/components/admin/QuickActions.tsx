@@ -3,15 +3,15 @@ import "./QuickActions.css";
 import { useNavigate } from "react-router";
 
 export default function QuickActions() {
-    return(
+    return (
         <section className="quick-actions">
             <header>
                 <h2>Acciones Rápidas</h2>
             </header>
             <div className="modules-actions">
-                <ManageCourses/>
-                <ManageModules/>
-                <ManageQuizzes/>
+                <ManageCourses />
+                <ManageModules />
+                <ManageQuizzes />
             </div>
         </section>
     );
@@ -23,11 +23,11 @@ function ManageCourses() {
     return (
         <article className="manage-courses">
             <div className="header-module">
-                <BookOpen/>
+                <BookOpen />
                 <span>Gestionar Cursos</span>
             </div>
             <small>Crea, edita, o elimina cursos</small>
-            <button 
+            <button
                 className="button-manage-courses"
                 onClick={() => navigate("/courses-admin")}>
                 <Plus />
@@ -40,17 +40,17 @@ function ManageCourses() {
 function ManageModules() {
     const navigate = useNavigate();
 
-    return(
+    return (
         <article className="manage-module">
             <div className="header-module">
-                <FileDetail/>
+                <FileDetail />
                 <span>Gestionar Módulos</span>
             </div>
             <small>Administra contenido de módulos</small>
             <button
                 className="button-manage-modules"
                 onClick={() => navigate("/modules-admin")}>
-                <Plus/>
+                <Plus />
                 Ver Módulos
             </button>
         </article>
@@ -58,14 +58,18 @@ function ManageModules() {
 }
 
 function ManageQuizzes() {
+    const navigate = useNavigate();
+
     return (
         <article className="manage-quizzes">
             <div className="header-module">
-                <ClipboardDetail/>
+                <ClipboardDetail />
                 <span>Gestionar Quizzes</span>
             </div>
             <small>Crea y edita evaluaciones</small>
-            <button className="button-manage-quizzes">
+            <button
+                className="button-manage-quizzes"
+                onClick={() => navigate("/quizzes-admin")}>
                 <Plus />
                 Ver Quizzes
             </button>

@@ -14,6 +14,9 @@ import AdminModules from './pages/admin/AdminModules'
 import CreateModule from './pages/admin/CreateModule'
 import EditModule from './pages/admin/EditModule'
 import CourseLesson from './pages/student/CourseLesson'
+import AdminQuizzes from './pages/admin/AdminQuizzes'
+import CreateQuiz from './pages/admin/CreateQuiz'
+import EditQuiz from './pages/admin/EditQuiz'
 
 function App() {
 
@@ -36,6 +39,9 @@ function App() {
         <Route path={"modules-admin"} element={<AdminModules/>}/>
         <Route path={"modules/create"} element={<CreateModule/>}/>
         <Route path={'modules/edit/:id'} element={<EditModule/>}/>
+        <Route path={'quizzes-admin'} element={<AdminQuizzes/>}/>
+        <Route path={'quizzes/create'} element={<CreateQuiz/>}/>
+        <Route path={'quizzes/edit/:id'} element={<EditQuiz/>}/>
       </Routes>
     </>
   )
