@@ -17,6 +17,7 @@ import CourseLesson from './pages/student/CourseLesson'
 import AdminQuizzes from './pages/admin/AdminQuizzes'
 import CreateQuiz from './pages/admin/CreateQuiz'
 import EditQuiz from './pages/admin/EditQuiz'
+import SolveQuiz from './pages/student/SolveQuiz'
 
 function App() {
 
@@ -42,6 +43,7 @@ function App() {
         <Route path={'quizzes-admin'} element={<AdminQuizzes/>}/>
         <Route path={'quizzes/create'} element={<CreateQuiz/>}/>
         <Route path={'quizzes/edit/:id'} element={<EditQuiz/>}/>
+        <Route path={'quiz/solve/:id'} element={<SolveQuiz/>}/>
       </Routes>
     </>
   )
