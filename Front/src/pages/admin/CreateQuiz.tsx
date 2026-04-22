@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import { ArrowLeftStroke, BookOpen, Save, X, NetworkChart } from "@boxicons/react";
+import { ArrowLeftStroke, BookOpen, Save, X, NetworkChart, Trash } from "@boxicons/react";
 import { getAllModules } from "../../services/moduleServices";
 import { createQuiz } from "../../services/quizServices";
 import "./CreateQuiz.css";
@@ -157,8 +157,6 @@ export default function CreateQuiz() {
             pregunta: form.preguntas
         };
 
-        console.log(bodyCreateQuiz);
-
         try {
             const token = localStorage.getItem('token');
             if (!token) {
@@ -220,6 +218,7 @@ export default function CreateQuiz() {
                     <h1>Nuevo Quiz</h1>
                     <p>Crea un nuevo quiz de práctica o evaluación</p>
                 </header>
+                
                 <section className="principal-info-quiz">
                     <header>
                         <h2> <BookOpen size="sm"/> Información Básica</h2>
@@ -255,25 +254,27 @@ export default function CreateQuiz() {
                                 ))}
                             </select>
                         </div>
-                        <div className="div-tiempo-quiz">
-                            <label htmlFor="tiempo-quiz">Límite (Segundos) *</label>
-                            <input
-                                type="number"
-                                name="tiempo_limite_segundos"
-                                min={0}
-                                value={form.tiempo_limite_segundos}
-                                onChange={handleChange}
-                                required/>
-                        </div>
-                        <div className="div-puntos-quiz">
-                            <label htmlFor="puntos-quiz">Recompensa (Pts) *</label>
-                            <input
-                                type="number"
-                                name="puntos_recompensa"
-                                min={0}
-                                value={form.puntos_recompensa}
-                                onChange={handleChange}
-                                required/>
+                        <div className="more-data-quiz">
+                            <div className="div-tiempo-quiz">
+                                <label htmlFor="tiempo-quiz">Límite (Segundos) *</label>
+                                <input
+                                    type="number"
+                                    name="tiempo_limite_segundos"
+                                    min={0}
+                                    value={form.tiempo_limite_segundos}
+                                    onChange={handleChange}
+                                    required/>
+                            </div>
+                            <div className="div-puntos-quiz">
+                                <label htmlFor="puntos-quiz">Recompensa (Pts) *</label>
+                                <input
+                                    type="number"
+                                    name="puntos_recompensa"
+                                    min={0}
+                                    value={form.puntos_recompensa}
+                                    onChange={handleChange}
+                                    required/>
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -284,18 +285,20 @@ export default function CreateQuiz() {
                         <small>Estructura las preguntas y opciones de tu quiz</small>
                     </header>
                     {form.preguntas.map((pregunta, preguntaIndex) => (
-                        <div key={preguntaIndex} className="question-item">
-                            <div className="question-header">
+                        <section key={preguntaIndex} className="question-item">
+                            <header className="question-header">
                                 <h3>Pregunta {preguntaIndex + 1}</h3>
-                                <button type="button" className="btn-remove-question" onClick={() => eliminarPregunta(preguntaIndex)}>
-                                    Eliminar Pregunta
-                                </button>
-                            </div>
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                                {form.preguntas.length > 1 && (
+                                    <button type="button" className="btn-remove-question" onClick={() => eliminarPregunta(preguntaIndex)}>
+                                        <Trash className="delete-question-btn"/>
+                                    </button>
+                                )}
+                            </header>
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '.4rem' }}>
                                 <label>Enunciado *</label>
                                 <textarea
                                     name="enunciado"
-                                    placeholder="Cúal es la complejidad de..."
+                                    placeholder="Ingrese la pregunta a responder"
                                     value={pregunta.enunciado}
                                     onChange={(e) => handlePreguntaChange(preguntaIndex, e)}
                                     required
@@ -311,6 +314,7 @@ export default function CreateQuiz() {
                                         <input 
                                             type="checkbox" 
                                             name="es_correcta"
+                                            className="checkbox-option"
                                             title="Marcar como Correcta"
                                             checked={op.es_correcta}
                                             onChange={(e) => handleOpcionChange(preguntaIndex, oIndex, e)}
@@ -318,6 +322,7 @@ export default function CreateQuiz() {
                                         <input 
                                             type="text" 
                                             name="Texto" 
+                                            className="option-text"
                                             placeholder={`Opción ${oIndex + 1}`}
                                             value={op.Texto}
                                             onChange={(e) => handleOpcionChange(preguntaIndex, oIndex, e)}
@@ -332,7 +337,7 @@ export default function CreateQuiz() {
                                     + Agregar Opción
                                 </button>
                             </div>
-                        </div>
+                        </section>
                     ))}
 
                     <button type="button" className="btn-add-question" onClick={agregarPregunta}>

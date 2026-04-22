@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
-import { ArrowLeftStroke, BookOpen, Save, X, NetworkChart } from "@boxicons/react";
+import { ArrowLeftStroke, BookOpen, Save, X, NetworkChart, Trash } from "@boxicons/react";
 import { getAllModules } from "../../services/moduleServices";
 import { getOneQuiz, updateQuiz } from "../../services/quizServices";
 import "./EditQuiz.css";
@@ -226,7 +226,7 @@ export default function EditQuiz() {
         <main className="page-edit-quiz">
             <header className="header-admin-pages">
                 <button
-                    className="button-back-quizzes"
+                    className="button-back-modules"
                     onClick={() => navigate("/quizzes-admin")}>
                     <ArrowLeftStroke />
                     Volver a los quizzes
@@ -237,13 +237,24 @@ export default function EditQuiz() {
                     <h1>Editar Quiz</h1>
                     <p>Modifica el cuestionario de validación para un módulo de aprendizaje</p>
                 </header>
-                
+
                 <section className="principal-info-quiz">
                     <header>
                         <h2> <BookOpen size="sm"/> Información Básica</h2>
                         <small>Datos generales del quiz</small>
                     </header>
                     <div className="more-info-container">
+                        <div className="title-quiz">
+                            <label htmlFor="title-quiz">Título del Quiz *</label>
+                            <input
+                                type="text"
+                                name="titulo"
+                                id="title-quiz"
+                                placeholder="Ej. Evaluación de Tipos de Datos C++"
+                                value={form.titulo}
+                                onChange={handleChange}
+                                required/>
+                        </div>
                         <div className="div-modulo-select">
                             <label htmlFor="modulo-select">Módulo Destino *</label>
                             <select
@@ -262,37 +273,28 @@ export default function EditQuiz() {
                                 ))}
                             </select>
                         </div>
-                        <div className="div-tiempo-quiz">
-                            <label htmlFor="tiempo-quiz">Límite (Segundos) *</label>
-                            <input
-                                type="number"
-                                name="tiempo_limite_segundos"
-                                min={0}
-                                value={form.tiempo_limite_segundos}
-                                onChange={handleChange}
-                                required/>
+                        <div className="more-data-quiz">
+                            <div className="div-tiempo-quiz">
+                                <label htmlFor="tiempo-quiz">Límite (Segundos) *</label>
+                                <input
+                                    type="number"
+                                    name="tiempo_limite_segundos"
+                                    min={0}
+                                    value={form.tiempo_limite_segundos}
+                                    onChange={handleChange}
+                                    required/>
+                            </div>
+                            <div className="div-puntos-quiz">
+                                <label htmlFor="puntos-quiz">Recompensa (Pts) *</label>
+                                <input
+                                    type="number"
+                                    name="puntos_recompensa"
+                                    min={0}
+                                    value={form.puntos_recompensa}
+                                    onChange={handleChange}
+                                    required/>
+                            </div>
                         </div>
-                        <div className="div-puntos-quiz">
-                            <label htmlFor="puntos-quiz">Recompensa (Pts) *</label>
-                            <input
-                                type="number"
-                                name="puntos_recompensa"
-                                min={0}
-                                value={form.puntos_recompensa}
-                                onChange={handleChange}
-                                required/>
-                        </div>
-                    </div>
-                    <div className="title-quiz">
-                        <label htmlFor="title-quiz">Título del Quiz *</label>
-                        <input
-                            type="text"
-                            name="titulo"
-                            id="title-quiz"
-                            placeholder="Ej. Evaluación de Tipos de Datos C++"
-                            value={form.titulo}
-                            onChange={handleChange}
-                            required/>
                     </div>
                 </section>
 
@@ -306,9 +308,11 @@ export default function EditQuiz() {
                         <div key={pIndex} className="question-item">
                             <div className="question-header">
                                 <h3>Pregunta {pIndex + 1}</h3>
-                                <button type="button" className="btn-remove-question" onClick={() => eliminarPregunta(pIndex)}>
-                                    Eliminar Pregunta
-                                </button>
+                                {form.preguntas.length > 1 && (
+                                    <button type="button" className="btn-remove-question" onClick={() => eliminarPregunta(pIndex)}>
+                                        <Trash className="delete-question-btn"/>
+                                    </button>
+                                )}
                             </div>
                             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                                 <label>Enunciado *</label>
@@ -330,13 +334,15 @@ export default function EditQuiz() {
                                         <input 
                                             type="checkbox" 
                                             name="es_correcta"
+                                            className="checkbox-option"
                                             title="Marcar como Correcta"
                                             checked={op.es_correcta}
                                             onChange={(e) => handleOpcionChange(pIndex, oIndex, e)}
                                         />
                                         <input 
                                             type="text" 
-                                            name="Texto" 
+                                            name="Texto"
+                                            className="option-text"
                                             placeholder={`Opción ${oIndex + 1}`}
                                             value={op.Texto}
                                             onChange={(e) => handleOpcionChange(pIndex, oIndex, e)}
