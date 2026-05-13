@@ -3,6 +3,8 @@ import React, { useState, useEffect, type SetStateAction } from "react";
 import { getOneModule } from "../../services/moduleServices";
 import { ArrowLeftStroke, BookOpen, Code, CheckCircle } from "@boxicons/react";
 import "./CourseLesson.css";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
 
 interface Modulo {
     id_modulo: number;
@@ -184,13 +186,41 @@ export default function CourseLesson() {
                                 <p>No hay ejemplo disponible para {languages}</p>
                             ): (
                                 <>
-                                    <span className="label-explain-code">Explicación del Código:</span>
+                                    <span className="label-explain-code">
+                                        Explicación del Código:
+                                    </span>
                                     <div className="code-explain-code">
                                         {ejemplosCodigos[languages].explicacion_codigo}
                                     </div>
-                                    <code className="code-example-area">
-                                        {ejemplosCodigos[languages].codigo}
-                                    </code>
+                                    <div className="code-block-container">
+                                        <div className="code-header">
+                                            <span>{languages}</span>
+                                            <button
+                                                className="copy-code-btn"
+                                                onClick={() =>
+                                                    navigator.clipboard.writeText(
+                                                        ejemplosCodigos[languages].codigo
+                                                    )
+                                                }
+                                            >
+                                                Copiar
+                                            </button>
+                                        </div>
+                                        <SyntaxHighlighter
+                                            language={languages.toLowerCase()}
+                                            style={vscDarkPlus}
+                                            showLineNumbers
+                                            customStyle={{
+                                                margin: 0,
+                                                padding: "20px",
+                                                background: "#1e1e1e",
+                                                fontSize: "12px",
+                                                borderRadius: "0 0 14px 14px",
+                                            }}
+                                        >
+                                            {ejemplosCodigos[languages].codigo}
+                                        </SyntaxHighlighter>
+                                    </div>
                                 </>
                             )}
                         </section>
