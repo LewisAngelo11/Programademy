@@ -89,6 +89,7 @@ export default function SolveQuiz() {
 
     const currentQuestion = quiz.pregunta[currentIndex];
     const totalQuestions = quiz.pregunta.length;
+    // Esto se utiliza para llenar dinámicamente la barra de progreso del quiz en la UI con porcentaje
     const progressPercentage = totalQuestions > 0 ? ((currentIndex + 1) / totalQuestions) * 100 : 0;
 
     const handleSelectOption = (id_pregunta: number, id_opcion: number) => {

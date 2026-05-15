@@ -114,6 +114,7 @@
   margin-bottom: 1.5rem;
   color: #1e293b;
   line-height: 1.6;
+  white-space: pre-wrap;
 }
 
 /* Options */
