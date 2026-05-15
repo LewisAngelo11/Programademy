@@ -156,11 +156,10 @@
     color: #d4d4d4;
     font-size: 14px;
     font-weight: 600;
-    text-transform: uppercase;
 }
 
 .copy-code-btn{
-    background-color: #3b82f6;
+    background-color: #3e00ff;
     color: white;
     border: none;
     border-radius: 8px;
@@ -168,11 +167,23 @@
     cursor: pointer;
     font-size: 13px;
     font-weight: 500;
-    transition: 0.2s ease;
+    transition: 0.1s ease;
 }
 
 .copy-code-btn:hover{
-    background-color: #2563eb;
+    background-color: #3600da;
+}
+
+.copied-code-btn {
+    background-color: #3e00ff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 6px 12px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: not-allowed;
+    opacity: .5;
 }
 
 .code-example-area{

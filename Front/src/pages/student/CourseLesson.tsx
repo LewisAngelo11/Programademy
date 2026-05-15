@@ -5,6 +5,7 @@ import { ArrowLeftStroke, BookOpen, Code, CheckCircle } from "@boxicons/react";
 import "./CourseLesson.css";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
+import toast from "react-hot-toast";
 
 interface Modulo {
     id_modulo: number;
@@ -55,6 +56,7 @@ export default function CourseLesson() {
     const [error, setError] = useState<string | null>(null);
     const [quizzes, setQuizzes] = useState<Quiz[]>([]);
     const [languages, setLanguages] = useState<languagesExamples>("C");
+    const [codeCopied, setCodeCopied] = useState<boolean>(false);
 
     const getModulo = async () => {
         const token = localStorage.getItem("token");
@@ -116,6 +118,13 @@ export default function CourseLesson() {
             getModulo();
         }
     }, [id]);
+
+    const copyCode = () => {
+        navigator.clipboard.writeText(ejemplosCodigos[languages].codigo);
+        setCodeCopied(true);
+        toast.success("¡Código Copiado!");
+        setTimeout(() => setCodeCopied(false), 3000);
+    }
 
     if (!modulo) return <div>No se encontró el módulo</div>;
 
@@ -195,16 +204,22 @@ export default function CourseLesson() {
                                     <div className="code-block-container">
                                         <div className="code-header">
                                             <span>{languages}</span>
-                                            <button
-                                                className="copy-code-btn"
-                                                onClick={() =>
-                                                    navigator.clipboard.writeText(
-                                                        ejemplosCodigos[languages].codigo
-                                                    )
-                                                }
-                                            >
-                                                Copiar
-                                            </button>
+                                            {!codeCopied ? (
+                                                <button
+                                                    className="copy-code-btn"
+                                                    onClick={copyCode}
+                                                >
+                                                    Copiar
+                                                </button>
+                                            ): (
+                                                <button
+                                                    className="copied-code-btn"
+                                                    onClick={copyCode}
+                                                    disabled
+                                                >
+                                                    Copiado
+                                                </button>
+                                            )}
                                         </div>
                                         <SyntaxHighlighter
                                             language={languages.toLowerCase()}
