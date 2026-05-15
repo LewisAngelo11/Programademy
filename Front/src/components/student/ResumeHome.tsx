@@ -1,17 +1,25 @@
 import { BookOpen, Trophy, TrendingUp } from "@boxicons/react";
 import "./ResumeHome.css";
 
-export default function ResumeHome() {
+interface TotalStartedCoursesProp {
+    totalStartedCourses: number;
+}
+
+interface TotalAviableCoursesProp {
+    totalAviableCourses: number;
+}
+
+export default function ResumeHome({ totalStartedCourses, totalAviableCourses }: TotalStartedCoursesProp & TotalAviableCoursesProp) {
     return (
         <section className="resume-home">
-            <StartedCourses/>
+            <StartedCourses totalAviableCourses={totalAviableCourses} totalStartedCourses={totalStartedCourses} />
             <TotalAverage/>
             <CompletedQuizzes/>
         </section>
     );
 }
 
-function StartedCourses() {
+function StartedCourses({ totalStartedCourses, totalAviableCourses }: TotalStartedCoursesProp & TotalAviableCoursesProp) {
     return (
         <article className="started-courses">
             <header>
@@ -19,8 +27,8 @@ function StartedCourses() {
                 <BookOpen fill="#3e00ff"/>
             </header>
             <div>
-                <span className="counter-started-courses">0</span>
-                <small>de 0 disponibles</small>
+                <span className="counter-started-courses">{totalStartedCourses}</span>
+                <small>de {totalAviableCourses} disponibles</small>
             </div>
         </article>
     );
