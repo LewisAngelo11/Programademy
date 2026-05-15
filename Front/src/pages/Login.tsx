@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { CodeAlt, BookOpen } from "@boxicons/react";
+import toast from 'react-hot-toast';
 import "./Login.css"
 
 export default function Login() {
@@ -27,10 +28,9 @@ function LoginForm() {
     const [loading, setLoading] = useState<boolean>(false);
     const navigate = useNavigate();
 
-    const API_URL = "http://localhost:3000/auth/login";
+    const API_URL = import.meta.env.VITE_API_URL;
 
-    const signIn = async (e: React.FormEvent) => {
-        e.preventDefault(); // Evita que la pagina se refresque
+    const signIn = async () => {
         const bodyLogin = {
             email: email,
             passw: password
@@ -39,7 +39,7 @@ function LoginForm() {
         try {
             setLoading(true);
 
-            const response = await fetch(API_URL, {
+            const response = await fetch(`${API_URL}/auth/login`, {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json'
@@ -48,27 +48,32 @@ function LoginForm() {
             });
 
             if (!response.ok) {
+                toast.error("Error al iniciar sesión");
                 throw new Error("Error al iniciar sesión");
             }
 
             const dataUser = await response.json();
             localStorage.setItem("token", dataUser.token); // Guarda el token en local storage
+            localStorage.setItem("rol", dataUser.user.rol);
             // Simula la protección de rutas de admin y student
             if (dataUser.user.rol === "admin") {
+                toast.success(`Bienvenido Administrador ${dataUser.user.nombre}`);
                 navigate('/admin/dashboard');
             } else {
+                toast.success(`Bienvenido Estudiante ${dataUser.user.nombre}`);
                 navigate('/student/dashboard');
             }
-
-            console.log("Rol del usuario: ", dataUser.user.rol);
+            
         } catch (err) {
             console.error("Error en la petición: ", err);
+            toast.error("Error en el servidor.");
         } finally {
             setLoading(false);
         }
-    }
+    };
+    
     return (
-        <form onSubmit={signIn} className="login-form">
+        <form action={signIn} className="login-form">
             <header className="login-form-header">
                 <h2>Iniciar Sesión</h2>
                 <small>Ingrese sus credenciales para comenzar</small>

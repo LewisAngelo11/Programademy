@@ -2,6 +2,7 @@ import { CodeAlt, BookOpen } from "@boxicons/react";
 import { useState } from "react";
 import "./Register.css";
 import { useNavigate } from "react-router";
+import toast from 'react-hot-toast';
 
 export default function Register() {
     return (
@@ -28,10 +29,9 @@ function RegisterForm() {
     const [password, setPassword] = useState<string>("");
     const [loading, setLoading] = useState<boolean>(false);
 
-    const API_URL = "http://localhost:3000/auth/register";
+    const API_URL = import.meta.env.VITE_API_URL;
 
-    const signUp = async (e: React.FormEvent) => {
-        e.preventDefault(); // Evita que la pagina se refresque
+    const signUp = async () => {
         const bodyRegister = {
             nombre: name,
             email: email,
@@ -41,7 +41,7 @@ function RegisterForm() {
         try {
             setLoading(true);
 
-            const response = await fetch(API_URL, {
+            const response = await fetch(`${API_URL}/auth/register`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -50,12 +50,15 @@ function RegisterForm() {
             });
 
             if (!response.ok) {
+                toast.error("Error al crear la cuenta");
                 console.error("Error en el registro: ", response);
                 return;
             }
 
+            toast.success("¡¡Cuenta creada correctamente!!");
             navigate("/");
         } catch (err) {
+            toast.error("Error en el servidor.");
             console.error("Error en la petición: ", err);
         } finally {
             setLoading(false);
@@ -63,7 +66,7 @@ function RegisterForm() {
     }
 
     return(
-        <form onSubmit={signUp} className="register-form">
+        <form action={signUp} className="register-form">
             <header className="register-form-header">
                 <h2>Crear Cuenta</h2>
                 <small>Ingrese sus datos para continuar el registro</small>

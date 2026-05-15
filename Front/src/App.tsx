@@ -18,11 +18,13 @@ import AdminQuizzes from './pages/admin/AdminQuizzes'
 import CreateQuiz from './pages/admin/CreateQuiz'
 import EditQuiz from './pages/admin/EditQuiz'
 import SolveQuiz from './pages/student/SolveQuiz'
+import { Toaster } from 'react-hot-toast';
 
 function App() {
 
   return (
     <>
+      <Toaster position="bottom-right" reverseOrder={false}/>
       <Routes>
         <Route path={"/"} element={<Login/>}/>
         <Route path={"/register"} element={<Register/>}/>
