@@ -3,42 +3,120 @@ import HeaderStudentDashboard from "../../components/student/HeaderStudentDashbo
 import "./StudentDashboard.css";
 import ResumeHome from "../../components/student/ResumeHome";
 import CoursesList from "../../components/student/CoursesList";
+import CoursesStartedList from "../../components/student/CoursesStartedList";
+
+interface Course {
+    id_curso: number;
+    titulo: string;
+    descripcion: string;
+    fecha_creacion: string;
+    estado: string;
+    imagen_url: string;
+}
 
 export default function StudentDashboard() {
     const [loading, setLoading] = useState<boolean>(false);
+    const [allCourses, setAllCourses] = useState<Course[]>([]);
+    const [coursesStarted, setCoursesStarted] = useState<Course[]>([]);
+    const [error, setError] = useState<string>("")
     const [studentName, setStudentName] = useState<string>("");
     const [studentEmail, setStudentEmail] = useState<string>("");
 
-    useEffect(() => {
-        const getInfoUser = async () => {
-            const API_URL = 'http://localhost:3000/usuario/info';
-            const token = localStorage.getItem("token");
+    const API_URL = import.meta.env.VITE_API_URL;
 
-            try {
-                setLoading(true);
-    
-                const response = await fetch(API_URL, {
-                    method: "GET",
-                    headers: {
-                        'Authorization': `Bearer ${token}`,
-                        'Content-Type': 'application/json'
-                    }
-                });
-    
-                if (!response.ok) {
-                    throw new Error("Error en la petición");
+    const getAllCourses = async () => {
+        const token = localStorage.getItem("token");
+
+        try {
+            setLoading(true);
+            const response = await fetch(`${API_URL}/curso/all`, {
+                method: "GET",
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
                 }
-    
-                const dataUsuario = await response.json();
-                setStudentName(dataUsuario.nombre);
-                setStudentEmail(dataUsuario.email);
-            } catch (err) {
-                console.error();
-            } finally {
-                setLoading(false);
-            }
-        }
+            });
 
+            if (!response.ok) {
+                throw new Error("Error al obtener los cursos");
+            }
+
+            const data = await response.json();
+            setAllCourses(data);
+        } catch (err) {
+            console.error("Error en la petición:", err);
+            setError("Hubo un error al obtener los cursos.");
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const getAllStartedCourses = async () => {
+        const token = localStorage.getItem("token");
+
+        try {
+            setLoading(true);
+            const response = await fetch(`${API_URL}/curso/allStarted`, {
+                method: "GET",
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error("Error al obtener los cursos");
+            }
+
+            const data = await response.json();
+            setCoursesStarted(data);
+        } catch (err) {
+            console.error("Error en la petición:", err);
+            setError("Hubo un error al obtener los cursos.");
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const getInfoUser = async () => {
+        const token = localStorage.getItem("token");
+
+        try {
+            setLoading(true);
+
+            const response = await fetch(`${API_URL}/usuario/info`, {
+                method: "GET",
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error("Error en la petición");
+            }
+
+            const dataUsuario = await response.json();
+            setStudentName(dataUsuario.nombre);
+            setStudentEmail(dataUsuario.email);
+        } catch (err) {
+            console.error();
+        } finally {
+            setLoading(false);
+        }
+    }
+
+    // Filtrar los cursos disponibles de los que ya fueron iniciados y mostrarlos en la UI
+    const aviableCourses = allCourses.filter(course => 
+        !coursesStarted.some(started => started.id_curso === course.id_curso)
+    );
+
+    const totalStartedCourses = coursesStarted.length;
+    const totalAviableCourses = aviableCourses.length;
+
+    useEffect(() => {
+        getAllCourses();
+        getAllStartedCourses();
         getInfoUser();
     }, []);
 
@@ -49,8 +127,19 @@ export default function StudentDashboard() {
                 studentEmail={studentEmail}
                 loading={loading}
             />
-            <ResumeHome/>
-            <CoursesList/>
+            <ResumeHome
+                totalStartedCourses={totalStartedCourses}
+                totalAviableCourses={totalAviableCourses}
+            />
+            <CoursesStartedList
+                coursesStarted={coursesStarted}
+                loading={loading} error={error}
+            />
+            <CoursesList
+                courses={aviableCourses}
+                loading={loading} 
+                error={error}
+            />
         </main>
     );
 }

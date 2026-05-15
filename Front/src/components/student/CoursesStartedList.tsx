@@ -10,8 +10,8 @@ interface Course {
     imagen_url: string;
 }
 
-interface CoursesProp {
-    courses: Course[];
+interface CoursesStartedProp {
+    coursesStarted: Course[];
 }
 
 interface ManageFetching {
@@ -19,29 +19,30 @@ interface ManageFetching {
     error: string;
 }
 
-export default function CoursesList({ courses, loading, error }: CoursesProp & ManageFetching) {
+export default function CoursesStartedList({ coursesStarted, loading, error }: CoursesStartedProp & ManageFetching) {
+
     return (
         <section className="courses-list-section">
             <header className="header-courses-list">
-                <h2>Cursos Disponibles</h2>
+                <h2>Mis Cursos</h2>
             </header>
             {loading && <p>Cargando cursos...</p>}
 
             {error && <p style={{ color: 'red' }}>{error}</p>}
 
-            {!loading && !error && courses.length === 0 && (
+            {!loading && !error && coursesStarted.length === 0 && (
                 <p>No hay cursos disponibles. ¡Crea uno nuevo!</p>
             )}
 
-            {!loading && !error && courses.length > 0 && (
+            {!loading && !error && coursesStarted.length > 0 && (
                 <div className="list-avaible-courses">
-                    {courses.map(c => (
+                    {coursesStarted.map((c: any) => (
                         <Course
-                            key={c.id_curso}
-                            idCurso={c.id_curso}
-                            titulo={c.titulo}
-                            descripcion={c.descripcion}
-                            imagen_url={c.imagen_url}
+                            key={c.curso.id_curso}
+                            idCurso={c.curso.id_curso}
+                            titulo={c.curso.titulo}
+                            descripcion={c.curso.descripcion}
+                            imagen_url={c.curso.imagen_url}
                             />
                     ))}
                 </div>
@@ -70,7 +71,7 @@ function Course({ idCurso, titulo, descripcion, imagen_url }: CourseProp) {
                 <p>{descripcion}</p>
                 <button
                     className="start-course"
-                    onClick={() => navigate(`/info-course/${idCurso}`)}>Ver Curso</button>
+                    onClick={() => navigate(`/info-course/${idCurso}`)}>Comenzar</button>
             </div>
         </article>
     );
