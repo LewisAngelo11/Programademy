@@ -3,6 +3,7 @@ import HeaderStudentsPages from "../../components/student/HeaderStudentsPages";
 import { useEffect, useState } from "react";
 import { getAllModulesFromCourse } from "../../services/moduleServices";
 import "./InfoCourse.css"
+import toast from "react-hot-toast";
 
 interface Modulo {
     id_modulo: number;
@@ -13,6 +14,7 @@ interface Modulo {
 
 export default function InfoCourse() {
     const curso = useParams();
+    const navigate = useNavigate();
     const idCurso = curso.id;
     const [courseTitulo, setCourseTitulo] = useState<string>("");
     const [courseDescription, setCourseDescription] = useState<string>("");
@@ -20,14 +22,15 @@ export default function InfoCourse() {
     const [modulos, setModulos] = useState<Modulo[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+    const [courseStarted, setCourseStarted] = useState<boolean>(false)
 
-    const API_URL = "http://localhost:3000/curso/getOne";
+    const API_URL = import.meta.env.VITE_API_URL;
     const token = localStorage.getItem("token");
 
     // Función para obtener el curso por su ID
     const getCourse = async () => {
         try {
-            const response = await fetch(`${API_URL}/${idCurso}`, {
+            const response = await fetch(`${API_URL}/curso/getOne/${idCurso}`, {
                 method: "GET",
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -40,13 +43,38 @@ export default function InfoCourse() {
             }
 
             const data = await response.json();
-            setCourseTitulo(data.titulo);
-            setCourseDescription(data.descripcion);
-            setCourseImgUrl(data.imagen_url);
+            console.log(data);
+            setCourseTitulo(data.course.titulo);
+            setCourseDescription(data.course.descripcion);
+            setCourseImgUrl(data.course.imagen_url);
+            setCourseStarted(data.isStarted);
         } catch (err) {
             console.error("Error en la petición:", err);
         }
     }
+
+    const startCourse = async () => {
+        try {
+            const response = await fetch(`${API_URL}/curso/started/${idCurso}`, {
+                method: "POST",
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+    
+            if (!response.ok) {
+                console.log(response);
+                toast.error("No se pudo iniciar el curso");
+                throw new Error("Error al querer iniciar el curso");
+            }
+    
+            toast.success("¡¡Curso Iniciado!!");
+            navigate(-1);
+        } catch (err) {
+            console.error("Error en la petición", err);
+        }
+    };
 
     const getModulesCourse = async () => {
         try {
@@ -74,7 +102,7 @@ export default function InfoCourse() {
     useEffect(() => {
         getCourse();
         getModulesCourse();
-    }, [])
+    }, []);
 
     return (
         <main className="page-info-course">
@@ -82,11 +110,24 @@ export default function InfoCourse() {
             <section className="principal-info-course">
                 <header className="header-principal-info">
                     <div className="banner-image">
-                        <img src={courseImgUrl} alt="Imagen del curso" />
+                        {courseImgUrl ? (
+                            <img src={courseImgUrl} alt="Imagen del curso" />
+                        ): (
+                            <div>Imagen no disponible</div>
+                        )}
                     </div>
                     <h1>{courseTitulo}</h1>
                     <p>{courseDescription}</p>
                 </header>
+
+                {!courseStarted && (
+                    <button
+                        className="button-start-course"
+                        onClick={startCourse}
+                    >
+                        Iniciar Curso
+                    </button>
+                )}
 
                 <div className="progress-modules-course">
                     <div className="modules-counter">
@@ -119,7 +160,8 @@ export default function InfoCourse() {
                                 titulo={m.titulo}
                                 descripcion={m.descripcion}
                                 orden={m.orden}
-                                />
+                                courseStarted={courseStarted}
+                            />
                         )))}
                     </div>
                 </section>
@@ -135,7 +177,11 @@ interface ModuleCourseProp {
     orden: number;
 }
 
-function ModuleCourse({ idModulo, titulo, descripcion, orden }: ModuleCourseProp) {
+interface StartedCourseProp {
+    courseStarted: boolean;
+}
+
+function ModuleCourse({ idModulo, titulo, descripcion, orden, courseStarted }: ModuleCourseProp & StartedCourseProp) {
     const navigate = useNavigate();
 
     return (
@@ -150,6 +196,7 @@ function ModuleCourse({ idModulo, titulo, descripcion, orden }: ModuleCourseProp
             <button 
                 className="start-module"
                 onClick={() => navigate(`/student/lesson/${idModulo}`)}
+                disabled={!courseStarted}
             >
                 Comenzar
             </button>

@@ -129,7 +129,8 @@
     font-weight: 500;
 }
 
-.start-module {
+.start-module,
+.button-start-course {
     width: fit-content;
     padding: .4rem .8rem;
     background-color: #191919;
@@ -139,6 +140,13 @@
     transition: all .1s ease;
 }
 
-.start-module:hover {
+.start-module:hover,
+.button-start-course:hover {
     background-color: #303030;
+}
+
+.start-module:disabled {
+    opacity: .6;
+    background-color: #303030;
+    cursor: no-drop;
 }
