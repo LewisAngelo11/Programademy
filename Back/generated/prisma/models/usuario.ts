@@ -248,6 +248,7 @@ export type usuarioWhereInput = {
   experiencia_total?: Prisma.IntNullableFilter<"usuario"> | number | null
   fecha_registro?: Prisma.DateTimeNullableFilter<"usuario"> | Date | string | null
   rol?: Prisma.Enumrol_usuarioNullableFilter<"usuario"> | $Enums.rol_usuario | null
+  curso_iniciado?: Prisma.Curso_iniciadoListRelationFilter
   intento_quiz?: Prisma.Intento_quizListRelationFilter
   rango?: Prisma.XOR<Prisma.RangoNullableScalarRelationFilter, Prisma.rangoWhereInput> | null
   usuario_logro?: Prisma.Usuario_logroListRelationFilter
@@ -262,6 +263,7 @@ export type usuarioOrderByWithRelationInput = {
   experiencia_total?: Prisma.SortOrderInput | Prisma.SortOrder
   fecha_registro?: Prisma.SortOrderInput | Prisma.SortOrder
   rol?: Prisma.SortOrderInput | Prisma.SortOrder
+  curso_iniciado?: Prisma.curso_iniciadoOrderByRelationAggregateInput
   intento_quiz?: Prisma.intento_quizOrderByRelationAggregateInput
   rango?: Prisma.rangoOrderByWithRelationInput
   usuario_logro?: Prisma.usuario_logroOrderByRelationAggregateInput
@@ -279,6 +281,7 @@ export type usuarioWhereUniqueInput = Prisma.AtLeast<{
   experiencia_total?: Prisma.IntNullableFilter<"usuario"> | number | null
   fecha_registro?: Prisma.DateTimeNullableFilter<"usuario"> | Date | string | null
   rol?: Prisma.Enumrol_usuarioNullableFilter<"usuario"> | $Enums.rol_usuario | null
+  curso_iniciado?: Prisma.Curso_iniciadoListRelationFilter
   intento_quiz?: Prisma.Intento_quizListRelationFilter
   rango?: Prisma.XOR<Prisma.RangoNullableScalarRelationFilter, Prisma.rangoWhereInput> | null
   usuario_logro?: Prisma.Usuario_logroListRelationFilter
@@ -321,6 +324,7 @@ export type usuarioCreateInput = {
   experiencia_total?: number | null
   fecha_registro?: Date | string | null
   rol?: $Enums.rol_usuario | null
+  curso_iniciado?: Prisma.curso_iniciadoCreateNestedManyWithoutUsuarioInput
   intento_quiz?: Prisma.intento_quizCreateNestedManyWithoutUsuarioInput
   rango?: Prisma.rangoCreateNestedOneWithoutUsuarioInput
   usuario_logro?: Prisma.usuario_logroCreateNestedManyWithoutUsuarioInput
@@ -335,6 +339,7 @@ export type usuarioUncheckedCreateInput = {
   experiencia_total?: number | null
   fecha_registro?: Date | string | null
   rol?: $Enums.rol_usuario | null
+  curso_iniciado?: Prisma.curso_iniciadoUncheckedCreateNestedManyWithoutUsuarioInput
   intento_quiz?: Prisma.intento_quizUncheckedCreateNestedManyWithoutUsuarioInput
   usuario_logro?: Prisma.usuario_logroUncheckedCreateNestedManyWithoutUsuarioInput
 }
@@ -346,6 +351,7 @@ export type usuarioUpdateInput = {
   experiencia_total?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   fecha_registro?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rol?: Prisma.NullableEnumrol_usuarioFieldUpdateOperationsInput | $Enums.rol_usuario | null
+  curso_iniciado?: Prisma.curso_iniciadoUpdateManyWithoutUsuarioNestedInput
   intento_quiz?: Prisma.intento_quizUpdateManyWithoutUsuarioNestedInput
   rango?: Prisma.rangoUpdateOneWithoutUsuarioNestedInput
   usuario_logro?: Prisma.usuario_logroUpdateManyWithoutUsuarioNestedInput
@@ -360,6 +366,7 @@ export type usuarioUncheckedUpdateInput = {
   experiencia_total?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   fecha_registro?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rol?: Prisma.NullableEnumrol_usuarioFieldUpdateOperationsInput | $Enums.rol_usuario | null
+  curso_iniciado?: Prisma.curso_iniciadoUncheckedUpdateManyWithoutUsuarioNestedInput
   intento_quiz?: Prisma.intento_quizUncheckedUpdateManyWithoutUsuarioNestedInput
   usuario_logro?: Prisma.usuario_logroUncheckedUpdateManyWithoutUsuarioNestedInput
 }
@@ -529,6 +536,20 @@ export type usuarioUpdateOneRequiredWithoutUsuario_logroNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.usuarioUpdateToOneWithWhereWithoutUsuario_logroInput, Prisma.usuarioUpdateWithoutUsuario_logroInput>, Prisma.usuarioUncheckedUpdateWithoutUsuario_logroInput>
 }
 
+export type usuarioCreateNestedOneWithoutCurso_iniciadoInput = {
+  create?: Prisma.XOR<Prisma.usuarioCreateWithoutCurso_iniciadoInput, Prisma.usuarioUncheckedCreateWithoutCurso_iniciadoInput>
+  connectOrCreate?: Prisma.usuarioCreateOrConnectWithoutCurso_iniciadoInput
+  connect?: Prisma.usuarioWhereUniqueInput
+}
+
+export type usuarioUpdateOneRequiredWithoutCurso_iniciadoNestedInput = {
+  create?: Prisma.XOR<Prisma.usuarioCreateWithoutCurso_iniciadoInput, Prisma.usuarioUncheckedCreateWithoutCurso_iniciadoInput>
+  connectOrCreate?: Prisma.usuarioCreateOrConnectWithoutCurso_iniciadoInput
+  upsert?: Prisma.usuarioUpsertWithoutCurso_iniciadoInput
+  connect?: Prisma.usuarioWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.usuarioUpdateToOneWithWhereWithoutCurso_iniciadoInput, Prisma.usuarioUpdateWithoutCurso_iniciadoInput>, Prisma.usuarioUncheckedUpdateWithoutCurso_iniciadoInput>
+}
+
 export type usuarioCreateWithoutIntento_quizInput = {
   nombre: string
   email: string
@@ -536,6 +557,7 @@ export type usuarioCreateWithoutIntento_quizInput = {
   experiencia_total?: number | null
   fecha_registro?: Date | string | null
   rol?: $Enums.rol_usuario | null
+  curso_iniciado?: Prisma.curso_iniciadoCreateNestedManyWithoutUsuarioInput
   rango?: Prisma.rangoCreateNestedOneWithoutUsuarioInput
   usuario_logro?: Prisma.usuario_logroCreateNestedManyWithoutUsuarioInput
 }
@@ -549,6 +571,7 @@ export type usuarioUncheckedCreateWithoutIntento_quizInput = {
   experiencia_total?: number | null
   fecha_registro?: Date | string | null
   rol?: $Enums.rol_usuario | null
+  curso_iniciado?: Prisma.curso_iniciadoUncheckedCreateNestedManyWithoutUsuarioInput
   usuario_logro?: Prisma.usuario_logroUncheckedCreateNestedManyWithoutUsuarioInput
 }
 
@@ -575,6 +598,7 @@ export type usuarioUpdateWithoutIntento_quizInput = {
   experiencia_total?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   fecha_registro?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rol?: Prisma.NullableEnumrol_usuarioFieldUpdateOperationsInput | $Enums.rol_usuario | null
+  curso_iniciado?: Prisma.curso_iniciadoUpdateManyWithoutUsuarioNestedInput
   rango?: Prisma.rangoUpdateOneWithoutUsuarioNestedInput
   usuario_logro?: Prisma.usuario_logroUpdateManyWithoutUsuarioNestedInput
 }
@@ -588,6 +612,7 @@ export type usuarioUncheckedUpdateWithoutIntento_quizInput = {
   experiencia_total?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   fecha_registro?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rol?: Prisma.NullableEnumrol_usuarioFieldUpdateOperationsInput | $Enums.rol_usuario | null
+  curso_iniciado?: Prisma.curso_iniciadoUncheckedUpdateManyWithoutUsuarioNestedInput
   usuario_logro?: Prisma.usuario_logroUncheckedUpdateManyWithoutUsuarioNestedInput
 }
 
@@ -598,6 +623,7 @@ export type usuarioCreateWithoutRangoInput = {
   experiencia_total?: number | null
   fecha_registro?: Date | string | null
   rol?: $Enums.rol_usuario | null
+  curso_iniciado?: Prisma.curso_iniciadoCreateNestedManyWithoutUsuarioInput
   intento_quiz?: Prisma.intento_quizCreateNestedManyWithoutUsuarioInput
   usuario_logro?: Prisma.usuario_logroCreateNestedManyWithoutUsuarioInput
 }
@@ -610,6 +636,7 @@ export type usuarioUncheckedCreateWithoutRangoInput = {
   experiencia_total?: number | null
   fecha_registro?: Date | string | null
   rol?: $Enums.rol_usuario | null
+  curso_iniciado?: Prisma.curso_iniciadoUncheckedCreateNestedManyWithoutUsuarioInput
   intento_quiz?: Prisma.intento_quizUncheckedCreateNestedManyWithoutUsuarioInput
   usuario_logro?: Prisma.usuario_logroUncheckedCreateNestedManyWithoutUsuarioInput
 }
@@ -661,6 +688,7 @@ export type usuarioCreateWithoutUsuario_logroInput = {
   experiencia_total?: number | null
   fecha_registro?: Date | string | null
   rol?: $Enums.rol_usuario | null
+  curso_iniciado?: Prisma.curso_iniciadoCreateNestedManyWithoutUsuarioInput
   intento_quiz?: Prisma.intento_quizCreateNestedManyWithoutUsuarioInput
   rango?: Prisma.rangoCreateNestedOneWithoutUsuarioInput
 }
@@ -674,6 +702,7 @@ export type usuarioUncheckedCreateWithoutUsuario_logroInput = {
   experiencia_total?: number | null
   fecha_registro?: Date | string | null
   rol?: $Enums.rol_usuario | null
+  curso_iniciado?: Prisma.curso_iniciadoUncheckedCreateNestedManyWithoutUsuarioInput
   intento_quiz?: Prisma.intento_quizUncheckedCreateNestedManyWithoutUsuarioInput
 }
 
@@ -700,6 +729,7 @@ export type usuarioUpdateWithoutUsuario_logroInput = {
   experiencia_total?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   fecha_registro?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rol?: Prisma.NullableEnumrol_usuarioFieldUpdateOperationsInput | $Enums.rol_usuario | null
+  curso_iniciado?: Prisma.curso_iniciadoUpdateManyWithoutUsuarioNestedInput
   intento_quiz?: Prisma.intento_quizUpdateManyWithoutUsuarioNestedInput
   rango?: Prisma.rangoUpdateOneWithoutUsuarioNestedInput
 }
@@ -713,7 +743,74 @@ export type usuarioUncheckedUpdateWithoutUsuario_logroInput = {
   experiencia_total?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   fecha_registro?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rol?: Prisma.NullableEnumrol_usuarioFieldUpdateOperationsInput | $Enums.rol_usuario | null
+  curso_iniciado?: Prisma.curso_iniciadoUncheckedUpdateManyWithoutUsuarioNestedInput
   intento_quiz?: Prisma.intento_quizUncheckedUpdateManyWithoutUsuarioNestedInput
+}
+
+export type usuarioCreateWithoutCurso_iniciadoInput = {
+  nombre: string
+  email: string
+  password: string
+  experiencia_total?: number | null
+  fecha_registro?: Date | string | null
+  rol?: $Enums.rol_usuario | null
+  intento_quiz?: Prisma.intento_quizCreateNestedManyWithoutUsuarioInput
+  rango?: Prisma.rangoCreateNestedOneWithoutUsuarioInput
+  usuario_logro?: Prisma.usuario_logroCreateNestedManyWithoutUsuarioInput
+}
+
+export type usuarioUncheckedCreateWithoutCurso_iniciadoInput = {
+  id_usuario?: number
+  nombre: string
+  email: string
+  password: string
+  id_rango_actual?: number | null
+  experiencia_total?: number | null
+  fecha_registro?: Date | string | null
+  rol?: $Enums.rol_usuario | null
+  intento_quiz?: Prisma.intento_quizUncheckedCreateNestedManyWithoutUsuarioInput
+  usuario_logro?: Prisma.usuario_logroUncheckedCreateNestedManyWithoutUsuarioInput
+}
+
+export type usuarioCreateOrConnectWithoutCurso_iniciadoInput = {
+  where: Prisma.usuarioWhereUniqueInput
+  create: Prisma.XOR<Prisma.usuarioCreateWithoutCurso_iniciadoInput, Prisma.usuarioUncheckedCreateWithoutCurso_iniciadoInput>
+}
+
+export type usuarioUpsertWithoutCurso_iniciadoInput = {
+  update: Prisma.XOR<Prisma.usuarioUpdateWithoutCurso_iniciadoInput, Prisma.usuarioUncheckedUpdateWithoutCurso_iniciadoInput>
+  create: Prisma.XOR<Prisma.usuarioCreateWithoutCurso_iniciadoInput, Prisma.usuarioUncheckedCreateWithoutCurso_iniciadoInput>
+  where?: Prisma.usuarioWhereInput
+}
+
+export type usuarioUpdateToOneWithWhereWithoutCurso_iniciadoInput = {
+  where?: Prisma.usuarioWhereInput
+  data: Prisma.XOR<Prisma.usuarioUpdateWithoutCurso_iniciadoInput, Prisma.usuarioUncheckedUpdateWithoutCurso_iniciadoInput>
+}
+
+export type usuarioUpdateWithoutCurso_iniciadoInput = {
+  nombre?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  experiencia_total?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fecha_registro?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rol?: Prisma.NullableEnumrol_usuarioFieldUpdateOperationsInput | $Enums.rol_usuario | null
+  intento_quiz?: Prisma.intento_quizUpdateManyWithoutUsuarioNestedInput
+  rango?: Prisma.rangoUpdateOneWithoutUsuarioNestedInput
+  usuario_logro?: Prisma.usuario_logroUpdateManyWithoutUsuarioNestedInput
+}
+
+export type usuarioUncheckedUpdateWithoutCurso_iniciadoInput = {
+  id_usuario?: Prisma.IntFieldUpdateOperationsInput | number
+  nombre?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  id_rango_actual?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  experiencia_total?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fecha_registro?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rol?: Prisma.NullableEnumrol_usuarioFieldUpdateOperationsInput | $Enums.rol_usuario | null
+  intento_quiz?: Prisma.intento_quizUncheckedUpdateManyWithoutUsuarioNestedInput
+  usuario_logro?: Prisma.usuario_logroUncheckedUpdateManyWithoutUsuarioNestedInput
 }
 
 export type usuarioCreateManyRangoInput = {
@@ -733,6 +830,7 @@ export type usuarioUpdateWithoutRangoInput = {
   experiencia_total?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   fecha_registro?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rol?: Prisma.NullableEnumrol_usuarioFieldUpdateOperationsInput | $Enums.rol_usuario | null
+  curso_iniciado?: Prisma.curso_iniciadoUpdateManyWithoutUsuarioNestedInput
   intento_quiz?: Prisma.intento_quizUpdateManyWithoutUsuarioNestedInput
   usuario_logro?: Prisma.usuario_logroUpdateManyWithoutUsuarioNestedInput
 }
@@ -745,6 +843,7 @@ export type usuarioUncheckedUpdateWithoutRangoInput = {
   experiencia_total?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   fecha_registro?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rol?: Prisma.NullableEnumrol_usuarioFieldUpdateOperationsInput | $Enums.rol_usuario | null
+  curso_iniciado?: Prisma.curso_iniciadoUncheckedUpdateManyWithoutUsuarioNestedInput
   intento_quiz?: Prisma.intento_quizUncheckedUpdateManyWithoutUsuarioNestedInput
   usuario_logro?: Prisma.usuario_logroUncheckedUpdateManyWithoutUsuarioNestedInput
 }
@@ -765,11 +864,13 @@ export type usuarioUncheckedUpdateManyWithoutRangoInput = {
  */
 
 export type UsuarioCountOutputType = {
+  curso_iniciado: number
   intento_quiz: number
   usuario_logro: number
 }
 
 export type UsuarioCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  curso_iniciado?: boolean | UsuarioCountOutputTypeCountCurso_iniciadoArgs
   intento_quiz?: boolean | UsuarioCountOutputTypeCountIntento_quizArgs
   usuario_logro?: boolean | UsuarioCountOutputTypeCountUsuario_logroArgs
 }
@@ -782,6 +883,13 @@ export type UsuarioCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Exte
    * Select specific fields to fetch from the UsuarioCountOutputType
    */
   select?: Prisma.UsuarioCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * UsuarioCountOutputType without action
+ */
+export type UsuarioCountOutputTypeCountCurso_iniciadoArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.curso_iniciadoWhereInput
 }
 
 /**
@@ -808,6 +916,7 @@ export type usuarioSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   experiencia_total?: boolean
   fecha_registro?: boolean
   rol?: boolean
+  curso_iniciado?: boolean | Prisma.usuario$curso_iniciadoArgs<ExtArgs>
   intento_quiz?: boolean | Prisma.usuario$intento_quizArgs<ExtArgs>
   rango?: boolean | Prisma.usuario$rangoArgs<ExtArgs>
   usuario_logro?: boolean | Prisma.usuario$usuario_logroArgs<ExtArgs>
@@ -851,6 +960,7 @@ export type usuarioSelectScalar = {
 
 export type usuarioOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id_usuario" | "nombre" | "email" | "password" | "id_rango_actual" | "experiencia_total" | "fecha_registro" | "rol", ExtArgs["result"]["usuario"]>
 export type usuarioInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  curso_iniciado?: boolean | Prisma.usuario$curso_iniciadoArgs<ExtArgs>
   intento_quiz?: boolean | Prisma.usuario$intento_quizArgs<ExtArgs>
   rango?: boolean | Prisma.usuario$rangoArgs<ExtArgs>
   usuario_logro?: boolean | Prisma.usuario$usuario_logroArgs<ExtArgs>
@@ -866,6 +976,7 @@ export type usuarioIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
 export type $usuarioPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "usuario"
   objects: {
+    curso_iniciado: Prisma.$curso_iniciadoPayload<ExtArgs>[]
     intento_quiz: Prisma.$intento_quizPayload<ExtArgs>[]
     rango: Prisma.$rangoPayload<ExtArgs> | null
     usuario_logro: Prisma.$usuario_logroPayload<ExtArgs>[]
@@ -1273,6 +1384,7 @@ readonly fields: usuarioFieldRefs;
  */
 export interface Prisma__usuarioClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  curso_iniciado<T extends Prisma.usuario$curso_iniciadoArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.usuario$curso_iniciadoArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$curso_iniciadoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   intento_quiz<T extends Prisma.usuario$intento_quizArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.usuario$intento_quizArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$intento_quizPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   rango<T extends Prisma.usuario$rangoArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.usuario$rangoArgs<ExtArgs>>): Prisma.Prisma__rangoClient<runtime.Types.Result.GetResult<Prisma.$rangoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   usuario_logro<T extends Prisma.usuario$usuario_logroArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.usuario$usuario_logroArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$usuario_logroPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -1706,6 +1818,30 @@ export type usuarioDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
    * Limit how many usuarios to delete.
    */
   limit?: number
+}
+
+/**
+ * usuario.curso_iniciado
+ */
+export type usuario$curso_iniciadoArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the curso_iniciado
+   */
+  select?: Prisma.curso_iniciadoSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the curso_iniciado
+   */
+  omit?: Prisma.curso_iniciadoOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.curso_iniciadoInclude<ExtArgs> | null
+  where?: Prisma.curso_iniciadoWhereInput
+  orderBy?: Prisma.curso_iniciadoOrderByWithRelationInput | Prisma.curso_iniciadoOrderByWithRelationInput[]
+  cursor?: Prisma.curso_iniciadoWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.Curso_iniciadoScalarFieldEnum | Prisma.Curso_iniciadoScalarFieldEnum[]
 }
 
 /**

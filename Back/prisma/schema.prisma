@@ -73,16 +73,17 @@ model rango {
 
 /// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
 model usuario {
-  id_usuario        Int             @id @default(autoincrement())
-  nombre            String          @db.VarChar(100)
-  email             String          @unique @db.VarChar(150)
-  password          String          @db.VarChar(255)
+  id_usuario        Int              @id @default(autoincrement())
+  nombre            String           @db.VarChar(100)
+  email             String           @unique @db.VarChar(150)
+  password          String           @db.VarChar(255)
   id_rango_actual   Int?
-  experiencia_total Int?            @default(0)
-  fecha_registro    DateTime?       @default(dbgenerated("CURRENT_DATE")) @db.Date
-  rol               rol_usuario?    @default(student)
+  experiencia_total Int?             @default(0)
+  fecha_registro    DateTime?        @default(dbgenerated("CURRENT_DATE")) @db.Date
+  rol               rol_usuario?     @default(student)
+  curso_iniciado    curso_iniciado[]
   intento_quiz      intento_quiz[]
-  rango             rango?          @relation(fields: [id_rango_actual], references: [id_rango], onUpdate: NoAction, map: "fk_usuario_rango")
+  rango             rango?           @relation(fields: [id_rango_actual], references: [id_rango], onUpdate: NoAction, map: "fk_usuario_rango")
   usuario_logro     usuario_logro[]
 }
 
@@ -98,12 +99,13 @@ model usuario_logro {
 }
 
 model curso {
-  id_curso       Int          @id @default(autoincrement())
-  titulo         String       @db.VarChar(50)
-  descripcion    String       @db.VarChar(255)
-  fecha_creacion DateTime?    @default(dbgenerated("CURRENT_DATE")) @db.Date
-  estado         estado_curso @default(activo)
-  imagen_url     String?      @db.VarChar(200)
+  id_curso       Int              @id @default(autoincrement())
+  titulo         String           @db.VarChar(50)
+  descripcion    String           @db.VarChar(255)
+  fecha_creacion DateTime?        @default(dbgenerated("CURRENT_DATE")) @db.Date
+  estado         estado_curso     @default(activo)
+  imagen_url     String?          @db.VarChar(200)
+  curso_iniciado curso_iniciado[]
   modulo         modulo[]
 }
 
@@ -123,6 +125,16 @@ model codigo_ejemplo {
   lenguaje           lenguaje_programacion?
   id_modulo          Int?
   modulo             modulo?                @relation(fields: [id_modulo], references: [id_modulo], onDelete: NoAction, onUpdate: NoAction, map: "fk_modulo_codigo")
+}
+
+model curso_iniciado {
+  id_curso_iniciado Int     @id @default(autoincrement())
+  id_usuario        Int
+  id_curso          Int
+  curso             curso   @relation(fields: [id_curso], references: [id_curso], onDelete: NoAction, onUpdate: NoAction, map: "fk_curso_iniciado_curso")
+  usuario           usuario @relation(fields: [id_usuario], references: [id_usuario], onDelete: NoAction, onUpdate: NoAction, map: "fk_curso_iniciado_usuario")
+
+  @@unique([id_usuario, id_curso], map: "unique_usuario_curso")
 }
 
 enum rol_usuario {

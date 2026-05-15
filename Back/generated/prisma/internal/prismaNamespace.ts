@@ -394,7 +394,8 @@ export const ModelName = {
   usuario_logro: 'usuario_logro',
   curso: 'curso',
   opcion: 'opcion',
-  codigo_ejemplo: 'codigo_ejemplo'
+  codigo_ejemplo: 'codigo_ejemplo',
+  curso_iniciado: 'curso_iniciado'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -410,7 +411,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "intento_quiz" | "logro" | "modulo" | "pregunta" | "quiz" | "rango" | "usuario" | "usuario_logro" | "curso" | "opcion" | "codigo_ejemplo"
+    modelProps: "intento_quiz" | "logro" | "modulo" | "pregunta" | "quiz" | "rango" | "usuario" | "usuario_logro" | "curso" | "opcion" | "codigo_ejemplo" | "curso_iniciado"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1228,6 +1229,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    curso_iniciado: {
+      payload: Prisma.$curso_iniciadoPayload<ExtArgs>
+      fields: Prisma.curso_iniciadoFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.curso_iniciadoFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$curso_iniciadoPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.curso_iniciadoFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$curso_iniciadoPayload>
+        }
+        findFirst: {
+          args: Prisma.curso_iniciadoFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$curso_iniciadoPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.curso_iniciadoFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$curso_iniciadoPayload>
+        }
+        findMany: {
+          args: Prisma.curso_iniciadoFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$curso_iniciadoPayload>[]
+        }
+        create: {
+          args: Prisma.curso_iniciadoCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$curso_iniciadoPayload>
+        }
+        createMany: {
+          args: Prisma.curso_iniciadoCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.curso_iniciadoCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$curso_iniciadoPayload>[]
+        }
+        delete: {
+          args: Prisma.curso_iniciadoDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$curso_iniciadoPayload>
+        }
+        update: {
+          args: Prisma.curso_iniciadoUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$curso_iniciadoPayload>
+        }
+        deleteMany: {
+          args: Prisma.curso_iniciadoDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.curso_iniciadoUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.curso_iniciadoUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$curso_iniciadoPayload>[]
+        }
+        upsert: {
+          args: Prisma.curso_iniciadoUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$curso_iniciadoPayload>
+        }
+        aggregate: {
+          args: Prisma.Curso_iniciadoAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCurso_iniciado>
+        }
+        groupBy: {
+          args: Prisma.curso_iniciadoGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Curso_iniciadoGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.curso_iniciadoCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Curso_iniciadoCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1390,6 +1465,15 @@ export const Codigo_ejemploScalarFieldEnum = {
 } as const
 
 export type Codigo_ejemploScalarFieldEnum = (typeof Codigo_ejemploScalarFieldEnum)[keyof typeof Codigo_ejemploScalarFieldEnum]
+
+
+export const Curso_iniciadoScalarFieldEnum = {
+  id_curso_iniciado: 'id_curso_iniciado',
+  id_usuario: 'id_usuario',
+  id_curso: 'id_curso'
+} as const
+
+export type Curso_iniciadoScalarFieldEnum = (typeof Curso_iniciadoScalarFieldEnum)[keyof typeof Curso_iniciadoScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1660,6 +1744,7 @@ export type GlobalOmitConfig = {
   curso?: Prisma.cursoOmit
   opcion?: Prisma.opcionOmit
   codigo_ejemplo?: Prisma.codigo_ejemploOmit
+  curso_iniciado?: Prisma.curso_iniciadoOmit
 }
 
 /* Types for Logging */

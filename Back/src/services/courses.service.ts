@@ -76,4 +76,35 @@ export class CursoService {
             }
         });
     }
+
+    async verifyCursoStarted(idCurso: number, idUsuario: number): Promise<boolean> {
+        const comenzado = await prisma.curso_iniciado.findFirst({
+            where: {
+                id_curso: idCurso,
+                id_usuario: idUsuario
+            }
+        });
+
+        return comenzado ? true : false;
+    }
+
+    async startedCourse(idCurso: number, idUsuario: number) {
+        return await prisma.curso_iniciado.create({
+            data: {
+                id_curso: idCurso,
+                id_usuario: idUsuario
+            }
+        });
+    }
+
+    async getStartedCourses(idUsuario: number) {
+        return await prisma.curso_iniciado.findMany({
+            where: {
+                id_usuario: idUsuario
+            },
+            include: {
+                curso: true
+            }
+        })
+    }
 }

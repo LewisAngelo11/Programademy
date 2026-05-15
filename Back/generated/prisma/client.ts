@@ -92,3 +92,8 @@ export type opcion = Prisma.opcionModel
  * 
  */
 export type codigo_ejemplo = Prisma.codigo_ejemploModel
+/**
+ * Model curso_iniciado
+ * 
+ */
+export type curso_iniciado = Prisma.curso_iniciadoModel
