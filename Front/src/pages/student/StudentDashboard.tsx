@@ -14,6 +14,15 @@ interface Course {
     imagen_url: string;
 }
 
+interface AttemptQuiz {
+    id_intento: number;
+    id_usuario: number;
+    id_quiz: number;
+    calificacion: number;
+    puntos_otorgados: number;
+    completado_100: boolean;
+}
+
 export default function StudentDashboard() {
     const [loading, setLoading] = useState<boolean>(false);
     const [allCourses, setAllCourses] = useState<Course[]>([]);
@@ -21,6 +30,7 @@ export default function StudentDashboard() {
     const [error, setError] = useState<string>("")
     const [studentName, setStudentName] = useState<string>("");
     const [studentEmail, setStudentEmail] = useState<string>("");
+    const [attempts, setAttempts] = useState<AttemptQuiz[]>([]);
 
     const API_URL = import.meta.env.VITE_API_URL;
 
@@ -106,6 +116,28 @@ export default function StudentDashboard() {
         }
     }
 
+    const getAllAttempts = async () => {
+        const token = localStorage.getItem("token");
+        try {
+            const response = await fetch(`${API_URL}/quiz/allAttempts`, {
+                method: "GET",
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error("Error en la petición");
+            }
+
+            const data = await response.json();
+            setAttempts(data);
+        } catch (error) {
+            console.error();
+        }
+    }
+
     // Filtrar los cursos disponibles de los que ya fueron iniciados y mostrarlos en la UI
     const aviableCourses = allCourses.filter(course => 
         !coursesStarted.some(started => started.id_curso === course.id_curso)
@@ -114,8 +146,13 @@ export default function StudentDashboard() {
     const totalStartedCourses = coursesStarted.length;
     const totalAviableCourses = aviableCourses.length;
 
+    const totalPoints = attempts.reduce((acc, a) => acc += a.calificacion, 0);
+    const totalAverage = totalPoints / attempts.length;
+    const safeAverage = isNaN(totalAverage) ? 0 : totalAverage;
+
     useEffect(() => {
         getAllCourses();
+        getAllAttempts();
         getAllStartedCourses();
         getInfoUser();
     }, []);
@@ -130,6 +167,7 @@ export default function StudentDashboard() {
             <ResumeHome
                 totalStartedCourses={totalStartedCourses}
                 totalAviableCourses={totalAviableCourses}
+                totalAverage={safeAverage}
             />
             <CoursesStartedList
                 coursesStarted={coursesStarted}

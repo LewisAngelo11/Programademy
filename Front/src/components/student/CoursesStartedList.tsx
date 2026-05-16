@@ -31,7 +31,7 @@ export default function CoursesStartedList({ coursesStarted, loading, error }: C
             {error && <p style={{ color: 'red' }}>{error}</p>}
 
             {!loading && !error && coursesStarted.length === 0 && (
-                <p>No hay cursos disponibles. ¡Crea uno nuevo!</p>
+                <p>Sin cursos iniciados</p>
             )}
 
             {!loading && !error && coursesStarted.length > 0 && (

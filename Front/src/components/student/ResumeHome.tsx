@@ -9,11 +9,15 @@ interface TotalAviableCoursesProp {
     totalAviableCourses: number;
 }
 
-export default function ResumeHome({ totalStartedCourses, totalAviableCourses }: TotalStartedCoursesProp & TotalAviableCoursesProp) {
+interface TotalAverageProp {
+    totalAverage: number;
+}
+
+export default function ResumeHome({ totalStartedCourses, totalAviableCourses, totalAverage }: TotalStartedCoursesProp & TotalAviableCoursesProp & TotalAverageProp) {
     return (
         <section className="resume-home">
             <StartedCourses totalAviableCourses={totalAviableCourses} totalStartedCourses={totalStartedCourses} />
-            <TotalAverage/>
+            <TotalAverage totalAverage={totalAverage}/>
             <CompletedQuizzes/>
         </section>
     );
@@ -34,7 +38,7 @@ function StartedCourses({ totalStartedCourses, totalAviableCourses }: TotalStart
     );
 }
 
-function TotalAverage() {
+function TotalAverage({ totalAverage }: TotalAverageProp) {
     return (
         <article className="total-average">
             <header>
@@ -42,7 +46,7 @@ function TotalAverage() {
                 <Trophy fill="#d0b800" />
             </header>
             <div>
-                <span className="average">0%</span>
+                <span className="average">{totalAverage}%</span>
                 <small>En quizzes evaluativos</small>
             </div>
         </article>
