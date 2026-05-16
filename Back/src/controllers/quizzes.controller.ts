@@ -74,6 +74,39 @@ export class QuizController {
     }
   };
 
+  // Crea un intento de quiz
+  createAttempt = async (req: any, res: Response) => {
+    try {
+      const id = parseInt(req.params.id);
+      const idUsuario = parseInt(req.usuario.id);
+      const { calificacion, puntos_otorgados, completado } = req.body;
+
+      const newAttempt = await this.quizService.registerAttempt(id, idUsuario, calificacion, puntos_otorgados, completado);
+
+      res.status(200).json({
+        message: "¡Registro de intento del quiz hecho!",
+        newAttempt
+      });
+    } catch (error) {
+      console.error("Error al registrar el intento del quiz:", error);
+      res.status(500).json({ error: "Error interno del servidor al registrar el intento" });
+    }
+  }
+
+  // Obtener un intento completado
+  getAttemptComplete = async (req: any, res: Response) => {
+    try {
+      const id = parseInt(req.params.id);
+      const idUsuario = parseInt(req.usuario.id);
+      
+      const attemptComplete = await this.quizService.getAttempsComplete(id, idUsuario);
+      res.status(200).json(attemptComplete);
+    } catch (error) {
+      console.error("Error al obtener un intento completado:", error);
+      res.status(500).json({ error: "Error interno del servidor al obtener el intento completado" });
+    }
+  }
+
   // Eliminar un quiz (soft delete)
   delete = async (req: any, res: Response): Promise<void> => {
     try {

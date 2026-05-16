@@ -9,14 +9,14 @@ datasource db {
 
 /// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
 model intento_quiz {
-  id_intento    Int       @id @default(autoincrement())
-  id_usuario    Int
-  id_quiz       Int
-  calificacion  Int?
-  tiempo_tomado Int?
-  fecha_intento DateTime? @default(now()) @db.Timestamp(6)
-  quiz          quiz      @relation(fields: [id_quiz], references: [id_quiz], onDelete: Cascade, onUpdate: NoAction, map: "fk_intento_quiz")
-  usuario       usuario   @relation(fields: [id_usuario], references: [id_usuario], onDelete: Cascade, onUpdate: NoAction, map: "fk_intento_usuario")
+  id_intento       Int      @id @default(autoincrement())
+  id_usuario       Int
+  id_quiz          Int
+  calificacion     Int?
+  puntos_otorgados Int?
+  completado_100   Boolean?
+  quiz             quiz     @relation(fields: [id_quiz], references: [id_quiz], onDelete: Cascade, onUpdate: NoAction, map: "fk_intento_quiz")
+  usuario          usuario  @relation(fields: [id_usuario], references: [id_usuario], onDelete: Cascade, onUpdate: NoAction, map: "fk_intento_usuario")
 }
 
 model logro {
@@ -73,18 +73,18 @@ model rango {
 
 /// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
 model usuario {
-  id_usuario        Int              @id @default(autoincrement())
-  nombre            String           @db.VarChar(100)
-  email             String           @unique @db.VarChar(150)
-  password          String           @db.VarChar(255)
-  id_rango_actual   Int?
-  experiencia_total Int?             @default(0)
-  fecha_registro    DateTime?        @default(dbgenerated("CURRENT_DATE")) @db.Date
-  rol               rol_usuario?     @default(student)
-  curso_iniciado    curso_iniciado[]
-  intento_quiz      intento_quiz[]
-  rango             rango?           @relation(fields: [id_rango_actual], references: [id_rango], onUpdate: NoAction, map: "fk_usuario_rango")
-  usuario_logro     usuario_logro[]
+  id_usuario      Int              @id @default(autoincrement())
+  nombre          String           @db.VarChar(100)
+  email           String           @unique @db.VarChar(150)
+  password        String           @db.VarChar(255)
+  id_rango_actual Int?
+  puntos_totales  Int?             @default(0)
+  fecha_registro  DateTime?        @default(dbgenerated("CURRENT_DATE")) @db.Date
+  rol             rol_usuario?     @default(student)
+  curso_iniciado  curso_iniciado[]
+  intento_quiz    intento_quiz[]
+  rango           rango?           @relation(fields: [id_rango_actual], references: [id_rango], onUpdate: NoAction, map: "fk_usuario_rango")
+  usuario_logro   usuario_logro[]
 }
 
 model usuario_logro {

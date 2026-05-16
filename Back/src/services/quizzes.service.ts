@@ -94,6 +94,54 @@ export class QuizService {
     });
   }
 
+  // Registrar un intento de un quiz
+  async registerAttempt(id_quiz: number, id_usuario: number, calificacion: number, puntos_otorgados: number, completado: boolean) {
+    
+    const userStudent = await prisma.usuario.findUnique({
+      where: { id_usuario: id_usuario, }
+    })
+
+    const attemptQuiz = await prisma.intento_quiz.create({
+      data: {
+        id_quiz: id_quiz,
+        id_usuario: id_usuario,
+        calificacion: calificacion,
+        puntos_otorgados: puntos_otorgados,
+        completado_100: completado ? completado : false
+      },
+      include: {
+        quiz: true,
+      }
+    });
+
+    if (attemptQuiz.completado_100) {
+      const currentPoints = userStudent?.puntos_totales ?? 0;
+      const rewardPoints = attemptQuiz.puntos_otorgados ?? 0;
+      const totalPoints = currentPoints + rewardPoints;
+
+      await prisma.usuario.update({
+        where: {
+          id_usuario: id_usuario
+        },
+        data: {
+          puntos_totales: totalPoints
+        }
+      });
+    }
+
+    return attemptQuiz;
+  }
+
+  async getAttempsComplete(id_quiz: number, id_usuario: number) {
+    return prisma.intento_quiz.findFirst({
+      where: {
+        id_quiz: id_quiz,
+        id_usuario: id_usuario,
+        completado_100: true
+      }
+    });
+  }
+
   // Eliminar un quiz por su ID (Borrado en cascada)
   async deleteQuiz(id_quiz: number) {
     return prisma.quiz.delete({

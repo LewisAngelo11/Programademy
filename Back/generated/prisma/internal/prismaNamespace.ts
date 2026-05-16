@@ -1347,8 +1347,8 @@ export const Intento_quizScalarFieldEnum = {
   id_usuario: 'id_usuario',
   id_quiz: 'id_quiz',
   calificacion: 'calificacion',
-  tiempo_tomado: 'tiempo_tomado',
-  fecha_intento: 'fecha_intento'
+  puntos_otorgados: 'puntos_otorgados',
+  completado_100: 'completado_100'
 } as const
 
 export type Intento_quizScalarFieldEnum = (typeof Intento_quizScalarFieldEnum)[keyof typeof Intento_quizScalarFieldEnum]
@@ -1415,7 +1415,7 @@ export const UsuarioScalarFieldEnum = {
   email: 'email',
   password: 'password',
   id_rango_actual: 'id_rango_actual',
-  experiencia_total: 'experiencia_total',
+  puntos_totales: 'puntos_totales',
   fecha_registro: 'fecha_registro',
   rol: 'rol'
 } as const
@@ -1521,16 +1521,9 @@ export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel,
 
 
 /**
- * Reference to a field of type 'DateTime'
+ * Reference to a field of type 'Boolean'
  */
-export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
-    
-
-
-/**
- * Reference to a field of type 'DateTime[]'
- */
-export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -1577,6 +1570,20 @@ export type ListDecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaMo
 
 
 /**
+ * Reference to a field of type 'DateTime'
+ */
+export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
+    
+
+
+/**
+ * Reference to a field of type 'DateTime[]'
+ */
+export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+/**
  * Reference to a field of type 'rol_usuario'
  */
 export type Enumrol_usuarioFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'rol_usuario'>
@@ -1601,13 +1608,6 @@ export type Enumestado_cursoFieldRefInput<$PrismaModel> = FieldRefInputType<$Pri
  * Reference to a field of type 'estado_curso[]'
  */
 export type ListEnumestado_cursoFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'estado_curso[]'>
-    
-
-
-/**
- * Reference to a field of type 'Boolean'
- */
-export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 

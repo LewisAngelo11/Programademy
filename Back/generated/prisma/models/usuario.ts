@@ -29,13 +29,13 @@ export type AggregateUsuario = {
 export type UsuarioAvgAggregateOutputType = {
   id_usuario: number | null
   id_rango_actual: number | null
-  experiencia_total: number | null
+  puntos_totales: number | null
 }
 
 export type UsuarioSumAggregateOutputType = {
   id_usuario: number | null
   id_rango_actual: number | null
-  experiencia_total: number | null
+  puntos_totales: number | null
 }
 
 export type UsuarioMinAggregateOutputType = {
@@ -44,7 +44,7 @@ export type UsuarioMinAggregateOutputType = {
   email: string | null
   password: string | null
   id_rango_actual: number | null
-  experiencia_total: number | null
+  puntos_totales: number | null
   fecha_registro: Date | null
   rol: $Enums.rol_usuario | null
 }
@@ -55,7 +55,7 @@ export type UsuarioMaxAggregateOutputType = {
   email: string | null
   password: string | null
   id_rango_actual: number | null
-  experiencia_total: number | null
+  puntos_totales: number | null
   fecha_registro: Date | null
   rol: $Enums.rol_usuario | null
 }
@@ -66,7 +66,7 @@ export type UsuarioCountAggregateOutputType = {
   email: number
   password: number
   id_rango_actual: number
-  experiencia_total: number
+  puntos_totales: number
   fecha_registro: number
   rol: number
   _all: number
@@ -76,13 +76,13 @@ export type UsuarioCountAggregateOutputType = {
 export type UsuarioAvgAggregateInputType = {
   id_usuario?: true
   id_rango_actual?: true
-  experiencia_total?: true
+  puntos_totales?: true
 }
 
 export type UsuarioSumAggregateInputType = {
   id_usuario?: true
   id_rango_actual?: true
-  experiencia_total?: true
+  puntos_totales?: true
 }
 
 export type UsuarioMinAggregateInputType = {
@@ -91,7 +91,7 @@ export type UsuarioMinAggregateInputType = {
   email?: true
   password?: true
   id_rango_actual?: true
-  experiencia_total?: true
+  puntos_totales?: true
   fecha_registro?: true
   rol?: true
 }
@@ -102,7 +102,7 @@ export type UsuarioMaxAggregateInputType = {
   email?: true
   password?: true
   id_rango_actual?: true
-  experiencia_total?: true
+  puntos_totales?: true
   fecha_registro?: true
   rol?: true
 }
@@ -113,7 +113,7 @@ export type UsuarioCountAggregateInputType = {
   email?: true
   password?: true
   id_rango_actual?: true
-  experiencia_total?: true
+  puntos_totales?: true
   fecha_registro?: true
   rol?: true
   _all?: true
@@ -211,7 +211,7 @@ export type UsuarioGroupByOutputType = {
   email: string
   password: string
   id_rango_actual: number | null
-  experiencia_total: number | null
+  puntos_totales: number | null
   fecha_registro: Date | null
   rol: $Enums.rol_usuario | null
   _count: UsuarioCountAggregateOutputType | null
@@ -245,7 +245,7 @@ export type usuarioWhereInput = {
   email?: Prisma.StringFilter<"usuario"> | string
   password?: Prisma.StringFilter<"usuario"> | string
   id_rango_actual?: Prisma.IntNullableFilter<"usuario"> | number | null
-  experiencia_total?: Prisma.IntNullableFilter<"usuario"> | number | null
+  puntos_totales?: Prisma.IntNullableFilter<"usuario"> | number | null
   fecha_registro?: Prisma.DateTimeNullableFilter<"usuario"> | Date | string | null
   rol?: Prisma.Enumrol_usuarioNullableFilter<"usuario"> | $Enums.rol_usuario | null
   curso_iniciado?: Prisma.Curso_iniciadoListRelationFilter
@@ -260,7 +260,7 @@ export type usuarioOrderByWithRelationInput = {
   email?: Prisma.SortOrder
   password?: Prisma.SortOrder
   id_rango_actual?: Prisma.SortOrderInput | Prisma.SortOrder
-  experiencia_total?: Prisma.SortOrderInput | Prisma.SortOrder
+  puntos_totales?: Prisma.SortOrderInput | Prisma.SortOrder
   fecha_registro?: Prisma.SortOrderInput | Prisma.SortOrder
   rol?: Prisma.SortOrderInput | Prisma.SortOrder
   curso_iniciado?: Prisma.curso_iniciadoOrderByRelationAggregateInput
@@ -278,7 +278,7 @@ export type usuarioWhereUniqueInput = Prisma.AtLeast<{
   nombre?: Prisma.StringFilter<"usuario"> | string
   password?: Prisma.StringFilter<"usuario"> | string
   id_rango_actual?: Prisma.IntNullableFilter<"usuario"> | number | null
-  experiencia_total?: Prisma.IntNullableFilter<"usuario"> | number | null
+  puntos_totales?: Prisma.IntNullableFilter<"usuario"> | number | null
   fecha_registro?: Prisma.DateTimeNullableFilter<"usuario"> | Date | string | null
   rol?: Prisma.Enumrol_usuarioNullableFilter<"usuario"> | $Enums.rol_usuario | null
   curso_iniciado?: Prisma.Curso_iniciadoListRelationFilter
@@ -293,7 +293,7 @@ export type usuarioOrderByWithAggregationInput = {
   email?: Prisma.SortOrder
   password?: Prisma.SortOrder
   id_rango_actual?: Prisma.SortOrderInput | Prisma.SortOrder
-  experiencia_total?: Prisma.SortOrderInput | Prisma.SortOrder
+  puntos_totales?: Prisma.SortOrderInput | Prisma.SortOrder
   fecha_registro?: Prisma.SortOrderInput | Prisma.SortOrder
   rol?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.usuarioCountOrderByAggregateInput
@@ -312,7 +312,7 @@ export type usuarioScalarWhereWithAggregatesInput = {
   email?: Prisma.StringWithAggregatesFilter<"usuario"> | string
   password?: Prisma.StringWithAggregatesFilter<"usuario"> | string
   id_rango_actual?: Prisma.IntNullableWithAggregatesFilter<"usuario"> | number | null
-  experiencia_total?: Prisma.IntNullableWithAggregatesFilter<"usuario"> | number | null
+  puntos_totales?: Prisma.IntNullableWithAggregatesFilter<"usuario"> | number | null
   fecha_registro?: Prisma.DateTimeNullableWithAggregatesFilter<"usuario"> | Date | string | null
   rol?: Prisma.Enumrol_usuarioNullableWithAggregatesFilter<"usuario"> | $Enums.rol_usuario | null
 }
@@ -321,7 +321,7 @@ export type usuarioCreateInput = {
   nombre: string
   email: string
   password: string
-  experiencia_total?: number | null
+  puntos_totales?: number | null
   fecha_registro?: Date | string | null
   rol?: $Enums.rol_usuario | null
   curso_iniciado?: Prisma.curso_iniciadoCreateNestedManyWithoutUsuarioInput
@@ -336,7 +336,7 @@ export type usuarioUncheckedCreateInput = {
   email: string
   password: string
   id_rango_actual?: number | null
-  experiencia_total?: number | null
+  puntos_totales?: number | null
   fecha_registro?: Date | string | null
   rol?: $Enums.rol_usuario | null
   curso_iniciado?: Prisma.curso_iniciadoUncheckedCreateNestedManyWithoutUsuarioInput
@@ -348,7 +348,7 @@ export type usuarioUpdateInput = {
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
-  experiencia_total?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  puntos_totales?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   fecha_registro?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rol?: Prisma.NullableEnumrol_usuarioFieldUpdateOperationsInput | $Enums.rol_usuario | null
   curso_iniciado?: Prisma.curso_iniciadoUpdateManyWithoutUsuarioNestedInput
@@ -363,7 +363,7 @@ export type usuarioUncheckedUpdateInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   id_rango_actual?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  experiencia_total?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  puntos_totales?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   fecha_registro?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rol?: Prisma.NullableEnumrol_usuarioFieldUpdateOperationsInput | $Enums.rol_usuario | null
   curso_iniciado?: Prisma.curso_iniciadoUncheckedUpdateManyWithoutUsuarioNestedInput
@@ -377,7 +377,7 @@ export type usuarioCreateManyInput = {
   email: string
   password: string
   id_rango_actual?: number | null
-  experiencia_total?: number | null
+  puntos_totales?: number | null
   fecha_registro?: Date | string | null
   rol?: $Enums.rol_usuario | null
 }
@@ -386,7 +386,7 @@ export type usuarioUpdateManyMutationInput = {
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
-  experiencia_total?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  puntos_totales?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   fecha_registro?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rol?: Prisma.NullableEnumrol_usuarioFieldUpdateOperationsInput | $Enums.rol_usuario | null
 }
@@ -397,7 +397,7 @@ export type usuarioUncheckedUpdateManyInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   id_rango_actual?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  experiencia_total?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  puntos_totales?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   fecha_registro?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rol?: Prisma.NullableEnumrol_usuarioFieldUpdateOperationsInput | $Enums.rol_usuario | null
 }
@@ -423,7 +423,7 @@ export type usuarioCountOrderByAggregateInput = {
   email?: Prisma.SortOrder
   password?: Prisma.SortOrder
   id_rango_actual?: Prisma.SortOrder
-  experiencia_total?: Prisma.SortOrder
+  puntos_totales?: Prisma.SortOrder
   fecha_registro?: Prisma.SortOrder
   rol?: Prisma.SortOrder
 }
@@ -431,7 +431,7 @@ export type usuarioCountOrderByAggregateInput = {
 export type usuarioAvgOrderByAggregateInput = {
   id_usuario?: Prisma.SortOrder
   id_rango_actual?: Prisma.SortOrder
-  experiencia_total?: Prisma.SortOrder
+  puntos_totales?: Prisma.SortOrder
 }
 
 export type usuarioMaxOrderByAggregateInput = {
@@ -440,7 +440,7 @@ export type usuarioMaxOrderByAggregateInput = {
   email?: Prisma.SortOrder
   password?: Prisma.SortOrder
   id_rango_actual?: Prisma.SortOrder
-  experiencia_total?: Prisma.SortOrder
+  puntos_totales?: Prisma.SortOrder
   fecha_registro?: Prisma.SortOrder
   rol?: Prisma.SortOrder
 }
@@ -451,7 +451,7 @@ export type usuarioMinOrderByAggregateInput = {
   email?: Prisma.SortOrder
   password?: Prisma.SortOrder
   id_rango_actual?: Prisma.SortOrder
-  experiencia_total?: Prisma.SortOrder
+  puntos_totales?: Prisma.SortOrder
   fecha_registro?: Prisma.SortOrder
   rol?: Prisma.SortOrder
 }
@@ -459,7 +459,7 @@ export type usuarioMinOrderByAggregateInput = {
 export type usuarioSumOrderByAggregateInput = {
   id_usuario?: Prisma.SortOrder
   id_rango_actual?: Prisma.SortOrder
-  experiencia_total?: Prisma.SortOrder
+  puntos_totales?: Prisma.SortOrder
 }
 
 export type usuarioCreateNestedOneWithoutIntento_quizInput = {
@@ -518,6 +518,10 @@ export type usuarioUncheckedUpdateManyWithoutRangoNestedInput = {
   deleteMany?: Prisma.usuarioScalarWhereInput | Prisma.usuarioScalarWhereInput[]
 }
 
+export type NullableDateTimeFieldUpdateOperationsInput = {
+  set?: Date | string | null
+}
+
 export type NullableEnumrol_usuarioFieldUpdateOperationsInput = {
   set?: $Enums.rol_usuario | null
 }
@@ -554,7 +558,7 @@ export type usuarioCreateWithoutIntento_quizInput = {
   nombre: string
   email: string
   password: string
-  experiencia_total?: number | null
+  puntos_totales?: number | null
   fecha_registro?: Date | string | null
   rol?: $Enums.rol_usuario | null
   curso_iniciado?: Prisma.curso_iniciadoCreateNestedManyWithoutUsuarioInput
@@ -568,7 +572,7 @@ export type usuarioUncheckedCreateWithoutIntento_quizInput = {
   email: string
   password: string
   id_rango_actual?: number | null
-  experiencia_total?: number | null
+  puntos_totales?: number | null
   fecha_registro?: Date | string | null
   rol?: $Enums.rol_usuario | null
   curso_iniciado?: Prisma.curso_iniciadoUncheckedCreateNestedManyWithoutUsuarioInput
@@ -595,7 +599,7 @@ export type usuarioUpdateWithoutIntento_quizInput = {
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
-  experiencia_total?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  puntos_totales?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   fecha_registro?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rol?: Prisma.NullableEnumrol_usuarioFieldUpdateOperationsInput | $Enums.rol_usuario | null
   curso_iniciado?: Prisma.curso_iniciadoUpdateManyWithoutUsuarioNestedInput
@@ -609,7 +613,7 @@ export type usuarioUncheckedUpdateWithoutIntento_quizInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   id_rango_actual?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  experiencia_total?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  puntos_totales?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   fecha_registro?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rol?: Prisma.NullableEnumrol_usuarioFieldUpdateOperationsInput | $Enums.rol_usuario | null
   curso_iniciado?: Prisma.curso_iniciadoUncheckedUpdateManyWithoutUsuarioNestedInput
@@ -620,7 +624,7 @@ export type usuarioCreateWithoutRangoInput = {
   nombre: string
   email: string
   password: string
-  experiencia_total?: number | null
+  puntos_totales?: number | null
   fecha_registro?: Date | string | null
   rol?: $Enums.rol_usuario | null
   curso_iniciado?: Prisma.curso_iniciadoCreateNestedManyWithoutUsuarioInput
@@ -633,7 +637,7 @@ export type usuarioUncheckedCreateWithoutRangoInput = {
   nombre: string
   email: string
   password: string
-  experiencia_total?: number | null
+  puntos_totales?: number | null
   fecha_registro?: Date | string | null
   rol?: $Enums.rol_usuario | null
   curso_iniciado?: Prisma.curso_iniciadoUncheckedCreateNestedManyWithoutUsuarioInput
@@ -676,7 +680,7 @@ export type usuarioScalarWhereInput = {
   email?: Prisma.StringFilter<"usuario"> | string
   password?: Prisma.StringFilter<"usuario"> | string
   id_rango_actual?: Prisma.IntNullableFilter<"usuario"> | number | null
-  experiencia_total?: Prisma.IntNullableFilter<"usuario"> | number | null
+  puntos_totales?: Prisma.IntNullableFilter<"usuario"> | number | null
   fecha_registro?: Prisma.DateTimeNullableFilter<"usuario"> | Date | string | null
   rol?: Prisma.Enumrol_usuarioNullableFilter<"usuario"> | $Enums.rol_usuario | null
 }
@@ -685,7 +689,7 @@ export type usuarioCreateWithoutUsuario_logroInput = {
   nombre: string
   email: string
   password: string
-  experiencia_total?: number | null
+  puntos_totales?: number | null
   fecha_registro?: Date | string | null
   rol?: $Enums.rol_usuario | null
   curso_iniciado?: Prisma.curso_iniciadoCreateNestedManyWithoutUsuarioInput
@@ -699,7 +703,7 @@ export type usuarioUncheckedCreateWithoutUsuario_logroInput = {
   email: string
   password: string
   id_rango_actual?: number | null
-  experiencia_total?: number | null
+  puntos_totales?: number | null
   fecha_registro?: Date | string | null
   rol?: $Enums.rol_usuario | null
   curso_iniciado?: Prisma.curso_iniciadoUncheckedCreateNestedManyWithoutUsuarioInput
@@ -726,7 +730,7 @@ export type usuarioUpdateWithoutUsuario_logroInput = {
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
-  experiencia_total?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  puntos_totales?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   fecha_registro?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rol?: Prisma.NullableEnumrol_usuarioFieldUpdateOperationsInput | $Enums.rol_usuario | null
   curso_iniciado?: Prisma.curso_iniciadoUpdateManyWithoutUsuarioNestedInput
@@ -740,7 +744,7 @@ export type usuarioUncheckedUpdateWithoutUsuario_logroInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   id_rango_actual?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  experiencia_total?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  puntos_totales?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   fecha_registro?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rol?: Prisma.NullableEnumrol_usuarioFieldUpdateOperationsInput | $Enums.rol_usuario | null
   curso_iniciado?: Prisma.curso_iniciadoUncheckedUpdateManyWithoutUsuarioNestedInput
@@ -751,7 +755,7 @@ export type usuarioCreateWithoutCurso_iniciadoInput = {
   nombre: string
   email: string
   password: string
-  experiencia_total?: number | null
+  puntos_totales?: number | null
   fecha_registro?: Date | string | null
   rol?: $Enums.rol_usuario | null
   intento_quiz?: Prisma.intento_quizCreateNestedManyWithoutUsuarioInput
@@ -765,7 +769,7 @@ export type usuarioUncheckedCreateWithoutCurso_iniciadoInput = {
   email: string
   password: string
   id_rango_actual?: number | null
-  experiencia_total?: number | null
+  puntos_totales?: number | null
   fecha_registro?: Date | string | null
   rol?: $Enums.rol_usuario | null
   intento_quiz?: Prisma.intento_quizUncheckedCreateNestedManyWithoutUsuarioInput
@@ -792,7 +796,7 @@ export type usuarioUpdateWithoutCurso_iniciadoInput = {
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
-  experiencia_total?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  puntos_totales?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   fecha_registro?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rol?: Prisma.NullableEnumrol_usuarioFieldUpdateOperationsInput | $Enums.rol_usuario | null
   intento_quiz?: Prisma.intento_quizUpdateManyWithoutUsuarioNestedInput
@@ -806,7 +810,7 @@ export type usuarioUncheckedUpdateWithoutCurso_iniciadoInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   id_rango_actual?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  experiencia_total?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  puntos_totales?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   fecha_registro?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rol?: Prisma.NullableEnumrol_usuarioFieldUpdateOperationsInput | $Enums.rol_usuario | null
   intento_quiz?: Prisma.intento_quizUncheckedUpdateManyWithoutUsuarioNestedInput
@@ -818,7 +822,7 @@ export type usuarioCreateManyRangoInput = {
   nombre: string
   email: string
   password: string
-  experiencia_total?: number | null
+  puntos_totales?: number | null
   fecha_registro?: Date | string | null
   rol?: $Enums.rol_usuario | null
 }
@@ -827,7 +831,7 @@ export type usuarioUpdateWithoutRangoInput = {
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
-  experiencia_total?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  puntos_totales?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   fecha_registro?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rol?: Prisma.NullableEnumrol_usuarioFieldUpdateOperationsInput | $Enums.rol_usuario | null
   curso_iniciado?: Prisma.curso_iniciadoUpdateManyWithoutUsuarioNestedInput
@@ -840,7 +844,7 @@ export type usuarioUncheckedUpdateWithoutRangoInput = {
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
-  experiencia_total?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  puntos_totales?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   fecha_registro?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rol?: Prisma.NullableEnumrol_usuarioFieldUpdateOperationsInput | $Enums.rol_usuario | null
   curso_iniciado?: Prisma.curso_iniciadoUncheckedUpdateManyWithoutUsuarioNestedInput
@@ -853,7 +857,7 @@ export type usuarioUncheckedUpdateManyWithoutRangoInput = {
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
-  experiencia_total?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  puntos_totales?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   fecha_registro?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rol?: Prisma.NullableEnumrol_usuarioFieldUpdateOperationsInput | $Enums.rol_usuario | null
 }
@@ -913,7 +917,7 @@ export type usuarioSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   email?: boolean
   password?: boolean
   id_rango_actual?: boolean
-  experiencia_total?: boolean
+  puntos_totales?: boolean
   fecha_registro?: boolean
   rol?: boolean
   curso_iniciado?: boolean | Prisma.usuario$curso_iniciadoArgs<ExtArgs>
@@ -929,7 +933,7 @@ export type usuarioSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   email?: boolean
   password?: boolean
   id_rango_actual?: boolean
-  experiencia_total?: boolean
+  puntos_totales?: boolean
   fecha_registro?: boolean
   rol?: boolean
   rango?: boolean | Prisma.usuario$rangoArgs<ExtArgs>
@@ -941,7 +945,7 @@ export type usuarioSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   email?: boolean
   password?: boolean
   id_rango_actual?: boolean
-  experiencia_total?: boolean
+  puntos_totales?: boolean
   fecha_registro?: boolean
   rol?: boolean
   rango?: boolean | Prisma.usuario$rangoArgs<ExtArgs>
@@ -953,12 +957,12 @@ export type usuarioSelectScalar = {
   email?: boolean
   password?: boolean
   id_rango_actual?: boolean
-  experiencia_total?: boolean
+  puntos_totales?: boolean
   fecha_registro?: boolean
   rol?: boolean
 }
 
-export type usuarioOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id_usuario" | "nombre" | "email" | "password" | "id_rango_actual" | "experiencia_total" | "fecha_registro" | "rol", ExtArgs["result"]["usuario"]>
+export type usuarioOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id_usuario" | "nombre" | "email" | "password" | "id_rango_actual" | "puntos_totales" | "fecha_registro" | "rol", ExtArgs["result"]["usuario"]>
 export type usuarioInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   curso_iniciado?: boolean | Prisma.usuario$curso_iniciadoArgs<ExtArgs>
   intento_quiz?: boolean | Prisma.usuario$intento_quizArgs<ExtArgs>
@@ -987,7 +991,7 @@ export type $usuarioPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     email: string
     password: string
     id_rango_actual: number | null
-    experiencia_total: number | null
+    puntos_totales: number | null
     fecha_registro: Date | null
     rol: $Enums.rol_usuario | null
   }, ExtArgs["result"]["usuario"]>
@@ -1422,7 +1426,7 @@ export interface usuarioFieldRefs {
   readonly email: Prisma.FieldRef<"usuario", 'String'>
   readonly password: Prisma.FieldRef<"usuario", 'String'>
   readonly id_rango_actual: Prisma.FieldRef<"usuario", 'Int'>
-  readonly experiencia_total: Prisma.FieldRef<"usuario", 'Int'>
+  readonly puntos_totales: Prisma.FieldRef<"usuario", 'Int'>
   readonly fecha_registro: Prisma.FieldRef<"usuario", 'DateTime'>
   readonly rol: Prisma.FieldRef<"usuario", 'rol_usuario'>
 }

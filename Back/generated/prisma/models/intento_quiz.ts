@@ -31,7 +31,7 @@ export type Intento_quizAvgAggregateOutputType = {
   id_usuario: number | null
   id_quiz: number | null
   calificacion: number | null
-  tiempo_tomado: number | null
+  puntos_otorgados: number | null
 }
 
 export type Intento_quizSumAggregateOutputType = {
@@ -39,7 +39,7 @@ export type Intento_quizSumAggregateOutputType = {
   id_usuario: number | null
   id_quiz: number | null
   calificacion: number | null
-  tiempo_tomado: number | null
+  puntos_otorgados: number | null
 }
 
 export type Intento_quizMinAggregateOutputType = {
@@ -47,8 +47,8 @@ export type Intento_quizMinAggregateOutputType = {
   id_usuario: number | null
   id_quiz: number | null
   calificacion: number | null
-  tiempo_tomado: number | null
-  fecha_intento: Date | null
+  puntos_otorgados: number | null
+  completado_100: boolean | null
 }
 
 export type Intento_quizMaxAggregateOutputType = {
@@ -56,8 +56,8 @@ export type Intento_quizMaxAggregateOutputType = {
   id_usuario: number | null
   id_quiz: number | null
   calificacion: number | null
-  tiempo_tomado: number | null
-  fecha_intento: Date | null
+  puntos_otorgados: number | null
+  completado_100: boolean | null
 }
 
 export type Intento_quizCountAggregateOutputType = {
@@ -65,8 +65,8 @@ export type Intento_quizCountAggregateOutputType = {
   id_usuario: number
   id_quiz: number
   calificacion: number
-  tiempo_tomado: number
-  fecha_intento: number
+  puntos_otorgados: number
+  completado_100: number
   _all: number
 }
 
@@ -76,7 +76,7 @@ export type Intento_quizAvgAggregateInputType = {
   id_usuario?: true
   id_quiz?: true
   calificacion?: true
-  tiempo_tomado?: true
+  puntos_otorgados?: true
 }
 
 export type Intento_quizSumAggregateInputType = {
@@ -84,7 +84,7 @@ export type Intento_quizSumAggregateInputType = {
   id_usuario?: true
   id_quiz?: true
   calificacion?: true
-  tiempo_tomado?: true
+  puntos_otorgados?: true
 }
 
 export type Intento_quizMinAggregateInputType = {
@@ -92,8 +92,8 @@ export type Intento_quizMinAggregateInputType = {
   id_usuario?: true
   id_quiz?: true
   calificacion?: true
-  tiempo_tomado?: true
-  fecha_intento?: true
+  puntos_otorgados?: true
+  completado_100?: true
 }
 
 export type Intento_quizMaxAggregateInputType = {
@@ -101,8 +101,8 @@ export type Intento_quizMaxAggregateInputType = {
   id_usuario?: true
   id_quiz?: true
   calificacion?: true
-  tiempo_tomado?: true
-  fecha_intento?: true
+  puntos_otorgados?: true
+  completado_100?: true
 }
 
 export type Intento_quizCountAggregateInputType = {
@@ -110,8 +110,8 @@ export type Intento_quizCountAggregateInputType = {
   id_usuario?: true
   id_quiz?: true
   calificacion?: true
-  tiempo_tomado?: true
-  fecha_intento?: true
+  puntos_otorgados?: true
+  completado_100?: true
   _all?: true
 }
 
@@ -206,8 +206,8 @@ export type Intento_quizGroupByOutputType = {
   id_usuario: number
   id_quiz: number
   calificacion: number | null
-  tiempo_tomado: number | null
-  fecha_intento: Date | null
+  puntos_otorgados: number | null
+  completado_100: boolean | null
   _count: Intento_quizCountAggregateOutputType | null
   _avg: Intento_quizAvgAggregateOutputType | null
   _sum: Intento_quizSumAggregateOutputType | null
@@ -238,8 +238,8 @@ export type intento_quizWhereInput = {
   id_usuario?: Prisma.IntFilter<"intento_quiz"> | number
   id_quiz?: Prisma.IntFilter<"intento_quiz"> | number
   calificacion?: Prisma.IntNullableFilter<"intento_quiz"> | number | null
-  tiempo_tomado?: Prisma.IntNullableFilter<"intento_quiz"> | number | null
-  fecha_intento?: Prisma.DateTimeNullableFilter<"intento_quiz"> | Date | string | null
+  puntos_otorgados?: Prisma.IntNullableFilter<"intento_quiz"> | number | null
+  completado_100?: Prisma.BoolNullableFilter<"intento_quiz"> | boolean | null
   quiz?: Prisma.XOR<Prisma.QuizScalarRelationFilter, Prisma.quizWhereInput>
   usuario?: Prisma.XOR<Prisma.UsuarioScalarRelationFilter, Prisma.usuarioWhereInput>
 }
@@ -249,8 +249,8 @@ export type intento_quizOrderByWithRelationInput = {
   id_usuario?: Prisma.SortOrder
   id_quiz?: Prisma.SortOrder
   calificacion?: Prisma.SortOrderInput | Prisma.SortOrder
-  tiempo_tomado?: Prisma.SortOrderInput | Prisma.SortOrder
-  fecha_intento?: Prisma.SortOrderInput | Prisma.SortOrder
+  puntos_otorgados?: Prisma.SortOrderInput | Prisma.SortOrder
+  completado_100?: Prisma.SortOrderInput | Prisma.SortOrder
   quiz?: Prisma.quizOrderByWithRelationInput
   usuario?: Prisma.usuarioOrderByWithRelationInput
 }
@@ -263,8 +263,8 @@ export type intento_quizWhereUniqueInput = Prisma.AtLeast<{
   id_usuario?: Prisma.IntFilter<"intento_quiz"> | number
   id_quiz?: Prisma.IntFilter<"intento_quiz"> | number
   calificacion?: Prisma.IntNullableFilter<"intento_quiz"> | number | null
-  tiempo_tomado?: Prisma.IntNullableFilter<"intento_quiz"> | number | null
-  fecha_intento?: Prisma.DateTimeNullableFilter<"intento_quiz"> | Date | string | null
+  puntos_otorgados?: Prisma.IntNullableFilter<"intento_quiz"> | number | null
+  completado_100?: Prisma.BoolNullableFilter<"intento_quiz"> | boolean | null
   quiz?: Prisma.XOR<Prisma.QuizScalarRelationFilter, Prisma.quizWhereInput>
   usuario?: Prisma.XOR<Prisma.UsuarioScalarRelationFilter, Prisma.usuarioWhereInput>
 }, "id_intento">
@@ -274,8 +274,8 @@ export type intento_quizOrderByWithAggregationInput = {
   id_usuario?: Prisma.SortOrder
   id_quiz?: Prisma.SortOrder
   calificacion?: Prisma.SortOrderInput | Prisma.SortOrder
-  tiempo_tomado?: Prisma.SortOrderInput | Prisma.SortOrder
-  fecha_intento?: Prisma.SortOrderInput | Prisma.SortOrder
+  puntos_otorgados?: Prisma.SortOrderInput | Prisma.SortOrder
+  completado_100?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.intento_quizCountOrderByAggregateInput
   _avg?: Prisma.intento_quizAvgOrderByAggregateInput
   _max?: Prisma.intento_quizMaxOrderByAggregateInput
@@ -291,14 +291,14 @@ export type intento_quizScalarWhereWithAggregatesInput = {
   id_usuario?: Prisma.IntWithAggregatesFilter<"intento_quiz"> | number
   id_quiz?: Prisma.IntWithAggregatesFilter<"intento_quiz"> | number
   calificacion?: Prisma.IntNullableWithAggregatesFilter<"intento_quiz"> | number | null
-  tiempo_tomado?: Prisma.IntNullableWithAggregatesFilter<"intento_quiz"> | number | null
-  fecha_intento?: Prisma.DateTimeNullableWithAggregatesFilter<"intento_quiz"> | Date | string | null
+  puntos_otorgados?: Prisma.IntNullableWithAggregatesFilter<"intento_quiz"> | number | null
+  completado_100?: Prisma.BoolNullableWithAggregatesFilter<"intento_quiz"> | boolean | null
 }
 
 export type intento_quizCreateInput = {
   calificacion?: number | null
-  tiempo_tomado?: number | null
-  fecha_intento?: Date | string | null
+  puntos_otorgados?: number | null
+  completado_100?: boolean | null
   quiz: Prisma.quizCreateNestedOneWithoutIntento_quizInput
   usuario: Prisma.usuarioCreateNestedOneWithoutIntento_quizInput
 }
@@ -308,14 +308,14 @@ export type intento_quizUncheckedCreateInput = {
   id_usuario: number
   id_quiz: number
   calificacion?: number | null
-  tiempo_tomado?: number | null
-  fecha_intento?: Date | string | null
+  puntos_otorgados?: number | null
+  completado_100?: boolean | null
 }
 
 export type intento_quizUpdateInput = {
   calificacion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  tiempo_tomado?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  fecha_intento?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  puntos_otorgados?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  completado_100?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   quiz?: Prisma.quizUpdateOneRequiredWithoutIntento_quizNestedInput
   usuario?: Prisma.usuarioUpdateOneRequiredWithoutIntento_quizNestedInput
 }
@@ -325,8 +325,8 @@ export type intento_quizUncheckedUpdateInput = {
   id_usuario?: Prisma.IntFieldUpdateOperationsInput | number
   id_quiz?: Prisma.IntFieldUpdateOperationsInput | number
   calificacion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  tiempo_tomado?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  fecha_intento?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  puntos_otorgados?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  completado_100?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
 }
 
 export type intento_quizCreateManyInput = {
@@ -334,14 +334,14 @@ export type intento_quizCreateManyInput = {
   id_usuario: number
   id_quiz: number
   calificacion?: number | null
-  tiempo_tomado?: number | null
-  fecha_intento?: Date | string | null
+  puntos_otorgados?: number | null
+  completado_100?: boolean | null
 }
 
 export type intento_quizUpdateManyMutationInput = {
   calificacion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  tiempo_tomado?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  fecha_intento?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  puntos_otorgados?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  completado_100?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
 }
 
 export type intento_quizUncheckedUpdateManyInput = {
@@ -349,8 +349,8 @@ export type intento_quizUncheckedUpdateManyInput = {
   id_usuario?: Prisma.IntFieldUpdateOperationsInput | number
   id_quiz?: Prisma.IntFieldUpdateOperationsInput | number
   calificacion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  tiempo_tomado?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  fecha_intento?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  puntos_otorgados?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  completado_100?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
 }
 
 export type intento_quizCountOrderByAggregateInput = {
@@ -358,8 +358,8 @@ export type intento_quizCountOrderByAggregateInput = {
   id_usuario?: Prisma.SortOrder
   id_quiz?: Prisma.SortOrder
   calificacion?: Prisma.SortOrder
-  tiempo_tomado?: Prisma.SortOrder
-  fecha_intento?: Prisma.SortOrder
+  puntos_otorgados?: Prisma.SortOrder
+  completado_100?: Prisma.SortOrder
 }
 
 export type intento_quizAvgOrderByAggregateInput = {
@@ -367,7 +367,7 @@ export type intento_quizAvgOrderByAggregateInput = {
   id_usuario?: Prisma.SortOrder
   id_quiz?: Prisma.SortOrder
   calificacion?: Prisma.SortOrder
-  tiempo_tomado?: Prisma.SortOrder
+  puntos_otorgados?: Prisma.SortOrder
 }
 
 export type intento_quizMaxOrderByAggregateInput = {
@@ -375,8 +375,8 @@ export type intento_quizMaxOrderByAggregateInput = {
   id_usuario?: Prisma.SortOrder
   id_quiz?: Prisma.SortOrder
   calificacion?: Prisma.SortOrder
-  tiempo_tomado?: Prisma.SortOrder
-  fecha_intento?: Prisma.SortOrder
+  puntos_otorgados?: Prisma.SortOrder
+  completado_100?: Prisma.SortOrder
 }
 
 export type intento_quizMinOrderByAggregateInput = {
@@ -384,8 +384,8 @@ export type intento_quizMinOrderByAggregateInput = {
   id_usuario?: Prisma.SortOrder
   id_quiz?: Prisma.SortOrder
   calificacion?: Prisma.SortOrder
-  tiempo_tomado?: Prisma.SortOrder
-  fecha_intento?: Prisma.SortOrder
+  puntos_otorgados?: Prisma.SortOrder
+  completado_100?: Prisma.SortOrder
 }
 
 export type intento_quizSumOrderByAggregateInput = {
@@ -393,7 +393,7 @@ export type intento_quizSumOrderByAggregateInput = {
   id_usuario?: Prisma.SortOrder
   id_quiz?: Prisma.SortOrder
   calificacion?: Prisma.SortOrder
-  tiempo_tomado?: Prisma.SortOrder
+  puntos_otorgados?: Prisma.SortOrder
 }
 
 export type Intento_quizListRelationFilter = {
@@ -414,8 +414,8 @@ export type NullableIntFieldUpdateOperationsInput = {
   divide?: number
 }
 
-export type NullableDateTimeFieldUpdateOperationsInput = {
-  set?: Date | string | null
+export type NullableBoolFieldUpdateOperationsInput = {
+  set?: boolean | null
 }
 
 export type IntFieldUpdateOperationsInput = {
@@ -512,8 +512,8 @@ export type intento_quizUncheckedUpdateManyWithoutUsuarioNestedInput = {
 
 export type intento_quizCreateWithoutQuizInput = {
   calificacion?: number | null
-  tiempo_tomado?: number | null
-  fecha_intento?: Date | string | null
+  puntos_otorgados?: number | null
+  completado_100?: boolean | null
   usuario: Prisma.usuarioCreateNestedOneWithoutIntento_quizInput
 }
 
@@ -521,8 +521,8 @@ export type intento_quizUncheckedCreateWithoutQuizInput = {
   id_intento?: number
   id_usuario: number
   calificacion?: number | null
-  tiempo_tomado?: number | null
-  fecha_intento?: Date | string | null
+  puntos_otorgados?: number | null
+  completado_100?: boolean | null
 }
 
 export type intento_quizCreateOrConnectWithoutQuizInput = {
@@ -559,14 +559,14 @@ export type intento_quizScalarWhereInput = {
   id_usuario?: Prisma.IntFilter<"intento_quiz"> | number
   id_quiz?: Prisma.IntFilter<"intento_quiz"> | number
   calificacion?: Prisma.IntNullableFilter<"intento_quiz"> | number | null
-  tiempo_tomado?: Prisma.IntNullableFilter<"intento_quiz"> | number | null
-  fecha_intento?: Prisma.DateTimeNullableFilter<"intento_quiz"> | Date | string | null
+  puntos_otorgados?: Prisma.IntNullableFilter<"intento_quiz"> | number | null
+  completado_100?: Prisma.BoolNullableFilter<"intento_quiz"> | boolean | null
 }
 
 export type intento_quizCreateWithoutUsuarioInput = {
   calificacion?: number | null
-  tiempo_tomado?: number | null
-  fecha_intento?: Date | string | null
+  puntos_otorgados?: number | null
+  completado_100?: boolean | null
   quiz: Prisma.quizCreateNestedOneWithoutIntento_quizInput
 }
 
@@ -574,8 +574,8 @@ export type intento_quizUncheckedCreateWithoutUsuarioInput = {
   id_intento?: number
   id_quiz: number
   calificacion?: number | null
-  tiempo_tomado?: number | null
-  fecha_intento?: Date | string | null
+  puntos_otorgados?: number | null
+  completado_100?: boolean | null
 }
 
 export type intento_quizCreateOrConnectWithoutUsuarioInput = {
@@ -608,14 +608,14 @@ export type intento_quizCreateManyQuizInput = {
   id_intento?: number
   id_usuario: number
   calificacion?: number | null
-  tiempo_tomado?: number | null
-  fecha_intento?: Date | string | null
+  puntos_otorgados?: number | null
+  completado_100?: boolean | null
 }
 
 export type intento_quizUpdateWithoutQuizInput = {
   calificacion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  tiempo_tomado?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  fecha_intento?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  puntos_otorgados?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  completado_100?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   usuario?: Prisma.usuarioUpdateOneRequiredWithoutIntento_quizNestedInput
 }
 
@@ -623,30 +623,30 @@ export type intento_quizUncheckedUpdateWithoutQuizInput = {
   id_intento?: Prisma.IntFieldUpdateOperationsInput | number
   id_usuario?: Prisma.IntFieldUpdateOperationsInput | number
   calificacion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  tiempo_tomado?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  fecha_intento?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  puntos_otorgados?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  completado_100?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
 }
 
 export type intento_quizUncheckedUpdateManyWithoutQuizInput = {
   id_intento?: Prisma.IntFieldUpdateOperationsInput | number
   id_usuario?: Prisma.IntFieldUpdateOperationsInput | number
   calificacion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  tiempo_tomado?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  fecha_intento?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  puntos_otorgados?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  completado_100?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
 }
 
 export type intento_quizCreateManyUsuarioInput = {
   id_intento?: number
   id_quiz: number
   calificacion?: number | null
-  tiempo_tomado?: number | null
-  fecha_intento?: Date | string | null
+  puntos_otorgados?: number | null
+  completado_100?: boolean | null
 }
 
 export type intento_quizUpdateWithoutUsuarioInput = {
   calificacion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  tiempo_tomado?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  fecha_intento?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  puntos_otorgados?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  completado_100?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   quiz?: Prisma.quizUpdateOneRequiredWithoutIntento_quizNestedInput
 }
 
@@ -654,16 +654,16 @@ export type intento_quizUncheckedUpdateWithoutUsuarioInput = {
   id_intento?: Prisma.IntFieldUpdateOperationsInput | number
   id_quiz?: Prisma.IntFieldUpdateOperationsInput | number
   calificacion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  tiempo_tomado?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  fecha_intento?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  puntos_otorgados?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  completado_100?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
 }
 
 export type intento_quizUncheckedUpdateManyWithoutUsuarioInput = {
   id_intento?: Prisma.IntFieldUpdateOperationsInput | number
   id_quiz?: Prisma.IntFieldUpdateOperationsInput | number
   calificacion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  tiempo_tomado?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  fecha_intento?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  puntos_otorgados?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  completado_100?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
 }
 
 
@@ -673,8 +673,8 @@ export type intento_quizSelect<ExtArgs extends runtime.Types.Extensions.Internal
   id_usuario?: boolean
   id_quiz?: boolean
   calificacion?: boolean
-  tiempo_tomado?: boolean
-  fecha_intento?: boolean
+  puntos_otorgados?: boolean
+  completado_100?: boolean
   quiz?: boolean | Prisma.quizDefaultArgs<ExtArgs>
   usuario?: boolean | Prisma.usuarioDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["intento_quiz"]>
@@ -684,8 +684,8 @@ export type intento_quizSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   id_usuario?: boolean
   id_quiz?: boolean
   calificacion?: boolean
-  tiempo_tomado?: boolean
-  fecha_intento?: boolean
+  puntos_otorgados?: boolean
+  completado_100?: boolean
   quiz?: boolean | Prisma.quizDefaultArgs<ExtArgs>
   usuario?: boolean | Prisma.usuarioDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["intento_quiz"]>
@@ -695,8 +695,8 @@ export type intento_quizSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   id_usuario?: boolean
   id_quiz?: boolean
   calificacion?: boolean
-  tiempo_tomado?: boolean
-  fecha_intento?: boolean
+  puntos_otorgados?: boolean
+  completado_100?: boolean
   quiz?: boolean | Prisma.quizDefaultArgs<ExtArgs>
   usuario?: boolean | Prisma.usuarioDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["intento_quiz"]>
@@ -706,11 +706,11 @@ export type intento_quizSelectScalar = {
   id_usuario?: boolean
   id_quiz?: boolean
   calificacion?: boolean
-  tiempo_tomado?: boolean
-  fecha_intento?: boolean
+  puntos_otorgados?: boolean
+  completado_100?: boolean
 }
 
-export type intento_quizOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id_intento" | "id_usuario" | "id_quiz" | "calificacion" | "tiempo_tomado" | "fecha_intento", ExtArgs["result"]["intento_quiz"]>
+export type intento_quizOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id_intento" | "id_usuario" | "id_quiz" | "calificacion" | "puntos_otorgados" | "completado_100", ExtArgs["result"]["intento_quiz"]>
 export type intento_quizInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   quiz?: boolean | Prisma.quizDefaultArgs<ExtArgs>
   usuario?: boolean | Prisma.usuarioDefaultArgs<ExtArgs>
@@ -735,8 +735,8 @@ export type $intento_quizPayload<ExtArgs extends runtime.Types.Extensions.Intern
     id_usuario: number
     id_quiz: number
     calificacion: number | null
-    tiempo_tomado: number | null
-    fecha_intento: Date | null
+    puntos_otorgados: number | null
+    completado_100: boolean | null
   }, ExtArgs["result"]["intento_quiz"]>
   composites: {}
 }
@@ -1166,8 +1166,8 @@ export interface intento_quizFieldRefs {
   readonly id_usuario: Prisma.FieldRef<"intento_quiz", 'Int'>
   readonly id_quiz: Prisma.FieldRef<"intento_quiz", 'Int'>
   readonly calificacion: Prisma.FieldRef<"intento_quiz", 'Int'>
-  readonly tiempo_tomado: Prisma.FieldRef<"intento_quiz", 'Int'>
-  readonly fecha_intento: Prisma.FieldRef<"intento_quiz", 'DateTime'>
+  readonly puntos_otorgados: Prisma.FieldRef<"intento_quiz", 'Int'>
+  readonly completado_100: Prisma.FieldRef<"intento_quiz", 'Boolean'>
 }
     
 
