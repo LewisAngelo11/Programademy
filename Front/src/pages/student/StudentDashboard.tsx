@@ -23,6 +23,13 @@ interface AttemptQuiz {
     completado_100: boolean;
 }
 
+interface UserRange {
+    id_rango: number;
+    titulo: string;
+    puntos_requeridos: number;
+    icono: string;
+}
+
 export default function StudentDashboard() {
     const [loading, setLoading] = useState<boolean>(false);
     const [allCourses, setAllCourses] = useState<Course[]>([]);
@@ -31,6 +38,7 @@ export default function StudentDashboard() {
     const [studentName, setStudentName] = useState<string>("");
     const [studentEmail, setStudentEmail] = useState<string>("");
     const [attempts, setAttempts] = useState<AttemptQuiz[]>([]);
+    const [range, setRange] = useState<UserRange>();
 
     const API_URL = import.meta.env.VITE_API_URL;
 
@@ -110,9 +118,31 @@ export default function StudentDashboard() {
             setStudentName(dataUsuario.nombre);
             setStudentEmail(dataUsuario.email);
         } catch (err) {
-            console.error();
+            console.error("Error en al obtener la info del usuario", err);
         } finally {
             setLoading(false);
+        }
+    }
+
+    // Obtener el rango del usuario
+    const getUserRange = async () => {
+        const token = localStorage.getItem("token");
+        try {
+            const response = await fetch(`${API_URL}/usuario/getRange`, {
+                method: "GET",
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error("Error en la petición");
+            }
+            const data = await response.json();
+            setRange(data);
+        } catch (err) {
+            console.error("Error al obtener el rango del usuario:", err);
         }
     }
 
@@ -150,11 +180,15 @@ export default function StudentDashboard() {
     const totalAverage = totalPoints / attempts.length;
     const safeAverage = isNaN(totalAverage) ? 0 : totalAverage;
 
+    // Obtiene los quiz completados por el usuario
+    const quizCompleted = attempts.reduce((acc, q) => q.completado_100 ? acc += 1 : acc, 0);
+
     useEffect(() => {
         getAllCourses();
         getAllAttempts();
         getAllStartedCourses();
         getInfoUser();
+        getUserRange();
     }, []);
 
     return(
@@ -163,16 +197,19 @@ export default function StudentDashboard() {
                 studentName={studentName}
                 studentEmail={studentEmail}
                 loading={loading}
+                range={range}
             />
             <ResumeHome
                 totalStartedCourses={totalStartedCourses}
                 totalAviableCourses={totalAviableCourses}
                 totalAverage={safeAverage}
+                quizCompleted={quizCompleted}
             />
             <CoursesStartedList
                 coursesStarted={coursesStarted}
                 loading={loading} error={error}
             />
+            <hr />
             <CoursesList
                 courses={aviableCourses}
                 loading={loading} 
