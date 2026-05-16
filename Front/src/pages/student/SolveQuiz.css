@@ -43,7 +43,8 @@
 }
 
 /* Card */
-.solve-quiz-card {
+.solve-quiz-card,
+.solve-quiz-card-complete {
   background: #ffffff;
   width: 100%;
   max-width: 800px;
@@ -53,6 +54,11 @@
   box-sizing: border-box;
   margin-bottom: 3rem;
   border: 1px solid #e2e8f0;
+}
+
+.solve-quiz-card-complete {
+  display: flex;
+  flex-direction: column;
 }
 
 .text-center {
@@ -281,7 +287,8 @@
   font-size: 1.1rem;
   font-weight: 600;
   color: #10b981;
-  margin-top: 0.5rem;
+  margin-top: 0.8rem;
+  margin-bottom: 0.2rem;
 }
 
 .summary-text {

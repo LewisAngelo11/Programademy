@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router";
-import { getOneQuiz } from "../../services/quizServices";
+import { createAttempt, getAttemptComplete, getOneQuiz } from "../../services/quizServices";
 import { ArrowLeftStroke, CheckCircle, InfoCircle } from "@boxicons/react";
 import "./SolveQuiz.css";
 
@@ -28,6 +28,15 @@ interface Quiz {
     pregunta: Pregunta[];
 }
 
+interface AttemptQuiz {
+    id_intento: number;
+    id_usuario: number;
+    id_quiz: number;
+    calificacion: number;
+    puntos_otorgados: number;
+    completado_100: boolean;
+}
+
 export default function SolveQuiz() {
     const { id } = useParams();
     const navigate = useNavigate();
@@ -39,29 +48,46 @@ export default function SolveQuiz() {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [answers, setAnswers] = useState<Record<number, number>>({});
     const [isFinished, setIsFinished] = useState(false);
+    const [isCompleted, setIsCompleted] = useState<AttemptQuiz>();
+
+    const getAttempsQuiz = async () => {
+        const token = localStorage.getItem("token");
+        if (!token) {
+            navigate("/");
+            return;
+        }
+
+        try {
+            const data = await getAttemptComplete(token, Number(id));
+            setIsCompleted(data);
+        } catch (err: any) {
+            setError(err.message || "Error al cargar el intento del quiz");
+        }
+    }
+
+    const fetchQuiz = async () => {
+        const token = localStorage.getItem("token");
+        if (!token) {
+            navigate("/");
+            return;
+        }
+
+        try {
+            setLoading(true);
+            const data = await getOneQuiz(token, Number(id));
+            setQuiz(data);
+        } catch (err: any) {
+            setError(err.message || "Error al cargar el quiz");
+        } finally {
+            setLoading(false);
+        }
+    };
 
     // Use effect que se activa cuando id o navigate cambien
     useEffect(() => {
-        const fetchQuiz = async () => {
-            const token = localStorage.getItem("token");
-            if (!token) {
-                navigate("/");
-                return;
-            }
-
-            try {
-                setLoading(true);
-                const data = await getOneQuiz(token, Number(id));
-                setQuiz(data);
-            } catch (err: any) {
-                setError(err.message || "Error al cargar el quiz");
-            } finally {
-                setLoading(false);
-            }
-        };
-
         // Si hay un id del quiz, llama la función
         if (id) {
+            getAttempsQuiz();
             fetchQuiz();
         }
     }, [id, navigate]);
@@ -99,12 +125,35 @@ export default function SolveQuiz() {
         });
     };
 
-    const handleNext = () => {
+    const handleNext = async () => {
         if (currentIndex < totalQuestions - 1) {
             setCurrentIndex(currentIndex + 1);
         } else {
             setIsFinished(true);
-            // Aquí en un futuro se podría enviar el intento al backend
+            const correctAnswers = calculateScore() // Caclula el resultado
+            const scorePercentage = (correctAnswers / totalQuestions) * 100; // Calificación final del intento
+            const pointsQuiz = correctAnswers === totalQuestions ? Number(quiz.puntos_recompensa) : 0;
+            const complete = pointsQuiz > 0 ? true : false;
+
+            try {
+                const token = localStorage.getItem("token");
+                if (!token) {
+                    navigate("/");
+                    return;
+                }
+
+                const body = {
+                    calificacion: scorePercentage,
+                    puntos_otorgados: pointsQuiz,
+                    completado: complete
+                };
+
+                // Guardar el intento del qiuz
+                const data = await createAttempt(token, Number(id), body);
+                console.log(data);
+            } catch (error) {
+                console.error("Error al registrar el intento del quiz:", error);
+            }
         }
     };
 
@@ -168,6 +217,44 @@ export default function SolveQuiz() {
             </div>
         );
     }
+
+    if (isCompleted) {
+        return (
+            <div className="solve-quiz-page">
+                <header className="header-solve-quiz">
+                    <button
+                        className="button-back-quiz"
+                        onClick={() => navigate(-1)}>
+                        <ArrowLeftStroke />
+                            Volver al Curso
+                        </button>
+                </header>
+
+                <main className="solve-quiz-card-complete summary-container slide-up">
+                    <div className="icon-wrapper">
+                        <CheckCircle size="lg" color="#4f46e5" />
+                    </div>
+                    <h2>¡Evaluación Ya Completada!</h2>
+                    <div className="summary-score-container">
+                        <div style={{ marginBottom: '0.3rem', color: '#4f46e5', fontSize: '1rem' }}>
+                            Calificación Obtenida
+                        </div>
+                        <div className="summary-score">
+                            {isCompleted.calificacion}%
+                        </div>
+                        <span className="summary-points">
+                            {isCompleted.puntos_otorgados} Puntos Obtenidos
+                        </span>
+                    </div>
+                    <button className="nav-button finish w-submit" onClick={() => navigate(-1)}>
+                        Volver al Módulo
+                    </button>
+                </main>
+            </div>
+        );
+    }
+
+    console.log(isCompleted);
 
     // Asegurarse de que el quiz tenga al menos una pregunta antes de renderizar
     if (!currentQuestion) {
