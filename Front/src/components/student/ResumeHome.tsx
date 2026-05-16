@@ -13,12 +13,16 @@ interface TotalAverageProp {
     totalAverage: number;
 }
 
-export default function ResumeHome({ totalStartedCourses, totalAviableCourses, totalAverage }: TotalStartedCoursesProp & TotalAviableCoursesProp & TotalAverageProp) {
+interface QuizCompletedProp {
+    quizCompleted: number;
+}
+
+export default function ResumeHome({ totalStartedCourses, totalAviableCourses, totalAverage, quizCompleted }: TotalStartedCoursesProp & TotalAviableCoursesProp & TotalAverageProp & QuizCompletedProp) {
     return (
         <section className="resume-home">
             <StartedCourses totalAviableCourses={totalAviableCourses} totalStartedCourses={totalStartedCourses} />
             <TotalAverage totalAverage={totalAverage}/>
-            <CompletedQuizzes/>
+            <CompletedQuizzes quizCompleted={quizCompleted}/>
         </section>
     );
 }
@@ -53,7 +57,7 @@ function TotalAverage({ totalAverage }: TotalAverageProp) {
     )
 }
 
-function CompletedQuizzes() {
+function CompletedQuizzes({ quizCompleted }: QuizCompletedProp) {
     return (
         <article className="completed-quizzes">
             <header>
@@ -61,7 +65,7 @@ function CompletedQuizzes() {
                 <TrendingUp fill="#00b20a" />
             </header>
             <div>
-                <span className="completed-counter">0</span>
+                <span className="completed-counter">{quizCompleted}</span>
                 <small>Evaluaciones realizadas</small>
             </div>
         </article>

@@ -7,3 +7,10 @@
     gap: .2rem;
     background-color: #f9fafb;
 }
+
+hr {
+    height: 2px;
+    background: #3c3c3c;
+    width: 95%;
+    border-radius: 5px;
+}

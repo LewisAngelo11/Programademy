@@ -24,7 +24,7 @@ export default function CoursesStartedList({ coursesStarted, loading, error }: C
     return (
         <section className="courses-list-section">
             <header className="header-courses-list">
-                <h2>Mis Cursos</h2>
+                <h2>Mis Lista de Cursos</h2>
             </header>
             {loading && <p>Cargando cursos...</p>}
 
