@@ -93,6 +93,18 @@ export class QuizController {
     }
   }
 
+  // Obtener todos los intentos del usuario
+  getAllAtempts = async (req: any, res: Response) => {
+    try {
+      const idUsuario = parseInt(req.usuario.id);
+      const allAttempts = await this.quizService.getAllAttempts(idUsuario);
+      res.status(200).json(allAttempts);
+    } catch (error) {
+      console.error("Error al obtener los intentos:", error);
+      res.status(500).json({ error: "Error interno del servidor al obtener los intentos" });
+    }
+  }
+
   // Obtener un intento completado
   getAttemptComplete = async (req: any, res: Response) => {
     try {

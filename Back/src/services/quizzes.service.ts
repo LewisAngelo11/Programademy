@@ -131,6 +131,14 @@ export class QuizService {
 
     return attemptQuiz;
   }
+  
+  async getAllAttempts(id_usuario: number) {
+    return prisma.intento_quiz.findMany({
+      where: {
+        id_usuario: id_usuario
+      }
+    });
+  }
 
   async getAttempsComplete(id_quiz: number, id_usuario: number) {
     return prisma.intento_quiz.findFirst({

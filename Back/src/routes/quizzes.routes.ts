@@ -20,6 +20,9 @@ router.put('/update/:id', verifyTokenJWT, quizController.update);
 // Registrar un intento se quiz
 router.post('/attemptQuiz/:id', verifyTokenJWT, quizController.createAttempt);
 
+// Obtener todos los intentos del usuario
+router.get('/allAttempts', verifyTokenJWT, quizController.getAllAtempts);
+
 // Obtener un intento completado
 router.get('/attemptComplete/:id', verifyTokenJWT, quizController.getAttemptComplete);
 
