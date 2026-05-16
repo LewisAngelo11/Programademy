@@ -28,32 +28,32 @@ export type AggregateRango = {
 
 export type RangoAvgAggregateOutputType = {
   id_rango: number | null
-  min_experiencia: number | null
+  puntos_requeridos: number | null
 }
 
 export type RangoSumAggregateOutputType = {
   id_rango: number | null
-  min_experiencia: number | null
+  puntos_requeridos: number | null
 }
 
 export type RangoMinAggregateOutputType = {
   id_rango: number | null
   titulo: string | null
-  min_experiencia: number | null
+  puntos_requeridos: number | null
   icono: string | null
 }
 
 export type RangoMaxAggregateOutputType = {
   id_rango: number | null
   titulo: string | null
-  min_experiencia: number | null
+  puntos_requeridos: number | null
   icono: string | null
 }
 
 export type RangoCountAggregateOutputType = {
   id_rango: number
   titulo: number
-  min_experiencia: number
+  puntos_requeridos: number
   icono: number
   _all: number
 }
@@ -61,32 +61,32 @@ export type RangoCountAggregateOutputType = {
 
 export type RangoAvgAggregateInputType = {
   id_rango?: true
-  min_experiencia?: true
+  puntos_requeridos?: true
 }
 
 export type RangoSumAggregateInputType = {
   id_rango?: true
-  min_experiencia?: true
+  puntos_requeridos?: true
 }
 
 export type RangoMinAggregateInputType = {
   id_rango?: true
   titulo?: true
-  min_experiencia?: true
+  puntos_requeridos?: true
   icono?: true
 }
 
 export type RangoMaxAggregateInputType = {
   id_rango?: true
   titulo?: true
-  min_experiencia?: true
+  puntos_requeridos?: true
   icono?: true
 }
 
 export type RangoCountAggregateInputType = {
   id_rango?: true
   titulo?: true
-  min_experiencia?: true
+  puntos_requeridos?: true
   icono?: true
   _all?: true
 }
@@ -180,7 +180,7 @@ export type rangoGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
 export type RangoGroupByOutputType = {
   id_rango: number
   titulo: string
-  min_experiencia: number
+  puntos_requeridos: number
   icono: string | null
   _count: RangoCountAggregateOutputType | null
   _avg: RangoAvgAggregateOutputType | null
@@ -210,7 +210,7 @@ export type rangoWhereInput = {
   NOT?: Prisma.rangoWhereInput | Prisma.rangoWhereInput[]
   id_rango?: Prisma.IntFilter<"rango"> | number
   titulo?: Prisma.StringFilter<"rango"> | string
-  min_experiencia?: Prisma.IntFilter<"rango"> | number
+  puntos_requeridos?: Prisma.IntFilter<"rango"> | number
   icono?: Prisma.StringNullableFilter<"rango"> | string | null
   usuario?: Prisma.UsuarioListRelationFilter
 }
@@ -218,7 +218,7 @@ export type rangoWhereInput = {
 export type rangoOrderByWithRelationInput = {
   id_rango?: Prisma.SortOrder
   titulo?: Prisma.SortOrder
-  min_experiencia?: Prisma.SortOrder
+  puntos_requeridos?: Prisma.SortOrder
   icono?: Prisma.SortOrderInput | Prisma.SortOrder
   usuario?: Prisma.usuarioOrderByRelationAggregateInput
 }
@@ -229,7 +229,7 @@ export type rangoWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.rangoWhereInput[]
   NOT?: Prisma.rangoWhereInput | Prisma.rangoWhereInput[]
   titulo?: Prisma.StringFilter<"rango"> | string
-  min_experiencia?: Prisma.IntFilter<"rango"> | number
+  puntos_requeridos?: Prisma.IntFilter<"rango"> | number
   icono?: Prisma.StringNullableFilter<"rango"> | string | null
   usuario?: Prisma.UsuarioListRelationFilter
 }, "id_rango">
@@ -237,7 +237,7 @@ export type rangoWhereUniqueInput = Prisma.AtLeast<{
 export type rangoOrderByWithAggregationInput = {
   id_rango?: Prisma.SortOrder
   titulo?: Prisma.SortOrder
-  min_experiencia?: Prisma.SortOrder
+  puntos_requeridos?: Prisma.SortOrder
   icono?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.rangoCountOrderByAggregateInput
   _avg?: Prisma.rangoAvgOrderByAggregateInput
@@ -252,13 +252,13 @@ export type rangoScalarWhereWithAggregatesInput = {
   NOT?: Prisma.rangoScalarWhereWithAggregatesInput | Prisma.rangoScalarWhereWithAggregatesInput[]
   id_rango?: Prisma.IntWithAggregatesFilter<"rango"> | number
   titulo?: Prisma.StringWithAggregatesFilter<"rango"> | string
-  min_experiencia?: Prisma.IntWithAggregatesFilter<"rango"> | number
+  puntos_requeridos?: Prisma.IntWithAggregatesFilter<"rango"> | number
   icono?: Prisma.StringNullableWithAggregatesFilter<"rango"> | string | null
 }
 
 export type rangoCreateInput = {
   titulo: string
-  min_experiencia: number
+  puntos_requeridos: number
   icono?: string | null
   usuario?: Prisma.usuarioCreateNestedManyWithoutRangoInput
 }
@@ -266,14 +266,14 @@ export type rangoCreateInput = {
 export type rangoUncheckedCreateInput = {
   id_rango?: number
   titulo: string
-  min_experiencia: number
+  puntos_requeridos: number
   icono?: string | null
   usuario?: Prisma.usuarioUncheckedCreateNestedManyWithoutRangoInput
 }
 
 export type rangoUpdateInput = {
   titulo?: Prisma.StringFieldUpdateOperationsInput | string
-  min_experiencia?: Prisma.IntFieldUpdateOperationsInput | number
+  puntos_requeridos?: Prisma.IntFieldUpdateOperationsInput | number
   icono?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   usuario?: Prisma.usuarioUpdateManyWithoutRangoNestedInput
 }
@@ -281,7 +281,7 @@ export type rangoUpdateInput = {
 export type rangoUncheckedUpdateInput = {
   id_rango?: Prisma.IntFieldUpdateOperationsInput | number
   titulo?: Prisma.StringFieldUpdateOperationsInput | string
-  min_experiencia?: Prisma.IntFieldUpdateOperationsInput | number
+  puntos_requeridos?: Prisma.IntFieldUpdateOperationsInput | number
   icono?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   usuario?: Prisma.usuarioUncheckedUpdateManyWithoutRangoNestedInput
 }
@@ -289,52 +289,52 @@ export type rangoUncheckedUpdateInput = {
 export type rangoCreateManyInput = {
   id_rango?: number
   titulo: string
-  min_experiencia: number
+  puntos_requeridos: number
   icono?: string | null
 }
 
 export type rangoUpdateManyMutationInput = {
   titulo?: Prisma.StringFieldUpdateOperationsInput | string
-  min_experiencia?: Prisma.IntFieldUpdateOperationsInput | number
+  puntos_requeridos?: Prisma.IntFieldUpdateOperationsInput | number
   icono?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type rangoUncheckedUpdateManyInput = {
   id_rango?: Prisma.IntFieldUpdateOperationsInput | number
   titulo?: Prisma.StringFieldUpdateOperationsInput | string
-  min_experiencia?: Prisma.IntFieldUpdateOperationsInput | number
+  puntos_requeridos?: Prisma.IntFieldUpdateOperationsInput | number
   icono?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type rangoCountOrderByAggregateInput = {
   id_rango?: Prisma.SortOrder
   titulo?: Prisma.SortOrder
-  min_experiencia?: Prisma.SortOrder
+  puntos_requeridos?: Prisma.SortOrder
   icono?: Prisma.SortOrder
 }
 
 export type rangoAvgOrderByAggregateInput = {
   id_rango?: Prisma.SortOrder
-  min_experiencia?: Prisma.SortOrder
+  puntos_requeridos?: Prisma.SortOrder
 }
 
 export type rangoMaxOrderByAggregateInput = {
   id_rango?: Prisma.SortOrder
   titulo?: Prisma.SortOrder
-  min_experiencia?: Prisma.SortOrder
+  puntos_requeridos?: Prisma.SortOrder
   icono?: Prisma.SortOrder
 }
 
 export type rangoMinOrderByAggregateInput = {
   id_rango?: Prisma.SortOrder
   titulo?: Prisma.SortOrder
-  min_experiencia?: Prisma.SortOrder
+  puntos_requeridos?: Prisma.SortOrder
   icono?: Prisma.SortOrder
 }
 
 export type rangoSumOrderByAggregateInput = {
   id_rango?: Prisma.SortOrder
-  min_experiencia?: Prisma.SortOrder
+  puntos_requeridos?: Prisma.SortOrder
 }
 
 export type RangoNullableScalarRelationFilter = {
@@ -360,14 +360,14 @@ export type rangoUpdateOneWithoutUsuarioNestedInput = {
 
 export type rangoCreateWithoutUsuarioInput = {
   titulo: string
-  min_experiencia: number
+  puntos_requeridos: number
   icono?: string | null
 }
 
 export type rangoUncheckedCreateWithoutUsuarioInput = {
   id_rango?: number
   titulo: string
-  min_experiencia: number
+  puntos_requeridos: number
   icono?: string | null
 }
 
@@ -389,14 +389,14 @@ export type rangoUpdateToOneWithWhereWithoutUsuarioInput = {
 
 export type rangoUpdateWithoutUsuarioInput = {
   titulo?: Prisma.StringFieldUpdateOperationsInput | string
-  min_experiencia?: Prisma.IntFieldUpdateOperationsInput | number
+  puntos_requeridos?: Prisma.IntFieldUpdateOperationsInput | number
   icono?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type rangoUncheckedUpdateWithoutUsuarioInput = {
   id_rango?: Prisma.IntFieldUpdateOperationsInput | number
   titulo?: Prisma.StringFieldUpdateOperationsInput | string
-  min_experiencia?: Prisma.IntFieldUpdateOperationsInput | number
+  puntos_requeridos?: Prisma.IntFieldUpdateOperationsInput | number
   icono?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
@@ -434,7 +434,7 @@ export type RangoCountOutputTypeCountUsuarioArgs<ExtArgs extends runtime.Types.E
 export type rangoSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id_rango?: boolean
   titulo?: boolean
-  min_experiencia?: boolean
+  puntos_requeridos?: boolean
   icono?: boolean
   usuario?: boolean | Prisma.rango$usuarioArgs<ExtArgs>
   _count?: boolean | Prisma.RangoCountOutputTypeDefaultArgs<ExtArgs>
@@ -443,25 +443,25 @@ export type rangoSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
 export type rangoSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id_rango?: boolean
   titulo?: boolean
-  min_experiencia?: boolean
+  puntos_requeridos?: boolean
   icono?: boolean
 }, ExtArgs["result"]["rango"]>
 
 export type rangoSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id_rango?: boolean
   titulo?: boolean
-  min_experiencia?: boolean
+  puntos_requeridos?: boolean
   icono?: boolean
 }, ExtArgs["result"]["rango"]>
 
 export type rangoSelectScalar = {
   id_rango?: boolean
   titulo?: boolean
-  min_experiencia?: boolean
+  puntos_requeridos?: boolean
   icono?: boolean
 }
 
-export type rangoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id_rango" | "titulo" | "min_experiencia" | "icono", ExtArgs["result"]["rango"]>
+export type rangoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id_rango" | "titulo" | "puntos_requeridos" | "icono", ExtArgs["result"]["rango"]>
 export type rangoInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   usuario?: boolean | Prisma.rango$usuarioArgs<ExtArgs>
   _count?: boolean | Prisma.RangoCountOutputTypeDefaultArgs<ExtArgs>
@@ -477,7 +477,7 @@ export type $rangoPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id_rango: number
     titulo: string
-    min_experiencia: number
+    puntos_requeridos: number
     icono: string | null
   }, ExtArgs["result"]["rango"]>
   composites: {}
@@ -905,7 +905,7 @@ export interface Prisma__rangoClient<T, Null = never, ExtArgs extends runtime.Ty
 export interface rangoFieldRefs {
   readonly id_rango: Prisma.FieldRef<"rango", 'Int'>
   readonly titulo: Prisma.FieldRef<"rango", 'String'>
-  readonly min_experiencia: Prisma.FieldRef<"rango", 'Int'>
+  readonly puntos_requeridos: Prisma.FieldRef<"rango", 'Int'>
   readonly icono: Prisma.FieldRef<"rango", 'String'>
 }
     

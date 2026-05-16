@@ -59,4 +59,34 @@ router.put('/update', verifyTokenJWT, async (req: any, res: Response) => {
     }
 });
 
+// Método para obtener el rango actual del usuario
+router.get('/getRange', verifyTokenJWT, async (req: any, res: Response) => {
+    try {
+        const idUsuario = req.usuario.id;
+    
+        const usuario = await prisma.usuario.findUnique({
+            where: {
+                id_usuario: Number(idUsuario)
+            }
+        });
+    
+        // Obtiene los rangos y con lte (less than or equal) busca a que rango pertenece el usuario
+        const currentRange = await prisma.rango.findFirst({
+            where: {
+                puntos_requeridos: {
+                    lte: usuario?.puntos_totales ?? 0
+                }
+            },
+            orderBy: {
+                puntos_requeridos: 'desc'
+            }
+        });
+    
+        res.status(200).json(currentRange);
+    } catch (err) {
+        console.error("Error al obtener el rango del usuario:", err);
+        res.status(500).json({ message: "Error interno en el servidor al obtener el rango" });
+    }
+})
+
 export default router;

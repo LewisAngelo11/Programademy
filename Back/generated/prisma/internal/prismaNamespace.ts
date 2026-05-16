@@ -1402,7 +1402,7 @@ export type QuizScalarFieldEnum = (typeof QuizScalarFieldEnum)[keyof typeof Quiz
 export const RangoScalarFieldEnum = {
   id_rango: 'id_rango',
   titulo: 'titulo',
-  min_experiencia: 'min_experiencia',
+  puntos_requeridos: 'puntos_requeridos',
   icono: 'icono'
 } as const
 

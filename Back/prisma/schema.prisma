@@ -64,11 +64,11 @@ model quiz {
 
 /// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
 model rango {
-  id_rango        Int       @id @default(autoincrement())
-  titulo          String    @db.VarChar(100)
-  min_experiencia Int
-  icono           String?   @db.VarChar(255)
-  usuario         usuario[]
+  id_rango          Int       @id @default(autoincrement())
+  titulo            String    @db.VarChar(100)
+  puntos_requeridos Int
+  icono             String?   @db.VarChar(255)
+  usuario           usuario[]
 }
 
 /// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
@@ -101,10 +101,10 @@ model usuario_logro {
 model curso {
   id_curso       Int              @id @default(autoincrement())
   titulo         String           @db.VarChar(50)
-  descripcion    String           @db.VarChar(255)
+  descripcion    String
   fecha_creacion DateTime?        @default(dbgenerated("CURRENT_DATE")) @db.Date
   estado         estado_curso     @default(activo)
-  imagen_url     String?          @db.VarChar(200)
+  imagen_url     String?
   curso_iniciado curso_iniciado[]
   modulo         modulo[]
 }
