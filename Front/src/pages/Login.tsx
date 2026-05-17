@@ -97,7 +97,7 @@ function LoginForm() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required/>
-                <a href="#" className="forgot-passw">¿Olvidó su Contraseña?</a>
+                <a href="/forgotPassw" className="forgot-passw">¿Olvidó su Contraseña?</a>
             </div>
             <button className="login-button" disabled={loading}> { !loading ? "Iniciar Sesión" : "Validando..." }</button>
             <hr />

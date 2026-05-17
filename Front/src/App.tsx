@@ -19,6 +19,8 @@ import CreateQuiz from './pages/admin/CreateQuiz'
 import EditQuiz from './pages/admin/EditQuiz'
 import SolveQuiz from './pages/student/SolveQuiz'
 import { Toaster } from 'react-hot-toast';
+import ForgotPassw from './pages/ForgotPassw'
+import ResetPassword from './pages/ResetPassword'
 
 function App() {
 
@@ -28,6 +30,8 @@ function App() {
       <Routes>
         <Route path={"/"} element={<Login/>}/>
         <Route path={"/register"} element={<Register/>}/>
+        <Route path={"/forgotPassw"} element={<ForgotPassw/>}/>
+        <Route path="/reset-password/:token" element={<ResetPassword />}/>
         
         <Route path={"student/dashboard"} element={<StudentDashboard/>}/>
         <Route path={"student/profile"} element={<StudentProfile/>}/>

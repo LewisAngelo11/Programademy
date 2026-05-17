@@ -1,7 +1,7 @@
 export const getAllModulesFromCourse = async (token: string, idCurso: number) => {
-    const API_URL = "http://localhost:3000/modulo/course/all";
+    const API_URL = import.meta.env.VITE_API_URL;
 
-    const response = await fetch(`${API_URL}/${idCurso}`, {
+    const response = await fetch(`${API_URL}/modulo/course/all/${idCurso}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -18,9 +18,9 @@ export const getAllModulesFromCourse = async (token: string, idCurso: number) =>
 }
 
 export const getOneModule = async (token: string, idModulo: number) => {
-    const API_URL = "http://localhost:3000/modulo/get";
+    const API_URL = import.meta.env.VITE_API_URL;
 
-    const response = await fetch(`${API_URL}/${idModulo}`, {
+    const response = await fetch(`${API_URL}/modulo/get/${idModulo}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
