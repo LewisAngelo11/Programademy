@@ -11,13 +11,14 @@ export default function StudentProfile() {
     const [studentRegisterDate, setStudentRegisterDate] = useState<string>("");
     const [openModal, setOpenModal] = useState<boolean>(false);
 
+    const API_URL = import.meta.env.VITE_API_URL;
+
     useEffect(() => {
         const getInfoUser = async () => {
-            const API_URL = 'http://localhost:3000/usuario/info';
             const token = localStorage.getItem("token");
 
             try {
-                const response = await fetch(API_URL, {
+                const response = await fetch(`${API_URL}/usuario/info`, {
                     method: "GET",
                     headers: {
                         'Authorization': `Bearer ${token}`,
@@ -30,11 +31,12 @@ export default function StudentProfile() {
                 }
     
                 const dataUsuario = await response.json();
+                const dateFormat = dataUsuario.fecha_registro.split("T")[0];
                 setStudentName(dataUsuario.nombre);
                 setStudentEmail(dataUsuario.email);
-                setStudentRegisterDate(dataUsuario.fecha_registro);
+                setStudentRegisterDate(dateFormat);
             } catch (err) {
-                console.error();
+                console.error("Error al obtener los datos del usuario",err);
             }
         }
 
