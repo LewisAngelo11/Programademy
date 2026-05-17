@@ -51,7 +51,7 @@ export class CursoController {
             const { id } = req.params;
             const idCurso = Number(id);
             const usuario = req.usuario;
-            const idUsuario = usuario.id_usuario;
+            const idUsuario = usuario.id;
 
             const isStarted = await this.cursoService.verifyCursoStarted(idCurso, idUsuario)
             const course = await this.cursoService.getCursoById(idCurso);
