@@ -77,3 +77,8 @@ export type codigo_ejemplo = Prisma.codigo_ejemploModel
  * 
  */
 export type curso_iniciado = Prisma.curso_iniciadoModel
+/**
+ * Model token_usuario
+ * 
+ */
+export type token_usuario = Prisma.token_usuarioModel

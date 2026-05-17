@@ -3,6 +3,8 @@ import jwt from "jsonwebtoken";
 import dotenv from 'dotenv'; 
 import bcrypt, { compare } from "bcryptjs"
 import { prisma } from "../../lib/prisma";
+import { generateSecureToken } from "../utils/generateToken";
+import { sendEmail } from "../services/email.service";
 
 dotenv.config();
 
@@ -78,6 +80,121 @@ router.post('/register', async (req: Request, res: Response) => {
 
     } catch (err) {
         console.error("Error en el registro: ", err);
+    }
+});
+
+// Método que 
+router.post('/forgot-password', async (req: Request, res: Response) => {
+    try {
+        const { email } = req.body;
+
+        const usuario = await prisma.usuario.findUnique({
+            where: { email },
+        });
+        if (!usuario) {
+            return res.status(404).json({
+                ok: false,
+                message: "Usuario no encontrado",
+            });
+        }
+
+        const token = generateSecureToken();
+
+        // Expiración del token en 15 minutos
+        const expiracion = new Date(Date.now() + 1000 * 60 * 15);
+
+        await prisma.token_usuario.create({
+            data: {
+                token,
+                tipo: "RESET_PASSWORD",
+                expiracion,
+                id_usuario: usuario.id_usuario,
+            },
+        });
+
+        // Envía el link para restablecer la contraseña al front
+        const resetLink = `${process.env.FRONTEND_URL}/reset-password/${token}`;
+
+        await sendEmail({
+            to: usuario.email,
+            subject: "Restablecer contraseña - Programademy",
+            resetLink,
+        });
+
+        res.json({
+            ok: true,
+            message: "Correo enviado",
+        });
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
+            ok: false,
+            message: "Error interno",
+        });
+    }
+});
+
+// Método para resetear la contraseña
+router.put('/reset-password', async (req: Request, res: Response) => {
+    try {
+        const { token, password } = req.body;
+
+        const tokenDB = await prisma.token_usuario.findUnique({
+        where: { token },
+        });
+
+        if (!tokenDB) {
+            return res.status(400).json({
+                ok: false,
+                message: "Token inválido",
+            });
+        }
+
+        if (tokenDB.usado) {
+            return res.status(400).json({
+                ok: false,
+                message: "Token ya usado",
+            });
+        }
+
+        if (new Date() > tokenDB.expiracion) {
+            return res.status(400).json({
+                ok: false,
+                message: "Token expirado",
+            });
+        }
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        await prisma.usuario.update({
+            where: {
+                id_usuario: tokenDB.id_usuario,
+            },
+            data: {
+                password: hashedPassword,
+            },
+        });
+
+        await prisma.token_usuario.update({
+            where: {
+                id_token: tokenDB.id_token,
+            },
+            data: {
+                usado: true,
+            },
+        });
+
+        res.json({
+            ok: true,
+            message: "Contraseña actualizada",
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
+            ok: false,
+            message: "Error interno",
+        });
     }
 });
 

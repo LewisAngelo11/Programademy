@@ -43,3 +43,11 @@ export const lenguaje_programacion = {
 } as const
 
 export type lenguaje_programacion = (typeof lenguaje_programacion)[keyof typeof lenguaje_programacion]
+
+
+export const TipoToken = {
+  RESET_PASSWORD: 'RESET_PASSWORD',
+  VERIFY_EMAIL: 'VERIFY_EMAIL'
+} as const
+
+export type TipoToken = (typeof TipoToken)[keyof typeof TipoToken]

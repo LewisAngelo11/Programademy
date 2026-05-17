@@ -83,6 +83,7 @@ model usuario {
   rol             rol_usuario?     @default(student)
   curso_iniciado  curso_iniciado[]
   intento_quiz    intento_quiz[]
+  token_usuario   token_usuario[]
   rango           rango?           @relation(fields: [id_rango_actual], references: [id_rango], onUpdate: NoAction, map: "fk_usuario_rango")
   usuario_logro   usuario_logro[]
 }
@@ -137,6 +138,17 @@ model curso_iniciado {
   @@unique([id_usuario, id_curso], map: "unique_usuario_curso")
 }
 
+model token_usuario {
+  id_token   Int       @id @default(autoincrement())
+  token      String    @unique @db.VarChar(255)
+  tipo       TipoToken
+  expiracion DateTime  @db.Timestamp(6)
+  usado      Boolean   @default(false)
+  id_usuario Int
+  created_at DateTime  @default(now()) @db.Timestamp(6)
+  usuario    usuario   @relation(fields: [id_usuario], references: [id_usuario], onDelete: Cascade, onUpdate: NoAction, map: "fk_token_usuario_usuario")
+}
+
 enum rol_usuario {
   student
   admin
@@ -159,4 +171,9 @@ enum lenguaje_programacion {
   JavaScript
   Java
   C_         @map("C#")
+}
+
+enum TipoToken {
+  RESET_PASSWORD
+  VERIFY_EMAIL
 }

@@ -62,7 +62,8 @@ export const ModelName = {
   curso: 'curso',
   opcion: 'opcion',
   codigo_ejemplo: 'codigo_ejemplo',
-  curso_iniciado: 'curso_iniciado'
+  curso_iniciado: 'curso_iniciado',
+  token_usuario: 'token_usuario'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -213,6 +214,19 @@ export const Curso_iniciadoScalarFieldEnum = {
 } as const
 
 export type Curso_iniciadoScalarFieldEnum = (typeof Curso_iniciadoScalarFieldEnum)[keyof typeof Curso_iniciadoScalarFieldEnum]
+
+
+export const Token_usuarioScalarFieldEnum = {
+  id_token: 'id_token',
+  token: 'token',
+  tipo: 'tipo',
+  expiracion: 'expiracion',
+  usado: 'usado',
+  id_usuario: 'id_usuario',
+  created_at: 'created_at'
+} as const
+
+export type Token_usuarioScalarFieldEnum = (typeof Token_usuarioScalarFieldEnum)[keyof typeof Token_usuarioScalarFieldEnum]
 
 
 export const SortOrder = {

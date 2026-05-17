@@ -395,7 +395,8 @@ export const ModelName = {
   curso: 'curso',
   opcion: 'opcion',
   codigo_ejemplo: 'codigo_ejemplo',
-  curso_iniciado: 'curso_iniciado'
+  curso_iniciado: 'curso_iniciado',
+  token_usuario: 'token_usuario'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -411,7 +412,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "intento_quiz" | "logro" | "modulo" | "pregunta" | "quiz" | "rango" | "usuario" | "usuario_logro" | "curso" | "opcion" | "codigo_ejemplo" | "curso_iniciado"
+    modelProps: "intento_quiz" | "logro" | "modulo" | "pregunta" | "quiz" | "rango" | "usuario" | "usuario_logro" | "curso" | "opcion" | "codigo_ejemplo" | "curso_iniciado" | "token_usuario"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1303,6 +1304,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    token_usuario: {
+      payload: Prisma.$token_usuarioPayload<ExtArgs>
+      fields: Prisma.token_usuarioFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.token_usuarioFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$token_usuarioPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.token_usuarioFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$token_usuarioPayload>
+        }
+        findFirst: {
+          args: Prisma.token_usuarioFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$token_usuarioPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.token_usuarioFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$token_usuarioPayload>
+        }
+        findMany: {
+          args: Prisma.token_usuarioFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$token_usuarioPayload>[]
+        }
+        create: {
+          args: Prisma.token_usuarioCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$token_usuarioPayload>
+        }
+        createMany: {
+          args: Prisma.token_usuarioCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.token_usuarioCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$token_usuarioPayload>[]
+        }
+        delete: {
+          args: Prisma.token_usuarioDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$token_usuarioPayload>
+        }
+        update: {
+          args: Prisma.token_usuarioUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$token_usuarioPayload>
+        }
+        deleteMany: {
+          args: Prisma.token_usuarioDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.token_usuarioUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.token_usuarioUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$token_usuarioPayload>[]
+        }
+        upsert: {
+          args: Prisma.token_usuarioUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$token_usuarioPayload>
+        }
+        aggregate: {
+          args: Prisma.Token_usuarioAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateToken_usuario>
+        }
+        groupBy: {
+          args: Prisma.token_usuarioGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Token_usuarioGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.token_usuarioCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Token_usuarioCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1476,6 +1551,19 @@ export const Curso_iniciadoScalarFieldEnum = {
 export type Curso_iniciadoScalarFieldEnum = (typeof Curso_iniciadoScalarFieldEnum)[keyof typeof Curso_iniciadoScalarFieldEnum]
 
 
+export const Token_usuarioScalarFieldEnum = {
+  id_token: 'id_token',
+  token: 'token',
+  tipo: 'tipo',
+  expiracion: 'expiracion',
+  usado: 'usado',
+  id_usuario: 'id_usuario',
+  created_at: 'created_at'
+} as const
+
+export type Token_usuarioScalarFieldEnum = (typeof Token_usuarioScalarFieldEnum)[keyof typeof Token_usuarioScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -1626,6 +1714,20 @@ export type ListEnumlenguaje_programacionFieldRefInput<$PrismaModel> = FieldRefI
 
 
 /**
+ * Reference to a field of type 'TipoToken'
+ */
+export type EnumTipoTokenFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TipoToken'>
+    
+
+
+/**
+ * Reference to a field of type 'TipoToken[]'
+ */
+export type ListEnumTipoTokenFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TipoToken[]'>
+    
+
+
+/**
  * Reference to a field of type 'Float'
  */
 export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -1745,6 +1847,7 @@ export type GlobalOmitConfig = {
   opcion?: Prisma.opcionOmit
   codigo_ejemplo?: Prisma.codigo_ejemploOmit
   curso_iniciado?: Prisma.curso_iniciadoOmit
+  token_usuario?: Prisma.token_usuarioOmit
 }
 
 /* Types for Logging */
