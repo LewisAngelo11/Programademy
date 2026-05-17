@@ -177,7 +177,8 @@ export default function StudentDashboard() {
     const totalAviableCourses = aviableCourses.length;
 
     const totalPoints = attempts.reduce((acc, a) => acc += a.calificacion, 0);
-    const totalAverage = totalPoints / attempts.length;
+    const totalAverageRaw = totalPoints / attempts.length;
+    const totalAverage = Number(totalAverageRaw.toFixed(2));
     const safeAverage = isNaN(totalAverage) ? 0 : totalAverage;
 
     // Obtiene los quiz completados por el usuario
