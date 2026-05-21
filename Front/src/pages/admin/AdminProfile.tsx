@@ -12,13 +12,14 @@ export default function AdminProfile() {
     const [adminRegisterDate, setAdminRegisterDate] = useState<string>("");
     const [openModal, setOpenModal] = useState<boolean>(false);
 
+    const API_URL = import.meta.env.VITE_API_URL;
+
     useEffect(() => {
         const getInfoUser = async () => {
-            const API_URL = 'http://localhost:3000/usuario/info';
             const token = localStorage.getItem("token");
 
             try {
-                const response = await fetch(API_URL, {
+                const response = await fetch(`${API_URL}/usuario/info`, {
                     method: "GET",
                     headers: {
                         'Authorization': `Bearer ${token}`,
@@ -33,7 +34,8 @@ export default function AdminProfile() {
                 const dataUsuario = await response.json();
                 setAdminName(dataUsuario.nombre);
                 setAdminEmail(dataUsuario.email);
-                setAdminRegisterDate(dataUsuario.fecha_registro);
+                const dateFormat = dataUsuario.fecha_registro.split("T")[0];
+                setAdminRegisterDate(dateFormat);
             } catch (err) {
                 console.error();
             }
