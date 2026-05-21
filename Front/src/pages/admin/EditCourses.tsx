@@ -3,6 +3,8 @@ import React, { useEffect, useState, type SetStateAction } from "react";
 import { ArrowLeftStroke, Save, X } from "@boxicons/react";
 import "./EditCourses.css";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 export default function EditCourses() {
     const navigate = useNavigate();
     const curso = useParams();
@@ -10,15 +12,13 @@ export default function EditCourses() {
     const [courseEditTitle, setCourseEditTitle] = useState<string>("");
     const [courseEditDescription, setCourseEditDescription] = useState<string>("");
     const [courseEditImgUrl, setCourseEditImgUrl] = useState<string>("");
-    
-    const API_URL = "http://localhost:3000/curso/getOne"
 
     // Función para obtener el curso por su ID
     const getCourse = async () => {
         const token = localStorage.getItem("token");
 
         try {
-            const response = await fetch(`${API_URL}/${idCurso}`, {
+            const response = await fetch(`${API_URL}/curso/getOne/${idCurso}`, {
                 method: "GET",
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -31,9 +31,9 @@ export default function EditCourses() {
             }
 
             const data = await response.json();
-            setCourseEditTitle(data.titulo);
-            setCourseEditDescription(data.descripcion);
-            setCourseEditImgUrl(data.imagen_url);
+            setCourseEditTitle(data.course.titulo);
+            setCourseEditDescription(data.course.descripcion);
+            setCourseEditImgUrl(data.course.imagen_url);
         } catch (err) {
             console.error("Error en la petición:", err);
         }
@@ -88,10 +88,7 @@ function FormEditCourse({
     courseEditImgUrl, setCourseEditImgUrl}: CourseEditProp) {
     const navigate = useNavigate();
 
-    const API_URL = "http://localhost:3000/curso/update"
-
-    const editCourse = async (e: React.FormEvent) => {
-        e.preventDefault(); // Evita que la pagina se refresque
+    const editCourse = async () => {
         const token = localStorage.getItem("token");
 
         const bodyEditCourse = {
@@ -101,7 +98,7 @@ function FormEditCourse({
         }
 
         try {
-            const response = await fetch(`${API_URL}/${idCurso}`, {
+            const response = await fetch(`${API_URL}/curso/update/${idCurso}`, {
                 method: "PUT",
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -123,7 +120,7 @@ function FormEditCourse({
     }
 
     return (
-        <form onSubmit={editCourse} className="form-basic-info-edit">
+        <form action={editCourse} className="form-basic-info-edit">
             <section className="basic-info-course">
                 <header>
                     <h2>Editar la Inforación Básica</h2>
