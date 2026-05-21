@@ -20,16 +20,17 @@ export class ModuloController {
     }
 
     // Obtiene todos los módulos de un curso específico
-    getByCourse = async (req: Request, res: Response): Promise<Response> => {
+    getByCourse = async (req: any, res: Response): Promise<Response> => {
         try {
             const { id } = req.params;
             const idCurso = Number(id);
+            const idUsuario = Number(req.usuario.id); // Obtener el ID del usuario de la solicitud
 
-            if (isNaN(idCurso)) {
-                return res.status(400).json({ error: 'ID de curso inválido' });
+            if (isNaN(idCurso) || isNaN(idUsuario)) {
+                return res.status(400).json({ error: 'ID de curso o usuario inválido' });
             }
 
-            const modulos = await this.moduloService.getModulosByCurso(idCurso);
+            const modulos = await this.moduloService.getModulosByCurso(idCurso, idUsuario);
             return res.json(modulos);
         } catch (error) {
             console.error('Error al obtener módulos por curso:', error);

@@ -4,12 +4,21 @@ import { useEffect, useState } from "react";
 import { getAllModulesFromCourse } from "../../services/moduleServices";
 import "./InfoCourse.css"
 import toast from "react-hot-toast";
+import { Check } from "@boxicons/react/index";
 
 interface Modulo {
     id_modulo: number;
     titulo: string;
     descripcion: string;
     orden: number;
+    completed: boolean;
+}
+
+interface CourseProgress {
+    totalModules: number;
+    completedModules: number;
+    progress: number;
+    completed: boolean;
 }
 
 export default function InfoCourse() {
@@ -22,7 +31,8 @@ export default function InfoCourse() {
     const [modulos, setModulos] = useState<Modulo[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
-    const [courseStarted, setCourseStarted] = useState<boolean>(false)
+    const [courseStarted, setCourseStarted] = useState<boolean>(false);
+    const [courseProgress, setCourseProgress] = useState<CourseProgress | null>(null);
 
     const API_URL = import.meta.env.VITE_API_URL;
     const token = localStorage.getItem("token");
@@ -97,12 +107,37 @@ export default function InfoCourse() {
         }
     };
 
+    const getCourseProgress = async () => {
+        try {
+            const response = await fetch(`${API_URL}/modulo/course/all/${idCurso}`, {
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error("Error obteniendo progreso");
+            }
+
+            const data = await response.json();
+            setCourseProgress(data);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
     const totalModulos = modulos.length;
+    const completedModules = modulos.filter(modulo => modulo.completed).length;
+    const progress = totalModulos === 0 ? 0 : Number((completedModules / totalModulos) * 100).toFixed(0);
 
     useEffect(() => {
         getCourse();
         getModulesCourse();
+        getCourseProgress();
     }, []);
+
+    console.log(courseProgress);
 
     return (
         <main className="page-info-course">
@@ -136,9 +171,16 @@ export default function InfoCourse() {
                     <div className="progress-bar">
                         <div>
                             <p>Progreso del curso</p>
-                            <p style={{fontWeight: "600", color: "#000"}}>{0}%</p>
+                            <p style={{fontWeight: "600", color: "#000"}}>
+                                {progress}%
+                            </p>
                         </div>
-                        <span className="progress-bar-course"></span>
+                        <span className="progress-bar-course">
+                            <span
+                                className="progress-bar-fill"
+                                style={{ width: `${progress}%` }}
+                            ></span>
+                        </span>
                     </div>
                 </div>
 
@@ -161,6 +203,7 @@ export default function InfoCourse() {
                                 descripcion={m.descripcion}
                                 orden={m.orden}
                                 courseStarted={courseStarted}
+                                completed={m.completed}
                             />
                         )))}
                     </div>
@@ -175,13 +218,14 @@ interface ModuleCourseProp {
     titulo: string;
     descripcion: string;
     orden: number;
+    completed: boolean;
 }
 
 interface StartedCourseProp {
     courseStarted: boolean;
 }
 
-function ModuleCourse({ idModulo, titulo, descripcion, orden, courseStarted }: ModuleCourseProp & StartedCourseProp) {
+function ModuleCourse({ idModulo, titulo, descripcion, orden, courseStarted, completed }: ModuleCourseProp & StartedCourseProp) {
     const navigate = useNavigate();
 
     return (
@@ -193,12 +237,17 @@ function ModuleCourse({ idModulo, titulo, descripcion, orden, courseStarted }: M
                 <h3>{titulo}</h3>
                 <p>{descripcion}</p>
             </div>
+            {completed && (
+                <span className="module-completed">
+                    <Check size="xs" /> Completado
+                </span>
+            )}
             <button 
                 className="start-module"
                 onClick={() => navigate(`/student/lesson/${idModulo}`)}
                 disabled={!courseStarted}
             >
-                Comenzar
+                {!completed ? "Comenzar" : "Ver módulo"}
             </button>
         </article>
     );

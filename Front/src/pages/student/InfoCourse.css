@@ -79,10 +79,21 @@
 }
 
 .progress-bar-course {
-    height: 8px;
-    border-radius: 20px;
     width: 100%;
-    background-color: #bcbcbc;
+    height: 10px;
+    display: block;
+    background-color: #E5E7EB;
+    border-radius: 999px;
+    overflow: hidden;
+    margin-top: .5rem;
+}
+
+.progress-bar-fill {
+    display: block;
+    height: 100%;
+    background-color: #3e00ff;
+    border-radius: 999px;
+    transition: width .4s ease;
 }
 
 .modules-course {
@@ -127,6 +138,14 @@
     color: #636363;
     font-size: 1rem;
     font-weight: 500;
+}
+
+.module-completed {
+    display: flex;
+    align-items: center;
+    gap: .2rem;
+    color: #10c452;
+    font-size: .8rem;
 }
 
 .start-module,

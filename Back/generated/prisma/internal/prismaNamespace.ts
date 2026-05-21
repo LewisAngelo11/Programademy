@@ -396,7 +396,8 @@ export const ModelName = {
   opcion: 'opcion',
   codigo_ejemplo: 'codigo_ejemplo',
   curso_iniciado: 'curso_iniciado',
-  token_usuario: 'token_usuario'
+  token_usuario: 'token_usuario',
+  modulo_completado: 'modulo_completado'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -412,7 +413,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "intento_quiz" | "logro" | "modulo" | "pregunta" | "quiz" | "rango" | "usuario" | "usuario_logro" | "curso" | "opcion" | "codigo_ejemplo" | "curso_iniciado" | "token_usuario"
+    modelProps: "intento_quiz" | "logro" | "modulo" | "pregunta" | "quiz" | "rango" | "usuario" | "usuario_logro" | "curso" | "opcion" | "codigo_ejemplo" | "curso_iniciado" | "token_usuario" | "modulo_completado"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1378,6 +1379,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    modulo_completado: {
+      payload: Prisma.$modulo_completadoPayload<ExtArgs>
+      fields: Prisma.modulo_completadoFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.modulo_completadoFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$modulo_completadoPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.modulo_completadoFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$modulo_completadoPayload>
+        }
+        findFirst: {
+          args: Prisma.modulo_completadoFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$modulo_completadoPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.modulo_completadoFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$modulo_completadoPayload>
+        }
+        findMany: {
+          args: Prisma.modulo_completadoFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$modulo_completadoPayload>[]
+        }
+        create: {
+          args: Prisma.modulo_completadoCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$modulo_completadoPayload>
+        }
+        createMany: {
+          args: Prisma.modulo_completadoCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.modulo_completadoCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$modulo_completadoPayload>[]
+        }
+        delete: {
+          args: Prisma.modulo_completadoDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$modulo_completadoPayload>
+        }
+        update: {
+          args: Prisma.modulo_completadoUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$modulo_completadoPayload>
+        }
+        deleteMany: {
+          args: Prisma.modulo_completadoDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.modulo_completadoUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.modulo_completadoUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$modulo_completadoPayload>[]
+        }
+        upsert: {
+          args: Prisma.modulo_completadoUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$modulo_completadoPayload>
+        }
+        aggregate: {
+          args: Prisma.Modulo_completadoAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateModulo_completado>
+        }
+        groupBy: {
+          args: Prisma.modulo_completadoGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Modulo_completadoGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.modulo_completadoCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Modulo_completadoCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1545,7 +1620,9 @@ export type Codigo_ejemploScalarFieldEnum = (typeof Codigo_ejemploScalarFieldEnu
 export const Curso_iniciadoScalarFieldEnum = {
   id_curso_iniciado: 'id_curso_iniciado',
   id_usuario: 'id_usuario',
-  id_curso: 'id_curso'
+  id_curso: 'id_curso',
+  completado: 'completado',
+  fecha_completado: 'fecha_completado'
 } as const
 
 export type Curso_iniciadoScalarFieldEnum = (typeof Curso_iniciadoScalarFieldEnum)[keyof typeof Curso_iniciadoScalarFieldEnum]
@@ -1562,6 +1639,17 @@ export const Token_usuarioScalarFieldEnum = {
 } as const
 
 export type Token_usuarioScalarFieldEnum = (typeof Token_usuarioScalarFieldEnum)[keyof typeof Token_usuarioScalarFieldEnum]
+
+
+export const Modulo_completadoScalarFieldEnum = {
+  id_modulo_completado: 'id_modulo_completado',
+  id_usuario: 'id_usuario',
+  id_modulo: 'id_modulo',
+  completado: 'completado',
+  fecha_completado: 'fecha_completado'
+} as const
+
+export type Modulo_completadoScalarFieldEnum = (typeof Modulo_completadoScalarFieldEnum)[keyof typeof Modulo_completadoScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1848,6 +1936,7 @@ export type GlobalOmitConfig = {
   codigo_ejemplo?: Prisma.codigo_ejemploOmit
   curso_iniciado?: Prisma.curso_iniciadoOmit
   token_usuario?: Prisma.token_usuarioOmit
+  modulo_completado?: Prisma.modulo_completadoOmit
 }
 
 /* Types for Logging */

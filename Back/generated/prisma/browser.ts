@@ -82,3 +82,8 @@ export type curso_iniciado = Prisma.curso_iniciadoModel
  * 
  */
 export type token_usuario = Prisma.token_usuarioModel
+/**
+ * Model modulo_completado
+ * 
+ */
+export type modulo_completado = Prisma.modulo_completadoModel

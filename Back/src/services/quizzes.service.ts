@@ -1,8 +1,11 @@
 import { create } from "node:domain";
 import { prisma } from "../../lib/prisma";
 import { CreateQuizDTO, UpdateQuizDTO } from '../types/quiz.types';
+import { ProgressService } from "./progress.service";
 
 export class QuizService {
+  private progressService = new ProgressService();
+
   // Crear un Quiz junto con sus preguntas y opciones anidadas
   async createQuiz(data: CreateQuizDTO) {
     return prisma.quiz.create({
@@ -115,19 +118,23 @@ export class QuizService {
     });
 
     if (attemptQuiz.completado_100) {
-      const currentPoints = userStudent?.puntos_totales ?? 0;
+      // Almacena los puntos obtenidos en el quiz completado en el total de puntos del usuario
       const rewardPoints = attemptQuiz.puntos_otorgados ?? 0;
-      const totalPoints = currentPoints + rewardPoints;
 
       await prisma.usuario.update({
-        where: {
-          id_usuario: id_usuario
-        },
-        data: {
-          puntos_totales: totalPoints
-        }
+          where: {
+              id_usuario
+          },
+          data: {
+              puntos_totales: {
+                  increment: rewardPoints
+              }
+          }
       });
     }
+
+    // Verificar el progreso del módulo
+    await this.progressService.verifyModuloCompletion(id_usuario, attemptQuiz.quiz.id_modulo);
 
     return attemptQuiz;
   }

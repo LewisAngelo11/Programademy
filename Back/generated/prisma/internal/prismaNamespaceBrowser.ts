@@ -63,7 +63,8 @@ export const ModelName = {
   opcion: 'opcion',
   codigo_ejemplo: 'codigo_ejemplo',
   curso_iniciado: 'curso_iniciado',
-  token_usuario: 'token_usuario'
+  token_usuario: 'token_usuario',
+  modulo_completado: 'modulo_completado'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -210,7 +211,9 @@ export type Codigo_ejemploScalarFieldEnum = (typeof Codigo_ejemploScalarFieldEnu
 export const Curso_iniciadoScalarFieldEnum = {
   id_curso_iniciado: 'id_curso_iniciado',
   id_usuario: 'id_usuario',
-  id_curso: 'id_curso'
+  id_curso: 'id_curso',
+  completado: 'completado',
+  fecha_completado: 'fecha_completado'
 } as const
 
 export type Curso_iniciadoScalarFieldEnum = (typeof Curso_iniciadoScalarFieldEnum)[keyof typeof Curso_iniciadoScalarFieldEnum]
@@ -227,6 +230,17 @@ export const Token_usuarioScalarFieldEnum = {
 } as const
 
 export type Token_usuarioScalarFieldEnum = (typeof Token_usuarioScalarFieldEnum)[keyof typeof Token_usuarioScalarFieldEnum]
+
+
+export const Modulo_completadoScalarFieldEnum = {
+  id_modulo_completado: 'id_modulo_completado',
+  id_usuario: 'id_usuario',
+  id_modulo: 'id_modulo',
+  completado: 'completado',
+  fecha_completado: 'fecha_completado'
+} as const
+
+export type Modulo_completadoScalarFieldEnum = (typeof Modulo_completadoScalarFieldEnum)[keyof typeof Modulo_completadoScalarFieldEnum]
 
 
 export const SortOrder = {

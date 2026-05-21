@@ -207,7 +207,7 @@ export type Intento_quizGroupByOutputType = {
   id_quiz: number
   calificacion: number | null
   puntos_otorgados: number | null
-  completado_100: boolean | null
+  completado_100: boolean
   _count: Intento_quizCountAggregateOutputType | null
   _avg: Intento_quizAvgAggregateOutputType | null
   _sum: Intento_quizSumAggregateOutputType | null
@@ -239,7 +239,7 @@ export type intento_quizWhereInput = {
   id_quiz?: Prisma.IntFilter<"intento_quiz"> | number
   calificacion?: Prisma.IntNullableFilter<"intento_quiz"> | number | null
   puntos_otorgados?: Prisma.IntNullableFilter<"intento_quiz"> | number | null
-  completado_100?: Prisma.BoolNullableFilter<"intento_quiz"> | boolean | null
+  completado_100?: Prisma.BoolFilter<"intento_quiz"> | boolean
   quiz?: Prisma.XOR<Prisma.QuizScalarRelationFilter, Prisma.quizWhereInput>
   usuario?: Prisma.XOR<Prisma.UsuarioScalarRelationFilter, Prisma.usuarioWhereInput>
 }
@@ -250,7 +250,7 @@ export type intento_quizOrderByWithRelationInput = {
   id_quiz?: Prisma.SortOrder
   calificacion?: Prisma.SortOrderInput | Prisma.SortOrder
   puntos_otorgados?: Prisma.SortOrderInput | Prisma.SortOrder
-  completado_100?: Prisma.SortOrderInput | Prisma.SortOrder
+  completado_100?: Prisma.SortOrder
   quiz?: Prisma.quizOrderByWithRelationInput
   usuario?: Prisma.usuarioOrderByWithRelationInput
 }
@@ -264,7 +264,7 @@ export type intento_quizWhereUniqueInput = Prisma.AtLeast<{
   id_quiz?: Prisma.IntFilter<"intento_quiz"> | number
   calificacion?: Prisma.IntNullableFilter<"intento_quiz"> | number | null
   puntos_otorgados?: Prisma.IntNullableFilter<"intento_quiz"> | number | null
-  completado_100?: Prisma.BoolNullableFilter<"intento_quiz"> | boolean | null
+  completado_100?: Prisma.BoolFilter<"intento_quiz"> | boolean
   quiz?: Prisma.XOR<Prisma.QuizScalarRelationFilter, Prisma.quizWhereInput>
   usuario?: Prisma.XOR<Prisma.UsuarioScalarRelationFilter, Prisma.usuarioWhereInput>
 }, "id_intento">
@@ -275,7 +275,7 @@ export type intento_quizOrderByWithAggregationInput = {
   id_quiz?: Prisma.SortOrder
   calificacion?: Prisma.SortOrderInput | Prisma.SortOrder
   puntos_otorgados?: Prisma.SortOrderInput | Prisma.SortOrder
-  completado_100?: Prisma.SortOrderInput | Prisma.SortOrder
+  completado_100?: Prisma.SortOrder
   _count?: Prisma.intento_quizCountOrderByAggregateInput
   _avg?: Prisma.intento_quizAvgOrderByAggregateInput
   _max?: Prisma.intento_quizMaxOrderByAggregateInput
@@ -292,13 +292,13 @@ export type intento_quizScalarWhereWithAggregatesInput = {
   id_quiz?: Prisma.IntWithAggregatesFilter<"intento_quiz"> | number
   calificacion?: Prisma.IntNullableWithAggregatesFilter<"intento_quiz"> | number | null
   puntos_otorgados?: Prisma.IntNullableWithAggregatesFilter<"intento_quiz"> | number | null
-  completado_100?: Prisma.BoolNullableWithAggregatesFilter<"intento_quiz"> | boolean | null
+  completado_100?: Prisma.BoolWithAggregatesFilter<"intento_quiz"> | boolean
 }
 
 export type intento_quizCreateInput = {
   calificacion?: number | null
   puntos_otorgados?: number | null
-  completado_100?: boolean | null
+  completado_100?: boolean
   quiz: Prisma.quizCreateNestedOneWithoutIntento_quizInput
   usuario: Prisma.usuarioCreateNestedOneWithoutIntento_quizInput
 }
@@ -309,13 +309,13 @@ export type intento_quizUncheckedCreateInput = {
   id_quiz: number
   calificacion?: number | null
   puntos_otorgados?: number | null
-  completado_100?: boolean | null
+  completado_100?: boolean
 }
 
 export type intento_quizUpdateInput = {
   calificacion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   puntos_otorgados?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  completado_100?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  completado_100?: Prisma.BoolFieldUpdateOperationsInput | boolean
   quiz?: Prisma.quizUpdateOneRequiredWithoutIntento_quizNestedInput
   usuario?: Prisma.usuarioUpdateOneRequiredWithoutIntento_quizNestedInput
 }
@@ -326,7 +326,7 @@ export type intento_quizUncheckedUpdateInput = {
   id_quiz?: Prisma.IntFieldUpdateOperationsInput | number
   calificacion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   puntos_otorgados?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  completado_100?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  completado_100?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type intento_quizCreateManyInput = {
@@ -335,13 +335,13 @@ export type intento_quizCreateManyInput = {
   id_quiz: number
   calificacion?: number | null
   puntos_otorgados?: number | null
-  completado_100?: boolean | null
+  completado_100?: boolean
 }
 
 export type intento_quizUpdateManyMutationInput = {
   calificacion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   puntos_otorgados?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  completado_100?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  completado_100?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type intento_quizUncheckedUpdateManyInput = {
@@ -350,7 +350,7 @@ export type intento_quizUncheckedUpdateManyInput = {
   id_quiz?: Prisma.IntFieldUpdateOperationsInput | number
   calificacion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   puntos_otorgados?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  completado_100?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  completado_100?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type intento_quizCountOrderByAggregateInput = {
@@ -414,8 +414,8 @@ export type NullableIntFieldUpdateOperationsInput = {
   divide?: number
 }
 
-export type NullableBoolFieldUpdateOperationsInput = {
-  set?: boolean | null
+export type BoolFieldUpdateOperationsInput = {
+  set?: boolean
 }
 
 export type IntFieldUpdateOperationsInput = {
@@ -513,7 +513,7 @@ export type intento_quizUncheckedUpdateManyWithoutUsuarioNestedInput = {
 export type intento_quizCreateWithoutQuizInput = {
   calificacion?: number | null
   puntos_otorgados?: number | null
-  completado_100?: boolean | null
+  completado_100?: boolean
   usuario: Prisma.usuarioCreateNestedOneWithoutIntento_quizInput
 }
 
@@ -522,7 +522,7 @@ export type intento_quizUncheckedCreateWithoutQuizInput = {
   id_usuario: number
   calificacion?: number | null
   puntos_otorgados?: number | null
-  completado_100?: boolean | null
+  completado_100?: boolean
 }
 
 export type intento_quizCreateOrConnectWithoutQuizInput = {
@@ -560,13 +560,13 @@ export type intento_quizScalarWhereInput = {
   id_quiz?: Prisma.IntFilter<"intento_quiz"> | number
   calificacion?: Prisma.IntNullableFilter<"intento_quiz"> | number | null
   puntos_otorgados?: Prisma.IntNullableFilter<"intento_quiz"> | number | null
-  completado_100?: Prisma.BoolNullableFilter<"intento_quiz"> | boolean | null
+  completado_100?: Prisma.BoolFilter<"intento_quiz"> | boolean
 }
 
 export type intento_quizCreateWithoutUsuarioInput = {
   calificacion?: number | null
   puntos_otorgados?: number | null
-  completado_100?: boolean | null
+  completado_100?: boolean
   quiz: Prisma.quizCreateNestedOneWithoutIntento_quizInput
 }
 
@@ -575,7 +575,7 @@ export type intento_quizUncheckedCreateWithoutUsuarioInput = {
   id_quiz: number
   calificacion?: number | null
   puntos_otorgados?: number | null
-  completado_100?: boolean | null
+  completado_100?: boolean
 }
 
 export type intento_quizCreateOrConnectWithoutUsuarioInput = {
@@ -609,13 +609,13 @@ export type intento_quizCreateManyQuizInput = {
   id_usuario: number
   calificacion?: number | null
   puntos_otorgados?: number | null
-  completado_100?: boolean | null
+  completado_100?: boolean
 }
 
 export type intento_quizUpdateWithoutQuizInput = {
   calificacion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   puntos_otorgados?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  completado_100?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  completado_100?: Prisma.BoolFieldUpdateOperationsInput | boolean
   usuario?: Prisma.usuarioUpdateOneRequiredWithoutIntento_quizNestedInput
 }
 
@@ -624,7 +624,7 @@ export type intento_quizUncheckedUpdateWithoutQuizInput = {
   id_usuario?: Prisma.IntFieldUpdateOperationsInput | number
   calificacion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   puntos_otorgados?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  completado_100?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  completado_100?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type intento_quizUncheckedUpdateManyWithoutQuizInput = {
@@ -632,7 +632,7 @@ export type intento_quizUncheckedUpdateManyWithoutQuizInput = {
   id_usuario?: Prisma.IntFieldUpdateOperationsInput | number
   calificacion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   puntos_otorgados?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  completado_100?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  completado_100?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type intento_quizCreateManyUsuarioInput = {
@@ -640,13 +640,13 @@ export type intento_quizCreateManyUsuarioInput = {
   id_quiz: number
   calificacion?: number | null
   puntos_otorgados?: number | null
-  completado_100?: boolean | null
+  completado_100?: boolean
 }
 
 export type intento_quizUpdateWithoutUsuarioInput = {
   calificacion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   puntos_otorgados?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  completado_100?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  completado_100?: Prisma.BoolFieldUpdateOperationsInput | boolean
   quiz?: Prisma.quizUpdateOneRequiredWithoutIntento_quizNestedInput
 }
 
@@ -655,7 +655,7 @@ export type intento_quizUncheckedUpdateWithoutUsuarioInput = {
   id_quiz?: Prisma.IntFieldUpdateOperationsInput | number
   calificacion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   puntos_otorgados?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  completado_100?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  completado_100?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type intento_quizUncheckedUpdateManyWithoutUsuarioInput = {
@@ -663,7 +663,7 @@ export type intento_quizUncheckedUpdateManyWithoutUsuarioInput = {
   id_quiz?: Prisma.IntFieldUpdateOperationsInput | number
   calificacion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   puntos_otorgados?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  completado_100?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  completado_100?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 
@@ -736,7 +736,7 @@ export type $intento_quizPayload<ExtArgs extends runtime.Types.Extensions.Intern
     id_quiz: number
     calificacion: number | null
     puntos_otorgados: number | null
-    completado_100: boolean | null
+    completado_100: boolean
   }, ExtArgs["result"]["intento_quiz"]>
   composites: {}
 }

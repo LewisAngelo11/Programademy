@@ -250,6 +250,7 @@ export type usuarioWhereInput = {
   rol?: Prisma.Enumrol_usuarioNullableFilter<"usuario"> | $Enums.rol_usuario | null
   curso_iniciado?: Prisma.Curso_iniciadoListRelationFilter
   intento_quiz?: Prisma.Intento_quizListRelationFilter
+  modulo_completado?: Prisma.Modulo_completadoListRelationFilter
   token_usuario?: Prisma.Token_usuarioListRelationFilter
   rango?: Prisma.XOR<Prisma.RangoNullableScalarRelationFilter, Prisma.rangoWhereInput> | null
   usuario_logro?: Prisma.Usuario_logroListRelationFilter
@@ -266,6 +267,7 @@ export type usuarioOrderByWithRelationInput = {
   rol?: Prisma.SortOrderInput | Prisma.SortOrder
   curso_iniciado?: Prisma.curso_iniciadoOrderByRelationAggregateInput
   intento_quiz?: Prisma.intento_quizOrderByRelationAggregateInput
+  modulo_completado?: Prisma.modulo_completadoOrderByRelationAggregateInput
   token_usuario?: Prisma.token_usuarioOrderByRelationAggregateInput
   rango?: Prisma.rangoOrderByWithRelationInput
   usuario_logro?: Prisma.usuario_logroOrderByRelationAggregateInput
@@ -285,6 +287,7 @@ export type usuarioWhereUniqueInput = Prisma.AtLeast<{
   rol?: Prisma.Enumrol_usuarioNullableFilter<"usuario"> | $Enums.rol_usuario | null
   curso_iniciado?: Prisma.Curso_iniciadoListRelationFilter
   intento_quiz?: Prisma.Intento_quizListRelationFilter
+  modulo_completado?: Prisma.Modulo_completadoListRelationFilter
   token_usuario?: Prisma.Token_usuarioListRelationFilter
   rango?: Prisma.XOR<Prisma.RangoNullableScalarRelationFilter, Prisma.rangoWhereInput> | null
   usuario_logro?: Prisma.Usuario_logroListRelationFilter
@@ -329,6 +332,7 @@ export type usuarioCreateInput = {
   rol?: $Enums.rol_usuario | null
   curso_iniciado?: Prisma.curso_iniciadoCreateNestedManyWithoutUsuarioInput
   intento_quiz?: Prisma.intento_quizCreateNestedManyWithoutUsuarioInput
+  modulo_completado?: Prisma.modulo_completadoCreateNestedManyWithoutUsuarioInput
   token_usuario?: Prisma.token_usuarioCreateNestedManyWithoutUsuarioInput
   rango?: Prisma.rangoCreateNestedOneWithoutUsuarioInput
   usuario_logro?: Prisma.usuario_logroCreateNestedManyWithoutUsuarioInput
@@ -345,6 +349,7 @@ export type usuarioUncheckedCreateInput = {
   rol?: $Enums.rol_usuario | null
   curso_iniciado?: Prisma.curso_iniciadoUncheckedCreateNestedManyWithoutUsuarioInput
   intento_quiz?: Prisma.intento_quizUncheckedCreateNestedManyWithoutUsuarioInput
+  modulo_completado?: Prisma.modulo_completadoUncheckedCreateNestedManyWithoutUsuarioInput
   token_usuario?: Prisma.token_usuarioUncheckedCreateNestedManyWithoutUsuarioInput
   usuario_logro?: Prisma.usuario_logroUncheckedCreateNestedManyWithoutUsuarioInput
 }
@@ -358,6 +363,7 @@ export type usuarioUpdateInput = {
   rol?: Prisma.NullableEnumrol_usuarioFieldUpdateOperationsInput | $Enums.rol_usuario | null
   curso_iniciado?: Prisma.curso_iniciadoUpdateManyWithoutUsuarioNestedInput
   intento_quiz?: Prisma.intento_quizUpdateManyWithoutUsuarioNestedInput
+  modulo_completado?: Prisma.modulo_completadoUpdateManyWithoutUsuarioNestedInput
   token_usuario?: Prisma.token_usuarioUpdateManyWithoutUsuarioNestedInput
   rango?: Prisma.rangoUpdateOneWithoutUsuarioNestedInput
   usuario_logro?: Prisma.usuario_logroUpdateManyWithoutUsuarioNestedInput
@@ -374,6 +380,7 @@ export type usuarioUncheckedUpdateInput = {
   rol?: Prisma.NullableEnumrol_usuarioFieldUpdateOperationsInput | $Enums.rol_usuario | null
   curso_iniciado?: Prisma.curso_iniciadoUncheckedUpdateManyWithoutUsuarioNestedInput
   intento_quiz?: Prisma.intento_quizUncheckedUpdateManyWithoutUsuarioNestedInput
+  modulo_completado?: Prisma.modulo_completadoUncheckedUpdateManyWithoutUsuarioNestedInput
   token_usuario?: Prisma.token_usuarioUncheckedUpdateManyWithoutUsuarioNestedInput
   usuario_logro?: Prisma.usuario_logroUncheckedUpdateManyWithoutUsuarioNestedInput
 }
@@ -575,6 +582,20 @@ export type usuarioUpdateOneRequiredWithoutToken_usuarioNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.usuarioUpdateToOneWithWhereWithoutToken_usuarioInput, Prisma.usuarioUpdateWithoutToken_usuarioInput>, Prisma.usuarioUncheckedUpdateWithoutToken_usuarioInput>
 }
 
+export type usuarioCreateNestedOneWithoutModulo_completadoInput = {
+  create?: Prisma.XOR<Prisma.usuarioCreateWithoutModulo_completadoInput, Prisma.usuarioUncheckedCreateWithoutModulo_completadoInput>
+  connectOrCreate?: Prisma.usuarioCreateOrConnectWithoutModulo_completadoInput
+  connect?: Prisma.usuarioWhereUniqueInput
+}
+
+export type usuarioUpdateOneRequiredWithoutModulo_completadoNestedInput = {
+  create?: Prisma.XOR<Prisma.usuarioCreateWithoutModulo_completadoInput, Prisma.usuarioUncheckedCreateWithoutModulo_completadoInput>
+  connectOrCreate?: Prisma.usuarioCreateOrConnectWithoutModulo_completadoInput
+  upsert?: Prisma.usuarioUpsertWithoutModulo_completadoInput
+  connect?: Prisma.usuarioWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.usuarioUpdateToOneWithWhereWithoutModulo_completadoInput, Prisma.usuarioUpdateWithoutModulo_completadoInput>, Prisma.usuarioUncheckedUpdateWithoutModulo_completadoInput>
+}
+
 export type usuarioCreateWithoutIntento_quizInput = {
   nombre: string
   email: string
@@ -583,6 +604,7 @@ export type usuarioCreateWithoutIntento_quizInput = {
   fecha_registro?: Date | string | null
   rol?: $Enums.rol_usuario | null
   curso_iniciado?: Prisma.curso_iniciadoCreateNestedManyWithoutUsuarioInput
+  modulo_completado?: Prisma.modulo_completadoCreateNestedManyWithoutUsuarioInput
   token_usuario?: Prisma.token_usuarioCreateNestedManyWithoutUsuarioInput
   rango?: Prisma.rangoCreateNestedOneWithoutUsuarioInput
   usuario_logro?: Prisma.usuario_logroCreateNestedManyWithoutUsuarioInput
@@ -598,6 +620,7 @@ export type usuarioUncheckedCreateWithoutIntento_quizInput = {
   fecha_registro?: Date | string | null
   rol?: $Enums.rol_usuario | null
   curso_iniciado?: Prisma.curso_iniciadoUncheckedCreateNestedManyWithoutUsuarioInput
+  modulo_completado?: Prisma.modulo_completadoUncheckedCreateNestedManyWithoutUsuarioInput
   token_usuario?: Prisma.token_usuarioUncheckedCreateNestedManyWithoutUsuarioInput
   usuario_logro?: Prisma.usuario_logroUncheckedCreateNestedManyWithoutUsuarioInput
 }
@@ -626,6 +649,7 @@ export type usuarioUpdateWithoutIntento_quizInput = {
   fecha_registro?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rol?: Prisma.NullableEnumrol_usuarioFieldUpdateOperationsInput | $Enums.rol_usuario | null
   curso_iniciado?: Prisma.curso_iniciadoUpdateManyWithoutUsuarioNestedInput
+  modulo_completado?: Prisma.modulo_completadoUpdateManyWithoutUsuarioNestedInput
   token_usuario?: Prisma.token_usuarioUpdateManyWithoutUsuarioNestedInput
   rango?: Prisma.rangoUpdateOneWithoutUsuarioNestedInput
   usuario_logro?: Prisma.usuario_logroUpdateManyWithoutUsuarioNestedInput
@@ -641,6 +665,7 @@ export type usuarioUncheckedUpdateWithoutIntento_quizInput = {
   fecha_registro?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rol?: Prisma.NullableEnumrol_usuarioFieldUpdateOperationsInput | $Enums.rol_usuario | null
   curso_iniciado?: Prisma.curso_iniciadoUncheckedUpdateManyWithoutUsuarioNestedInput
+  modulo_completado?: Prisma.modulo_completadoUncheckedUpdateManyWithoutUsuarioNestedInput
   token_usuario?: Prisma.token_usuarioUncheckedUpdateManyWithoutUsuarioNestedInput
   usuario_logro?: Prisma.usuario_logroUncheckedUpdateManyWithoutUsuarioNestedInput
 }
@@ -654,6 +679,7 @@ export type usuarioCreateWithoutRangoInput = {
   rol?: $Enums.rol_usuario | null
   curso_iniciado?: Prisma.curso_iniciadoCreateNestedManyWithoutUsuarioInput
   intento_quiz?: Prisma.intento_quizCreateNestedManyWithoutUsuarioInput
+  modulo_completado?: Prisma.modulo_completadoCreateNestedManyWithoutUsuarioInput
   token_usuario?: Prisma.token_usuarioCreateNestedManyWithoutUsuarioInput
   usuario_logro?: Prisma.usuario_logroCreateNestedManyWithoutUsuarioInput
 }
@@ -668,6 +694,7 @@ export type usuarioUncheckedCreateWithoutRangoInput = {
   rol?: $Enums.rol_usuario | null
   curso_iniciado?: Prisma.curso_iniciadoUncheckedCreateNestedManyWithoutUsuarioInput
   intento_quiz?: Prisma.intento_quizUncheckedCreateNestedManyWithoutUsuarioInput
+  modulo_completado?: Prisma.modulo_completadoUncheckedCreateNestedManyWithoutUsuarioInput
   token_usuario?: Prisma.token_usuarioUncheckedCreateNestedManyWithoutUsuarioInput
   usuario_logro?: Prisma.usuario_logroUncheckedCreateNestedManyWithoutUsuarioInput
 }
@@ -721,6 +748,7 @@ export type usuarioCreateWithoutUsuario_logroInput = {
   rol?: $Enums.rol_usuario | null
   curso_iniciado?: Prisma.curso_iniciadoCreateNestedManyWithoutUsuarioInput
   intento_quiz?: Prisma.intento_quizCreateNestedManyWithoutUsuarioInput
+  modulo_completado?: Prisma.modulo_completadoCreateNestedManyWithoutUsuarioInput
   token_usuario?: Prisma.token_usuarioCreateNestedManyWithoutUsuarioInput
   rango?: Prisma.rangoCreateNestedOneWithoutUsuarioInput
 }
@@ -736,6 +764,7 @@ export type usuarioUncheckedCreateWithoutUsuario_logroInput = {
   rol?: $Enums.rol_usuario | null
   curso_iniciado?: Prisma.curso_iniciadoUncheckedCreateNestedManyWithoutUsuarioInput
   intento_quiz?: Prisma.intento_quizUncheckedCreateNestedManyWithoutUsuarioInput
+  modulo_completado?: Prisma.modulo_completadoUncheckedCreateNestedManyWithoutUsuarioInput
   token_usuario?: Prisma.token_usuarioUncheckedCreateNestedManyWithoutUsuarioInput
 }
 
@@ -764,6 +793,7 @@ export type usuarioUpdateWithoutUsuario_logroInput = {
   rol?: Prisma.NullableEnumrol_usuarioFieldUpdateOperationsInput | $Enums.rol_usuario | null
   curso_iniciado?: Prisma.curso_iniciadoUpdateManyWithoutUsuarioNestedInput
   intento_quiz?: Prisma.intento_quizUpdateManyWithoutUsuarioNestedInput
+  modulo_completado?: Prisma.modulo_completadoUpdateManyWithoutUsuarioNestedInput
   token_usuario?: Prisma.token_usuarioUpdateManyWithoutUsuarioNestedInput
   rango?: Prisma.rangoUpdateOneWithoutUsuarioNestedInput
 }
@@ -779,6 +809,7 @@ export type usuarioUncheckedUpdateWithoutUsuario_logroInput = {
   rol?: Prisma.NullableEnumrol_usuarioFieldUpdateOperationsInput | $Enums.rol_usuario | null
   curso_iniciado?: Prisma.curso_iniciadoUncheckedUpdateManyWithoutUsuarioNestedInput
   intento_quiz?: Prisma.intento_quizUncheckedUpdateManyWithoutUsuarioNestedInput
+  modulo_completado?: Prisma.modulo_completadoUncheckedUpdateManyWithoutUsuarioNestedInput
   token_usuario?: Prisma.token_usuarioUncheckedUpdateManyWithoutUsuarioNestedInput
 }
 
@@ -790,6 +821,7 @@ export type usuarioCreateWithoutCurso_iniciadoInput = {
   fecha_registro?: Date | string | null
   rol?: $Enums.rol_usuario | null
   intento_quiz?: Prisma.intento_quizCreateNestedManyWithoutUsuarioInput
+  modulo_completado?: Prisma.modulo_completadoCreateNestedManyWithoutUsuarioInput
   token_usuario?: Prisma.token_usuarioCreateNestedManyWithoutUsuarioInput
   rango?: Prisma.rangoCreateNestedOneWithoutUsuarioInput
   usuario_logro?: Prisma.usuario_logroCreateNestedManyWithoutUsuarioInput
@@ -805,6 +837,7 @@ export type usuarioUncheckedCreateWithoutCurso_iniciadoInput = {
   fecha_registro?: Date | string | null
   rol?: $Enums.rol_usuario | null
   intento_quiz?: Prisma.intento_quizUncheckedCreateNestedManyWithoutUsuarioInput
+  modulo_completado?: Prisma.modulo_completadoUncheckedCreateNestedManyWithoutUsuarioInput
   token_usuario?: Prisma.token_usuarioUncheckedCreateNestedManyWithoutUsuarioInput
   usuario_logro?: Prisma.usuario_logroUncheckedCreateNestedManyWithoutUsuarioInput
 }
@@ -833,6 +866,7 @@ export type usuarioUpdateWithoutCurso_iniciadoInput = {
   fecha_registro?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rol?: Prisma.NullableEnumrol_usuarioFieldUpdateOperationsInput | $Enums.rol_usuario | null
   intento_quiz?: Prisma.intento_quizUpdateManyWithoutUsuarioNestedInput
+  modulo_completado?: Prisma.modulo_completadoUpdateManyWithoutUsuarioNestedInput
   token_usuario?: Prisma.token_usuarioUpdateManyWithoutUsuarioNestedInput
   rango?: Prisma.rangoUpdateOneWithoutUsuarioNestedInput
   usuario_logro?: Prisma.usuario_logroUpdateManyWithoutUsuarioNestedInput
@@ -848,6 +882,7 @@ export type usuarioUncheckedUpdateWithoutCurso_iniciadoInput = {
   fecha_registro?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rol?: Prisma.NullableEnumrol_usuarioFieldUpdateOperationsInput | $Enums.rol_usuario | null
   intento_quiz?: Prisma.intento_quizUncheckedUpdateManyWithoutUsuarioNestedInput
+  modulo_completado?: Prisma.modulo_completadoUncheckedUpdateManyWithoutUsuarioNestedInput
   token_usuario?: Prisma.token_usuarioUncheckedUpdateManyWithoutUsuarioNestedInput
   usuario_logro?: Prisma.usuario_logroUncheckedUpdateManyWithoutUsuarioNestedInput
 }
@@ -861,6 +896,7 @@ export type usuarioCreateWithoutToken_usuarioInput = {
   rol?: $Enums.rol_usuario | null
   curso_iniciado?: Prisma.curso_iniciadoCreateNestedManyWithoutUsuarioInput
   intento_quiz?: Prisma.intento_quizCreateNestedManyWithoutUsuarioInput
+  modulo_completado?: Prisma.modulo_completadoCreateNestedManyWithoutUsuarioInput
   rango?: Prisma.rangoCreateNestedOneWithoutUsuarioInput
   usuario_logro?: Prisma.usuario_logroCreateNestedManyWithoutUsuarioInput
 }
@@ -876,6 +912,7 @@ export type usuarioUncheckedCreateWithoutToken_usuarioInput = {
   rol?: $Enums.rol_usuario | null
   curso_iniciado?: Prisma.curso_iniciadoUncheckedCreateNestedManyWithoutUsuarioInput
   intento_quiz?: Prisma.intento_quizUncheckedCreateNestedManyWithoutUsuarioInput
+  modulo_completado?: Prisma.modulo_completadoUncheckedCreateNestedManyWithoutUsuarioInput
   usuario_logro?: Prisma.usuario_logroUncheckedCreateNestedManyWithoutUsuarioInput
 }
 
@@ -904,6 +941,7 @@ export type usuarioUpdateWithoutToken_usuarioInput = {
   rol?: Prisma.NullableEnumrol_usuarioFieldUpdateOperationsInput | $Enums.rol_usuario | null
   curso_iniciado?: Prisma.curso_iniciadoUpdateManyWithoutUsuarioNestedInput
   intento_quiz?: Prisma.intento_quizUpdateManyWithoutUsuarioNestedInput
+  modulo_completado?: Prisma.modulo_completadoUpdateManyWithoutUsuarioNestedInput
   rango?: Prisma.rangoUpdateOneWithoutUsuarioNestedInput
   usuario_logro?: Prisma.usuario_logroUpdateManyWithoutUsuarioNestedInput
 }
@@ -919,6 +957,81 @@ export type usuarioUncheckedUpdateWithoutToken_usuarioInput = {
   rol?: Prisma.NullableEnumrol_usuarioFieldUpdateOperationsInput | $Enums.rol_usuario | null
   curso_iniciado?: Prisma.curso_iniciadoUncheckedUpdateManyWithoutUsuarioNestedInput
   intento_quiz?: Prisma.intento_quizUncheckedUpdateManyWithoutUsuarioNestedInput
+  modulo_completado?: Prisma.modulo_completadoUncheckedUpdateManyWithoutUsuarioNestedInput
+  usuario_logro?: Prisma.usuario_logroUncheckedUpdateManyWithoutUsuarioNestedInput
+}
+
+export type usuarioCreateWithoutModulo_completadoInput = {
+  nombre: string
+  email: string
+  password: string
+  puntos_totales?: number | null
+  fecha_registro?: Date | string | null
+  rol?: $Enums.rol_usuario | null
+  curso_iniciado?: Prisma.curso_iniciadoCreateNestedManyWithoutUsuarioInput
+  intento_quiz?: Prisma.intento_quizCreateNestedManyWithoutUsuarioInput
+  token_usuario?: Prisma.token_usuarioCreateNestedManyWithoutUsuarioInput
+  rango?: Prisma.rangoCreateNestedOneWithoutUsuarioInput
+  usuario_logro?: Prisma.usuario_logroCreateNestedManyWithoutUsuarioInput
+}
+
+export type usuarioUncheckedCreateWithoutModulo_completadoInput = {
+  id_usuario?: number
+  nombre: string
+  email: string
+  password: string
+  id_rango_actual?: number | null
+  puntos_totales?: number | null
+  fecha_registro?: Date | string | null
+  rol?: $Enums.rol_usuario | null
+  curso_iniciado?: Prisma.curso_iniciadoUncheckedCreateNestedManyWithoutUsuarioInput
+  intento_quiz?: Prisma.intento_quizUncheckedCreateNestedManyWithoutUsuarioInput
+  token_usuario?: Prisma.token_usuarioUncheckedCreateNestedManyWithoutUsuarioInput
+  usuario_logro?: Prisma.usuario_logroUncheckedCreateNestedManyWithoutUsuarioInput
+}
+
+export type usuarioCreateOrConnectWithoutModulo_completadoInput = {
+  where: Prisma.usuarioWhereUniqueInput
+  create: Prisma.XOR<Prisma.usuarioCreateWithoutModulo_completadoInput, Prisma.usuarioUncheckedCreateWithoutModulo_completadoInput>
+}
+
+export type usuarioUpsertWithoutModulo_completadoInput = {
+  update: Prisma.XOR<Prisma.usuarioUpdateWithoutModulo_completadoInput, Prisma.usuarioUncheckedUpdateWithoutModulo_completadoInput>
+  create: Prisma.XOR<Prisma.usuarioCreateWithoutModulo_completadoInput, Prisma.usuarioUncheckedCreateWithoutModulo_completadoInput>
+  where?: Prisma.usuarioWhereInput
+}
+
+export type usuarioUpdateToOneWithWhereWithoutModulo_completadoInput = {
+  where?: Prisma.usuarioWhereInput
+  data: Prisma.XOR<Prisma.usuarioUpdateWithoutModulo_completadoInput, Prisma.usuarioUncheckedUpdateWithoutModulo_completadoInput>
+}
+
+export type usuarioUpdateWithoutModulo_completadoInput = {
+  nombre?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  puntos_totales?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fecha_registro?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rol?: Prisma.NullableEnumrol_usuarioFieldUpdateOperationsInput | $Enums.rol_usuario | null
+  curso_iniciado?: Prisma.curso_iniciadoUpdateManyWithoutUsuarioNestedInput
+  intento_quiz?: Prisma.intento_quizUpdateManyWithoutUsuarioNestedInput
+  token_usuario?: Prisma.token_usuarioUpdateManyWithoutUsuarioNestedInput
+  rango?: Prisma.rangoUpdateOneWithoutUsuarioNestedInput
+  usuario_logro?: Prisma.usuario_logroUpdateManyWithoutUsuarioNestedInput
+}
+
+export type usuarioUncheckedUpdateWithoutModulo_completadoInput = {
+  id_usuario?: Prisma.IntFieldUpdateOperationsInput | number
+  nombre?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  id_rango_actual?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  puntos_totales?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fecha_registro?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rol?: Prisma.NullableEnumrol_usuarioFieldUpdateOperationsInput | $Enums.rol_usuario | null
+  curso_iniciado?: Prisma.curso_iniciadoUncheckedUpdateManyWithoutUsuarioNestedInput
+  intento_quiz?: Prisma.intento_quizUncheckedUpdateManyWithoutUsuarioNestedInput
+  token_usuario?: Prisma.token_usuarioUncheckedUpdateManyWithoutUsuarioNestedInput
   usuario_logro?: Prisma.usuario_logroUncheckedUpdateManyWithoutUsuarioNestedInput
 }
 
@@ -941,6 +1054,7 @@ export type usuarioUpdateWithoutRangoInput = {
   rol?: Prisma.NullableEnumrol_usuarioFieldUpdateOperationsInput | $Enums.rol_usuario | null
   curso_iniciado?: Prisma.curso_iniciadoUpdateManyWithoutUsuarioNestedInput
   intento_quiz?: Prisma.intento_quizUpdateManyWithoutUsuarioNestedInput
+  modulo_completado?: Prisma.modulo_completadoUpdateManyWithoutUsuarioNestedInput
   token_usuario?: Prisma.token_usuarioUpdateManyWithoutUsuarioNestedInput
   usuario_logro?: Prisma.usuario_logroUpdateManyWithoutUsuarioNestedInput
 }
@@ -955,6 +1069,7 @@ export type usuarioUncheckedUpdateWithoutRangoInput = {
   rol?: Prisma.NullableEnumrol_usuarioFieldUpdateOperationsInput | $Enums.rol_usuario | null
   curso_iniciado?: Prisma.curso_iniciadoUncheckedUpdateManyWithoutUsuarioNestedInput
   intento_quiz?: Prisma.intento_quizUncheckedUpdateManyWithoutUsuarioNestedInput
+  modulo_completado?: Prisma.modulo_completadoUncheckedUpdateManyWithoutUsuarioNestedInput
   token_usuario?: Prisma.token_usuarioUncheckedUpdateManyWithoutUsuarioNestedInput
   usuario_logro?: Prisma.usuario_logroUncheckedUpdateManyWithoutUsuarioNestedInput
 }
@@ -977,6 +1092,7 @@ export type usuarioUncheckedUpdateManyWithoutRangoInput = {
 export type UsuarioCountOutputType = {
   curso_iniciado: number
   intento_quiz: number
+  modulo_completado: number
   token_usuario: number
   usuario_logro: number
 }
@@ -984,6 +1100,7 @@ export type UsuarioCountOutputType = {
 export type UsuarioCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   curso_iniciado?: boolean | UsuarioCountOutputTypeCountCurso_iniciadoArgs
   intento_quiz?: boolean | UsuarioCountOutputTypeCountIntento_quizArgs
+  modulo_completado?: boolean | UsuarioCountOutputTypeCountModulo_completadoArgs
   token_usuario?: boolean | UsuarioCountOutputTypeCountToken_usuarioArgs
   usuario_logro?: boolean | UsuarioCountOutputTypeCountUsuario_logroArgs
 }
@@ -1015,6 +1132,13 @@ export type UsuarioCountOutputTypeCountIntento_quizArgs<ExtArgs extends runtime.
 /**
  * UsuarioCountOutputType without action
  */
+export type UsuarioCountOutputTypeCountModulo_completadoArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.modulo_completadoWhereInput
+}
+
+/**
+ * UsuarioCountOutputType without action
+ */
 export type UsuarioCountOutputTypeCountToken_usuarioArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.token_usuarioWhereInput
 }
@@ -1038,6 +1162,7 @@ export type usuarioSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   rol?: boolean
   curso_iniciado?: boolean | Prisma.usuario$curso_iniciadoArgs<ExtArgs>
   intento_quiz?: boolean | Prisma.usuario$intento_quizArgs<ExtArgs>
+  modulo_completado?: boolean | Prisma.usuario$modulo_completadoArgs<ExtArgs>
   token_usuario?: boolean | Prisma.usuario$token_usuarioArgs<ExtArgs>
   rango?: boolean | Prisma.usuario$rangoArgs<ExtArgs>
   usuario_logro?: boolean | Prisma.usuario$usuario_logroArgs<ExtArgs>
@@ -1083,6 +1208,7 @@ export type usuarioOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
 export type usuarioInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   curso_iniciado?: boolean | Prisma.usuario$curso_iniciadoArgs<ExtArgs>
   intento_quiz?: boolean | Prisma.usuario$intento_quizArgs<ExtArgs>
+  modulo_completado?: boolean | Prisma.usuario$modulo_completadoArgs<ExtArgs>
   token_usuario?: boolean | Prisma.usuario$token_usuarioArgs<ExtArgs>
   rango?: boolean | Prisma.usuario$rangoArgs<ExtArgs>
   usuario_logro?: boolean | Prisma.usuario$usuario_logroArgs<ExtArgs>
@@ -1100,6 +1226,7 @@ export type $usuarioPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
   objects: {
     curso_iniciado: Prisma.$curso_iniciadoPayload<ExtArgs>[]
     intento_quiz: Prisma.$intento_quizPayload<ExtArgs>[]
+    modulo_completado: Prisma.$modulo_completadoPayload<ExtArgs>[]
     token_usuario: Prisma.$token_usuarioPayload<ExtArgs>[]
     rango: Prisma.$rangoPayload<ExtArgs> | null
     usuario_logro: Prisma.$usuario_logroPayload<ExtArgs>[]
@@ -1509,6 +1636,7 @@ export interface Prisma__usuarioClient<T, Null = never, ExtArgs extends runtime.
   readonly [Symbol.toStringTag]: "PrismaPromise"
   curso_iniciado<T extends Prisma.usuario$curso_iniciadoArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.usuario$curso_iniciadoArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$curso_iniciadoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   intento_quiz<T extends Prisma.usuario$intento_quizArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.usuario$intento_quizArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$intento_quizPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  modulo_completado<T extends Prisma.usuario$modulo_completadoArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.usuario$modulo_completadoArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$modulo_completadoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   token_usuario<T extends Prisma.usuario$token_usuarioArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.usuario$token_usuarioArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$token_usuarioPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   rango<T extends Prisma.usuario$rangoArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.usuario$rangoArgs<ExtArgs>>): Prisma.Prisma__rangoClient<runtime.Types.Result.GetResult<Prisma.$rangoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   usuario_logro<T extends Prisma.usuario$usuario_logroArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.usuario$usuario_logroArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$usuario_logroPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -1990,6 +2118,30 @@ export type usuario$intento_quizArgs<ExtArgs extends runtime.Types.Extensions.In
   take?: number
   skip?: number
   distinct?: Prisma.Intento_quizScalarFieldEnum | Prisma.Intento_quizScalarFieldEnum[]
+}
+
+/**
+ * usuario.modulo_completado
+ */
+export type usuario$modulo_completadoArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the modulo_completado
+   */
+  select?: Prisma.modulo_completadoSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the modulo_completado
+   */
+  omit?: Prisma.modulo_completadoOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.modulo_completadoInclude<ExtArgs> | null
+  where?: Prisma.modulo_completadoWhereInput
+  orderBy?: Prisma.modulo_completadoOrderByWithRelationInput | Prisma.modulo_completadoOrderByWithRelationInput[]
+  cursor?: Prisma.modulo_completadoWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.Modulo_completadoScalarFieldEnum | Prisma.Modulo_completadoScalarFieldEnum[]
 }
 
 /**

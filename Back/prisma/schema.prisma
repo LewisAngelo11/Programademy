@@ -9,14 +9,14 @@ datasource db {
 
 /// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
 model intento_quiz {
-  id_intento       Int      @id @default(autoincrement())
+  id_intento       Int     @id @default(autoincrement())
   id_usuario       Int
   id_quiz          Int
   calificacion     Int?
   puntos_otorgados Int?
-  completado_100   Boolean?
-  quiz             quiz     @relation(fields: [id_quiz], references: [id_quiz], onDelete: Cascade, onUpdate: NoAction, map: "fk_intento_quiz")
-  usuario          usuario  @relation(fields: [id_usuario], references: [id_usuario], onDelete: Cascade, onUpdate: NoAction, map: "fk_intento_usuario")
+  completado_100   Boolean @default(false)
+  quiz             quiz    @relation(fields: [id_quiz], references: [id_quiz], onDelete: Cascade, onUpdate: NoAction, map: "fk_intento_quiz")
+  usuario          usuario @relation(fields: [id_usuario], references: [id_usuario], onDelete: Cascade, onUpdate: NoAction, map: "fk_intento_usuario")
 }
 
 model logro {
@@ -29,15 +29,16 @@ model logro {
 }
 
 model modulo {
-  id_modulo         Int              @id @default(autoincrement())
-  titulo            String           @db.VarChar(150)
+  id_modulo         Int                 @id @default(autoincrement())
+  titulo            String              @db.VarChar(150)
   descripcion       String?
   orden             Int
   contenido_teorico String?
   id_curso          Int
-  estatus           estatus_modulo   @default(activo)
+  estatus           estatus_modulo      @default(activo)
   codigo_ejemplo    codigo_ejemplo[]
-  curso             curso            @relation(fields: [id_curso], references: [id_curso], onDelete: Cascade, onUpdate: NoAction, map: "fk_modulo_curso")
+  curso             curso               @relation(fields: [id_curso], references: [id_curso], onDelete: Cascade, onUpdate: NoAction, map: "fk_modulo_curso")
+  modulo_completado modulo_completado[]
   quiz              quiz[]
 }
 
@@ -73,19 +74,20 @@ model rango {
 
 /// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
 model usuario {
-  id_usuario      Int              @id @default(autoincrement())
-  nombre          String           @db.VarChar(100)
-  email           String           @unique @db.VarChar(150)
-  password        String           @db.VarChar(255)
-  id_rango_actual Int?
-  puntos_totales  Int?             @default(0)
-  fecha_registro  DateTime?        @default(dbgenerated("CURRENT_DATE")) @db.Date
-  rol             rol_usuario?     @default(student)
-  curso_iniciado  curso_iniciado[]
-  intento_quiz    intento_quiz[]
-  token_usuario   token_usuario[]
-  rango           rango?           @relation(fields: [id_rango_actual], references: [id_rango], onUpdate: NoAction, map: "fk_usuario_rango")
-  usuario_logro   usuario_logro[]
+  id_usuario        Int                 @id @default(autoincrement())
+  nombre            String              @db.VarChar(100)
+  email             String              @unique @db.VarChar(150)
+  password          String              @db.VarChar(255)
+  id_rango_actual   Int?
+  puntos_totales    Int?                @default(0)
+  fecha_registro    DateTime?           @default(dbgenerated("CURRENT_DATE")) @db.Date
+  rol               rol_usuario?        @default(student)
+  curso_iniciado    curso_iniciado[]
+  intento_quiz      intento_quiz[]
+  modulo_completado modulo_completado[]
+  token_usuario     token_usuario[]
+  rango             rango?              @relation(fields: [id_rango_actual], references: [id_rango], onUpdate: NoAction, map: "fk_usuario_rango")
+  usuario_logro     usuario_logro[]
 }
 
 model usuario_logro {
@@ -129,11 +131,13 @@ model codigo_ejemplo {
 }
 
 model curso_iniciado {
-  id_curso_iniciado Int     @id @default(autoincrement())
+  id_curso_iniciado Int       @id @default(autoincrement())
   id_usuario        Int
   id_curso          Int
-  curso             curso   @relation(fields: [id_curso], references: [id_curso], onDelete: NoAction, onUpdate: NoAction, map: "fk_curso_iniciado_curso")
-  usuario           usuario @relation(fields: [id_usuario], references: [id_usuario], onDelete: NoAction, onUpdate: NoAction, map: "fk_curso_iniciado_usuario")
+  completado        Boolean   @default(false)
+  fecha_completado  DateTime? @db.Timestamp(6)
+  curso             curso     @relation(fields: [id_curso], references: [id_curso], onDelete: NoAction, onUpdate: NoAction, map: "fk_curso_iniciado_curso")
+  usuario           usuario   @relation(fields: [id_usuario], references: [id_usuario], onDelete: NoAction, onUpdate: NoAction, map: "fk_curso_iniciado_usuario")
 
   @@unique([id_usuario, id_curso], map: "unique_usuario_curso")
 }
@@ -147,6 +151,18 @@ model token_usuario {
   id_usuario Int
   created_at DateTime  @default(now()) @db.Timestamp(6)
   usuario    usuario   @relation(fields: [id_usuario], references: [id_usuario], onDelete: Cascade, onUpdate: NoAction, map: "fk_token_usuario_usuario")
+}
+
+model modulo_completado {
+  id_modulo_completado Int       @id @default(autoincrement())
+  id_usuario           Int
+  id_modulo            Int
+  completado           Boolean   @default(false)
+  fecha_completado     DateTime? @db.Timestamp(6)
+  modulo               modulo    @relation(fields: [id_modulo], references: [id_modulo], onDelete: Cascade, onUpdate: NoAction, map: "fk_modulo_completado_modulo")
+  usuario              usuario   @relation(fields: [id_usuario], references: [id_usuario], onDelete: Cascade, onUpdate: NoAction, map: "fk_modulo_completado_usuario")
+
+  @@unique([id_usuario, id_modulo], map: "unique_usuario_modulo")
 }
 
 enum rol_usuario {

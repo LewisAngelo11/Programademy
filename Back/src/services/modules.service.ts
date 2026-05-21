@@ -25,8 +25,8 @@ export class ModuloService {
     }
 
     // Métodos para obtener todos los módulos activos de un curso en específico
-    async getModulosByCurso(idCurso: number) {
-        return await prisma.modulo.findMany({
+    async getModulosByCurso(idCurso: number, idUsuario: number) {
+        const modules = await prisma.modulo.findMany({
             where: {
                 id_curso: idCurso,
                 estatus: "activo"
@@ -38,12 +38,23 @@ export class ModuloService {
                         titulo: true
                     }
                 },
-                codigo_ejemplo: true
+                codigo_ejemplo: true,
+                modulo_completado: {
+                    where: {
+                        id_usuario: idUsuario,
+                        completado: true
+                    }
+                }
             },
             orderBy: {
                 orden: 'asc'
             }
         });
+
+        return modules.map(module => ({
+            ...module,
+            completed: module.modulo_completado.length > 0
+        }));
     }
 
     // Método para obtener un módulo por ID

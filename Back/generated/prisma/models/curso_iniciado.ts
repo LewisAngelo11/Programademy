@@ -42,18 +42,24 @@ export type Curso_iniciadoMinAggregateOutputType = {
   id_curso_iniciado: number | null
   id_usuario: number | null
   id_curso: number | null
+  completado: boolean | null
+  fecha_completado: Date | null
 }
 
 export type Curso_iniciadoMaxAggregateOutputType = {
   id_curso_iniciado: number | null
   id_usuario: number | null
   id_curso: number | null
+  completado: boolean | null
+  fecha_completado: Date | null
 }
 
 export type Curso_iniciadoCountAggregateOutputType = {
   id_curso_iniciado: number
   id_usuario: number
   id_curso: number
+  completado: number
+  fecha_completado: number
   _all: number
 }
 
@@ -74,18 +80,24 @@ export type Curso_iniciadoMinAggregateInputType = {
   id_curso_iniciado?: true
   id_usuario?: true
   id_curso?: true
+  completado?: true
+  fecha_completado?: true
 }
 
 export type Curso_iniciadoMaxAggregateInputType = {
   id_curso_iniciado?: true
   id_usuario?: true
   id_curso?: true
+  completado?: true
+  fecha_completado?: true
 }
 
 export type Curso_iniciadoCountAggregateInputType = {
   id_curso_iniciado?: true
   id_usuario?: true
   id_curso?: true
+  completado?: true
+  fecha_completado?: true
   _all?: true
 }
 
@@ -179,6 +191,8 @@ export type Curso_iniciadoGroupByOutputType = {
   id_curso_iniciado: number
   id_usuario: number
   id_curso: number
+  completado: boolean
+  fecha_completado: Date | null
   _count: Curso_iniciadoCountAggregateOutputType | null
   _avg: Curso_iniciadoAvgAggregateOutputType | null
   _sum: Curso_iniciadoSumAggregateOutputType | null
@@ -208,6 +222,8 @@ export type curso_iniciadoWhereInput = {
   id_curso_iniciado?: Prisma.IntFilter<"curso_iniciado"> | number
   id_usuario?: Prisma.IntFilter<"curso_iniciado"> | number
   id_curso?: Prisma.IntFilter<"curso_iniciado"> | number
+  completado?: Prisma.BoolFilter<"curso_iniciado"> | boolean
+  fecha_completado?: Prisma.DateTimeNullableFilter<"curso_iniciado"> | Date | string | null
   curso?: Prisma.XOR<Prisma.CursoScalarRelationFilter, Prisma.cursoWhereInput>
   usuario?: Prisma.XOR<Prisma.UsuarioScalarRelationFilter, Prisma.usuarioWhereInput>
 }
@@ -216,6 +232,8 @@ export type curso_iniciadoOrderByWithRelationInput = {
   id_curso_iniciado?: Prisma.SortOrder
   id_usuario?: Prisma.SortOrder
   id_curso?: Prisma.SortOrder
+  completado?: Prisma.SortOrder
+  fecha_completado?: Prisma.SortOrderInput | Prisma.SortOrder
   curso?: Prisma.cursoOrderByWithRelationInput
   usuario?: Prisma.usuarioOrderByWithRelationInput
 }
@@ -228,6 +246,8 @@ export type curso_iniciadoWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.curso_iniciadoWhereInput | Prisma.curso_iniciadoWhereInput[]
   id_usuario?: Prisma.IntFilter<"curso_iniciado"> | number
   id_curso?: Prisma.IntFilter<"curso_iniciado"> | number
+  completado?: Prisma.BoolFilter<"curso_iniciado"> | boolean
+  fecha_completado?: Prisma.DateTimeNullableFilter<"curso_iniciado"> | Date | string | null
   curso?: Prisma.XOR<Prisma.CursoScalarRelationFilter, Prisma.cursoWhereInput>
   usuario?: Prisma.XOR<Prisma.UsuarioScalarRelationFilter, Prisma.usuarioWhereInput>
 }, "id_curso_iniciado" | "id_usuario_id_curso">
@@ -236,6 +256,8 @@ export type curso_iniciadoOrderByWithAggregationInput = {
   id_curso_iniciado?: Prisma.SortOrder
   id_usuario?: Prisma.SortOrder
   id_curso?: Prisma.SortOrder
+  completado?: Prisma.SortOrder
+  fecha_completado?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.curso_iniciadoCountOrderByAggregateInput
   _avg?: Prisma.curso_iniciadoAvgOrderByAggregateInput
   _max?: Prisma.curso_iniciadoMaxOrderByAggregateInput
@@ -250,9 +272,13 @@ export type curso_iniciadoScalarWhereWithAggregatesInput = {
   id_curso_iniciado?: Prisma.IntWithAggregatesFilter<"curso_iniciado"> | number
   id_usuario?: Prisma.IntWithAggregatesFilter<"curso_iniciado"> | number
   id_curso?: Prisma.IntWithAggregatesFilter<"curso_iniciado"> | number
+  completado?: Prisma.BoolWithAggregatesFilter<"curso_iniciado"> | boolean
+  fecha_completado?: Prisma.DateTimeNullableWithAggregatesFilter<"curso_iniciado"> | Date | string | null
 }
 
 export type curso_iniciadoCreateInput = {
+  completado?: boolean
+  fecha_completado?: Date | string | null
   curso: Prisma.cursoCreateNestedOneWithoutCurso_iniciadoInput
   usuario: Prisma.usuarioCreateNestedOneWithoutCurso_iniciadoInput
 }
@@ -261,9 +287,13 @@ export type curso_iniciadoUncheckedCreateInput = {
   id_curso_iniciado?: number
   id_usuario: number
   id_curso: number
+  completado?: boolean
+  fecha_completado?: Date | string | null
 }
 
 export type curso_iniciadoUpdateInput = {
+  completado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  fecha_completado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   curso?: Prisma.cursoUpdateOneRequiredWithoutCurso_iniciadoNestedInput
   usuario?: Prisma.usuarioUpdateOneRequiredWithoutCurso_iniciadoNestedInput
 }
@@ -272,22 +302,29 @@ export type curso_iniciadoUncheckedUpdateInput = {
   id_curso_iniciado?: Prisma.IntFieldUpdateOperationsInput | number
   id_usuario?: Prisma.IntFieldUpdateOperationsInput | number
   id_curso?: Prisma.IntFieldUpdateOperationsInput | number
+  completado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  fecha_completado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type curso_iniciadoCreateManyInput = {
   id_curso_iniciado?: number
   id_usuario: number
   id_curso: number
+  completado?: boolean
+  fecha_completado?: Date | string | null
 }
 
 export type curso_iniciadoUpdateManyMutationInput = {
-
+  completado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  fecha_completado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type curso_iniciadoUncheckedUpdateManyInput = {
   id_curso_iniciado?: Prisma.IntFieldUpdateOperationsInput | number
   id_usuario?: Prisma.IntFieldUpdateOperationsInput | number
   id_curso?: Prisma.IntFieldUpdateOperationsInput | number
+  completado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  fecha_completado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type Curso_iniciadoListRelationFilter = {
@@ -309,6 +346,8 @@ export type curso_iniciadoCountOrderByAggregateInput = {
   id_curso_iniciado?: Prisma.SortOrder
   id_usuario?: Prisma.SortOrder
   id_curso?: Prisma.SortOrder
+  completado?: Prisma.SortOrder
+  fecha_completado?: Prisma.SortOrder
 }
 
 export type curso_iniciadoAvgOrderByAggregateInput = {
@@ -321,12 +360,16 @@ export type curso_iniciadoMaxOrderByAggregateInput = {
   id_curso_iniciado?: Prisma.SortOrder
   id_usuario?: Prisma.SortOrder
   id_curso?: Prisma.SortOrder
+  completado?: Prisma.SortOrder
+  fecha_completado?: Prisma.SortOrder
 }
 
 export type curso_iniciadoMinOrderByAggregateInput = {
   id_curso_iniciado?: Prisma.SortOrder
   id_usuario?: Prisma.SortOrder
   id_curso?: Prisma.SortOrder
+  completado?: Prisma.SortOrder
+  fecha_completado?: Prisma.SortOrder
 }
 
 export type curso_iniciadoSumOrderByAggregateInput = {
@@ -420,12 +463,16 @@ export type curso_iniciadoUncheckedUpdateManyWithoutCursoNestedInput = {
 }
 
 export type curso_iniciadoCreateWithoutUsuarioInput = {
+  completado?: boolean
+  fecha_completado?: Date | string | null
   curso: Prisma.cursoCreateNestedOneWithoutCurso_iniciadoInput
 }
 
 export type curso_iniciadoUncheckedCreateWithoutUsuarioInput = {
   id_curso_iniciado?: number
   id_curso: number
+  completado?: boolean
+  fecha_completado?: Date | string | null
 }
 
 export type curso_iniciadoCreateOrConnectWithoutUsuarioInput = {
@@ -461,15 +508,21 @@ export type curso_iniciadoScalarWhereInput = {
   id_curso_iniciado?: Prisma.IntFilter<"curso_iniciado"> | number
   id_usuario?: Prisma.IntFilter<"curso_iniciado"> | number
   id_curso?: Prisma.IntFilter<"curso_iniciado"> | number
+  completado?: Prisma.BoolFilter<"curso_iniciado"> | boolean
+  fecha_completado?: Prisma.DateTimeNullableFilter<"curso_iniciado"> | Date | string | null
 }
 
 export type curso_iniciadoCreateWithoutCursoInput = {
+  completado?: boolean
+  fecha_completado?: Date | string | null
   usuario: Prisma.usuarioCreateNestedOneWithoutCurso_iniciadoInput
 }
 
 export type curso_iniciadoUncheckedCreateWithoutCursoInput = {
   id_curso_iniciado?: number
   id_usuario: number
+  completado?: boolean
+  fecha_completado?: Date | string | null
 }
 
 export type curso_iniciadoCreateOrConnectWithoutCursoInput = {
@@ -501,39 +554,55 @@ export type curso_iniciadoUpdateManyWithWhereWithoutCursoInput = {
 export type curso_iniciadoCreateManyUsuarioInput = {
   id_curso_iniciado?: number
   id_curso: number
+  completado?: boolean
+  fecha_completado?: Date | string | null
 }
 
 export type curso_iniciadoUpdateWithoutUsuarioInput = {
+  completado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  fecha_completado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   curso?: Prisma.cursoUpdateOneRequiredWithoutCurso_iniciadoNestedInput
 }
 
 export type curso_iniciadoUncheckedUpdateWithoutUsuarioInput = {
   id_curso_iniciado?: Prisma.IntFieldUpdateOperationsInput | number
   id_curso?: Prisma.IntFieldUpdateOperationsInput | number
+  completado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  fecha_completado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type curso_iniciadoUncheckedUpdateManyWithoutUsuarioInput = {
   id_curso_iniciado?: Prisma.IntFieldUpdateOperationsInput | number
   id_curso?: Prisma.IntFieldUpdateOperationsInput | number
+  completado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  fecha_completado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type curso_iniciadoCreateManyCursoInput = {
   id_curso_iniciado?: number
   id_usuario: number
+  completado?: boolean
+  fecha_completado?: Date | string | null
 }
 
 export type curso_iniciadoUpdateWithoutCursoInput = {
+  completado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  fecha_completado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   usuario?: Prisma.usuarioUpdateOneRequiredWithoutCurso_iniciadoNestedInput
 }
 
 export type curso_iniciadoUncheckedUpdateWithoutCursoInput = {
   id_curso_iniciado?: Prisma.IntFieldUpdateOperationsInput | number
   id_usuario?: Prisma.IntFieldUpdateOperationsInput | number
+  completado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  fecha_completado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type curso_iniciadoUncheckedUpdateManyWithoutCursoInput = {
   id_curso_iniciado?: Prisma.IntFieldUpdateOperationsInput | number
   id_usuario?: Prisma.IntFieldUpdateOperationsInput | number
+  completado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  fecha_completado?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 
@@ -542,6 +611,8 @@ export type curso_iniciadoSelect<ExtArgs extends runtime.Types.Extensions.Intern
   id_curso_iniciado?: boolean
   id_usuario?: boolean
   id_curso?: boolean
+  completado?: boolean
+  fecha_completado?: boolean
   curso?: boolean | Prisma.cursoDefaultArgs<ExtArgs>
   usuario?: boolean | Prisma.usuarioDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["curso_iniciado"]>
@@ -550,6 +621,8 @@ export type curso_iniciadoSelectCreateManyAndReturn<ExtArgs extends runtime.Type
   id_curso_iniciado?: boolean
   id_usuario?: boolean
   id_curso?: boolean
+  completado?: boolean
+  fecha_completado?: boolean
   curso?: boolean | Prisma.cursoDefaultArgs<ExtArgs>
   usuario?: boolean | Prisma.usuarioDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["curso_iniciado"]>
@@ -558,6 +631,8 @@ export type curso_iniciadoSelectUpdateManyAndReturn<ExtArgs extends runtime.Type
   id_curso_iniciado?: boolean
   id_usuario?: boolean
   id_curso?: boolean
+  completado?: boolean
+  fecha_completado?: boolean
   curso?: boolean | Prisma.cursoDefaultArgs<ExtArgs>
   usuario?: boolean | Prisma.usuarioDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["curso_iniciado"]>
@@ -566,9 +641,11 @@ export type curso_iniciadoSelectScalar = {
   id_curso_iniciado?: boolean
   id_usuario?: boolean
   id_curso?: boolean
+  completado?: boolean
+  fecha_completado?: boolean
 }
 
-export type curso_iniciadoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id_curso_iniciado" | "id_usuario" | "id_curso", ExtArgs["result"]["curso_iniciado"]>
+export type curso_iniciadoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id_curso_iniciado" | "id_usuario" | "id_curso" | "completado" | "fecha_completado", ExtArgs["result"]["curso_iniciado"]>
 export type curso_iniciadoInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   curso?: boolean | Prisma.cursoDefaultArgs<ExtArgs>
   usuario?: boolean | Prisma.usuarioDefaultArgs<ExtArgs>
@@ -592,6 +669,8 @@ export type $curso_iniciadoPayload<ExtArgs extends runtime.Types.Extensions.Inte
     id_curso_iniciado: number
     id_usuario: number
     id_curso: number
+    completado: boolean
+    fecha_completado: Date | null
   }, ExtArgs["result"]["curso_iniciado"]>
   composites: {}
 }
@@ -1020,6 +1099,8 @@ export interface curso_iniciadoFieldRefs {
   readonly id_curso_iniciado: Prisma.FieldRef<"curso_iniciado", 'Int'>
   readonly id_usuario: Prisma.FieldRef<"curso_iniciado", 'Int'>
   readonly id_curso: Prisma.FieldRef<"curso_iniciado", 'Int'>
+  readonly completado: Prisma.FieldRef<"curso_iniciado", 'Boolean'>
+  readonly fecha_completado: Prisma.FieldRef<"curso_iniciado", 'DateTime'>
 }
     
 

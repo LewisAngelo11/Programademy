@@ -242,6 +242,7 @@ export type moduloWhereInput = {
   estatus?: Prisma.Enumestatus_moduloFilter<"modulo"> | $Enums.estatus_modulo
   codigo_ejemplo?: Prisma.Codigo_ejemploListRelationFilter
   curso?: Prisma.XOR<Prisma.CursoScalarRelationFilter, Prisma.cursoWhereInput>
+  modulo_completado?: Prisma.Modulo_completadoListRelationFilter
   quiz?: Prisma.QuizListRelationFilter
 }
 
@@ -255,6 +256,7 @@ export type moduloOrderByWithRelationInput = {
   estatus?: Prisma.SortOrder
   codigo_ejemplo?: Prisma.codigo_ejemploOrderByRelationAggregateInput
   curso?: Prisma.cursoOrderByWithRelationInput
+  modulo_completado?: Prisma.modulo_completadoOrderByRelationAggregateInput
   quiz?: Prisma.quizOrderByRelationAggregateInput
 }
 
@@ -271,6 +273,7 @@ export type moduloWhereUniqueInput = Prisma.AtLeast<{
   estatus?: Prisma.Enumestatus_moduloFilter<"modulo"> | $Enums.estatus_modulo
   codigo_ejemplo?: Prisma.Codigo_ejemploListRelationFilter
   curso?: Prisma.XOR<Prisma.CursoScalarRelationFilter, Prisma.cursoWhereInput>
+  modulo_completado?: Prisma.Modulo_completadoListRelationFilter
   quiz?: Prisma.QuizListRelationFilter
 }, "id_modulo">
 
@@ -310,6 +313,7 @@ export type moduloCreateInput = {
   estatus?: $Enums.estatus_modulo
   codigo_ejemplo?: Prisma.codigo_ejemploCreateNestedManyWithoutModuloInput
   curso: Prisma.cursoCreateNestedOneWithoutModuloInput
+  modulo_completado?: Prisma.modulo_completadoCreateNestedManyWithoutModuloInput
   quiz?: Prisma.quizCreateNestedManyWithoutModuloInput
 }
 
@@ -322,6 +326,7 @@ export type moduloUncheckedCreateInput = {
   id_curso: number
   estatus?: $Enums.estatus_modulo
   codigo_ejemplo?: Prisma.codigo_ejemploUncheckedCreateNestedManyWithoutModuloInput
+  modulo_completado?: Prisma.modulo_completadoUncheckedCreateNestedManyWithoutModuloInput
   quiz?: Prisma.quizUncheckedCreateNestedManyWithoutModuloInput
 }
 
@@ -333,6 +338,7 @@ export type moduloUpdateInput = {
   estatus?: Prisma.Enumestatus_moduloFieldUpdateOperationsInput | $Enums.estatus_modulo
   codigo_ejemplo?: Prisma.codigo_ejemploUpdateManyWithoutModuloNestedInput
   curso?: Prisma.cursoUpdateOneRequiredWithoutModuloNestedInput
+  modulo_completado?: Prisma.modulo_completadoUpdateManyWithoutModuloNestedInput
   quiz?: Prisma.quizUpdateManyWithoutModuloNestedInput
 }
 
@@ -345,6 +351,7 @@ export type moduloUncheckedUpdateInput = {
   id_curso?: Prisma.IntFieldUpdateOperationsInput | number
   estatus?: Prisma.Enumestatus_moduloFieldUpdateOperationsInput | $Enums.estatus_modulo
   codigo_ejemplo?: Prisma.codigo_ejemploUncheckedUpdateManyWithoutModuloNestedInput
+  modulo_completado?: Prisma.modulo_completadoUncheckedUpdateManyWithoutModuloNestedInput
   quiz?: Prisma.quizUncheckedUpdateManyWithoutModuloNestedInput
 }
 
@@ -514,6 +521,20 @@ export type moduloUpdateOneWithoutCodigo_ejemploNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.moduloUpdateToOneWithWhereWithoutCodigo_ejemploInput, Prisma.moduloUpdateWithoutCodigo_ejemploInput>, Prisma.moduloUncheckedUpdateWithoutCodigo_ejemploInput>
 }
 
+export type moduloCreateNestedOneWithoutModulo_completadoInput = {
+  create?: Prisma.XOR<Prisma.moduloCreateWithoutModulo_completadoInput, Prisma.moduloUncheckedCreateWithoutModulo_completadoInput>
+  connectOrCreate?: Prisma.moduloCreateOrConnectWithoutModulo_completadoInput
+  connect?: Prisma.moduloWhereUniqueInput
+}
+
+export type moduloUpdateOneRequiredWithoutModulo_completadoNestedInput = {
+  create?: Prisma.XOR<Prisma.moduloCreateWithoutModulo_completadoInput, Prisma.moduloUncheckedCreateWithoutModulo_completadoInput>
+  connectOrCreate?: Prisma.moduloCreateOrConnectWithoutModulo_completadoInput
+  upsert?: Prisma.moduloUpsertWithoutModulo_completadoInput
+  connect?: Prisma.moduloWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.moduloUpdateToOneWithWhereWithoutModulo_completadoInput, Prisma.moduloUpdateWithoutModulo_completadoInput>, Prisma.moduloUncheckedUpdateWithoutModulo_completadoInput>
+}
+
 export type moduloCreateWithoutQuizInput = {
   titulo: string
   descripcion?: string | null
@@ -522,6 +543,7 @@ export type moduloCreateWithoutQuizInput = {
   estatus?: $Enums.estatus_modulo
   codigo_ejemplo?: Prisma.codigo_ejemploCreateNestedManyWithoutModuloInput
   curso: Prisma.cursoCreateNestedOneWithoutModuloInput
+  modulo_completado?: Prisma.modulo_completadoCreateNestedManyWithoutModuloInput
 }
 
 export type moduloUncheckedCreateWithoutQuizInput = {
@@ -533,6 +555,7 @@ export type moduloUncheckedCreateWithoutQuizInput = {
   id_curso: number
   estatus?: $Enums.estatus_modulo
   codigo_ejemplo?: Prisma.codigo_ejemploUncheckedCreateNestedManyWithoutModuloInput
+  modulo_completado?: Prisma.modulo_completadoUncheckedCreateNestedManyWithoutModuloInput
 }
 
 export type moduloCreateOrConnectWithoutQuizInput = {
@@ -559,6 +582,7 @@ export type moduloUpdateWithoutQuizInput = {
   estatus?: Prisma.Enumestatus_moduloFieldUpdateOperationsInput | $Enums.estatus_modulo
   codigo_ejemplo?: Prisma.codigo_ejemploUpdateManyWithoutModuloNestedInput
   curso?: Prisma.cursoUpdateOneRequiredWithoutModuloNestedInput
+  modulo_completado?: Prisma.modulo_completadoUpdateManyWithoutModuloNestedInput
 }
 
 export type moduloUncheckedUpdateWithoutQuizInput = {
@@ -570,6 +594,7 @@ export type moduloUncheckedUpdateWithoutQuizInput = {
   id_curso?: Prisma.IntFieldUpdateOperationsInput | number
   estatus?: Prisma.Enumestatus_moduloFieldUpdateOperationsInput | $Enums.estatus_modulo
   codigo_ejemplo?: Prisma.codigo_ejemploUncheckedUpdateManyWithoutModuloNestedInput
+  modulo_completado?: Prisma.modulo_completadoUncheckedUpdateManyWithoutModuloNestedInput
 }
 
 export type moduloCreateWithoutCursoInput = {
@@ -579,6 +604,7 @@ export type moduloCreateWithoutCursoInput = {
   contenido_teorico?: string | null
   estatus?: $Enums.estatus_modulo
   codigo_ejemplo?: Prisma.codigo_ejemploCreateNestedManyWithoutModuloInput
+  modulo_completado?: Prisma.modulo_completadoCreateNestedManyWithoutModuloInput
   quiz?: Prisma.quizCreateNestedManyWithoutModuloInput
 }
 
@@ -590,6 +616,7 @@ export type moduloUncheckedCreateWithoutCursoInput = {
   contenido_teorico?: string | null
   estatus?: $Enums.estatus_modulo
   codigo_ejemplo?: Prisma.codigo_ejemploUncheckedCreateNestedManyWithoutModuloInput
+  modulo_completado?: Prisma.modulo_completadoUncheckedCreateNestedManyWithoutModuloInput
   quiz?: Prisma.quizUncheckedCreateNestedManyWithoutModuloInput
 }
 
@@ -639,6 +666,7 @@ export type moduloCreateWithoutCodigo_ejemploInput = {
   contenido_teorico?: string | null
   estatus?: $Enums.estatus_modulo
   curso: Prisma.cursoCreateNestedOneWithoutModuloInput
+  modulo_completado?: Prisma.modulo_completadoCreateNestedManyWithoutModuloInput
   quiz?: Prisma.quizCreateNestedManyWithoutModuloInput
 }
 
@@ -650,6 +678,7 @@ export type moduloUncheckedCreateWithoutCodigo_ejemploInput = {
   contenido_teorico?: string | null
   id_curso: number
   estatus?: $Enums.estatus_modulo
+  modulo_completado?: Prisma.modulo_completadoUncheckedCreateNestedManyWithoutModuloInput
   quiz?: Prisma.quizUncheckedCreateNestedManyWithoutModuloInput
 }
 
@@ -676,6 +705,7 @@ export type moduloUpdateWithoutCodigo_ejemploInput = {
   contenido_teorico?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estatus?: Prisma.Enumestatus_moduloFieldUpdateOperationsInput | $Enums.estatus_modulo
   curso?: Prisma.cursoUpdateOneRequiredWithoutModuloNestedInput
+  modulo_completado?: Prisma.modulo_completadoUpdateManyWithoutModuloNestedInput
   quiz?: Prisma.quizUpdateManyWithoutModuloNestedInput
 }
 
@@ -687,6 +717,69 @@ export type moduloUncheckedUpdateWithoutCodigo_ejemploInput = {
   contenido_teorico?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   id_curso?: Prisma.IntFieldUpdateOperationsInput | number
   estatus?: Prisma.Enumestatus_moduloFieldUpdateOperationsInput | $Enums.estatus_modulo
+  modulo_completado?: Prisma.modulo_completadoUncheckedUpdateManyWithoutModuloNestedInput
+  quiz?: Prisma.quizUncheckedUpdateManyWithoutModuloNestedInput
+}
+
+export type moduloCreateWithoutModulo_completadoInput = {
+  titulo: string
+  descripcion?: string | null
+  orden: number
+  contenido_teorico?: string | null
+  estatus?: $Enums.estatus_modulo
+  codigo_ejemplo?: Prisma.codigo_ejemploCreateNestedManyWithoutModuloInput
+  curso: Prisma.cursoCreateNestedOneWithoutModuloInput
+  quiz?: Prisma.quizCreateNestedManyWithoutModuloInput
+}
+
+export type moduloUncheckedCreateWithoutModulo_completadoInput = {
+  id_modulo?: number
+  titulo: string
+  descripcion?: string | null
+  orden: number
+  contenido_teorico?: string | null
+  id_curso: number
+  estatus?: $Enums.estatus_modulo
+  codigo_ejemplo?: Prisma.codigo_ejemploUncheckedCreateNestedManyWithoutModuloInput
+  quiz?: Prisma.quizUncheckedCreateNestedManyWithoutModuloInput
+}
+
+export type moduloCreateOrConnectWithoutModulo_completadoInput = {
+  where: Prisma.moduloWhereUniqueInput
+  create: Prisma.XOR<Prisma.moduloCreateWithoutModulo_completadoInput, Prisma.moduloUncheckedCreateWithoutModulo_completadoInput>
+}
+
+export type moduloUpsertWithoutModulo_completadoInput = {
+  update: Prisma.XOR<Prisma.moduloUpdateWithoutModulo_completadoInput, Prisma.moduloUncheckedUpdateWithoutModulo_completadoInput>
+  create: Prisma.XOR<Prisma.moduloCreateWithoutModulo_completadoInput, Prisma.moduloUncheckedCreateWithoutModulo_completadoInput>
+  where?: Prisma.moduloWhereInput
+}
+
+export type moduloUpdateToOneWithWhereWithoutModulo_completadoInput = {
+  where?: Prisma.moduloWhereInput
+  data: Prisma.XOR<Prisma.moduloUpdateWithoutModulo_completadoInput, Prisma.moduloUncheckedUpdateWithoutModulo_completadoInput>
+}
+
+export type moduloUpdateWithoutModulo_completadoInput = {
+  titulo?: Prisma.StringFieldUpdateOperationsInput | string
+  descripcion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  orden?: Prisma.IntFieldUpdateOperationsInput | number
+  contenido_teorico?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estatus?: Prisma.Enumestatus_moduloFieldUpdateOperationsInput | $Enums.estatus_modulo
+  codigo_ejemplo?: Prisma.codigo_ejemploUpdateManyWithoutModuloNestedInput
+  curso?: Prisma.cursoUpdateOneRequiredWithoutModuloNestedInput
+  quiz?: Prisma.quizUpdateManyWithoutModuloNestedInput
+}
+
+export type moduloUncheckedUpdateWithoutModulo_completadoInput = {
+  id_modulo?: Prisma.IntFieldUpdateOperationsInput | number
+  titulo?: Prisma.StringFieldUpdateOperationsInput | string
+  descripcion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  orden?: Prisma.IntFieldUpdateOperationsInput | number
+  contenido_teorico?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  id_curso?: Prisma.IntFieldUpdateOperationsInput | number
+  estatus?: Prisma.Enumestatus_moduloFieldUpdateOperationsInput | $Enums.estatus_modulo
+  codigo_ejemplo?: Prisma.codigo_ejemploUncheckedUpdateManyWithoutModuloNestedInput
   quiz?: Prisma.quizUncheckedUpdateManyWithoutModuloNestedInput
 }
 
@@ -706,6 +799,7 @@ export type moduloUpdateWithoutCursoInput = {
   contenido_teorico?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estatus?: Prisma.Enumestatus_moduloFieldUpdateOperationsInput | $Enums.estatus_modulo
   codigo_ejemplo?: Prisma.codigo_ejemploUpdateManyWithoutModuloNestedInput
+  modulo_completado?: Prisma.modulo_completadoUpdateManyWithoutModuloNestedInput
   quiz?: Prisma.quizUpdateManyWithoutModuloNestedInput
 }
 
@@ -717,6 +811,7 @@ export type moduloUncheckedUpdateWithoutCursoInput = {
   contenido_teorico?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estatus?: Prisma.Enumestatus_moduloFieldUpdateOperationsInput | $Enums.estatus_modulo
   codigo_ejemplo?: Prisma.codigo_ejemploUncheckedUpdateManyWithoutModuloNestedInput
+  modulo_completado?: Prisma.modulo_completadoUncheckedUpdateManyWithoutModuloNestedInput
   quiz?: Prisma.quizUncheckedUpdateManyWithoutModuloNestedInput
 }
 
@@ -736,11 +831,13 @@ export type moduloUncheckedUpdateManyWithoutCursoInput = {
 
 export type ModuloCountOutputType = {
   codigo_ejemplo: number
+  modulo_completado: number
   quiz: number
 }
 
 export type ModuloCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   codigo_ejemplo?: boolean | ModuloCountOutputTypeCountCodigo_ejemploArgs
+  modulo_completado?: boolean | ModuloCountOutputTypeCountModulo_completadoArgs
   quiz?: boolean | ModuloCountOutputTypeCountQuizArgs
 }
 
@@ -764,6 +861,13 @@ export type ModuloCountOutputTypeCountCodigo_ejemploArgs<ExtArgs extends runtime
 /**
  * ModuloCountOutputType without action
  */
+export type ModuloCountOutputTypeCountModulo_completadoArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.modulo_completadoWhereInput
+}
+
+/**
+ * ModuloCountOutputType without action
+ */
 export type ModuloCountOutputTypeCountQuizArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.quizWhereInput
 }
@@ -779,6 +883,7 @@ export type moduloSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   estatus?: boolean
   codigo_ejemplo?: boolean | Prisma.modulo$codigo_ejemploArgs<ExtArgs>
   curso?: boolean | Prisma.cursoDefaultArgs<ExtArgs>
+  modulo_completado?: boolean | Prisma.modulo$modulo_completadoArgs<ExtArgs>
   quiz?: boolean | Prisma.modulo$quizArgs<ExtArgs>
   _count?: boolean | Prisma.ModuloCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["modulo"]>
@@ -819,6 +924,7 @@ export type moduloOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
 export type moduloInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   codigo_ejemplo?: boolean | Prisma.modulo$codigo_ejemploArgs<ExtArgs>
   curso?: boolean | Prisma.cursoDefaultArgs<ExtArgs>
+  modulo_completado?: boolean | Prisma.modulo$modulo_completadoArgs<ExtArgs>
   quiz?: boolean | Prisma.modulo$quizArgs<ExtArgs>
   _count?: boolean | Prisma.ModuloCountOutputTypeDefaultArgs<ExtArgs>
 }
@@ -834,6 +940,7 @@ export type $moduloPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
   objects: {
     codigo_ejemplo: Prisma.$codigo_ejemploPayload<ExtArgs>[]
     curso: Prisma.$cursoPayload<ExtArgs>
+    modulo_completado: Prisma.$modulo_completadoPayload<ExtArgs>[]
     quiz: Prisma.$quizPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -1240,6 +1347,7 @@ export interface Prisma__moduloClient<T, Null = never, ExtArgs extends runtime.T
   readonly [Symbol.toStringTag]: "PrismaPromise"
   codigo_ejemplo<T extends Prisma.modulo$codigo_ejemploArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.modulo$codigo_ejemploArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$codigo_ejemploPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   curso<T extends Prisma.cursoDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.cursoDefaultArgs<ExtArgs>>): Prisma.Prisma__cursoClient<runtime.Types.Result.GetResult<Prisma.$cursoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  modulo_completado<T extends Prisma.modulo$modulo_completadoArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.modulo$modulo_completadoArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$modulo_completadoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   quiz<T extends Prisma.modulo$quizArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.modulo$quizArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$quizPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1694,6 +1802,30 @@ export type modulo$codigo_ejemploArgs<ExtArgs extends runtime.Types.Extensions.I
   take?: number
   skip?: number
   distinct?: Prisma.Codigo_ejemploScalarFieldEnum | Prisma.Codigo_ejemploScalarFieldEnum[]
+}
+
+/**
+ * modulo.modulo_completado
+ */
+export type modulo$modulo_completadoArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the modulo_completado
+   */
+  select?: Prisma.modulo_completadoSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the modulo_completado
+   */
+  omit?: Prisma.modulo_completadoOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.modulo_completadoInclude<ExtArgs> | null
+  where?: Prisma.modulo_completadoWhereInput
+  orderBy?: Prisma.modulo_completadoOrderByWithRelationInput | Prisma.modulo_completadoOrderByWithRelationInput[]
+  cursor?: Prisma.modulo_completadoWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.Modulo_completadoScalarFieldEnum | Prisma.Modulo_completadoScalarFieldEnum[]
 }
 
 /**
