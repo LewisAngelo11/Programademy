@@ -8,39 +8,66 @@ export default function AdminDashboard() {
     const [loading, setLoading] = useState<boolean>(false);
     const [adminName, setAdminName] = useState<string>("");
     const [adminEmail, setAdminEmail] = useState<string>("");
+    const [cursos, setCursos] = useState([]);
+    const [modulos, setModulos] = useState([]);
+    const [quizzes, setQuizzes] = useState([]);
+
+    const API_URL = import.meta.env.VITE_API_URL;
+    const token = localStorage.getItem("token");
+
+    // Obtener toda la info para el dashboard del admin
+    const getAllDataDashboard = async () => {
+        const getInfoUserURL = `${API_URL}/usuario/info`;
+        const getAllCursosURL = `${API_URL}/curso/all`;
+        const getAllModulosURL = `${API_URL}/modulo/all`;
+        const getAllQuizzesURL = `${API_URL}/quiz/all`;
+
+        const headers = {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+        }
+
+        try {
+            setLoading(true);
+
+            const userResponse = await fetch(getInfoUserURL, {headers});
+            if (!userResponse.ok) throw new Error(`Error al obtener la info del usuario: ${userResponse}`);
+
+            const cursosResponse = await fetch(getAllCursosURL, {headers});
+            if (!cursosResponse.ok) throw new Error(`Error al obtener los cursos: ${cursosResponse}`);
+
+            const modulosResponse = await fetch(getAllModulosURL, {headers});
+            if (!modulosResponse.ok) throw new Error(`Error al obtener los módulos: ${modulosResponse}`);
+
+            const quizzesResponse = await fetch(getAllQuizzesURL, {headers});
+            if (!quizzesResponse.ok) throw new Error(`Error al obtener los quizzes: ${quizzesResponse}`);
+
+            const dataUsuario = await userResponse.json();
+            setAdminName(dataUsuario.nombre);
+            setAdminEmail(dataUsuario.email);
+
+            const dataCursos = await cursosResponse.json();
+            setCursos(dataCursos);
+
+            const dataModulos = await modulosResponse.json();
+            setModulos(dataModulos);
+
+            const dataQuizzes = await quizzesResponse.json();
+            setQuizzes(dataQuizzes);
+        } catch (err) {
+            console.error(err);
+        } finally {
+            setLoading(false);
+        }
+    }
 
     useEffect(() => {
-            const getInfoUser = async () => {
-                const API_URL = 'http://localhost:3000/usuario/info';
-                const token = localStorage.getItem("token");
-    
-                try {
-                    setLoading(true);
-    
-                    const response = await fetch(API_URL, {
-                        method: "GET",
-                        headers: {
-                            'Authorization': `Bearer ${token}`,
-                            'Content-Type': 'application/json'
-                        }
-                    });
-    
-                    if (!response.ok) {
-                        throw new Error("Error en la petición");
-                    }
-    
-                    const dataUsuario = await response.json();
-                    setAdminName(dataUsuario.nombre);
-                    setAdminEmail(dataUsuario.email);
-                } catch (err) {
-                    console.error();
-                } finally {
-                    setLoading(false);
-                }
-            }
-    
-            getInfoUser();
-        }, []);
+        getAllDataDashboard();
+    }, []);
+
+    const totalCursos = cursos.length;
+    const totalModulos = modulos.length;
+    const totalQuizzes = quizzes.length;
     
     return(
         <main className="admin-dashboard-page">
@@ -49,7 +76,11 @@ export default function AdminDashboard() {
                 adminEmail={adminEmail}
                 loading={loading}
             />
-            <ResumeDashboard/>
+            <ResumeDashboard
+                totalCursos={totalCursos}
+                totalModulos={totalModulos}
+                totalQuizzes={totalQuizzes}
+            />
             <QuickActions/>
         </main>
     );
