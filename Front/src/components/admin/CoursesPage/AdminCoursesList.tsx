@@ -150,7 +150,7 @@ function Course({ id, titulo, descripcion, fechaCreacion, onCoursesUpdate }: Cou
                 <div className="modules-course-list">
                     {modules.length === 0 && <div style={{fontSize: ".8rem"}}>Sin módulos asignados</div>}
                     {modules.length > 0 && modules.map(m => (
-                        <div className="module-object-list">{m.orden}. {m.titulo}</div>
+                        <div key={m.id_modulo} className="module-object-list">{m.orden}. {m.titulo}</div>
                     ))}
                 </div>
             </div>
