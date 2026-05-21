@@ -23,6 +23,9 @@ router.post('/attemptQuiz/:id', verifyTokenJWT, quizController.createAttempt);
 // Obtener todos los intentos del usuario
 router.get('/allAttempts', verifyTokenJWT, quizController.getAllAtempts);
 
+// Obtener todos los intentos dwe quizzes de todos los estudiantes
+router.get('/allStudents/allAttempts', verifyTokenJWT, quizController.getAllAttemptsStudents);
+
 // Obtener un intento completado
 router.get('/attemptComplete/:id', verifyTokenJWT, quizController.getAttemptComplete);
 

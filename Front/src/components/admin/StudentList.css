@@ -1,0 +1,196 @@
+.student-list-section {
+    width: 100%;
+    padding: 1rem 2rem;
+}
+
+.student-list-section h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 1rem;
+}
+
+.student-list-table {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 24px;
+    overflow: auto;
+}
+
+.student-list-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.student-list-table thead {
+    background: #fafafa;
+}
+
+.student-list-table th {
+    text-align: left;
+    padding: 1rem 1rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #6b7280;
+    letter-spacing: 1px;
+}
+
+.student-list-table td {
+    padding: .8rem 1rem;
+    border-top: 1px solid #f1f5f9;
+    vertical-align: middle;
+}
+
+.student-list-table tbody tr {
+    transition: background 0.2s ease;
+}
+
+.student-list-table tbody tr:hover {
+    background: #f8fafc;
+}
+
+.student-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.student-avatar {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    background: #e0e7ff;
+    color: #3e00ff;
+    font-weight: 700;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.student-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #111827;
+}
+
+.student-email {
+    font-size: 0.9rem;
+    color: #7e7e7e;
+    margin-top: .2rem;
+}
+
+.average-wrapper {
+    min-width: 180px;
+}
+
+.average-text {
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 0.4rem;
+}
+
+.progress-average-bar {
+    width: 100%;
+    height: 5px;
+    background: #e5e7eb;
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    border-radius: 999px;
+}
+
+/* Colores Dinámicos */
+.average-red {
+    color: #dc2626;
+}
+
+.average-red .progress-fill {
+    background: #dc2626;
+}
+
+.average-orange {
+    color: #ea580c;
+}
+
+.average-orange .progress-fill {
+    background: #ea580c;
+}
+
+.average-yellow {
+    color: #ca8a04;
+}
+
+.average-yellow .progress-fill {
+    background: #eab308;
+}
+
+.average-green {
+    color: #16a34a;
+}
+
+.average-green .progress-fill {
+    background: #22c55e;
+}
+
+/* Quizzes */
+.quiz-count,
+.attempt-count {
+    font-size: .9rem;
+    font-weight: 400;
+}
+
+.no-data {
+    color: #9ca3af;
+    font-size: .9rem;
+    font-weight: 400;
+}
+
+.range-student {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: .35rem .8rem;
+    font-size: .9rem;
+    font-weight: 500;
+    border-radius: 999px;
+    width: fit-content;
+}
+
+/* Explorer */
+.Explorer {
+    border: 2px solid #52525B;
+    background-color: #71717A20;
+    color: #3F3F46;
+}
+
+/* Builder */
+.Builder {
+    border: 2px solid #10B981;
+    background-color: #10B98120;
+    color: #059669;
+}
+
+/* Developer */
+.Developer {
+    border: 2px solid #3B82F6;
+    background-color: #3B82F620;
+    color: #2563EB;
+}
+
+/* Engineer */
+.Engineer {
+    border: 2px solid #8B5CF6;
+    background-color: #8B5CF620;
+    color: #7C3AED;
+}
+
+/* Architect */
+.Architect {
+    border: 2px solid #F59E0B;
+    background-color: #F59E0B20;
+    color: #D97706;
+}

@@ -89,4 +89,73 @@ router.get('/getRange', verifyTokenJWT, async (req: any, res: Response) => {
     }
 })
 
+// Método para obtener los rangos de todos los estudiantes
+router.get('/getAllRanges', verifyTokenJWT, async (req: any, res: Response) => {
+    try {
+        const estudiantes = await prisma.usuario.findMany({
+            where: {
+                rol: "student"
+            },
+            select: {
+                id_usuario: true,
+                nombre: true,
+                email: true,
+                puntos_totales: true,
+            }
+        });
+    
+        // Obtiene los rangos y con lte (less than or equal) busca a que rango pertenece a cada usuario
+        const studentsWithRanges = await Promise.all(
+            estudiantes.map(async (student) => {
+                const rango = await prisma.rango.findFirst({
+                    where: {
+                        puntos_requeridos: {
+                            lte: student.puntos_totales ?? 0
+                        }
+                    },
+                    orderBy: {
+                        puntos_requeridos: 'desc'
+                    }
+                });
+                return {
+                    ...student,
+                    rango
+                };
+            })
+        );
+    
+        res.status(200).json(studentsWithRanges);
+    } catch (err) {
+        console.error("Error al obtener el rango del estudiante:", err);
+        res.status(500).json({ message: "Error interno en el servidor al obtener el rango" });
+    }
+})
+
+// Obtener a todos los estudiantes y sus estadísticas
+router.get('/getAll', verifyTokenJWT, async (req: any, res: Response) => {
+    try {
+        const allStudents = await prisma.usuario.findMany({
+            where: {
+                rol: "student"
+            },
+            select: {
+                id_usuario: true,
+                nombre: true,
+                email: true,
+                rol: true,
+                puntos_totales: true
+            }
+        });
+
+        if (!allStudents) {
+            res.status(400).json({ message: "No hay estudiantes inscritos" });
+        }
+
+        res.status(200).json(allStudents);
+    } catch (err) {
+        console.error("Error al obtener a los estudiantes:", err);
+        res.status(500).json({ message: "Error interno en el servidor al obtener a los estudiantes" });
+    }
+})
+
 export default router;

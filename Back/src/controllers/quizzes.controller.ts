@@ -119,6 +119,17 @@ export class QuizController {
     }
   }
 
+  // Obtener todos los intentos de quizzes de cada estudiante
+  getAllAttemptsStudents = async (req: Request, res: Response) => {
+    try {
+      const allStudentsQuizzes = await this.quizService.getAllAttemptsQuizzesStudents();
+      res.status(200).json(allStudentsQuizzes);
+    } catch (error) {
+      console.error("Error al obtener los intentos completados de los estudiantes:", error);
+      res.status(500).json({ error: "Error interno del servidor al obtener los intentos completados de los estudiantes" });
+    }
+  };
+
   // Eliminar un quiz (soft delete)
   delete = async (req: any, res: Response): Promise<void> => {
     try {

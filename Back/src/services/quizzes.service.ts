@@ -150,6 +150,36 @@ export class QuizService {
     });
   }
 
+  async getAllAttemptsQuizzesStudents() {
+        const students = await prisma.usuario.findMany({
+            where: {
+                rol: "student"
+            },
+            select: {
+                id_usuario: true,
+                nombre: true,
+                email: true,
+                puntos_totales: true,
+            }
+        });
+
+        const studentsWithTotalAttemptsQuizzes = await Promise.all(
+            students.map(async (student) => {
+                const totalQuizzesAttempts = await prisma.intento_quiz.findMany({
+                    where: {
+                      id_usuario: student.id_usuario
+                    }
+                });
+                return {
+                  ...student,
+                  totalQuizzesAttempts
+                }
+            })
+        );
+
+        return studentsWithTotalAttemptsQuizzes;
+    }
+
   // Eliminar un quiz por su ID (Borrado en cascada)
   async deleteQuiz(id_quiz: number) {
     return prisma.quiz.delete({

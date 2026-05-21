@@ -3,6 +3,7 @@ import ResumeDashboard from "../../components/admin/ResumeDashboard";
 import QuickActions from "../../components/admin/QuickActions";
 import "./AdminDashboard.css"
 import { useEffect, useState } from "react";
+import StudentList from "../../components/admin/StudentList";
 
 export default function AdminDashboard() {
     const [loading, setLoading] = useState<boolean>(false);
@@ -82,6 +83,7 @@ export default function AdminDashboard() {
                 totalQuizzes={totalQuizzes}
             />
             <QuickActions/>
+            <StudentList/>
         </main>
     );
 }
