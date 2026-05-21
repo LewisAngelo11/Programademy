@@ -2,7 +2,7 @@ export default async function getAllCourses(token: string) {
     const API_URL = import.meta.env.VITE_API_URL;
     
     try {
-        const response = await fetch(`${API_URL}/all`, {
+        const response = await fetch(`${API_URL}/curso/all`, {
             method: "GET",
             headers: {
                 'Authorization': `Bearer ${token}`,

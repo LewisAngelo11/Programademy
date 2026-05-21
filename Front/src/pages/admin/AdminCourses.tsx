@@ -18,7 +18,7 @@ export default function AdminCourses() {
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string>("");
 
-    const API_URL = "http://localhost:3000/curso/all";
+    const API_URL = import.meta.env.VITE_API_URL;
 
     // Función para obtener los cursos
     const fetchCourses = async () => {
@@ -26,7 +26,7 @@ export default function AdminCourses() {
 
         try {
             setLoading(true);
-            const response = await fetch(API_URL, {
+            const response = await fetch(`${API_URL}/curso/all`, {
                 method: "GET",
                 headers: {
                     'Authorization': `Bearer ${token}`,
