@@ -29,12 +29,15 @@ export interface Students {
 
 export default function StudentList() {
     const [students, setStudents] = useState<Students[]>([]);
+    const [loading, setLoading] = useState<boolean>(false);
 
     const API_URL = import.meta.env.VITE_API_URL;
     const token = localStorage.getItem("token");
 
     const getStudentsRange = async () => {
         try {
+            setLoading(true);
+
             const response = await fetch(`${API_URL}/usuario/getAllRanges`, {
                 method: "GET",
                 headers: {
@@ -56,11 +59,15 @@ export default function StudentList() {
             );
         } catch (err: any) {
             console.error("Error en la petición:", err.message);
+        } finally {
+            setLoading(false)
         }
     }
 
     const gettAllStudentsAttemptsQuizzes = async () => {
         try{
+            setLoading(true);
+
             const response = await fetch(`${API_URL}/quiz/allStudents/allAttempts`, {
                 method: "GET",
                 headers: {
@@ -74,7 +81,6 @@ export default function StudentList() {
             }
 
             const data = await response.json();
-            console.log("Datos Crudos", data);
 
             setStudents(prev =>
                 prev.map(student => {
@@ -92,13 +98,20 @@ export default function StudentList() {
 
         } catch (err: any) {
             console.error("Error en la petición:", err.error);
+        } finally {
+            setLoading(false);
         }
     }
 
     useEffect(() => {
         getStudentsRange();
-        gettAllStudentsAttemptsQuizzes();
-    },[]);
+    }, []);
+
+    useEffect(() => {
+        if (students.length > 0) {
+            gettAllStudentsAttemptsQuizzes();
+        }
+    },[students.length]);
 
     // Calcular el promedio general de cada estudiante
     const studentsFinals = students.map(student => {
@@ -114,6 +127,15 @@ export default function StudentList() {
             quizzesComplete
         }
     });
+
+    if (loading) {
+        return (
+            <section className="student-list-section">
+                <h2>Resumen de Estudiantes</h2>
+                <p>Cargando estudiantes...</p>
+            </section>
+        );
+    }
 
     return (
         <section className="student-list-section">
@@ -179,7 +201,7 @@ export default function StudentList() {
                                         )}
                                     </td>
                                     <td>
-                                        {average > 0 ? (
+                                        {average > 0 && (
                                             <div className={`average-wrapper ${averageClass}`}>
                                                 <div className="average-text">
                                                     {average}%
@@ -191,21 +213,26 @@ export default function StudentList() {
                                                     />
                                                 </div>
                                             </div>
-                                        ) : (
+                                        )}
+                                        {!average && average === 0 && (
                                             <span className="no-data">
                                                 Sin Datos
                                             </span>
                                         )}
                                     </td>
                                     <td>
-                                        <div className="quiz-count">
-                                            {s.quizzesComplete.length} quizzes
-                                        </div>
+                                        {s.quizzesComplete && (
+                                            <div className="quiz-count">
+                                                {s.quizzesComplete.length} quizzes
+                                            </div>
+                                        )}
                                     </td>
                                     <td>
-                                        <div className="attempt-count">
-                                            {s.totalQuizzesAttempts.length} intentos
-                                        </div>
+                                        {s.totalQuizzesAttempts && (
+                                            <div className="attempt-count">
+                                                {s.totalQuizzesAttempts.length} intentos
+                                            </div>
+                                        )}
                                     </td>
                                 </tr>
                             );
