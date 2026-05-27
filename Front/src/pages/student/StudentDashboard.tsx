@@ -4,6 +4,8 @@ import "./StudentDashboard.css";
 import ResumeHome from "../../components/student/ResumeHome";
 import CoursesList from "../../components/student/CoursesList";
 import CoursesStartedList from "../../components/student/CoursesStartedList";
+import Modal from "../../Modals/Modal";
+import ModalRangos from "../../components/student/ModalRangos";
 
 interface Course {
     id_curso: number;
@@ -23,7 +25,7 @@ interface AttemptQuiz {
     completado_100: boolean;
 }
 
-interface UserRange {
+export interface UserRange {
     id_rango: number;
     titulo: string;
     puntos_requeridos: number;
@@ -37,8 +39,11 @@ export default function StudentDashboard() {
     const [error, setError] = useState<string>("")
     const [studentName, setStudentName] = useState<string>("");
     const [studentEmail, setStudentEmail] = useState<string>("");
+    const [totalUserPoints, setTotalUserPoints] = useState<number>(0);
     const [attempts, setAttempts] = useState<AttemptQuiz[]>([]);
     const [range, setRange] = useState<UserRange>();
+    const [allRanges, setAllRanges] = useState<UserRange[]>([]);
+    const [pressRange, setPressRange] = useState<boolean>(false);
 
     const API_URL = import.meta.env.VITE_API_URL;
 
@@ -117,6 +122,7 @@ export default function StudentDashboard() {
             const dataUsuario = await response.json();
             setStudentName(dataUsuario.nombre);
             setStudentEmail(dataUsuario.email);
+            setTotalUserPoints(dataUsuario.puntos_totales);
         } catch (err) {
             console.error("Error en al obtener la info del usuario", err);
         } finally {
@@ -143,6 +149,28 @@ export default function StudentDashboard() {
             setRange(data);
         } catch (err) {
             console.error("Error al obtener el rango del usuario:", err);
+        }
+    }
+
+    const getAllRanges = async () => {
+        const token = localStorage.getItem("token");
+        try {
+            const response = await fetch(`${API_URL}/usuario/getRanges`, {
+                method: "GET",
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error(`Error al obtener los rangos: ${response}`);
+            }
+            const data = await response.json();
+            console.log(data);
+            setAllRanges(data);
+        } catch (err) {
+            console.error("Error al obtener los rangos:", err);
         }
     }
 
@@ -190,6 +218,7 @@ export default function StudentDashboard() {
         getAllStartedCourses();
         getInfoUser();
         getUserRange();
+        getAllRanges();
     }, []);
 
     return(
@@ -199,6 +228,7 @@ export default function StudentDashboard() {
                 studentEmail={studentEmail}
                 loading={loading}
                 range={range}
+                setPressRange={setPressRange}
             />
             <ResumeHome
                 totalStartedCourses={totalStartedCourses}
@@ -216,6 +246,18 @@ export default function StudentDashboard() {
                 loading={loading} 
                 error={error}
             />
+            {pressRange && (
+                <Modal 
+                    children={
+                        <ModalRangos
+                            range={range}
+                            allRanges={allRanges}
+                            totalUserPoints={totalUserPoints}
+                        />
+                    }
+                    setOpenModal={setPressRange}
+                />
+            )}
         </main>
     );
 }

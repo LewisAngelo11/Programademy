@@ -1,6 +1,7 @@
 import { ArrowOutRightSquareHalf, User } from "@boxicons/react";
 import { useNavigate } from "react-router";
 import "./HeaderStudentDashboard.css" 
+import type { SetStateAction } from "react";
 
 interface UserRange {
     id_rango: number;
@@ -19,7 +20,11 @@ interface LoadingProp {
     loading: boolean;
 }
 
-export default function HeaderStudentDashboard({ studentName, studentEmail, range, loading }: UsuarioInfoProp & LoadingProp) {
+interface SetPressRangeProp {
+    setPressRange: React.Dispatch<SetStateAction<boolean>>;
+}
+
+export default function HeaderStudentDashboard({ studentName, studentEmail, range, loading, setPressRange }: UsuarioInfoProp & LoadingProp & SetPressRangeProp) {
     const navigate = useNavigate();
 
     const logOut = () => {
@@ -36,7 +41,10 @@ export default function HeaderStudentDashboard({ studentName, studentEmail, rang
             </div>
             <div className="data-student">
                 <div className="range-wrapper">
-                    <div className={`range-student ${range?.titulo}`}>
+                    <div
+                        onClick={() => setPressRange(true)}
+                        className={`range-student ${range?.titulo}`}
+                    >
                         {range ? range.titulo : "Sin rango"}
                     </div>
                     <span className="range-tooltip">

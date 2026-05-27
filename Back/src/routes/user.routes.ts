@@ -131,6 +131,22 @@ router.get('/getAllRanges', verifyTokenJWT, async (req: any, res: Response) => {
     }
 })
 
+// Método para obtener todos los rangos
+router.get('/getRanges', verifyTokenJWT, async (req: any, res: Response) => {
+    try {
+        const rangos = await prisma.rango.findMany({
+            orderBy: {
+                id_rango: 'asc'
+            }
+        });
+    
+        res.status(200).json(rangos);
+    } catch (err) {
+        console.error("Error al obtener los rangos:", err);
+        res.status(500).json({ message: "Error interno en el servidor al obtener los rangos" });
+    }
+})
+
 // Obtener a todos los estudiantes y sus estadísticas
 router.get('/getAll', verifyTokenJWT, async (req: any, res: Response) => {
     try {
