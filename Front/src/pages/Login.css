@@ -23,7 +23,7 @@
     gap: .6rem;
 }
 
-.bg-logo{
+.bg-logo {
     background-color: #3e00ff;
     border-radius: 8px;
     display: flex;
@@ -41,7 +41,7 @@
     border-radius: 10px;
     gap: 1.4rem;
     min-width: 400px;
-    height: clamp(200px, 50vh, 400px);
+    height: clamp(200px, 60vh, 490px);
 }
 
 .login-form-header {
@@ -107,4 +107,36 @@
 .create-account a {
     text-decoration: none;
     color: #3e00ff;
+}
+
+/* Error message */
+.login-error {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    padding: .65rem .9rem;
+    background-color: #fff1f1;
+    border: 1px solid #fca5a5;
+    border-left: 4px solid #ef4444;
+    border-radius: 8px;
+    color: #b91c1c;
+    font-size: .85rem;
+    animation: slideInError .2s ease;
+}
+
+.login-error-icon {
+    font-size: 1rem;
+    flex-shrink: 0;
+}
+
+@keyframes slideInError {
+    from {
+        opacity: 0;
+        transform: translateY(-6px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
