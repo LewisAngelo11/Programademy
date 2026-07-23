@@ -1,4 +1,5 @@
 import { Route, Routes } from 'react-router'
+import Landing from './pages/Landing'
 import Login from './pages/Login'
 import AdminDashboard from './pages/admin/AdminDashboard'
 import AdminCourses from './pages/admin/AdminCourses'
@@ -28,7 +29,8 @@ function App() {
     <>
       <Toaster position="bottom-right" reverseOrder={false}/>
       <Routes>
-        <Route path={"/"} element={<Login/>}/>
+        <Route path={"/"} element={<Landing/>}/>
+        <Route path={"/login"} element={<Login/>}/>
         <Route path={"/register"} element={<Register/>}/>
         <Route path={"/forgotPassw"} element={<ForgotPassw/>}/>
         <Route path="/reset-password/:token" element={<ResetPassword />}/>
