@@ -4,7 +4,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 1.6rem;
+    gap: 1.6em;
     background-color: #f9fafb;
 }
 
@@ -13,14 +13,14 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: .6rem;
+    gap: .6em;
 }
 
 .logo {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: .6rem;
+    gap: .6em;
 }
 
 .bg-logo {
@@ -28,18 +28,18 @@
     border-radius: 8px;
     display: flex;
     align-items: center;
-    padding: .5rem;
+    padding: .5em;
 }
 
 .login-form {
-    padding: 2rem;
+    padding: 2em;
     display: flex;
     flex-direction: column;
     justify-content: center;
     border: 1px solid #d9d9d9;
     background: #ffff;
     border-radius: 10px;
-    gap: 1.4rem;
+    gap: 1.4em;
     min-width: 400px;
     height: clamp(200px, 60vh, 490px);
 }
@@ -56,12 +56,12 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: .4rem;
+    gap: .4em;
 }
 
 .email-container input,
 .passw-container input {
-    padding: .6rem;
+    padding: .6em;
     border-radius: 10px;
     border: none;
     background-color: #f0f0f0;
@@ -69,20 +69,20 @@
 
 .forgot-passw {
     text-decoration: none;
-    font-size: .8rem;
+    font-size: .8em;
     color: #626262;
     text-align: end;
 }
 
 .login-button {
-    padding: .6rem;
+    padding: .6em;
     background-color: #191919;
     border: none;
     border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: .4rem;
+    gap: .4em;
     color: #ffff;
     transition: all .1s ease;
 }
@@ -100,8 +100,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: .2rem;
-    font-size: .8rem;
+    gap: .2em;
+    font-size: .8em;
 }
 
 .create-account a {
@@ -113,19 +113,19 @@
 .login-error {
     display: flex;
     align-items: center;
-    gap: .5rem;
-    padding: .65rem .9rem;
+    gap: .5em;
+    padding: .65em .9em;
     background-color: #fff1f1;
     border: 1px solid #fca5a5;
     border-left: 4px solid #ef4444;
     border-radius: 8px;
     color: #b91c1c;
-    font-size: .85rem;
+    font-size: .85em;
     animation: slideInError .2s ease;
 }
 
 .login-error-icon {
-    font-size: 1rem;
+    font-size: 1em;
     flex-shrink: 0;
 }
 
@@ -138,5 +138,11 @@
     to {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+@media (max-width: 768px) {
+    .login-page {
+        font-size: 15px;
     }
 }

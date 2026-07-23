@@ -29,3 +29,9 @@ a {
 button {
     color: inherit;
 }
+
+@media (max-width: 768px) {
+    html {
+        font-size: 10px;
+    }
+}

@@ -4,7 +4,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 1.6rem;
+    gap: 1.6em;
     background-color: #f9fafb;
 }
 
@@ -13,14 +13,14 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: .6rem;
+    gap: .6em;
 }
 
 .logo {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: .6rem;
+    gap: .6em;
 }
 
 .bg-logo{
@@ -28,18 +28,18 @@
     border-radius: 8px;
     display: flex;
     align-items: center;
-    padding: .5rem;
+    padding: .5em;
 }
 
 .register-form {
-    padding: 2rem;
+    padding: 2em;
     display: flex;
     flex-direction: column;
     justify-content: center;
     border: 1px solid #d9d9d9;
     background: #ffff;
     border-radius: 10px;
-    gap: 1.4rem;
+    gap: 1.4em;
     min-width: 400px;
     height: clamp(200px, 60vh, 500px);
 }
@@ -57,27 +57,27 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: .4rem;
+    gap: .4em;
 }
 
 .name-container input,
 .email-container input,
 .passw-container input {
-    padding: .6rem;
+    padding: .6em;
     border-radius: 10px;
     border: none;
     background-color: #f0f0f0;
 }
 
 .register-button {
-    padding: .6rem;
+    padding: .6em;
     background-color: #191919;
     border: none;
     border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: .4rem;
+    gap: .4em;
     color: #ffff;
     transition: all .1s ease;
 }
@@ -95,11 +95,17 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: .2rem;
-    font-size: .8rem;
+    gap: .2em;
+    font-size: .8em;
 }
 
 .log-in a {
     text-decoration: none;
     color: #3e00ff;
+}
+
+@media (max-width: 768px) {
+    .register-page {
+        font-size: 14px;
+    }
 }

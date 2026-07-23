@@ -105,7 +105,7 @@ function RegisterForm() {
             <hr />
             <div className="log-in">
                 <span>¿Ya está registrado?</span>
-                <a href="/">Iniciar Sesión</a>
+                <a href="/login">Iniciar Sesión</a>
             </div>
         </form>
     );

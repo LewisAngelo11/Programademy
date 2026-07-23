@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useNavigate } from "react-router";
 import { CodeAlt, BookOpen } from "@boxicons/react";
 import toast from 'react-hot-toast';
 import "./ForgotPassw.css";
@@ -77,7 +76,7 @@ function RecoverPasswForm() {
             <hr />
             <div className="remember-passw">
                 <span>Recordé mi contraseña</span>
-                <a href="/">Iniciar Sesión</a>
+                <a href="/login">Iniciar Sesión</a>
             </div>
         </form>
     );
