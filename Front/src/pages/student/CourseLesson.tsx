@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from "react-router";
 import React, { useState, useEffect, type SetStateAction } from "react";
 import { getOneModule } from "../../services/moduleServices";
-import { ArrowLeftStroke, BookOpen, Code, CheckCircle } from "@boxicons/react";
+import { ArrowLeftStroke, BookOpen, Code, CheckCircle, VolumeFull, PauseCircle, PlayCircle, StopCircle } from "@boxicons/react";
 import "./CourseLesson.css";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
@@ -57,6 +57,9 @@ export default function CourseLesson() {
     const [quizzes, setQuizzes] = useState<Quiz[]>([]);
     const [languages, setLanguages] = useState<languagesExamples>("C");
     const [codeCopied, setCodeCopied] = useState<boolean>(false);
+    const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([]);
+    const [isReading, setIsReading] = useState(false);
+    const [isPause, setIsPause] = useState(false);
 
     const getModulo = async () => {
         const token = localStorage.getItem("token");
@@ -119,12 +122,122 @@ export default function CourseLesson() {
         }
     }, [id]);
 
+    // Cargar las voces narradoras
+    useEffect(() => {
+        const loadVoices = () => {
+            const availableVoices = window.speechSynthesis.getVoices();
+            setVoices(availableVoices);
+        };
+
+        loadVoices();
+        window.speechSynthesis.onvoiceschanged = loadVoices;
+    }, []);
+
     const copyCode = () => {
         navigator.clipboard.writeText(ejemplosCodigos[languages].codigo);
         setCodeCopied(true);
         toast.success("¡Código Copiado!");
         setTimeout(() => setCodeCopied(false), 3000);
     }
+
+    // Obtener voces narradoras
+    const getBestVoice = () => {
+        const preferredNames = [
+            "Paulina",
+            "Monica",
+            "Google español México",
+            "Google español",
+            "Sabina"
+        ];
+
+
+        return voices.find(voice =>
+            preferredNames.some(name =>
+                voice.name.includes(name)
+            )
+        )
+        ??
+        voices.find(voice =>
+            voice.lang === "es-MX"
+        )
+        ??
+        voices.find(voice =>
+            voice.lang.startsWith("es")
+        );
+
+    };
+
+    // Preparar el texto para una mejor narración
+    const prepareText = (text: string) => {
+        return text
+            // Quitar negritas Markdown **texto**
+            .replace(/\*\*(.*?)\*\*/g, "$1")
+
+            // Quitar guiones de listas
+            .replace(/^- /gm, "")
+
+            // Mejorar siglas
+            .replace(/\bJS\b/g, "JavaScript")
+            .replace(/\bTS\b/g, "TypeScript")
+            .replace(/\bAPI\b/g, "A P I")
+            .replace(/\bHTML\b/g, "H T M L")
+            .replace(/\(OOP\)/g, "P O O")
+            .replace(/\bOOP\b/g, "Programación orientada a objetos")
+            .replace(/\bCSS\b/g, "C S S")
+            .replace(/\bUI\b/g, "interfaz de usuario")
+            .replace(/\bUX\b/g, "experiencia de usuario")
+
+            // Limpiar espacios múltiples
+            .replace(/\s+/g, " ")
+            .trim();
+    };
+
+    // Función para leer el contenido teorico del módulo
+    const readText = () => {
+        if (!modulo) return;
+
+        // Evitar que se acumulen lecturas
+        window.speechSynthesis.cancel();
+        const texto = prepareText(modulo.contenido_teorico);
+
+        // Crear el objeto de narración
+        const contenidoTeorico = new SpeechSynthesisUtterance(texto);
+
+        const voz = getBestVoice();
+        if (voz) {
+            contenidoTeorico.voice = voz;
+        }
+
+        // Ajustes para que suene más natural
+        contenidoTeorico.rate = 0.95; // Velocidad
+        contenidoTeorico.pitch = 0.95; // Tono
+        contenidoTeorico.volume = 1; // Volumen
+
+        contenidoTeorico.onstart = () => {
+            setIsReading(true);
+            setIsPause(false);
+        };
+
+        contenidoTeorico.onend = () => {
+            setIsReading(false);
+            setIsPause(false);
+        };
+
+        contenidoTeorico.onerror = () => {
+            setIsReading(false);
+            setIsPause(false);
+        };
+
+        window.speechSynthesis.speak(contenidoTeorico);
+    };
+
+    // Función para detener la voz narradora
+    const stopReading = () => {
+        window.speechSynthesis.cancel();
+
+        setIsReading(false);
+        setIsPause(false);
+    };
 
     if (!modulo) return <div>No se encontró el módulo</div>;
 
@@ -165,8 +278,38 @@ export default function CourseLesson() {
                     {theme === "Teoria" &&
                         <section className="modulo-contenido-teorico">
                             <header>
-                                <h2>Contenido Teórico</h2>
-                                <p>Conceptos fundamentales de {modulo.titulo}</p>
+                                <div>
+                                    <h2>Contenido Teórico</h2>
+                                    <p>Conceptos fundamentales de {modulo.titulo}</p>
+                                </div>
+                                <div>
+                                    {!isReading ? (
+                                        <button className="btn-speaker" onClick={readText}>
+                                            <VolumeFull />
+                                        </button>
+                                    ): (
+                                        <div className="btns-speakers">
+                                            {!isPause ? (
+                                                <button className="btn-speaker" onClick={() => {
+                                                        if(window.speechSynthesis.speaking){
+                                                            window.speechSynthesis.pause();
+                                                            setIsPause(true);
+                                                        }
+                                                    }}
+                                                >
+                                                    <PauseCircle />
+                                                </button>
+                                            ): (
+                                                <button className="btn-speaker" onClick={() => {window.speechSynthesis.resume(); setIsPause(false)}}>
+                                                    <PlayCircle />
+                                                </button>
+                                            )}
+                                            <button className="btn-speaker" onClick={stopReading}>
+                                                <StopCircle />
+                                            </button>
+                                        </div>
+                                    )}
+                                </div>
                             </header>
                             <p>{modulo.contenido_teorico}</p>
                         </section>

@@ -262,6 +262,28 @@
     line-height: 1.5;
 }
 
+.modulo-contenido-teorico header {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    margin-bottom: .5rem;
+}
+
+.btn-speaker {
+    border: none;
+    background-color: transparent;
+    transition: all .1s ease;
+}
+
+.btns-speakers {
+    display: flex;
+    gap: .6rem;
+}
+
+.btn-speaker:hover {
+    opacity: .6;
+}
+
 .modulo-codigo-ejemplo p {
     font-size: .9rem;
     color: #454545;
