@@ -19,39 +19,52 @@ import AdminQuizzes from './pages/admin/AdminQuizzes'
 import CreateQuiz from './pages/admin/CreateQuiz'
 import EditQuiz from './pages/admin/EditQuiz'
 import SolveQuiz from './pages/student/SolveQuiz'
-import { Toaster } from 'react-hot-toast';
+import { Toaster } from 'react-hot-toast'
 import ForgotPassw from './pages/ForgotPassw'
 import ResetPassword from './pages/ResetPassword'
+import PublicOnlyRoute from './guards/PublicOnlyRoute'
+import RoleRoute from './guards/RoleRoute'
 
 function App() {
 
   return (
     <>
-      <Toaster position="bottom-right" reverseOrder={false}/>
+      <Toaster position="bottom-right" reverseOrder={false} />
       <Routes>
-        <Route path={"/"} element={<Landing/>}/>
-        <Route path={"/login"} element={<Login/>}/>
-        <Route path={"/register"} element={<Register/>}/>
-        <Route path={"/forgotPassw"} element={<ForgotPassw/>}/>
-        <Route path="/reset-password/:token" element={<ResetPassword />}/>
-        
-        <Route path={"student/dashboard"} element={<StudentDashboard/>}/>
-        <Route path={"student/profile"} element={<StudentProfile/>}/>
-        <Route path={"info-course/:id"} element={<InfoCourse/>}/>
-        <Route path={'student/lesson/:id'} element={<CourseLesson/>}/>
+        {/* Ruta pública accesible para todos */}
+        <Route path={"/"} element={<Landing />} />
 
-        <Route path={"admin/profile"} element={<AdminProfile/>}/>
-        <Route path={"admin/dashboard"} element={<AdminDashboard/>}/>
-        <Route path={'courses-admin'} element={<AdminCourses/>}/>
-        <Route path={'courses/create'} element={<CreateCourse/>}/>
-        <Route path={'courses/edit/:id'} element={<EditCourses/>}/>
-        <Route path={"modules-admin"} element={<AdminModules/>}/>
-        <Route path={"modules/create"} element={<CreateModule/>}/>
-        <Route path={'modules/edit/:id'} element={<EditModule/>}/>
-        <Route path={'quizzes-admin'} element={<AdminQuizzes/>}/>
-        <Route path={'quizzes/create'} element={<CreateQuiz/>}/>
-        <Route path={'quizzes/edit/:id'} element={<EditQuiz/>}/>
-        <Route path={'quiz/solve/:id'} element={<SolveQuiz/>}/>
+        {/* Rutas de autenticación — solo accesibles sin sesión activa */}
+        <Route element={<PublicOnlyRoute />}>
+          <Route path={"/login"} element={<Login />} />
+          <Route path={"/register"} element={<Register />} />
+          <Route path={"/forgotPassw"} element={<ForgotPassw />} />
+          <Route path="/reset-password/:token" element={<ResetPassword />} />
+        </Route>
+
+        {/* Rutas exclusivas del estudiante */}
+        <Route element={<RoleRoute allowedRole="student" />}>
+          <Route path={"student/dashboard"} element={<StudentDashboard />} />
+          <Route path={"student/profile"} element={<StudentProfile />} />
+          <Route path={"info-course/:id"} element={<InfoCourse />} />
+          <Route path={"student/lesson/:id"} element={<CourseLesson />} />
+          <Route path={"quiz/solve/:id"} element={<SolveQuiz />} />
+        </Route>
+
+        {/* Rutas exclusivas del administrador */}
+        <Route element={<RoleRoute allowedRole="admin" />}>
+          <Route path={"admin/profile"} element={<AdminProfile />} />
+          <Route path={"admin/dashboard"} element={<AdminDashboard />} />
+          <Route path={"courses-admin"} element={<AdminCourses />} />
+          <Route path={"courses/create"} element={<CreateCourse />} />
+          <Route path={"courses/edit/:id"} element={<EditCourses />} />
+          <Route path={"modules-admin"} element={<AdminModules />} />
+          <Route path={"modules/create"} element={<CreateModule />} />
+          <Route path={"modules/edit/:id"} element={<EditModule />} />
+          <Route path={"quizzes-admin"} element={<AdminQuizzes />} />
+          <Route path={"quizzes/create"} element={<CreateQuiz />} />
+          <Route path={"quizzes/edit/:id"} element={<EditQuiz />} />
+        </Route>
       </Routes>
     </>
   )

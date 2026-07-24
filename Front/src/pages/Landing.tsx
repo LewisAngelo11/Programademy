@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router'
 import { C, CPlusplus, Python, Javascript, Java, CSharp } from "@dev.icons/react";
 import { Rocket, BookOpen, CodeAlt, CheckCircle, Code } from '@boxicons/react';
@@ -14,7 +14,34 @@ function AppPlaceholder() {
 }
 
 export default function Landing() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const [tokenValido, setTokenValido] = useState(false);
+  const API_URL = import.meta.env.VITE_API_URL;
+
+  // Validar si el token está expirado o no
+  useEffect(() => {
+    const validarToken = async () => {
+      const token = localStorage.getItem("token");
+      try {
+        const response = await fetch(`${API_URL}/usuario/info`, {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
+        })
+
+        if (!response.ok) {
+          setTokenValido(false);
+          return;
+        }
+        setTokenValido(true);
+      } catch (err) {
+        console.log(err);
+        setTokenValido(true);
+      }
+    };
+
+    validarToken();
+  }, []);
   
   // Animar elementos al hacer scroll
   useEffect(() => {
@@ -51,7 +78,7 @@ export default function Landing() {
           <li><a href="#lenguajes">Lenguajes</a></li>
         </ul>
         <button className="btn-login" onClick={() => navigate('/login')}>
-          Iniciar sesión
+          {tokenValido ? "Ingresar" : "Iniciar sesión"}
         </button>
       </nav>
 
@@ -179,7 +206,7 @@ export default function Landing() {
             Crear cuenta gratis
           </button>
           <button className="btn-secondary" onClick={() => navigate('/login')}>
-            Iniciar sesión
+            {tokenValido ? "Explorar cursos" : "Iniciar sesión"}
           </button>
         </div>
       </section>
