@@ -125,14 +125,15 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: .4rem;
+    gap: 1rem;
 }
 
 .option-item {
     width: 100%;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: start;
+    margin-top: .8rem;
     gap: .5rem;
 }
 

@@ -9,6 +9,7 @@ type OpcionForm = {
     Texto: string;
     es_correcta: boolean;
     orden: number;
+    explicacion: string;
 }
 
 type PreguntaForm = {
@@ -40,7 +41,7 @@ export default function CreateQuiz() {
         puntos_recompensa: 10,
         preguntas: [
             { enunciado: "", orden: 1, opcion: 
-                [{ Texto: "", es_correcta: true, orden: 1 }]
+                [{ Texto: "", es_correcta: true, orden: 1, explicacion: "" }]
             }]
     });
 
@@ -95,7 +96,7 @@ export default function CreateQuiz() {
             preguntas: [...prev.preguntas, {
                 enunciado: "",
                 orden: prev.preguntas.length + 1,
-                opcion: [{ Texto: "", es_correcta: true, orden: 1 }]
+                opcion: [{ Texto: "", es_correcta: true, orden: 1, explicacion: "" }]
             }]
         }));
     };
@@ -120,7 +121,7 @@ export default function CreateQuiz() {
             const maxOrden = nuevasPreguntas[preguntaIndex].opcion.length;
             // Agrega una nueva opción a la pregunta
             nuevasPreguntas[preguntaIndex].opcion.push(
-                { Texto: "", es_correcta: false, orden: maxOrden + 1 }
+                { Texto: "", es_correcta: false, orden: maxOrden + 1, explicacion: "" }
             );
             return { ...prev, preguntas: nuevasPreguntas };
         });
@@ -319,15 +320,28 @@ export default function CreateQuiz() {
                                             checked={op.es_correcta}
                                             onChange={(e) => handleOpcionChange(preguntaIndex, oIndex, e)}
                                         />
-                                        <input 
-                                            type="text" 
-                                            name="Texto" 
-                                            className="option-text"
-                                            placeholder={`Opción ${oIndex + 1}`}
-                                            value={op.Texto}
-                                            onChange={(e) => handleOpcionChange(preguntaIndex, oIndex, e)}
-                                            required
-                                        />
+                                        <div style={{ display: 'flex', flexDirection: 'column', gap: '.4rem', width: '100%' }}>
+                                            <input 
+                                                type="text" 
+                                                name="Texto" 
+                                                className="option-text"
+                                                placeholder={`Opción ${oIndex + 1}`}
+                                                value={op.Texto}
+                                                onChange={(e) => handleOpcionChange(preguntaIndex, oIndex, e)}
+                                                required
+                                            />
+                                            <p style={{ fontSize: '0.8rem', color: 'gray', marginTop: '0.2rem' }}>
+                                                La explicación solo aparecerá al final de la evaluación.
+                                            </p>
+                                            <input
+                                                type="text"
+                                                name="explicacion"
+                                                placeholder={`Explicación de la opción ${oIndex + 1}`}
+                                                value={op.explicacion}
+                                                onChange={(e) => handleOpcionChange(preguntaIndex, oIndex, e)}
+                                                required
+                                            />
+                                        </div>
                                         <button type="button" className="btn-remove-option" onClick={() => eliminarOpcion(preguntaIndex, oIndex)} title="Quitar opción">
                                             <X size="xs" />
                                         </button>

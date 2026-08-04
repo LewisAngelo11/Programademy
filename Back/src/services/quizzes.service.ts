@@ -2,6 +2,7 @@ import { create } from "node:domain";
 import { prisma } from "../../lib/prisma";
 import { CreateQuizDTO, UpdateQuizDTO } from '../types/quiz.types';
 import { ProgressService } from "./progress.service";
+import e from "express";
 
 export class QuizService {
   private progressService = new ProgressService();
@@ -24,7 +25,8 @@ export class QuizService {
               create: p.opcion.map(o => ({
                 Texto: o.Texto,
                 es_correcta: o.es_correcta,
-                orden: o.orden
+                orden: o.orden,
+                explicacion: o.explicacion
               }))
             }
           }))
@@ -88,7 +90,8 @@ export class QuizService {
               create: p.opcion.map(o => ({
                 Texto: o.Texto,
                 es_correcta: o.es_correcta,
-                orden: o.orden
+                orden: o.orden,
+                explicacion: o.explicacion
               }))
             }
           }))

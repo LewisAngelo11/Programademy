@@ -9,6 +9,7 @@ type OpcionForm = {
     Texto: string;
     es_correcta: boolean;
     orden: number;
+    explicacion: string;
 }
 
 type PreguntaForm = {
@@ -40,7 +41,7 @@ export default function EditQuiz() {
         titulo: "",
         tiempo_limite_segundos: 600, 
         puntos_recompensa: 10,
-        preguntas: [{ enunciado: "", orden: 1, opcion: [{ Texto: "", es_correcta: true, orden: 1 }] }]
+        preguntas: [{ enunciado: "", orden: 1, opcion: [{ Texto: "", es_correcta: true, orden: 1, explicacion: "" }] }]
     });
 
     const [modules, setModules] = useState<Modulo[]>([]);
@@ -91,7 +92,7 @@ export default function EditQuiz() {
             preguntas: [...prev.preguntas, {
                 enunciado: "",
                 orden: prev.preguntas.length + 1,
-                opcion: [{ Texto: "", es_correcta: true, orden: 1 }]
+                opcion: [{ Texto: "", es_correcta: true, orden: 1, explicacion: "" }]
             }]
         }));
     };
@@ -110,7 +111,7 @@ export default function EditQuiz() {
         setForm(prev => {
             const nuevasPreguntas = [...prev.preguntas];
             const maxOrden = nuevasPreguntas[pIndex].opcion.length;
-            nuevasPreguntas[pIndex].opcion.push({ Texto: "", es_correcta: false, orden: maxOrden + 1 });
+            nuevasPreguntas[pIndex].opcion.push({ Texto: "", es_correcta: false, orden: maxOrden + 1, explicacion: "" });
             return { ...prev, preguntas: nuevasPreguntas };
         });
     };
@@ -198,9 +199,10 @@ export default function EditQuiz() {
                             opcion: p.opcion && p.opcion.length > 0 ? p.opcion.map((o: any) => ({
                                 Texto: o.Texto,
                                 es_correcta: o.es_correcta,
-                                orden: o.orden
-                            })) : [{ Texto: "", es_correcta: true, orden: 1 }]
-                        })) : [{ enunciado: "", orden: 1, opcion: [{ Texto: "", es_correcta: true, orden: 1 }] }]
+                                orden: o.orden,
+                                explicacion: o.explicacion
+                            })) : [{ Texto: "", es_correcta: true, orden: 1, explicacion: "" }]
+                        })) : [{ enunciado: "", orden: 1, opcion: [{ Texto: "", es_correcta: true, orden: 1, explicacion: "" }] }]
                     });
                 }
             } catch (err) {
@@ -339,15 +341,29 @@ export default function EditQuiz() {
                                             checked={op.es_correcta}
                                             onChange={(e) => handleOpcionChange(pIndex, oIndex, e)}
                                         />
-                                        <input 
-                                            type="text" 
-                                            name="Texto"
-                                            className="option-text"
-                                            placeholder={`Opción ${oIndex + 1}`}
-                                            value={op.Texto}
-                                            onChange={(e) => handleOpcionChange(pIndex, oIndex, e)}
-                                            required
-                                        />
+                                        <div style={{ display: 'flex', flexDirection: 'column', gap: '.4rem', width: '100%' }}>
+                                            <input 
+                                                type="text" 
+                                                name="Texto" 
+                                                className="option-text"
+                                                placeholder={`Opción ${oIndex + 1}`}
+                                                value={op.Texto}
+                                                onChange={(e) => handleOpcionChange(pIndex, oIndex, e)}
+                                                required
+                                            />
+                                            <p style={{ fontSize: '0.8rem', color: 'gray', marginTop: '0.2rem' }}>
+                                                La explicación solo aparecerá al final de la evaluación.
+                                            </p>
+                                            <input 
+                                                type="text" 
+                                                name="explicacion"
+                                                className="option-text"
+                                                placeholder={`Explicación de la opción ${oIndex + 1}`}
+                                                value={op.explicacion}
+                                                onChange={(e) => handleOpcionChange(pIndex, oIndex, e)}
+                                                required
+                                            />
+                                        </div>
                                         <button type="button" className="btn-remove-option" onClick={() => eliminarOpcion(pIndex, oIndex)} title="Quitar opción">
                                             <X size="xs" />
                                         </button>

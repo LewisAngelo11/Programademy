@@ -1600,7 +1600,8 @@ export const OpcionScalarFieldEnum = {
   id_pregunta: 'id_pregunta',
   Texto: 'Texto',
   es_correcta: 'es_correcta',
-  orden: 'orden'
+  orden: 'orden',
+  explicacion: 'explicacion'
 } as const
 
 export type OpcionScalarFieldEnum = (typeof OpcionScalarFieldEnum)[keyof typeof OpcionScalarFieldEnum]

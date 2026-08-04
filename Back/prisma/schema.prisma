@@ -118,6 +118,7 @@ model opcion {
   Texto       String
   es_correcta Boolean   @default(false)
   orden       Decimal?  @db.Decimal
+  explicacion String?
   pregunta    pregunta? @relation(fields: [id_pregunta], references: [id_pregunta], onDelete: Cascade, onUpdate: NoAction, map: "fk_opcion_pregunta")
 }
 

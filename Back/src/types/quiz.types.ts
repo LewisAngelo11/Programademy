@@ -2,6 +2,7 @@ export interface CreateOpcionDTO {
     Texto: string;
     es_correcta: boolean;
     orden: number;
+    explicacion: string;
 }
 
 export interface UpdateOpcionDTO extends CreateOpcionDTO {}

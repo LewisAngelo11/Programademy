@@ -44,6 +44,7 @@ export type OpcionMinAggregateOutputType = {
   Texto: string | null
   es_correcta: boolean | null
   orden: runtime.Decimal | null
+  explicacion: string | null
 }
 
 export type OpcionMaxAggregateOutputType = {
@@ -52,6 +53,7 @@ export type OpcionMaxAggregateOutputType = {
   Texto: string | null
   es_correcta: boolean | null
   orden: runtime.Decimal | null
+  explicacion: string | null
 }
 
 export type OpcionCountAggregateOutputType = {
@@ -60,6 +62,7 @@ export type OpcionCountAggregateOutputType = {
   Texto: number
   es_correcta: number
   orden: number
+  explicacion: number
   _all: number
 }
 
@@ -82,6 +85,7 @@ export type OpcionMinAggregateInputType = {
   Texto?: true
   es_correcta?: true
   orden?: true
+  explicacion?: true
 }
 
 export type OpcionMaxAggregateInputType = {
@@ -90,6 +94,7 @@ export type OpcionMaxAggregateInputType = {
   Texto?: true
   es_correcta?: true
   orden?: true
+  explicacion?: true
 }
 
 export type OpcionCountAggregateInputType = {
@@ -98,6 +103,7 @@ export type OpcionCountAggregateInputType = {
   Texto?: true
   es_correcta?: true
   orden?: true
+  explicacion?: true
   _all?: true
 }
 
@@ -193,6 +199,7 @@ export type OpcionGroupByOutputType = {
   Texto: string
   es_correcta: boolean
   orden: runtime.Decimal | null
+  explicacion: string | null
   _count: OpcionCountAggregateOutputType | null
   _avg: OpcionAvgAggregateOutputType | null
   _sum: OpcionSumAggregateOutputType | null
@@ -224,6 +231,7 @@ export type opcionWhereInput = {
   Texto?: Prisma.StringFilter<"opcion"> | string
   es_correcta?: Prisma.BoolFilter<"opcion"> | boolean
   orden?: Prisma.DecimalNullableFilter<"opcion"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  explicacion?: Prisma.StringNullableFilter<"opcion"> | string | null
   pregunta?: Prisma.XOR<Prisma.PreguntaNullableScalarRelationFilter, Prisma.preguntaWhereInput> | null
 }
 
@@ -233,6 +241,7 @@ export type opcionOrderByWithRelationInput = {
   Texto?: Prisma.SortOrder
   es_correcta?: Prisma.SortOrder
   orden?: Prisma.SortOrderInput | Prisma.SortOrder
+  explicacion?: Prisma.SortOrderInput | Prisma.SortOrder
   pregunta?: Prisma.preguntaOrderByWithRelationInput
 }
 
@@ -245,6 +254,7 @@ export type opcionWhereUniqueInput = Prisma.AtLeast<{
   Texto?: Prisma.StringFilter<"opcion"> | string
   es_correcta?: Prisma.BoolFilter<"opcion"> | boolean
   orden?: Prisma.DecimalNullableFilter<"opcion"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  explicacion?: Prisma.StringNullableFilter<"opcion"> | string | null
   pregunta?: Prisma.XOR<Prisma.PreguntaNullableScalarRelationFilter, Prisma.preguntaWhereInput> | null
 }, "id_opcion">
 
@@ -254,6 +264,7 @@ export type opcionOrderByWithAggregationInput = {
   Texto?: Prisma.SortOrder
   es_correcta?: Prisma.SortOrder
   orden?: Prisma.SortOrderInput | Prisma.SortOrder
+  explicacion?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.opcionCountOrderByAggregateInput
   _avg?: Prisma.opcionAvgOrderByAggregateInput
   _max?: Prisma.opcionMaxOrderByAggregateInput
@@ -270,12 +281,14 @@ export type opcionScalarWhereWithAggregatesInput = {
   Texto?: Prisma.StringWithAggregatesFilter<"opcion"> | string
   es_correcta?: Prisma.BoolWithAggregatesFilter<"opcion"> | boolean
   orden?: Prisma.DecimalNullableWithAggregatesFilter<"opcion"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  explicacion?: Prisma.StringNullableWithAggregatesFilter<"opcion"> | string | null
 }
 
 export type opcionCreateInput = {
   Texto: string
   es_correcta?: boolean
   orden?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  explicacion?: string | null
   pregunta?: Prisma.preguntaCreateNestedOneWithoutOpcionInput
 }
 
@@ -285,12 +298,14 @@ export type opcionUncheckedCreateInput = {
   Texto: string
   es_correcta?: boolean
   orden?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  explicacion?: string | null
 }
 
 export type opcionUpdateInput = {
   Texto?: Prisma.StringFieldUpdateOperationsInput | string
   es_correcta?: Prisma.BoolFieldUpdateOperationsInput | boolean
   orden?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  explicacion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pregunta?: Prisma.preguntaUpdateOneWithoutOpcionNestedInput
 }
 
@@ -300,6 +315,7 @@ export type opcionUncheckedUpdateInput = {
   Texto?: Prisma.StringFieldUpdateOperationsInput | string
   es_correcta?: Prisma.BoolFieldUpdateOperationsInput | boolean
   orden?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  explicacion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type opcionCreateManyInput = {
@@ -308,12 +324,14 @@ export type opcionCreateManyInput = {
   Texto: string
   es_correcta?: boolean
   orden?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  explicacion?: string | null
 }
 
 export type opcionUpdateManyMutationInput = {
   Texto?: Prisma.StringFieldUpdateOperationsInput | string
   es_correcta?: Prisma.BoolFieldUpdateOperationsInput | boolean
   orden?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  explicacion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type opcionUncheckedUpdateManyInput = {
@@ -322,6 +340,7 @@ export type opcionUncheckedUpdateManyInput = {
   Texto?: Prisma.StringFieldUpdateOperationsInput | string
   es_correcta?: Prisma.BoolFieldUpdateOperationsInput | boolean
   orden?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  explicacion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type OpcionListRelationFilter = {
@@ -340,6 +359,7 @@ export type opcionCountOrderByAggregateInput = {
   Texto?: Prisma.SortOrder
   es_correcta?: Prisma.SortOrder
   orden?: Prisma.SortOrder
+  explicacion?: Prisma.SortOrder
 }
 
 export type opcionAvgOrderByAggregateInput = {
@@ -354,6 +374,7 @@ export type opcionMaxOrderByAggregateInput = {
   Texto?: Prisma.SortOrder
   es_correcta?: Prisma.SortOrder
   orden?: Prisma.SortOrder
+  explicacion?: Prisma.SortOrder
 }
 
 export type opcionMinOrderByAggregateInput = {
@@ -362,6 +383,7 @@ export type opcionMinOrderByAggregateInput = {
   Texto?: Prisma.SortOrder
   es_correcta?: Prisma.SortOrder
   orden?: Prisma.SortOrder
+  explicacion?: Prisma.SortOrder
 }
 
 export type opcionSumOrderByAggregateInput = {
@@ -416,6 +438,7 @@ export type opcionCreateWithoutPreguntaInput = {
   Texto: string
   es_correcta?: boolean
   orden?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  explicacion?: string | null
 }
 
 export type opcionUncheckedCreateWithoutPreguntaInput = {
@@ -423,6 +446,7 @@ export type opcionUncheckedCreateWithoutPreguntaInput = {
   Texto: string
   es_correcta?: boolean
   orden?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  explicacion?: string | null
 }
 
 export type opcionCreateOrConnectWithoutPreguntaInput = {
@@ -460,6 +484,7 @@ export type opcionScalarWhereInput = {
   Texto?: Prisma.StringFilter<"opcion"> | string
   es_correcta?: Prisma.BoolFilter<"opcion"> | boolean
   orden?: Prisma.DecimalNullableFilter<"opcion"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  explicacion?: Prisma.StringNullableFilter<"opcion"> | string | null
 }
 
 export type opcionCreateManyPreguntaInput = {
@@ -467,12 +492,14 @@ export type opcionCreateManyPreguntaInput = {
   Texto: string
   es_correcta?: boolean
   orden?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  explicacion?: string | null
 }
 
 export type opcionUpdateWithoutPreguntaInput = {
   Texto?: Prisma.StringFieldUpdateOperationsInput | string
   es_correcta?: Prisma.BoolFieldUpdateOperationsInput | boolean
   orden?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  explicacion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type opcionUncheckedUpdateWithoutPreguntaInput = {
@@ -480,6 +507,7 @@ export type opcionUncheckedUpdateWithoutPreguntaInput = {
   Texto?: Prisma.StringFieldUpdateOperationsInput | string
   es_correcta?: Prisma.BoolFieldUpdateOperationsInput | boolean
   orden?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  explicacion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type opcionUncheckedUpdateManyWithoutPreguntaInput = {
@@ -487,6 +515,7 @@ export type opcionUncheckedUpdateManyWithoutPreguntaInput = {
   Texto?: Prisma.StringFieldUpdateOperationsInput | string
   es_correcta?: Prisma.BoolFieldUpdateOperationsInput | boolean
   orden?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  explicacion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -497,6 +526,7 @@ export type opcionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   Texto?: boolean
   es_correcta?: boolean
   orden?: boolean
+  explicacion?: boolean
   pregunta?: boolean | Prisma.opcion$preguntaArgs<ExtArgs>
 }, ExtArgs["result"]["opcion"]>
 
@@ -506,6 +536,7 @@ export type opcionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   Texto?: boolean
   es_correcta?: boolean
   orden?: boolean
+  explicacion?: boolean
   pregunta?: boolean | Prisma.opcion$preguntaArgs<ExtArgs>
 }, ExtArgs["result"]["opcion"]>
 
@@ -515,6 +546,7 @@ export type opcionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   Texto?: boolean
   es_correcta?: boolean
   orden?: boolean
+  explicacion?: boolean
   pregunta?: boolean | Prisma.opcion$preguntaArgs<ExtArgs>
 }, ExtArgs["result"]["opcion"]>
 
@@ -524,9 +556,10 @@ export type opcionSelectScalar = {
   Texto?: boolean
   es_correcta?: boolean
   orden?: boolean
+  explicacion?: boolean
 }
 
-export type opcionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id_opcion" | "id_pregunta" | "Texto" | "es_correcta" | "orden", ExtArgs["result"]["opcion"]>
+export type opcionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id_opcion" | "id_pregunta" | "Texto" | "es_correcta" | "orden" | "explicacion", ExtArgs["result"]["opcion"]>
 export type opcionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   pregunta?: boolean | Prisma.opcion$preguntaArgs<ExtArgs>
 }
@@ -548,6 +581,7 @@ export type $opcionPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     Texto: string
     es_correcta: boolean
     orden: runtime.Decimal | null
+    explicacion: string | null
   }, ExtArgs["result"]["opcion"]>
   composites: {}
 }
@@ -977,6 +1011,7 @@ export interface opcionFieldRefs {
   readonly Texto: Prisma.FieldRef<"opcion", 'String'>
   readonly es_correcta: Prisma.FieldRef<"opcion", 'Boolean'>
   readonly orden: Prisma.FieldRef<"opcion", 'Decimal'>
+  readonly explicacion: Prisma.FieldRef<"opcion", 'String'>
 }
     
 
