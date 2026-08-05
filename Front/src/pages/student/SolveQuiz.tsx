@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router";
 import { createAttempt, getAttemptComplete, getOneQuiz } from "../../services/quizServices";
-import { ArrowLeftStroke, CheckCircle, InfoCircle } from "@boxicons/react";
+import { ArrowLeftStroke, CheckCircle, InfoCircle, Check, X, ClipboardDetail } from "@boxicons/react";
 import "./SolveQuiz.css";
 
 interface Opcion {
@@ -9,6 +9,7 @@ interface Opcion {
     Texto: string;
     es_correcta: boolean;
     orden: number | null;
+    explicacion: string | null;
 }
 
 interface Pregunta {
@@ -189,7 +190,7 @@ export default function SolveQuiz() {
                         </button>
                 </header>
 
-                <main className="solve-quiz-card summary-container slide-up">
+                <section className="solve-quiz-card summary-container slide-up">
                     <div className="icon-wrapper">
                         <CheckCircle size="lg" color="#4f46e5" />
                     </div>
@@ -213,7 +214,50 @@ export default function SolveQuiz() {
                     <button className="nav-button finish w-submit" onClick={() => navigate(-1)}>
                         Finalizar y Volver al Módulo
                     </button>
-                </main>
+                </section>
+                {/* Resultados de el intento */}
+                <section className="solve-quiz-card explanation-container slide-up">
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
+                        <ClipboardDetail size="md" color="#4f46e5"/>
+                        <h3>Resultados</h3>
+                    </div>
+                    {quiz.pregunta.map((pregunta, index) => {
+                        const opcionSeleccionada = pregunta.opcion.find(
+                            (o) => o.id_opcion === answers[pregunta.id_pregunta]
+                        );
+
+                        return (
+                            <div key={pregunta.id_pregunta} className="question-result">
+                                <h4>Pregunta {index + 1}: {pregunta.enunciado}</h4>
+                                <div className="options-container">
+                                    {answers[pregunta.id_pregunta] ? (
+                                        <div
+                                            className={`selected-option ${opcionSeleccionada?.es_correcta ? 'correct': 'incorrect'}`}
+                                        >
+                                            {opcionSeleccionada?.es_correcta ? (
+                                                <Check color="#0d931d" size="sm"/>
+                                            ) : (
+                                                <X color="#a30707ff" size="sm"/>
+                                            )}
+                                            <span style={{ fontWeight: 400 }}>{opcionSeleccionada?.Texto}</span>
+                                        </div>
+                                    ) : (
+                                        <div className="no-answer">No respondida</div>
+                                    )}
+                                    {opcionSeleccionada && opcionSeleccionada.explicacion && (
+                                        <div
+                                            className={`explanation ${opcionSeleccionada?.es_correcta
+                                                ? 'correct-explain'
+                                                : 'incorrect-explain'}`}
+                                        >
+                                            <p>Explicación: {opcionSeleccionada.explicacion}</p>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                        )
+                    })}
+                </section>
             </div>
         );
     }
