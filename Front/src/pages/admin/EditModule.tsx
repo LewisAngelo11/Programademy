@@ -54,6 +54,8 @@ export default function EditModule() {
     const [loadingModule, setLoadingModule] = useState<boolean>(true);
     const [languages, setLanguages] = useState<languagesExamples>("C");
 
+    const API_URL = import.meta.env.VITE_API_URL;
+
     const handleCodigoChange = (lenguaje: languagesExamples, field: 'explicacion_codigo' | 'codigo', value: string) => {
         setEjemplosCodigos(prev => ({
             ...prev,
@@ -76,6 +78,10 @@ export default function EditModule() {
 
         setLoadingCourses(true);
         const result = await getAllCourses(token);
+        if (result.status === 401) {
+            navigate("/login");
+            return;
+        }
         
         if (result.error) {
             console.error("Error al cargar cursos:", result.error);
@@ -108,7 +114,7 @@ export default function EditModule() {
 
         try {
             setLoadingModule(true);
-            const response = await fetch(`http://localhost:3000/modulo/get/${idModulo}`, {
+            const response = await fetch(`${API_URL}/modulo/get/${idModulo}`, {
                 method: "GET",
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -188,7 +194,7 @@ export default function EditModule() {
                 return;
             }
 
-            const response = await fetch(`http://localhost:3000/modulo/update/${idModulo}`, {
+            const response = await fetch(`${API_URL}/modulo/update/${idModulo}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -203,6 +209,11 @@ export default function EditModule() {
                     codigo_ejemplo: ejemplosCodigos
                 })
             });
+
+            if (response.status === 401) {
+                navigate("/login");
+                return;
+            }
 
             const data = await response.json();
 

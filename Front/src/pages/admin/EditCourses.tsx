@@ -26,6 +26,11 @@ export default function EditCourses() {
                 }
             });
 
+            if (response.status === 401) {
+                navigate("/login");
+                return;
+            }
+
             if (!response) {
                 throw new Error("Error al obtener el curso");
             }
@@ -106,6 +111,11 @@ function FormEditCourse({
                 },
                 body: JSON.stringify(bodyEditCourse)
             });
+
+            if (response.status === 401) {
+                navigate("/login");
+                return;
+            }
 
             if (!response.ok) {
                 throw new Error("Error al actualizar el curso");

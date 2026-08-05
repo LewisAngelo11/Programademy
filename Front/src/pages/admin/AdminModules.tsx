@@ -26,6 +26,8 @@ export default function AdminModules() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
+    const API_URL = import.meta.env.VITE_API_URL;
+
     const filteredModulos = modulos.filter(m => 
         m.titulo.toLowerCase().includes(searchTerm.toLowerCase()) ||
         m.descripcion.toLowerCase().includes(searchTerm.toLowerCase())
@@ -43,13 +45,19 @@ export default function AdminModules() {
         try {
             setLoading(true);
             const token = localStorage.getItem('token'); // O donde guardes tu token
-            
-            const response = await fetch('http://localhost:3000/modulo/all', {
+
+            const response = await fetch(`${API_URL}/modulo/all`, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json'
                 }
             });
+
+            if (response.status === 401) {
+                localStorage.clear();
+                navigate("/login");
+                return;
+            }
 
             if (!response.ok) {
                 throw new Error('Error al cargar los módulos');

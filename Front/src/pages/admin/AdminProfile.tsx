@@ -26,6 +26,12 @@ export default function AdminProfile() {
                         'Content-Type': 'application/json'
                     }
                 });
+
+                if (response.status === 401) {
+                    localStorage.clear();
+                    navigate("/login");
+                    return;
+                }
     
                 if (!response.ok) {
                     throw new Error("Error en la petición");

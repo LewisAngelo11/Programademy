@@ -10,6 +10,13 @@ export default async function getAllCourses(token: string) {
             }
         });
 
+        if (response.status === 401) {
+            return {
+                error: "No autorizado.",
+                status: 401
+            };
+        }
+
         if (!response.ok) {
             throw new Error("Error al obtener los cursos");
         }

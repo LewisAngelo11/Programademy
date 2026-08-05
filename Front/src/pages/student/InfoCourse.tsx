@@ -48,6 +48,11 @@ export default function InfoCourse() {
                 }
             });
 
+            if (response.status === 401) {
+                navigate("/login");
+                return;
+            }
+
             if (!response) {
                 throw new Error("Error al obtener el curso");
             }
@@ -72,6 +77,11 @@ export default function InfoCourse() {
                     'Content-Type': 'application/json'
                 }
             });
+
+            if (response.status === 401) {
+                navigate("/login");
+                return;
+            }
     
             if (!response.ok) {
                 console.log(response);
@@ -96,7 +106,11 @@ export default function InfoCourse() {
             }
 
             const data = await getAllModulesFromCourse(token, Number(idCurso));
-            
+            if (data.status === 401) {
+                navigate("/login");
+                return;
+            }
+
             setModulos(data);
             setError(null);
         } catch (err) {
@@ -115,6 +129,11 @@ export default function InfoCourse() {
                     Authorization: `Bearer ${token}`
                 }
             });
+
+            if (response.status === 401) {
+                navigate("/login");
+                return;
+            }
 
             if (!response.ok) {
                 throw new Error("Error obteniendo progreso");

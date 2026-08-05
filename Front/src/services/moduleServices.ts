@@ -1,6 +1,6 @@
-export const getAllModulesFromCourse = async (token: string, idCurso: number) => {
-    const API_URL = import.meta.env.VITE_API_URL;
+const API_URL = import.meta.env.VITE_API_URL;
 
+export const getAllModulesFromCourse = async (token: string, idCurso: number) => {
     const response = await fetch(`${API_URL}/modulo/course/all/${idCurso}`, {
         method: 'GET',
         headers: {
@@ -8,6 +8,13 @@ export const getAllModulesFromCourse = async (token: string, idCurso: number) =>
             'Authorization': `Bearer ${token}`
         }
     });
+
+    if (response.status === 401) {
+        return {
+            error: "No autorizado.",
+            status: 401
+        };
+    }
 
     if (!response.ok) {
         const errorData = await response.json();
@@ -18,8 +25,6 @@ export const getAllModulesFromCourse = async (token: string, idCurso: number) =>
 }
 
 export const getOneModule = async (token: string, idModulo: number) => {
-    const API_URL = import.meta.env.VITE_API_URL;
-
     const response = await fetch(`${API_URL}/modulo/get/${idModulo}`, {
         method: 'GET',
         headers: {
@@ -27,6 +32,13 @@ export const getOneModule = async (token: string, idModulo: number) => {
             'Authorization': `Bearer ${token}`
         }
     });
+
+    if (response.status === 401) {
+        return {
+            error: "No autorizado.",
+            status: 401
+        };
+    }
 
     if (!response.ok) {
         const errorData = await response.json();
@@ -37,15 +49,20 @@ export const getOneModule = async (token: string, idModulo: number) => {
 }
 
 export const deleteModulo = async (token: string, idModulo: number): Promise<any> => {  
-    const API_URL = "http://localhost:3000/modulo/delete"
-    
-    const response = await fetch(`${API_URL}/${idModulo}`, {
+    const response = await fetch(`${API_URL}/modulo/delete/${idModulo}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
         }
     });
+
+    if (response.status === 401) {
+        return {
+            error: "No autorizado.",
+            status: 401
+        };
+    }
 
     if (!response.ok) {
         const errorData = await response.json();
@@ -56,14 +73,19 @@ export const deleteModulo = async (token: string, idModulo: number): Promise<any
 };
 
 export const getAllModules = async (token: string) => {
-    const API_URL = "http://localhost:3000/modulo/all"
-
-    const response = await fetch(API_URL, {
+    const response = await fetch(`${API_URL}/modulo/all`, {
         headers: {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json'
         }
     });
+
+    if (response.status === 401) {
+        return {
+            error: "No autorizado.",
+            status: 401
+        };
+    }
 
     if (!response.ok) {
         const errorData = await response.json();

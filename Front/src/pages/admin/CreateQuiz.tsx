@@ -166,8 +166,11 @@ export default function CreateQuiz() {
                 return;
             }
 
-            await createQuiz(token, bodyCreateQuiz);
-            
+            const response = await createQuiz(token, bodyCreateQuiz);
+            if (response.status === 401) {
+                navigate('/login');
+                return;
+            }
             alert('Quiz creado exitosamente');
             navigate('/quizzes-admin');
 

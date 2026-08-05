@@ -4,8 +4,10 @@ import "./StudentProfile.css";
 import { useEffect, useState } from "react";
 import EditInfoStudent from "../../components/student/EditInfoStudent";
 import HeaderStudentsPages from "../../components/student/HeaderStudentsPages";
+import { useNavigate } from "react-router";
 
 export default function StudentProfile() {
+    const navigate = useNavigate();
     const [studentName, setStudentName] = useState<string>("");
     const [studentEmail, setStudentEmail] = useState<string>("");
     const [studentRegisterDate, setStudentRegisterDate] = useState<string>("");
@@ -25,7 +27,12 @@ export default function StudentProfile() {
                         'Content-Type': 'application/json'
                     }
                 });
-    
+
+                if (response.status === 401) {
+                    navigate("/login");
+                    return;
+                }
+
                 if (!response.ok) {
                     throw new Error("Error en la petición");
                 }

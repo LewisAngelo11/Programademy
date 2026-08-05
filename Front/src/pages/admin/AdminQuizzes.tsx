@@ -37,11 +37,19 @@ export default function AdminQuizzes() {
         try {
             setLoading(true);
             const token = localStorage.getItem('token');
+
             if (!token) {
-                navigate("/");
+                navigate("/login");
                 return;
             }
+            
             const data = await getAllQuizzes(token);
+
+            if (data.status === 401) {
+                navigate("/login");
+                return;
+            }
+
             setQuizzes(data);
         } catch (err) {
             setError('No se pudieron consultar los quizzes');
@@ -161,7 +169,13 @@ function QuizCard({ id_quiz, titulo, id_modulo, puntos_recompensa, tiempo_limite
         }
 
         try {
-            await deleteQuiz(token, id_quiz);
+            const response = await deleteQuiz(token, id_quiz);
+
+            if (response.status === 401) {
+                navigate("/login");
+                return;
+            }
+
             alert('Quiz eliminado exitosamente');
             if (onDelete) onDelete(id_quiz);
         } catch (error) {

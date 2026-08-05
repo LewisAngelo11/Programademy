@@ -3,9 +3,11 @@ import ResumeDashboard from "../../components/admin/ResumeDashboard";
 import QuickActions from "../../components/admin/QuickActions";
 import "./AdminDashboard.css"
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 import StudentList from "../../components/admin/StudentList";
 
 export default function AdminDashboard() {
+    const navigate = useNavigate();
     const [loading, setLoading] = useState<boolean>(false);
     const [adminName, setAdminName] = useState<string>("");
     const [adminEmail, setAdminEmail] = useState<string>("");
@@ -16,51 +18,60 @@ export default function AdminDashboard() {
     const API_URL = import.meta.env.VITE_API_URL;
     const token = localStorage.getItem("token");
 
+    // Función para manejar las solicitudes fetch y redirigir al login en caso de 401
+    const fetchData = async (url: string, headers: HeadersInit, errorMessage: string) => {
+        const response = await fetch(url, { headers });
+
+        if (response.status === 401) {
+            localStorage.clear();
+            navigate("/login");
+            return;
+        }
+
+        if (!response.ok) {
+            throw new Error(errorMessage);
+        }
+
+        return response.json();
+    };
+
     // Obtener toda la info para el dashboard del admin
     const getAllDataDashboard = async () => {
-        const getInfoUserURL = `${API_URL}/usuario/info`;
-        const getAllCursosURL = `${API_URL}/curso/all`;
-        const getAllModulosURL = `${API_URL}/modulo/all`;
-        const getAllQuizzesURL = `${API_URL}/quiz/all`;
-
         const headers = {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json'
-        }
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+        };
 
         try {
             setLoading(true);
 
-            const userResponse = await fetch(getInfoUserURL, {headers});
-            if (!userResponse.ok) throw new Error(`Error al obtener la info del usuario: ${userResponse}`);
+            const [
+                dataUsuario,
+                dataCursos,
+                dataModulos,
+                dataQuizzes,
+            ] = await Promise.all([
+                fetchData(`${API_URL}/usuario/info`, headers, "Error al obtener la info del usuario"),
+                fetchData(`${API_URL}/curso/all`, headers, "Error al obtener los cursos"),
+                fetchData(`${API_URL}/modulo/all`, headers, "Error al obtener los módulos"),
+                fetchData(`${API_URL}/quiz/all`, headers, "Error al obtener los quizzes"),
+            ]);
 
-            const cursosResponse = await fetch(getAllCursosURL, {headers});
-            if (!cursosResponse.ok) throw new Error(`Error al obtener los cursos: ${cursosResponse}`);
+            if (!dataUsuario) return; // Se redirigió por 401
 
-            const modulosResponse = await fetch(getAllModulosURL, {headers});
-            if (!modulosResponse.ok) throw new Error(`Error al obtener los módulos: ${modulosResponse}`);
-
-            const quizzesResponse = await fetch(getAllQuizzesURL, {headers});
-            if (!quizzesResponse.ok) throw new Error(`Error al obtener los quizzes: ${quizzesResponse}`);
-
-            const dataUsuario = await userResponse.json();
             setAdminName(dataUsuario.nombre);
             setAdminEmail(dataUsuario.email);
 
-            const dataCursos = await cursosResponse.json();
             setCursos(dataCursos);
-
-            const dataModulos = await modulosResponse.json();
             setModulos(dataModulos);
-
-            const dataQuizzes = await quizzesResponse.json();
             setQuizzes(dataQuizzes);
+
         } catch (err) {
             console.error(err);
         } finally {
             setLoading(false);
         }
-    }
+    };
 
     useEffect(() => {
         getAllDataDashboard();

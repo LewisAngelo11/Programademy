@@ -9,6 +9,13 @@ export const getAllQuizzes = async (token: string) => {
         }
     });
 
+    if (response.status === 401) {
+        return {
+            error: "No autorizado.",
+            status: 401
+        };
+    }
+
     if (!response.ok) {
         const errorData = await response.json();
         throw new Error(errorData.error || 'Error al obtener los quizzes');
@@ -25,6 +32,13 @@ export const getOneQuiz = async (token: string, idQuiz: number) => {
             'Authorization': `Bearer ${token}`
         }
     });
+
+    if (response.status === 401) {
+        return {
+            error: "No autorizado.",
+            status: 401
+        };
+    }
 
     if (!response.ok) {
         const errorData = await response.json();
@@ -44,6 +58,13 @@ export const createQuiz = async (token: string, data: any) => {
         body: JSON.stringify(data)
     });
 
+    if (response.status === 401) {
+        return {
+            error: "No autorizado.",
+            status: 401
+        };
+    }
+
     if (!response.ok) {
         const errorData = await response.json();
         throw new Error(errorData.error || 'Error al crear el quiz');
@@ -61,6 +82,13 @@ export const updateQuiz = async (token: string, idQuiz: number, data: any) => {
         },
         body: JSON.stringify(data)
     });
+
+    if (response.status === 401) {
+        return {
+            error: "No autorizado.",
+            status: 401
+        };
+    }
 
     if (!response.ok) {
         const errorData = await response.json();
@@ -80,6 +108,13 @@ export const createAttempt = async (token: string, idQuiz: number, data: any) =>
         body: JSON.stringify(data)
     });
 
+    if (response.status === 401) {
+        return {
+            error: "No autorizado.",
+            status: 401
+        };
+    }
+
     if (!response.ok) {
         const errorData = await response.json();
         throw new Error(errorData.error || 'Error al crear el intento del quiz');
@@ -97,6 +132,13 @@ export const getAttemptComplete = async (token: string, idQuiz: number) => {
         }
     });
 
+    if (response.status === 401) {
+        return {
+            error: "No autorizado.",
+            status: 401
+        };
+    }
+
     if (!response.ok) {
         const errorData = await response.json();
         throw new Error(errorData.error || 'Error al obtener el intento completado');
@@ -113,6 +155,13 @@ export const deleteQuiz = async (token: string, idQuiz: number): Promise<any> =>
             'Authorization': `Bearer ${token}`
         }
     });
+
+    if (response.status === 401) {
+        return {
+            error: "No autorizado.",
+            status: 401
+        };
+    }
 
     if (!response.ok) {
         const errorData = await response.json();

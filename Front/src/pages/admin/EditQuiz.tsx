@@ -153,8 +153,12 @@ export default function EditQuiz() {
                 return;
             }
 
-            await updateQuiz(token, Number(id), bodyUpdateQuiz);
-            
+            const response = await updateQuiz(token, Number(id), bodyUpdateQuiz);
+            if (response.status === 401) {
+                navigate("/login");
+                return;
+            }
+
             alert('Quiz actualizado exitosamente');
             navigate('/quizzes-admin');
 
@@ -182,11 +186,20 @@ export default function EditQuiz() {
 
                 // Fetch modules
                 const modulesData = await getAllModules(token);
+                if (modulesData.status === 401) {
+                    navigate("/login");
+                    return;
+                }
                 setModules(modulesData);
                 setLoadingModules(false);
 
                 // Fetch quiz data
                 const quizData = await getOneQuiz(token, Number(id));
+                if (quizData.status === 401) {
+                    navigate("/login");
+                    return;
+                }
+
                 if (quizData) {
                     setForm({
                         modulo: quizData.id_modulo?.toString() || "",

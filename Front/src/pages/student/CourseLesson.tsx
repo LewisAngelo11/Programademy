@@ -83,6 +83,11 @@ export default function CourseLesson() {
             }
 
             const data = await getOneModule(token, Number(id));
+            if (data.status === 401) {
+                navigate("/login");
+                return;
+            }
+
             setModulo(data);
             setQuizzes(data.quiz);
 

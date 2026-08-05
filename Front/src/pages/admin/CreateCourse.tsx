@@ -34,7 +34,7 @@ function FormCreateCourse() {
     const [courseDescription, setCourseDescription] = useState<string>("");
     const [courseImgUrl, setCourseImgUrl] = useState<string>("");
 
-    const API_URL = "http://localhost:3000/curso/create";
+    const API_URL = import.meta.env.VITE_API_URL;
 
     const createCourse = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -48,7 +48,7 @@ function FormCreateCourse() {
         const token = localStorage.getItem("token");
 
         try {
-            const response = await fetch(API_URL, {
+            const response = await fetch(`${API_URL}/curso/create`, {
                 method: "POST",
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -56,6 +56,12 @@ function FormCreateCourse() {
                 },
                 body: JSON.stringify(bodyCourse)
             });
+
+            if (response.status === 401) {
+                localStorage.clear();
+                navigate("/login");
+                return;
+            }
 
             if (!response.ok) {
                 console.error("Error al crear el curso: ", response);

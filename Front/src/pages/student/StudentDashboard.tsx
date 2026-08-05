@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 import HeaderStudentDashboard from "../../components/student/HeaderStudentDashboard";
 import "./StudentDashboard.css";
 import ResumeHome from "../../components/student/ResumeHome";
@@ -33,6 +34,7 @@ export interface UserRange {
 }
 
 export default function StudentDashboard() {
+    const navigate = useNavigate();
     const [loading, setLoading] = useState<boolean>(false);
     const [allCourses, setAllCourses] = useState<Course[]>([]);
     const [coursesStarted, setCoursesStarted] = useState<Course[]>([]);
@@ -46,155 +48,70 @@ export default function StudentDashboard() {
     const [pressRange, setPressRange] = useState<boolean>(false);
 
     const API_URL = import.meta.env.VITE_API_URL;
+    const token = localStorage.getItem("token");
 
-    const getAllCourses = async () => {
-        const token = localStorage.getItem("token");
+    // Función para manejar las solicitudes fetch y redirigir al login en caso de 401
+    const fetchData = async (url: string, headers: HeadersInit, errorMessage: string) => {
+        const response = await fetch(url, { headers });
 
-        try {
-            setLoading(true);
-            const response = await fetch(`${API_URL}/curso/all`, {
-                method: "GET",
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json'
-                }
-            });
-
-            if (!response.ok) {
-                throw new Error("Error al obtener los cursos");
-            }
-
-            const data = await response.json();
-            setAllCourses(data);
-        } catch (err) {
-            console.error("Error en la petición:", err);
-            setError("Hubo un error al obtener los cursos.");
-        } finally {
-            setLoading(false);
+        if (response.status === 401) {
+            localStorage.clear();
+            navigate("/login");
+            return;
         }
+
+        if (!response.ok) {
+            throw new Error(errorMessage);
+        }
+
+        return response.json();
     };
 
-    const getAllStartedCourses = async () => {
-        const token = localStorage.getItem("token");
-
-        try {
-            setLoading(true);
-            const response = await fetch(`${API_URL}/curso/allStarted`, {
-                method: "GET",
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json'
-                }
-            });
-
-            if (!response.ok) {
-                throw new Error("Error al obtener los cursos");
-            }
-
-            const data = await response.json();
-            setCoursesStarted(data);
-        } catch (err) {
-            console.error("Error en la petición:", err);
-            setError("Hubo un error al obtener los cursos.");
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    const getInfoUser = async () => {
-        const token = localStorage.getItem("token");
+    // Obtener toda la info para el dashboard del admin
+    const getAllDataDashboard = async () => {
+        const headers = {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+        };
 
         try {
             setLoading(true);
 
-            const response = await fetch(`${API_URL}/usuario/info`, {
-                method: "GET",
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json'
-                }
-            });
+            const [
+                dataUsuario,
+                dataCursosIniciados,
+                dataCursos,
+                dataRange,
+                dataRanges,
+                dataAttempts
+            ] = await Promise.all([
+                fetchData(`${API_URL}/usuario/info`, headers, "Error al obtener la info del usuario"),
+                fetchData(`${API_URL}/curso/allStarted`, headers, "Error al obtener los cursos iniciados"),
+                fetchData(`${API_URL}/curso/all`, headers, "Error al obtener los cursos"),
+                fetchData(`${API_URL}/usuario/getRange`, headers, "Error al obtener el rango"),
+                fetchData(`${API_URL}/usuario/getRanges`, headers, "Error al obtener los rangos"),
+                fetchData(`${API_URL}/quiz/allAttempts`, headers, "Error al obtener los intentos"),
+            ]);
 
-            if (!response.ok) {
-                throw new Error("Error en la petición");
-            }
+            if (!dataUsuario) return; // Se redirigió al login por error 401
 
-            const dataUsuario = await response.json();
             setStudentName(dataUsuario.nombre);
             setStudentEmail(dataUsuario.email);
             setTotalUserPoints(dataUsuario.puntos_totales);
+
+            setCoursesStarted(dataCursosIniciados);
+            setAllCourses(dataCursos);
+            setRange(dataRange);
+            setAllRanges(dataRanges);
+            setAttempts(dataAttempts);
+
         } catch (err) {
-            console.error("Error en al obtener la info del usuario", err);
+            console.error(err);
+            setError("Ocurrió un error al obtener los datos del dashboard. Por favor, inténtalo de nuevo más tarde.");
         } finally {
             setLoading(false);
         }
-    }
-
-    // Obtener el rango del usuario
-    const getUserRange = async () => {
-        const token = localStorage.getItem("token");
-        try {
-            const response = await fetch(`${API_URL}/usuario/getRange`, {
-                method: "GET",
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json'
-                }
-            });
-
-            if (!response.ok) {
-                throw new Error("Error en la petición");
-            }
-            const data = await response.json();
-            setRange(data);
-        } catch (err) {
-            console.error("Error al obtener el rango del usuario:", err);
-        }
-    }
-
-    const getAllRanges = async () => {
-        const token = localStorage.getItem("token");
-        try {
-            const response = await fetch(`${API_URL}/usuario/getRanges`, {
-                method: "GET",
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json'
-                }
-            });
-
-            if (!response.ok) {
-                throw new Error(`Error al obtener los rangos: ${response}`);
-            }
-            const data = await response.json();
-            console.log(data);
-            setAllRanges(data);
-        } catch (err) {
-            console.error("Error al obtener los rangos:", err);
-        }
-    }
-
-    const getAllAttempts = async () => {
-        const token = localStorage.getItem("token");
-        try {
-            const response = await fetch(`${API_URL}/quiz/allAttempts`, {
-                method: "GET",
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json'
-                }
-            });
-
-            if (!response.ok) {
-                throw new Error("Error en la petición");
-            }
-
-            const data = await response.json();
-            setAttempts(data);
-        } catch (error) {
-            console.error();
-        }
-    }
+    };
 
     // Filtrar los cursos disponibles de los que ya fueron iniciados y mostrarlos en la UI
     const aviableCourses = allCourses.filter(course => 
@@ -213,12 +130,7 @@ export default function StudentDashboard() {
     const quizCompleted = attempts.reduce((acc, q) => q.completado_100 ? acc += 1 : acc, 0);
 
     useEffect(() => {
-        getAllCourses();
-        getAllAttempts();
-        getAllStartedCourses();
-        getInfoUser();
-        getUserRange();
-        getAllRanges();
+        getAllDataDashboard();
     }, []);
 
     return(

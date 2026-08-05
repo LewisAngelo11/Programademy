@@ -74,7 +74,7 @@ export default function CreateModule() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        const API_URL = "http://localhost:3000/modulo/create";
+        const API_URL = import.meta.env.VITE_API_URL;
 
         const bodyCreateModule = {
             titulo: form.titulo,
@@ -94,7 +94,7 @@ export default function CreateModule() {
                 return;
             }
 
-            const response = await fetch(API_URL, {
+            const response = await fetch(`${API_URL}/modulo/create`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -102,6 +102,12 @@ export default function CreateModule() {
                 },
                 body: JSON.stringify(bodyCreateModule)
             });
+
+            if (response.status === 401) {
+                localStorage.clear();
+                navigate("/login");
+                return;
+            }
 
             const data = await response.json();
 

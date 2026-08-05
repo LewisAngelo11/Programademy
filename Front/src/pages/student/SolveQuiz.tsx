@@ -60,6 +60,10 @@ export default function SolveQuiz() {
 
         try {
             const data = await getAttemptComplete(token, Number(id));
+            if (data.status === 401) {
+                navigate("/login");
+                return;
+            }
             setIsCompleted(data);
         } catch (err: any) {
             setError(err.message || "Error al cargar el intento del quiz");
@@ -76,6 +80,10 @@ export default function SolveQuiz() {
         try {
             setLoading(true);
             const data = await getOneQuiz(token, Number(id));
+            if (data.status === 401) {
+                navigate("/login");
+                return;
+            }
             setQuiz(data);
         } catch (err: any) {
             setError(err.message || "Error al cargar el quiz");
