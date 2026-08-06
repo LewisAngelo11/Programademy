@@ -2,6 +2,9 @@
     Esta función es la base central para realizar peticiones a la API.
     de aquí, parten todas las peticiones.
 */
+
+const API_URL = import.meta.env.VITE_API_URL; // URL Base de la API
+
 export async function apiFetch(
     url: string,
     options: RequestInit = {}
@@ -17,7 +20,7 @@ export async function apiFetch(
         );
     }
 
-    return fetch(url, {
+    return fetch(`${API_URL}${url}`, {
         ...options,
         headers
     });

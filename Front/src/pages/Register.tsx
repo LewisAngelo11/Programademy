@@ -2,6 +2,7 @@ import { CodeAlt, BookOpen } from "@boxicons/react";
 import { useState } from "react";
 import "./Register.css";
 import { useNavigate } from "react-router";
+import { AuthService } from "../services/authService";
 import toast from 'react-hot-toast';
 
 export default function Register() {
@@ -29,8 +30,6 @@ function RegisterForm() {
     const [password, setPassword] = useState<string>("");
     const [loading, setLoading] = useState<boolean>(false);
 
-    const API_URL = import.meta.env.VITE_API_URL;
-
     const signUp = async () => {
         const bodyRegister = {
             nombre: name,
@@ -40,23 +39,10 @@ function RegisterForm() {
 
         try {
             setLoading(true);
-
-            const response = await fetch(`${API_URL}/auth/register`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body : JSON.stringify(bodyRegister)
-            });
-
-            if (!response.ok) {
-                toast.error("Error al crear la cuenta");
-                console.error("Error en el registro: ", response);
-                return;
-            }
+            await AuthService.signUp(bodyRegister);
 
             toast.success("¡¡Cuenta creada correctamente!!");
-            navigate("/");
+            navigate("/login");
         } catch (err) {
             toast.error("Error en el servidor.");
             console.error("Error en la petición: ", err);

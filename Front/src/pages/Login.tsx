@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { CodeAlt, BookOpen } from "@boxicons/react";
+import { AuthService } from "../services/authService";
 import toast from 'react-hot-toast';
 import "./Login.css"
 
@@ -29,35 +30,15 @@ function LoginForm() {
     const [error, setError] = useState<string | null>(null);
     const navigate = useNavigate();
 
-    const API_URL = import.meta.env.VITE_API_URL;
-
     const signIn = async () => {
-        const bodyLogin = {
-            email: email,
-            passw: password
-        };
-
         try {
             setLoading(true);
             setError(null);
-
-            const response = await fetch(`${API_URL}/auth/login`, {
-                method: "POST",
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(bodyLogin)
-            });
-
-            const data = await response.json();
-
-            if (!response.ok) {
-                setError(data.message || data.error || "Error al iniciar sesión. Intente de nuevo.");
-                return;
-            }
+            const data = await AuthService.signIn({ email: email, passw: password });
 
             localStorage.setItem("token", data.token); // Guarda el token en local storage
             localStorage.setItem("rol", data.user.rol);
+
             // Simula la protección de rutas de admin y student
             if (data.user.rol === "admin") {
                 toast.success(`Bienvenido Administrador ${data.user.nombre}`);
@@ -68,8 +49,11 @@ function LoginForm() {
             }
 
         } catch (err) {
-            console.error("Error en la petición: ", err);
-            setError("No se pudo conectar con el servidor. Verifique su conexión.");
+            if (err instanceof Error) {
+                setError(err.message);
+            } else {
+                setError("Ocurrió un error inesperado.");
+            }
         } finally {
             setLoading(false);
         }
