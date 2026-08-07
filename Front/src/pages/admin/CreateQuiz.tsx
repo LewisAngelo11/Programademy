@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { ArrowLeftStroke, BookOpen, Save, X, NetworkChart, Trash } from "@boxicons/react";
-import { getAllModules } from "../../services/moduleServices";
+import { ModuloService } from "../../services/moduleServices";
 import { createQuiz } from "../../services/quizServices";
 import "./CreateQuiz.css";
 
@@ -195,7 +195,7 @@ export default function CreateQuiz() {
 
             try {
                 setLoadingModules(true);
-                const data = await getAllModules(token);
+                const data = await ModuloService.getAllModules();
                 setModules(data);
             } catch (err) {
                 console.error("Error al cargar módulos:", err);

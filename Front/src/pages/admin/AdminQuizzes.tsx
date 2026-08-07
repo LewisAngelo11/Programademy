@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import "./AdminQuizzes.css";
 import { useNavigate } from "react-router";
 import { deleteQuiz, getAllQuizzes } from "../../services/quizServices";
-import { getAllModules } from "../../services/moduleServices";
+import { ModuloService } from "../../services/moduleServices";
 
 interface Quiz {
     id_quiz: number;
@@ -142,7 +142,7 @@ function QuizCard({ id_quiz, titulo, id_modulo, puntos_recompensa, tiempo_limite
                 const token = localStorage.getItem("token");
                 if (token) {
                     try {
-                        const mods = await getAllModules(token);
+                        const mods = await ModuloService.getAllModules();
                         const mod = mods.find((m: any) => m.id_modulo === id_modulo);
                         if (mod) setModuleName(mod.titulo);
                     } catch (e) {

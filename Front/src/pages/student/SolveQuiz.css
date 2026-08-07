@@ -69,6 +69,10 @@
   margin-top: 1rem;
 }
 
+.error-container-mt {
+  margin-top: 3rem;
+}
+
 /* Inner Header */
 .quiz-header {
   display: flex;

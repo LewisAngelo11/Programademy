@@ -3,7 +3,7 @@ import { Plus, Pencil, Trash, Search } from "@boxicons/react";
 import { useEffect, useState } from "react";
 import "./AdminModules.css";
 import { useNavigate } from "react-router";
-import { deleteModulo } from "../../services/moduleServices";
+import { ModuloService } from "../../services/moduleServices";
 
 interface Modulo {
     id_modulo: number;
@@ -26,8 +26,6 @@ export default function AdminModules() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
-    const API_URL = import.meta.env.VITE_API_URL;
-
     const filteredModulos = modulos.filter(m => 
         m.titulo.toLowerCase().includes(searchTerm.toLowerCase()) ||
         m.descripcion.toLowerCase().includes(searchTerm.toLowerCase())
@@ -44,14 +42,7 @@ export default function AdminModules() {
     const getAllModules = async () => {
         try {
             setLoading(true);
-            const token = localStorage.getItem('token'); // O donde guardes tu token
-
-            const response = await fetch(`${API_URL}/modulo/all`, {
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json'
-                }
-            });
+            const response = await ModuloService.getAllModules();
 
             if (response.status === 401) {
                 localStorage.clear();
@@ -59,12 +50,7 @@ export default function AdminModules() {
                 return;
             }
 
-            if (!response.ok) {
-                throw new Error('Error al cargar los módulos');
-            }
-
-            const data = await response.json();
-            setModulos(data);
+            setModulos(response);
         } catch (err) {
             setError('No se pudieron consultar los módulos');
             console.error('Error al consultar los modulos:', err);
@@ -165,8 +151,8 @@ function Module({ id_modulo, titulo, descripcion, orden, curso, onDelete }: Modu
         }
 
         try {
-            await deleteModulo(token, id_modulo);
-            
+            await ModuloService.deleteModulo(id_modulo);
+
             // Notificar éxito
             alert('Módulo eliminado exitosamente');
             
@@ -177,7 +163,7 @@ function Module({ id_modulo, titulo, descripcion, orden, curso, onDelete }: Modu
             
         } catch (error) {
             console.error('Error al eliminar módulo:', error);
-            alert(error instanceof Error ? error.message : 'Error al eliminar el módulo');
+            alert(error instanceof Error ? error.message : 'Error al    eliminar el módulo');
         } finally {
             setIsDeleting(false);
         }

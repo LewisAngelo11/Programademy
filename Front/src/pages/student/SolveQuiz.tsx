@@ -60,10 +60,6 @@ export default function SolveQuiz() {
 
         try {
             const data = await getAttemptComplete(token, Number(id));
-            if (data.status === 401) {
-                navigate("/login");
-                return;
-            }
             setIsCompleted(data);
         } catch (err: any) {
             setError(err.message || "Error al cargar el intento del quiz");
@@ -112,7 +108,7 @@ export default function SolveQuiz() {
     if (error || !quiz) {
         return (
             <div className="solve-quiz-page">
-                <main className="solve-quiz-card text-center slide-up">
+                <main className="solve-quiz-card error-container-mt text-center slide-up">
                     <InfoCircle className="error-icon" size="lg" color="#ef4444" />
                     <h2 className="error-title">Ups.. algo salió mal</h2>
                     <p className="solve-quiz-error-text">{error || "No se encontró el quiz"}</p>

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { ArrowLeftStroke, BookOpen, Save, X, NetworkChart, Trash } from "@boxicons/react";
-import { getAllModules } from "../../services/moduleServices";
+import { ModuloService } from "../../services/moduleServices";
 import { getOneQuiz, updateQuiz } from "../../services/quizServices";
 import "./EditQuiz.css";
 
@@ -185,7 +185,7 @@ export default function EditQuiz() {
                 setLoadingQuiz(true);
 
                 // Fetch modules
-                const modulesData = await getAllModules(token);
+                const modulesData = await ModuloService.getAllModules();
                 if (modulesData.status === 401) {
                     navigate("/login");
                     return;
