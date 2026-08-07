@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { ArrowLeftStroke, BookOpen, Save, X, NetworkChart, Trash } from "@boxicons/react";
 import { ModuloService } from "../../services/moduleServices";
-import { createQuiz } from "../../services/quizServices";
+import { QuizService } from "../../services/quizServices";
 import "./CreateQuiz.css";
 
 type OpcionForm = {
@@ -166,7 +166,7 @@ export default function CreateQuiz() {
                 return;
             }
 
-            const response = await createQuiz(token, bodyCreateQuiz);
+            const response = await QuizService.createQuiz(bodyCreateQuiz);
             if (response.status === 401) {
                 navigate('/login');
                 return;

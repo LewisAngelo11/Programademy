@@ -3,7 +3,7 @@ import { Plus, Pencil, Trash, Search } from "@boxicons/react";
 import { useEffect, useState } from "react";
 import "./AdminQuizzes.css";
 import { useNavigate } from "react-router";
-import { deleteQuiz, getAllQuizzes } from "../../services/quizServices";
+import { QuizService } from "../../services/quizServices";
 import { ModuloService } from "../../services/moduleServices";
 
 interface Quiz {
@@ -42,8 +42,8 @@ export default function AdminQuizzes() {
                 navigate("/login");
                 return;
             }
-            
-            const data = await getAllQuizzes(token);
+
+            const data = await QuizService.getAllQuizzes();
 
             if (data.status === 401) {
                 navigate("/login");
@@ -169,7 +169,7 @@ function QuizCard({ id_quiz, titulo, id_modulo, puntos_recompensa, tiempo_limite
         }
 
         try {
-            const response = await deleteQuiz(token, id_quiz);
+            const response = await QuizService.deleteQuiz(id_quiz);
 
             if (response.status === 401) {
                 navigate("/login");

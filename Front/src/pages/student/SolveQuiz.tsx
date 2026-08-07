@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router";
-import { createAttempt, getAttemptComplete, getOneQuiz } from "../../services/quizServices";
+import { QuizService } from "../../services/quizServices";
 import { ArrowLeftStroke, CheckCircle, InfoCircle, Check, X, ClipboardDetail } from "@boxicons/react";
 import "./SolveQuiz.css";
 
@@ -59,7 +59,7 @@ export default function SolveQuiz() {
         }
 
         try {
-            const data = await getAttemptComplete(token, Number(id));
+            const data = await QuizService.getAttemptComplete(Number(id));
             setIsCompleted(data);
         } catch (err: any) {
             setError(err.message || "Error al cargar el intento del quiz");
@@ -75,7 +75,7 @@ export default function SolveQuiz() {
 
         try {
             setLoading(true);
-            const data = await getOneQuiz(token, Number(id));
+            const data = await QuizService.getOneQuiz(Number(id));
             if (data.status === 401) {
                 navigate("/login");
                 return;
@@ -154,7 +154,7 @@ export default function SolveQuiz() {
                 };
 
                 // Guardar el intento del qiuz
-                const data = await createAttempt(token, Number(id), body);
+                const data = await QuizService.createAttempt(Number(id), body);
                 console.log(data);
             } catch (error) {
                 console.error("Error al registrar el intento del quiz:", error);

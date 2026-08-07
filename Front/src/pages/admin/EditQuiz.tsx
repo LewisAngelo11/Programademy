@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { ArrowLeftStroke, BookOpen, Save, X, NetworkChart, Trash } from "@boxicons/react";
 import { ModuloService } from "../../services/moduleServices";
-import { getOneQuiz, updateQuiz } from "../../services/quizServices";
+import { QuizService } from "../../services/quizServices";
 import "./EditQuiz.css";
 
 type OpcionForm = {
@@ -153,7 +153,7 @@ export default function EditQuiz() {
                 return;
             }
 
-            const response = await updateQuiz(token, Number(id), bodyUpdateQuiz);
+            const response = await QuizService.updateQuiz(Number(id), bodyUpdateQuiz);
             if (response.status === 401) {
                 navigate("/login");
                 return;
@@ -194,7 +194,7 @@ export default function EditQuiz() {
                 setLoadingModules(false);
 
                 // Fetch quiz data
-                const quizData = await getOneQuiz(token, Number(id));
+                const quizData = await QuizService.getOneQuiz(Number(id));
                 if (quizData.status === 401) {
                     navigate("/login");
                     return;
