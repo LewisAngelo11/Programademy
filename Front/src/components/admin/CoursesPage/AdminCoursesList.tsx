@@ -2,7 +2,7 @@ import { Trash, Pencil } from "@boxicons/react";
 import { useEffect, useState } from "react";
 import "./AdminCoursesList.css";
 import { useNavigate } from "react-router";
-import { getAllModulesFromCourse } from "../../../services/moduleServices";
+import { ModuloService } from "../../../services/moduleServices";
 
 interface Course {
     id_curso: number;
@@ -62,8 +62,8 @@ function Course({ id, titulo, descripcion, fechaCreacion, onCoursesUpdate }: Cou
                     navigate("/");
                     throw new Error("No hay token de autenticación");
                 }
-    
-                const data = await getAllModulesFromCourse(token, id)
+
+                const data = await ModuloService.getAllModulesFromCourse(id);
 
                 setModules(data);
             } catch (err) {

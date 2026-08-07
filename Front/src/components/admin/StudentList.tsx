@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
+import { UserService } from "../../services/userService";
 import "./StudentList.css";
+import { QuizService } from "../../services/quizServices";
 
 export interface Rango {
     id_rango: number;
@@ -31,26 +33,11 @@ export default function StudentList() {
     const [students, setStudents] = useState<Students[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
 
-    const API_URL = import.meta.env.VITE_API_URL;
-    const token = localStorage.getItem("token");
-
     const getStudentsRange = async () => {
         try {
             setLoading(true);
+            const data = await UserService.getAllRanges();
 
-            const response = await fetch(`${API_URL}/usuario/getAllRanges`, {
-                method: "GET",
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json'
-                }
-            });
-
-            if (!response) {
-                throw new Error(`Error al obtener los rangos de los estudiantes: ${response}`);
-            }
-
-            const data = await response.json();
             setStudents(
                 data.map((student: Students) => ({
                     ...student,
@@ -64,23 +51,10 @@ export default function StudentList() {
         }
     }
 
-    const gettAllStudentsAttemptsQuizzes = async () => {
+    const getAllStudentsAttemptsQuizzes = async () => {
         try{
             setLoading(true);
-
-            const response = await fetch(`${API_URL}/quiz/allStudents/allAttempts`, {
-                method: "GET",
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json'
-                }
-            });
-
-            if (!response.ok) {
-                throw new Error(`Error al obtener los intentos de los estudiantes: ${response}`);
-            }
-
-            const data = await response.json();
+            const data = await QuizService.getAllStudentsAttemptsQuizzes();
 
             setStudents(prev =>
                 prev.map(student => {
@@ -109,7 +83,7 @@ export default function StudentList() {
 
     useEffect(() => {
         if (students.length > 0) {
-            gettAllStudentsAttemptsQuizzes();
+            getAllStudentsAttemptsQuizzes();
         }
     },[students.length]);
 

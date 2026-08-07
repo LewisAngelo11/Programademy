@@ -30,7 +30,7 @@ export default function CoursesList({ courses, loading, error }: CoursesProp & M
             {error && <p style={{ color: 'red' }}>{error}</p>}
 
             {!loading && !error && courses.length === 0 && (
-                <p>No hay cursos disponibles. ¡Crea uno nuevo!</p>
+                <p>No hay más cursos disponibles. Pronto habrá más.</p>
             )}
 
             {!loading && !error && courses.length > 0 && (

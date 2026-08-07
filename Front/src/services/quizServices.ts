@@ -31,6 +31,21 @@ export class QuizService {
         return await response.json();
     }
 
+    static async getAllStudentsAttemptsQuizzes() {
+        const response = await apiFetch(`/quiz/allStudents/allAttempts`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error('Error al obtener los intentos de los estudiantes');
+        }
+
+        return await response.json();
+    }
+
     static async createQuiz(data: any) {
         const response = await apiFetch(`/quiz/create`, {
             method: 'POST',

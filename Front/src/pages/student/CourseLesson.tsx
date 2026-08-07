@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from "react-router";
 import React, { useState, useEffect, type SetStateAction } from "react";
-import { getOneModule } from "../../services/moduleServices";
+import { ModuloService } from "../../services/moduleServices";
 import { ArrowLeftStroke, BookOpen, Code, CheckCircle, VolumeFull, PauseCircle, PlayCircle, StopCircle } from "@boxicons/react";
 import "./CourseLesson.css";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
@@ -82,7 +82,7 @@ export default function CourseLesson() {
                 throw new Error("No hay token de autenticación");
             }
 
-            const data = await getOneModule(token, Number(id));
+            const data = await ModuloService.getOneModule(Number(id));
             if (data.status === 401) {
                 navigate("/login");
                 return;

@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from "react-router";
 import HeaderStudentsPages from "../../components/student/HeaderStudentsPages";
 import { useEffect, useState } from "react";
-import { getAllModulesFromCourse } from "../../services/moduleServices";
+import { ModuloService } from "../../services/moduleServices";
 import "./InfoCourse.css"
 import toast from "react-hot-toast";
 import { Check } from "@boxicons/react/index";
@@ -105,7 +105,7 @@ export default function InfoCourse() {
                 throw new Error('No hay token de autenticación');
             }
 
-            const data = await getAllModulesFromCourse(token, Number(idCurso));
+            const data = await ModuloService.getAllModulesFromCourse(Number(idCurso));
             if (data.status === 401) {
                 navigate("/login");
                 return;

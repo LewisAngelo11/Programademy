@@ -1,4 +1,5 @@
 import { useState, type SetStateAction } from "react";
+import { UserService } from "../../services/userService";
 import "./EditInfoAdmin.css";
 
 interface EditInfoStudentProp {
@@ -13,10 +14,7 @@ export default function EditInfoAdmin({ adminName, setAdminName, adminEmail, set
     const [localName, setLocalName] = useState<string>(adminName);
     const [localEmail, setLocalEmail] = useState<string>(adminEmail);
 
-    const editInfoStudent = async (e: React.FormEvent) => {
-        e.preventDefault();
-        const API_URL = "http://localhost:3000/usuario/update";
-
+    const editInfoStudent = async () => {
         try {
             const token = localStorage.getItem("token");
 
@@ -25,25 +23,7 @@ export default function EditInfoAdmin({ adminName, setAdminName, adminEmail, set
                 return;
             }
 
-            const response = await fetch(API_URL, {
-                method: "PUT",
-                headers: {
-                    "Authorization": `Bearer ${token}`,
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    nombre: localName,
-                    email: localEmail
-                })
-            });
-
-            if (!response.ok) {
-                alert("Error al actualizar perfil");
-                console.error("Error al actualizar", response);
-                return;
-            }
-
-            const data = await response.json();
+            const data = await UserService.updateInfo({ nombre: localName, email: localEmail });
 
             alert(data.message);
             // Actualiza los datos en la UI
@@ -61,7 +41,7 @@ export default function EditInfoAdmin({ adminName, setAdminName, adminEmail, set
     return (
         <section className="edit-info-admin">
             <h1>Editar Perfil</h1>
-            <form onSubmit={editInfoStudent} className="form-edit-admin">
+            <form action={editInfoStudent} className="form-edit-admin">
                 <div className="input-name-admin">
                     <label htmlFor="admin-name">Nombre Completo</label>
                     <input
