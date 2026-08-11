@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from "react-router";
 import HeaderStudentsPages from "../../components/student/HeaderStudentsPages";
 import { useEffect, useState } from "react";
-import { ModuloService } from "../../services/moduleServices";
+import { ModuloService } from "../../services/moduleService";
 import "./InfoCourse.css"
 import toast from "react-hot-toast";
 import { Check } from "@boxicons/react/index";

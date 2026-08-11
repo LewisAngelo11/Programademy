@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { UserService } from "../../services/userService";
 import "./StudentList.css";
-import { QuizService } from "../../services/quizServices";
+import { QuizService } from "../../services/quizService";
 
 export interface Rango {
     id_rango: number;

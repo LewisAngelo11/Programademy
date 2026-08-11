@@ -2,7 +2,7 @@ import { Trash, Pencil } from "@boxicons/react";
 import { useEffect, useState } from "react";
 import "./AdminCoursesList.css";
 import { useNavigate } from "react-router";
-import { ModuloService } from "../../../services/moduleServices";
+import { ModuloService } from "../../../services/moduleService";
 
 interface Course {
     id_curso: number;

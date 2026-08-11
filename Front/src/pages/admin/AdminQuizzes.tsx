@@ -3,8 +3,8 @@ import { Plus, Pencil, Trash, Search } from "@boxicons/react";
 import { useEffect, useState } from "react";
 import "./AdminQuizzes.css";
 import { useNavigate } from "react-router";
-import { QuizService } from "../../services/quizServices";
-import { ModuloService } from "../../services/moduleServices";
+import { QuizService } from "../../services/quizService";
+import { ModuloService } from "../../services/moduleService";
 
 interface Quiz {
     id_quiz: number;

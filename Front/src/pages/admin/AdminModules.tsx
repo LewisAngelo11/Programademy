@@ -3,7 +3,7 @@ import { Plus, Pencil, Trash, Search } from "@boxicons/react";
 import { useEffect, useState } from "react";
 import "./AdminModules.css";
 import { useNavigate } from "react-router";
-import { ModuloService } from "../../services/moduleServices";
+import { ModuloService } from "../../services/moduleService";
 
 interface Modulo {
     id_modulo: number;

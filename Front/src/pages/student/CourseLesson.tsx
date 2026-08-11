@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from "react-router";
 import React, { useState, useEffect, type SetStateAction } from "react";
-import { ModuloService } from "../../services/moduleServices";
+import { ModuloService } from "../../services/moduleService";
 import { ArrowLeftStroke, BookOpen, Code, CheckCircle, VolumeFull, PauseCircle, PlayCircle, StopCircle } from "@boxicons/react";
 import "./CourseLesson.css";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";

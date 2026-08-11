@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { ArrowLeftStroke, BookOpen, Save, X, NetworkChart, Trash } from "@boxicons/react";
-import { ModuloService } from "../../services/moduleServices";
-import { QuizService } from "../../services/quizServices";
+import { ModuloService } from "../../services/moduleService";
+import { QuizService } from "../../services/quizService";
 import "./EditQuiz.css";
 
 type OpcionForm = {

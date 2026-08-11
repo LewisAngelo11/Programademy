@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router";
-import { QuizService } from "../../services/quizServices";
+import { QuizService } from "../../services/quizService";
 import { ArrowLeftStroke, CheckCircle, InfoCircle, Check, X, ClipboardDetail } from "@boxicons/react";
 import "./SolveQuiz.css";
 
