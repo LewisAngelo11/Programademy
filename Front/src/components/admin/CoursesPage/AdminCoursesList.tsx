@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import "./AdminCoursesList.css";
 import { useNavigate } from "react-router";
 import { ModuloService } from "../../../services/moduleService";
+import { CourseService } from "../../../services/courseService";
+import toast from "react-hot-toast";
 
 interface Course {
     id_curso: number;
@@ -52,7 +54,6 @@ interface CourseProp {
 function Course({ id, titulo, descripcion, fechaCreacion, onCoursesUpdate }: CourseProp) {
     const [modules, setModules] = useState<Module[]>([]);
     const navigate = useNavigate();
-    const API_URL = "http://localhost:3000/curso/delete";
 
     const getModulesFromCourse = async () => {
             try {
@@ -67,7 +68,7 @@ function Course({ id, titulo, descripcion, fechaCreacion, onCoursesUpdate }: Cou
 
                 setModules(data);
             } catch (err) {
-                
+                console.log("Error en la petición:", err);
             }
         }
 
@@ -79,29 +80,15 @@ function Course({ id, titulo, descripcion, fechaCreacion, onCoursesUpdate }: Cou
 
         if (!confirmDelete) return;
 
-        const token = localStorage.getItem("token");
-
         try {
-            const response = await fetch(`${API_URL}/${id}`, {
-                method: "DELETE",
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json'
-                }
-            });
+            const data = await CourseService.deleteCourse(id);
 
-            if (!response.ok) {
-                throw new Error("Error al eliminar el curso");
-            }
-
-            const data = await response.json();
-            alert(data.message);
-            
+            toast.success(data.message);
             // Recargar la lista de cursos
             onCoursesUpdate();
         } catch (err) {
             console.error("Error al eliminar:", err);
-            alert("Error al eliminar el curso");
+            toast.error("Error al eliminar el curso.");
         }
     };
 

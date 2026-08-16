@@ -2,7 +2,9 @@ import { useNavigate } from "react-router";
 import { ArrowLeftStroke } from "@boxicons/react";
 import "./CreateCourse.css";
 import { useState } from "react";
-import { Save, X } from "@boxicons/react"
+import { Save, X } from "@boxicons/react";
+import { CourseService } from "../../services/courseService";
+import toast from "react-hot-toast";
 
 export default function CreateCourse() {
     const navigate = useNavigate();
@@ -34,51 +36,25 @@ function FormCreateCourse() {
     const [courseDescription, setCourseDescription] = useState<string>("");
     const [courseImgUrl, setCourseImgUrl] = useState<string>("");
 
-    const API_URL = import.meta.env.VITE_API_URL;
-
-    const createCourse = async (e: React.FormEvent) => {
-        e.preventDefault();
-
+    const createCourse = async () => {
         const bodyCourse = {
             title: courseTitle,
             descripcion: courseDescription,
             imagenUrl: courseImgUrl
         };
 
-        const token = localStorage.getItem("token");
-
         try {
-            const response = await fetch(`${API_URL}/curso/create`, {
-                method: "POST",
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type' : 'application/json'
-                },
-                body: JSON.stringify(bodyCourse)
-            });
-
-            if (response.status === 401) {
-                localStorage.clear();
-                navigate("/login");
-                return;
-            }
-
-            if (!response.ok) {
-                console.error("Error al crear el curso: ", response);
-                return;
-            }
-
-            const data = await response.json();
-
-            console.log(data);
-            alert(data.message);
+            await CourseService.createCourse(bodyCourse);
+            
+            toast.success("¡Curso creado correctamente!");
+            navigate(-1); // Regresar a la pantalla anterior
         } catch (err) {
             console.error("Error en la petición: ", err);
         }
     }
 
     return(
-        <form onSubmit={createCourse} className="form-basic-info">
+        <form action={createCourse} className="form-basic-info">
             <section className="basic-info-course">
                 <header>
                     <h2>Información Básica</h2>

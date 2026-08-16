@@ -1,9 +1,9 @@
 import { useNavigate, useParams } from "react-router";
 import React, { useEffect, useState, type SetStateAction } from "react";
 import { ArrowLeftStroke, Save, X } from "@boxicons/react";
+import { CourseService } from "../../services/courseService";
 import "./EditCourses.css";
-
-const API_URL = import.meta.env.VITE_API_URL;
+import toast from "react-hot-toast";
 
 export default function EditCourses() {
     const navigate = useNavigate();
@@ -15,30 +15,12 @@ export default function EditCourses() {
 
     // Función para obtener el curso por su ID
     const getCourse = async () => {
-        const token = localStorage.getItem("token");
-
         try {
-            const response = await fetch(`${API_URL}/curso/getOne/${idCurso}`, {
-                method: "GET",
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json'
-                }
-            });
+            const response = await CourseService.getCourse(idCurso);
 
-            if (response.status === 401) {
-                navigate("/login");
-                return;
-            }
-
-            if (!response) {
-                throw new Error("Error al obtener el curso");
-            }
-
-            const data = await response.json();
-            setCourseEditTitle(data.course.titulo);
-            setCourseEditDescription(data.course.descripcion);
-            setCourseEditImgUrl(data.course.imagen_url);
+            setCourseEditTitle(response.course.titulo);
+            setCourseEditDescription(response.course.descripcion);
+            setCourseEditImgUrl(response.course.imagen_url);
         } catch (err) {
             console.error("Error en la petición:", err);
         }
@@ -94,8 +76,6 @@ function FormEditCourse({
     const navigate = useNavigate();
 
     const editCourse = async () => {
-        const token = localStorage.getItem("token");
-
         const bodyEditCourse = {
             titulo: courseEditTitle,
             descripcion: courseEditDescription,
@@ -103,28 +83,12 @@ function FormEditCourse({
         }
 
         try {
-            const response = await fetch(`${API_URL}/curso/update/${idCurso}`, {
-                method: "PUT",
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(bodyEditCourse)
-            });
+            await CourseService.editCourse(idCurso, bodyEditCourse);
 
-            if (response.status === 401) {
-                navigate("/login");
-                return;
-            }
-
-            if (!response.ok) {
-                throw new Error("Error al actualizar el curso");
-            }
-
-            const data = await response.json();
-            console.log(data.message);
-            navigate("/courses-admin");
+            toast.success("¡Curso editado correctamente!");
+            navigate(-1); // Regresar a la pantalla anterior
         } catch (err) {
+            toast.error("Error al actualizar el curso.");
             console.error("Error al actualizar el curso: ", err);
         }
     }

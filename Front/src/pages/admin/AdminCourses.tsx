@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router";
 import { useState, useEffect } from "react";
 import { ArrowLeftStroke, Plus } from "@boxicons/react";
+import { CourseService } from "../../services/courseService";
 import AdminCoursesList from "../../components/admin/CoursesPage/AdminCoursesList";
 import "./AdminCourses.css"
 
@@ -18,33 +19,11 @@ export default function AdminCourses() {
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string>("");
 
-    const API_URL = import.meta.env.VITE_API_URL;
-
     // Función para obtener los cursos
     const fetchCourses = async () => {
-        const token = localStorage.getItem("token");
-
         try {
             setLoading(true);
-            const response = await fetch(`${API_URL}/curso/all`, {
-                method: "GET",
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json'
-                }
-            });
-
-            if (response.status === 401) {
-                localStorage.clear();
-                navigate("/login");
-                return;
-            }
-
-            if (!response.ok) {
-                throw new Error("Error al obtener los cursos");
-            }
-
-            const data = await response.json();
+            const data = await CourseService.getAllCourses();
             setCourses(data);
         } catch (err) {
             console.error("Error en la petición:", err);

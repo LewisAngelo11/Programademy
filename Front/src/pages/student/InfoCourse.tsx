@@ -2,6 +2,7 @@ import { useNavigate, useParams } from "react-router";
 import HeaderStudentsPages from "../../components/student/HeaderStudentsPages";
 import { useEffect, useState } from "react";
 import { ModuloService } from "../../services/moduleService";
+import { CourseService } from "../../services/courseService";
 import "./InfoCourse.css"
 import toast from "react-hot-toast";
 import { Check } from "@boxicons/react/index";
@@ -40,29 +41,12 @@ export default function InfoCourse() {
     // Función para obtener el curso por su ID
     const getCourse = async () => {
         try {
-            const response = await fetch(`${API_URL}/curso/getOne/${idCurso}`, {
-                method: "GET",
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json'
-                }
-            });
+            const response = await CourseService.getCourse(Number(idCurso));
 
-            if (response.status === 401) {
-                navigate("/login");
-                return;
-            }
-
-            if (!response) {
-                throw new Error("Error al obtener el curso");
-            }
-
-            const data = await response.json();
-            console.log(data);
-            setCourseTitulo(data.course.titulo);
-            setCourseDescription(data.course.descripcion);
-            setCourseImgUrl(data.course.imagen_url);
-            setCourseStarted(data.isStarted);
+            setCourseTitulo(response.course.titulo);
+            setCourseDescription(response.course.descripcion);
+            setCourseImgUrl(response.course.imagen_url);
+            setCourseStarted(response.isStarted);
         } catch (err) {
             console.error("Error en la petición:", err);
         }
@@ -70,28 +54,12 @@ export default function InfoCourse() {
 
     const startCourse = async () => {
         try {
-            const response = await fetch(`${API_URL}/curso/started/${idCurso}`, {
-                method: "POST",
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json'
-                }
-            });
-
-            if (response.status === 401) {
-                navigate("/login");
-                return;
-            }
+            const response = await CourseService.startCourse(Number(idCurso));
     
-            if (!response.ok) {
-                console.log(response);
-                toast.error("No se pudo iniciar el curso");
-                throw new Error("Error al querer iniciar el curso");
-            }
-    
-            toast.success("¡¡Curso Iniciado!!");
+            toast.success(response.message);
             navigate(-1);
         } catch (err) {
+            toast.error("No se pudo iniciar el curso");
             console.error("Error en la petición", err);
         }
     };
@@ -106,10 +74,6 @@ export default function InfoCourse() {
             }
 
             const data = await ModuloService.getAllModulesFromCourse(Number(idCurso));
-            if (data.status === 401) {
-                navigate("/login");
-                return;
-            }
 
             setModulos(data);
             setError(null);
