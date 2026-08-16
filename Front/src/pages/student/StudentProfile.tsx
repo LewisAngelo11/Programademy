@@ -1,10 +1,13 @@
 import { Pencil } from "@boxicons/react";
 import Modal from "../../Modals/Modal";
 import "./StudentProfile.css";
+import "../../components/student/ModalRangos.css";
 import { useEffect, useState } from "react";
 import EditInfoStudent from "../../components/student/EditInfoStudent";
 import HeaderStudentsPages from "../../components/student/HeaderStudentsPages";
 import { useNavigate } from "react-router";
+import { UserService } from "../../services/userService";
+import type { UserRange } from "./StudentDashboard";
 
 export default function StudentProfile() {
     const navigate = useNavigate();
@@ -12,6 +15,9 @@ export default function StudentProfile() {
     const [studentEmail, setStudentEmail] = useState<string>("");
     const [studentRegisterDate, setStudentRegisterDate] = useState<string>("");
     const [openModal, setOpenModal] = useState<boolean>(false);
+    const [range, setRange] = useState<UserRange | undefined>(undefined);
+    const [allRanges, setAllRanges] = useState<UserRange[]>([]);
+    const [totalUserPoints, setTotalUserPoints] = useState<number>(0);
 
     const API_URL = import.meta.env.VITE_API_URL;
 
@@ -42,33 +48,119 @@ export default function StudentProfile() {
                 setStudentName(dataUsuario.nombre);
                 setStudentEmail(dataUsuario.email);
                 setStudentRegisterDate(dateFormat);
+                setTotalUserPoints(dataUsuario.puntos_totales ?? 0);
             } catch (err) {
-                console.error("Error al obtener los datos del usuario",err);
+                console.error("Error al obtener los datos del usuario", err);
             }
-        }
+        };
+
+        const getRangesInfo = async () => {
+            try {
+                const [rangeData, allRangesData] = await Promise.all([
+                    UserService.getRange(),
+                    UserService.getRanges(),
+                ]);
+
+                setRange(rangeData);
+                setAllRanges(allRangesData);
+            } catch (err) {
+                console.error("Error al obtener los rangos", err);
+            }
+        };
 
         getInfoUser();
+        getRangesInfo();
     }, []);
+
+    // Extraer iniciales del nombre y primer apellido
+    const getInitials = (fullName: string): string => {
+        const parts = fullName.trim().split(" ");
+        if (parts.length === 0 || fullName === "") return "?";
+
+        const firstInitial = parts[0]?.[0]?.toUpperCase() ?? "";
+
+        // El primer apellido suele ser la segunda o tercera palabra, tomamos la segunda
+        const secondInitial = parts[2]?.[0]?.toUpperCase() ?? "";
+        return firstInitial + secondInitial;
+    };
+
+    // Calcular progreso hacia el siguiente rango
+    const getProgressToNextRank = () => {
+        if (!range || allRanges.length === 0) return { percent: 0, nextRange: null, pointsNeeded: 0 };
+
+        const sortedRanges = [...allRanges].sort((a, b) => a.puntos_requeridos - b.puntos_requeridos);
+        const currentIndex = sortedRanges.findIndex(r => r.id_rango === range.id_rango);
+        const nextRange = sortedRanges[currentIndex + 1];
+
+        if (!nextRange) {
+            // Ya es el rango máximo
+            return { percent: 100, nextRange: null, pointsNeeded: 0 };
+        }
+
+        const currentRangePoints = range.puntos_requeridos;
+        const nextRangePoints = nextRange.puntos_requeridos;
+        const pointsInRange = totalUserPoints - currentRangePoints;
+        const rangeSpan = nextRangePoints - currentRangePoints;
+        const percent = Math.min(Math.max((pointsInRange / rangeSpan) * 100, 0), 100);
+        const pointsNeeded = nextRangePoints - totalUserPoints;
+
+        return { percent, nextRange, pointsNeeded };
+    };
+
+    // Colores por rango (mapeados desde ModalRangos.css)
+    const getRangeColor = (titulo: string): string => {
+        const colors: Record<string, string> = {
+            Explorer: "#52525B",
+            Builder: "#10B981",
+            Developer: "#3B82F6",
+            Engineer: "#8B5CF6",
+            Architect: "#F59E0B",
+        };
+        return colors[titulo] ?? "#52525B";
+    };
+
+    const { percent, nextRange, pointsNeeded } = getProgressToNextRank();
+    const initials = getInitials(studentName);
+    const rangeColor = range ? getRangeColor(range.titulo) : "#52525B";
 
     return (
         <main className="student-profile-page">
             <HeaderStudentsPages/>
+
+            {/* Sección de info del estudiante con avatar */}
             <section className="info-student-profile">
                 <header className="header-info-student">
                     <h1>Perfil de Estudiante</h1>
                     <p>Datos personales del usuario</p>
                 </header>
+
                 <div className="info-student-container">
-                    <div className="container">
-                        <h2 className="name-student">{studentName}</h2>
-                        <button
-                            onClick={() => setOpenModal(true)}
-                            className="button-edit-info"
+                    {/* Avatar con iniciales */}
+                    <div className="avatar-section">
+                        <div
+                            className="student-avatar"
                         >
-                            <Pencil size="xs"/>
-                        </button>
+                            <span className="avatar-initials">
+                                {initials}
+                            </span>
+                        </div>
+                        <div className="avatar-info">
+                            <div className="container">
+                                <h2 className="name-student">{studentName}</h2>
+                                <button
+                                    onClick={() => setOpenModal(true)}
+                                    className="button-edit-info"
+                                    title="Editar información"
+                                >
+                                    <Pencil size="xs"/>
+                                </button>
+                            </div>
+                            <span className="email-label">{studentEmail}</span>
+                        </div>
                     </div>
-                    <div className="container">
+
+                    {/* Datos del perfil */}
+                    <div className="profile-data-row">
                         <dl className="email-student">
                             <dt>Correo Electrónico</dt>
                             <dd>{studentEmail}</dd>
@@ -80,6 +172,72 @@ export default function StudentProfile() {
                     </div>
                 </div>
             </section>
+
+            {/* Sección de rango actual */}
+            <section className="rank-section">
+                <header className="header-info-student">
+                    <h2 className="rank-section-title">Rango Actual</h2>
+                    <p>Tu progreso como estudiante</p>
+                </header>
+
+                <div className="rank-card">
+                    {range ? (
+                        <>
+                            <div className="rank-badge-row">
+                                <div className={`range-student ${range.titulo}`}>
+                                    {range.titulo}
+                                </div>
+                                <span className="total-points-label">
+                                    <strong>{totalUserPoints}</strong> pts totales
+                                </span>
+                            </div>
+
+                            {/* Barra de progreso */}
+                            <div className="rank-progress-wrapper">
+                                <div className="rank-progress-labels">
+                                    <span className="rank-progress-current" style={{ color: rangeColor }}>
+                                        {range.titulo}
+                                    </span>
+                                    <span className="rank-progress-next">
+                                        {nextRange ? nextRange.titulo : "Rango Máximo"}
+                                    </span>
+                                </div>
+                                <div className="rank-progress-bar-bg">
+                                    <div
+                                        className="rank-progress-bar-fill"
+                                        style={{
+                                            width: `${percent}%`,
+                                            background: nextRange
+                                                ? `linear-gradient(90deg, ${rangeColor}, ${getRangeColor(nextRange.titulo)})`
+                                                : `linear-gradient(90deg, ${rangeColor}, #ffde8cff)`,   
+                                        }}
+                                    />
+                                </div>
+                                <div className="rank-progress-info">
+                                    {nextRange ? (
+                                        <small>
+                                            Te faltan <strong>{Math.max(pointsNeeded, 0)} pts</strong> para alcanzar <span style={{ color: getRangeColor(nextRange.titulo) }}>{nextRange.titulo}</span>
+                                        </small>
+                                    ) : (
+                                        <small>¡Felicidades! Alcanzaste el rango más alto</small>
+                                    )}
+                                    <small className="rank-progress-percent">{Math.round(percent)}%</small>
+                                </div>
+                            </div>
+
+                            {/* Puntos requeridos del rango actual */}
+                            <div className="rank-points-detail">
+                                <small className={`color-info-range ${range.titulo}`}>
+                                    Puntos mínimos para este rango: <strong>{range.puntos_requeridos}</strong>
+                                </small>
+                            </div>
+                        </>
+                    ) : (
+                        <p className="rank-loading">Cargando rango...</p>
+                    )}
+                </div>
+            </section>
+
             {openModal && <Modal children={
                     <EditInfoStudent
                         studentName={studentName}

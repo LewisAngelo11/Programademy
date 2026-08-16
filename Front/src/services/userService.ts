@@ -19,7 +19,19 @@ export class UserService {
         });
 
         if (!response.ok) {
-            throw new Error("Error al obtener el rango de usuarios");
+            throw new Error("Error al obtener el rango del usuario");
+        }
+
+        return response.json();
+    }
+
+    static async getRanges() {
+        const response = await apiFetch('/usuario/getRanges', {
+            headers: { 'Content-Type': 'application/json' }
+        });
+
+        if (!response.ok) {
+            throw new Error("Error al obtener todos los rangos");
         }
 
         return response.json();
