@@ -36,9 +36,10 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    border: 1px solid #d9d9d9;
+    border: 1px solid #e5e7eb;
     background: #ffff;
     border-radius: 10px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
     gap: 1.4em;
     min-width: 400px;
     height: clamp(200px, 60vh, 490px);
@@ -59,12 +60,39 @@
     gap: .4em;
 }
 
+.email-container label,
+.passw-container label {
+    font-size: .85em;
+    font-weight: 500;
+    color: #374151;
+}
+
 .email-container input,
 .passw-container input {
-    padding: .6em;
+    padding: .6em .75em;
     border-radius: 10px;
-    border: none;
-    background-color: #f0f0f0;
+    border: 1.5px solid transparent;
+    background-color: #f3f4f6;
+    color: #111827;
+    outline: none;
+    transition: background-color .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+
+.email-container input::placeholder,
+.passw-container input::placeholder {
+    color: #9ca3af;
+}
+
+.email-container input:hover,
+.passw-container input:hover {
+    background-color: #eceef2;
+}
+
+.email-container input:focus,
+.passw-container input:focus {
+    background-color: #fff;
+    border-color: rgba(21, 0, 255, 0.35);
+    box-shadow: 0 0 0 3px rgba(62, 0, 255, 0.1);
 }
 
 .forgot-passw {
@@ -72,6 +100,11 @@
     font-size: .8em;
     color: #626262;
     text-align: end;
+    transition: color .15s ease;
+}
+
+.forgot-passw:hover {
+    color: #3e00ff;
 }
 
 .login-button {
@@ -84,7 +117,8 @@
     justify-content: center;
     gap: .4em;
     color: #ffff;
-    transition: all .1s ease;
+    cursor: pointer;
+    transition: background-color .2s ease, transform .1s ease, box-shadow .2s ease;
 }
 
 .login-button:disabled {
@@ -92,8 +126,17 @@
     opacity: 80%;
 }
 
-.login-button:hover {
+.login-button:hover:not(:disabled) {
     background-color: #303030;
+}
+
+.login-button:active:not(:disabled) {
+    transform: scale(0.98);
+}
+
+.login-button:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(62, 0, 255, 0.25);
 }
 
 .create-account {
@@ -107,6 +150,12 @@
 .create-account a {
     text-decoration: none;
     color: #3e00ff;
+    font-weight: 500;
+    transition: opacity .15s ease;
+}
+
+.create-account a:hover {
+    opacity: .75;
 }
 
 /* Error message */
