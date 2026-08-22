@@ -109,6 +109,21 @@ export class QuizService {
         return await response.json();
     }
 
+    static async getLastAttempt(idQuiz: number) {
+        const response = await apiFetch(`/quiz/lastAttempt/${idQuiz}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error('Error al obtener el último intento');
+        }
+
+        return await response.json();
+    }
+
     static async deleteQuiz(idQuiz: number) {
         const response = await apiFetch(`/delete/${idQuiz}`, {
             method: 'DELETE',

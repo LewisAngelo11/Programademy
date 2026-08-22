@@ -119,6 +119,20 @@ export class QuizController {
     }
   }
 
+  // Obtener el último intento de un quiz para el usuario actual
+  getLastAttempt = async (req: any, res: Response) => {
+    try {
+      const id = Number(req.params.id);
+      const idUsuario = Number(req.usuario.id);
+
+      const lastAttempt = await this.quizService.getLastAttempt(id, idUsuario);
+      res.status(200).json(lastAttempt);
+    } catch (error) {
+      console.error("Error al obtener el último intento del quiz:", error);
+      res.status(500).json({ error: "Error interno del servidor al obtener el último intento" });
+    }
+  };
+
   // Obtener todos los intentos de quizzes de cada estudiante
   getAllAttemptsStudents = async (req: Request, res: Response) => {
     try {

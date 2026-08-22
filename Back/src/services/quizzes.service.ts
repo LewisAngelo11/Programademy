@@ -160,6 +160,47 @@ export class QuizService {
     });
   }
 
+  // Obtener el último intento realizado por el usuario en un quiz
+  async getLastAttempt(id_quiz: number, id_usuario: number) {
+    const lastAttempt = await prisma.intento_quiz.findFirst({
+      where: {
+        id_quiz: id_quiz,
+        id_usuario: id_usuario
+      },
+      orderBy: {
+        id_intento: 'desc'
+      },
+      include: {
+        quiz: {
+          include: {
+            _count: {
+              select: { pregunta: true }
+            }
+          }
+        }
+      }
+    });
+
+    if (!lastAttempt) {
+      return null;
+    }
+
+    const totalPreguntas = lastAttempt.quiz._count.pregunta;
+    const calificacion = lastAttempt.calificacion ?? 0;
+    const correctas = totalPreguntas > 0 ? Math.round((calificacion * totalPreguntas) / 100) : 0;
+
+    return {
+      id_intento: lastAttempt.id_intento,
+      id_quiz: lastAttempt.id_quiz,
+      id_usuario: lastAttempt.id_usuario,
+      calificacion: lastAttempt.calificacion,
+      puntos_otorgados: lastAttempt.puntos_otorgados,
+      completado_100: lastAttempt.completado_100,
+      correctas: correctas,
+      total_preguntas: totalPreguntas
+    };
+  }
+
   async getAllAttemptsQuizzesStudents() {
         const students = await prisma.usuario.findMany({
             where: {

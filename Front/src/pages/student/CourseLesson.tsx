@@ -1,7 +1,8 @@
 import { useNavigate, useParams } from "react-router";
 import React, { useState, useEffect, type SetStateAction } from "react";
 import { ModuloService } from "../../services/moduleService";
-import { ArrowLeftStroke, BookOpen, Code, CheckCircle, VolumeFull, PauseCircle, PlayCircle, StopCircle } from "@boxicons/react";
+import { QuizService } from "../../services/quizService";
+import { ArrowLeftStroke, BookOpen, Code, CheckCircle, VolumeFull, PauseCircle, PlayCircle, StopCircle, Check } from "@boxicons/react";
 import "./CourseLesson.css";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
@@ -25,6 +26,14 @@ type Quiz = {
     id_modulo: number;
 }
 
+interface LastAttempt {
+    id_intento: number;
+    calificacion: number;
+    correctas: number;
+    total_preguntas: number;
+    completado_100: boolean;
+}
+
 type ThemeLesson = "Teoria" | "Codigo" | "Evaluacion";
 
 type languagesExamples = "C" | "C++" | "Python" | "JavaScript" | "Java" | "C#";
@@ -43,23 +52,41 @@ export default function CourseLesson() {
     const id = module.id;
 
     const [ejemplosCodigos, setEjemplosCodigos] = useState<Record<languagesExamples, CodigoEjemplo>>({
-        "C" :{ explicacion_codigo: "", codigo: ""},
-        "C++" :{ explicacion_codigo: "", codigo: ""},
-        "Python" :{ explicacion_codigo: "", codigo: ""},
-        "JavaScript" :{ explicacion_codigo: "", codigo: ""},
-        "Java" :{ explicacion_codigo: "", codigo: ""},
-        "C#" :{ explicacion_codigo: "", codigo: ""},
+        "C": { explicacion_codigo: "", codigo: "" },
+        "C++": { explicacion_codigo: "", codigo: "" },
+        "Python": { explicacion_codigo: "", codigo: "" },
+        "JavaScript": { explicacion_codigo: "", codigo: "" },
+        "Java": { explicacion_codigo: "", codigo: "" },
+        "C#": { explicacion_codigo: "", codigo: "" },
     });
     const [theme, setTheme] = useState<ThemeLesson>("Teoria");
     const [modulo, setModulo] = useState<Modulo | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [quizzes, setQuizzes] = useState<Quiz[]>([]);
+    const [lastAttempts, setLastAttempts] = useState<Record<number, LastAttempt | null>>({});
     const [languages, setLanguages] = useState<languagesExamples>("C");
     const [codeCopied, setCodeCopied] = useState<boolean>(false);
     const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([]);
     const [isReading, setIsReading] = useState(false);
     const [isPause, setIsPause] = useState(false);
+
+    const fetchLastAttempts = async (quizzesList: Quiz[]) => {
+        const attemptsMap: Record<number, LastAttempt | null> = {};
+        await Promise.all(
+            quizzesList.map(async (q) => {
+                try {
+                    const attempt = await QuizService.getLastAttempt(q.id_quiz);
+                    if (attempt) {
+                        attemptsMap[q.id_quiz] = attempt;
+                    }
+                } catch (err) {
+                    console.error(`Error al obtener último intento del quiz ${q.id_quiz}:`, err);
+                }
+            })
+        );
+        setLastAttempts(attemptsMap);
+    };
 
     const getModulo = async () => {
         const token = localStorage.getItem("token");
@@ -91,15 +118,19 @@ export default function CourseLesson() {
             setModulo(data);
             setQuizzes(data.quiz);
 
+            if (data.quiz && data.quiz.length > 0) {
+                fetchLastAttempts(data.quiz);
+            }
+
             // Transformar array a Record para mostrarlos en la UI
             const ejemplosFormateados = data.codigo_ejemplo.reduce((acc: any, ejemplo: any) => {
                 const lenguajeFrontend = lenguajeMapInverso[ejemplo.lenguaje];
-                
+
                 acc[lenguajeFrontend] = {
                     explicacion_codigo: ejemplo.explicacion_codigo || "",
                     codigo: ejemplo.codigo || ""
                 };
-                
+
                 return acc;
             }, {
                 // Valores por defecto para lenguajes sin datos
@@ -161,14 +192,14 @@ export default function CourseLesson() {
                 voice.name.includes(name)
             )
         )
-        ??
-        voices.find(voice =>
-            voice.lang === "es-MX"
-        )
-        ??
-        voices.find(voice =>
-            voice.lang.startsWith("es")
-        );
+            ??
+            voices.find(voice =>
+                voice.lang === "es-MX"
+            )
+            ??
+            voices.find(voice =>
+                voice.lang.startsWith("es")
+            );
 
     };
 
@@ -292,20 +323,20 @@ export default function CourseLesson() {
                                         <button className="btn-speaker" onClick={readText}>
                                             <VolumeFull />
                                         </button>
-                                    ): (
+                                    ) : (
                                         <div className="btns-speakers">
                                             {!isPause ? (
                                                 <button className="btn-speaker" onClick={() => {
-                                                        if(window.speechSynthesis.speaking){
-                                                            window.speechSynthesis.pause();
-                                                            setIsPause(true);
-                                                        }
-                                                    }}
+                                                    if (window.speechSynthesis.speaking) {
+                                                        window.speechSynthesis.pause();
+                                                        setIsPause(true);
+                                                    }
+                                                }}
                                                 >
                                                     <PauseCircle />
                                                 </button>
-                                            ): (
-                                                <button className="btn-speaker" onClick={() => {window.speechSynthesis.resume(); setIsPause(false)}}>
+                                            ) : (
+                                                <button className="btn-speaker" onClick={() => { window.speechSynthesis.resume(); setIsPause(false) }}>
                                                     <PlayCircle />
                                                 </button>
                                             )}
@@ -339,9 +370,9 @@ export default function CourseLesson() {
                                 ))}
                             </div>
 
-                            {ejemplosCodigos[languages].explicacion_codigo === "" &&  ejemplosCodigos[languages].codigo === "" ? (
+                            {ejemplosCodigos[languages].explicacion_codigo === "" && ejemplosCodigos[languages].codigo === "" ? (
                                 <p>No hay ejemplo disponible para {languages}</p>
-                            ): (
+                            ) : (
                                 <>
                                     <span className="label-explain-code">
                                         Explicación del Código:
@@ -359,7 +390,7 @@ export default function CourseLesson() {
                                                 >
                                                     Copiar
                                                 </button>
-                                            ): (
+                                            ) : (
                                                 <button
                                                     className="copied-code-btn"
                                                     onClick={copyCode}
@@ -395,14 +426,37 @@ export default function CourseLesson() {
                                     key={m.id_quiz}
                                     className="quiz-card"
                                 >
-                                    <small>Número de Quiz: {m.id_quiz}</small>
+                                    <div className="quiz-card-header">
+                                        <small>Número de Quiz: {m.id_quiz}</small>
+                                        {lastAttempts[m.id_quiz] ? (
+                                            <span
+                                                className={`quiz-last-attempt ${lastAttempts[m.id_quiz]?.correctas === lastAttempts[m.id_quiz]?.total_preguntas
+                                                        ? "completed"
+                                                        : ""
+                                                    }`}
+                                            >
+                                                {lastAttempts[m.id_quiz]?.correctas === lastAttempts[m.id_quiz]?.total_preguntas
+                                                    ? "Completado"
+                                                    : `Último intento: ${lastAttempts[m.id_quiz]?.correctas}/${lastAttempts[m.id_quiz]?.total_preguntas}`}
+                                            </span>
+                                        ) : (
+                                            <span className="quiz-last-attempt no-attempt">
+                                                Sin intentos
+                                            </span>
+                                        )}
+                                    </div>
                                     <h2>{m.titulo}</h2>
-                                    <span>Puntos por completarlo: {m.puntos_recompensa} Pts.</span>
+                                    {lastAttempts[m.id_quiz]?.completado_100
+                                    ? <span style={{ fontSize: ".8rem", color: "#10c452", fontWeight: 300, display: "flex", alignItems: "center", gap: ".5rem" }}>
+                                            <Check size="xs" /> Puntos obtenidos: {m.puntos_recompensa} Pts.
+                                        </span> 
+                                    : <span style={{ fontSize: ".8rem", }}>Puntos por completarlo: {m.puntos_recompensa} Pts.</span>}
+                                    
                                     <button
                                         className="start-quiz"
                                         onClick={() => navigate(`/quiz/solve/${m.id_quiz}`)}
                                     >
-                                        Comenzar
+                                        {lastAttempts[m.id_quiz]?.completado_100 ? 'Completado' : 'Comenzar'}
                                     </button>
                                 </article>
                             ))}
