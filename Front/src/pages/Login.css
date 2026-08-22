@@ -126,19 +126,6 @@
     opacity: 80%;
 }
 
-.login-button:hover:not(:disabled) {
-    background-color: #303030;
-}
-
-.login-button:active:not(:disabled) {
-    transform: scale(0.98);
-}
-
-.login-button:focus-visible {
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(62, 0, 255, 0.25);
-}
-
 .create-account {
     display: flex;
     align-items: center;

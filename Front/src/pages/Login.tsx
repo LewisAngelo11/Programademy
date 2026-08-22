@@ -60,7 +60,7 @@ function LoginForm() {
     };
 
     return (
-        <form action={signIn} className="login-form">
+        <form onSubmit={(e) => {e.preventDefault(); signIn()}} className="login-form">
             <header className="login-form-header">
                 <h2>Iniciar Sesión</h2>
                 <small>Ingrese sus credenciales para comenzar</small>
