@@ -22,39 +22,28 @@ export default function StudentProfile() {
     const [allRanges, setAllRanges] = useState<UserRange[]>([]);
     const [totalUserPoints, setTotalUserPoints] = useState<number>(0);
 
-    const API_URL = import.meta.env.VITE_API_URL;
-
     useEffect(() => {
         const getInfoUser = async () => {
             const token = localStorage.getItem("token");
+            if (!token) {
+                navigate("/login");
+                return;
+            }
 
             try {
                 setLoadingInfo(true);
-                const response = await fetch(`${API_URL}/usuario/info`, {
-                    method: "GET",
-                    headers: {
-                        'Authorization': `Bearer ${token}`,
-                        'Content-Type': 'application/json'
-                    }
-                });
+                const dataUsuario = await UserService.getInfo();
 
-                if (response.status === 401) {
-                    navigate("/login");
-                    return;
-                }
-
-                if (!response.ok) {
-                    throw new Error("Error en la petición");
-                }
-    
-                const dataUsuario = await response.json();
                 const dateFormat = dataUsuario.fecha_registro.split("T")[0];
                 setStudentName(dataUsuario.nombre);
                 setStudentEmail(dataUsuario.email);
                 setStudentRegisterDate(dateFormat);
                 setTotalUserPoints(dataUsuario.puntos_totales ?? 0);
-            } catch (err) {
+            } catch (err: any) {
                 console.error("Error al obtener los datos del usuario", err);
+                if (err.message?.includes("token") || err.message?.includes("autorizado")) {
+                    navigate("/login");
+                }
             } finally {
                 setLoadingInfo(false);
             }
@@ -134,7 +123,7 @@ export default function StudentProfile() {
 
     return (
         <main className="student-profile-page">
-            <HeaderStudentsPages/>
+            <HeaderStudentsPages />
 
             {/* Sección de info del estudiante con avatar */}
             <section className="info-student-profile">
@@ -167,7 +156,7 @@ export default function StudentProfile() {
                                             className="button-edit-info"
                                             title="Editar información"
                                         >
-                                            <Pencil size="xs"/>
+                                            <Pencil size="xs" />
                                         </button>
                                     </>
                                 )}
@@ -253,7 +242,7 @@ export default function StudentProfile() {
                                             width: `${percent}%`,
                                             background: nextRange
                                                 ? `linear-gradient(90deg, ${rangeColor}, ${getRangeColor(nextRange.titulo)})`
-                                                : `linear-gradient(90deg, ${rangeColor}, #ffde8cff)`,   
+                                                : `linear-gradient(90deg, ${rangeColor}, #ffde8cff)`,
                                         }}
                                     />
                                 </div>
@@ -281,14 +270,14 @@ export default function StudentProfile() {
             </section>
 
             {openModal && <Modal children={
-                    <EditInfoStudent
-                        studentName={studentName}
-                        setStudentName={setStudentName}
-                        studentEmail={studentEmail}
-                        setStudentEmail={setStudentEmail}
-                        setOpenModal={setOpenModal}
-                        />
-                } setOpenModal={setOpenModal}/>}
+                <EditInfoStudent
+                    studentName={studentName}
+                    setStudentName={setStudentName}
+                    studentEmail={studentEmail}
+                    setStudentEmail={setStudentEmail}
+                    setOpenModal={setOpenModal}
+                />
+            } setOpenModal={setOpenModal} />}
         </main>
     );
 }

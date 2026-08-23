@@ -35,9 +35,6 @@ export default function InfoCourse() {
     const [courseStarted, setCourseStarted] = useState<boolean>(false);
     const [courseProgress, setCourseProgress] = useState<CourseProgress | null>(null);
 
-    const API_URL = import.meta.env.VITE_API_URL;
-    const token = localStorage.getItem("token");
-
     // Función para obtener el curso por su ID
     const getCourse = async () => {
         try {
@@ -87,23 +84,7 @@ export default function InfoCourse() {
 
     const getCourseProgress = async () => {
         try {
-            const response = await fetch(`${API_URL}/modulo/course/all/${idCurso}`, {
-                method: "GET",
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            });
-
-            if (response.status === 401) {
-                navigate("/login");
-                return;
-            }
-
-            if (!response.ok) {
-                throw new Error("Error obteniendo progreso");
-            }
-
-            const data = await response.json();
+            const data = await ModuloService.getAllModulesFromCourse(Number(idCurso));
             setCourseProgress(data);
         } catch (error) {
             console.error(error);

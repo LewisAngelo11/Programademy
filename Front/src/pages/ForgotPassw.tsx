@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { CodeAlt, BookOpen } from "@boxicons/react";
 import toast from 'react-hot-toast';
+import { AuthService } from "../services/authService";
 import "./ForgotPassw.css";
 
 export default function ForgotPassw() {
@@ -25,26 +26,11 @@ function RecoverPasswForm() {
     const [email, setEmail] = useState<string>("");
     const [loading, setLoading] = useState<boolean>(false);
 
-    const API_URL = import.meta.env.VITE_API_URL;
-
     const handleSubmit = async () => {
         try {
             setLoading(true);
-            const response = await fetch(`${API_URL}/auth/forgot-password`, {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                        email,
-                    }),
-                }
-            );
-            const data = await response.json();
-            if (!response.ok) {
-                throw new Error(data.message);
-            }
-            toast.success(data.message);
+            const data = await AuthService.forgotPassword(email);
+            toast.success(data.message || "Correo enviado");
             setEmail("");
         } catch (error: any) {
             toast.error(

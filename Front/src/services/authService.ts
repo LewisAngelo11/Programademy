@@ -7,7 +7,7 @@ export class AuthService {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(credentials)
         });
-    
+
         const data = await response.json();
 
         if (!response.ok) {
@@ -24,10 +24,42 @@ export class AuthService {
             body: JSON.stringify(dataUser)
         });
 
-        const data = await response.json();
+        const data = await response.json().catch(() => ({}));
 
         if (!response.ok) {
-            throw new Error(data.message || data.error || "Error al cerrar sesión");
+            throw new Error(data.message || data.error || "Error al registrar usuario");
+        }
+
+        return data;
+    }
+
+    static async forgotPassword(email: string) {
+        const response = await apiFetch('/auth/forgot-password', {
+            method: "POST",
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email })
+        });
+
+        const data = await response.json().catch(() => ({}));
+
+        if (!response.ok) {
+            throw new Error(data.message || data.error || "Error al enviar correo de recuperación");
+        }
+
+        return data;
+    }
+
+    static async resetPassword(dataUser: { token: string; password: string; }) {
+        const response = await apiFetch('/auth/reset-password', {
+            method: "PUT",
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(dataUser)
+        });
+
+        const data = await response.json().catch(() => ({}));
+
+        if (!response.ok) {
+            throw new Error(data.message || data.error || "Error al actualizar contraseña");
         }
 
         return data;

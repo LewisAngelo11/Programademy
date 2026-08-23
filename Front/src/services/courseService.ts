@@ -27,7 +27,23 @@ export class CourseService {
 
         if (!response.ok) {
             const errorData = await response.json();
-            throw new Error(errorData.error || 'Error al obtener los cursos');
+            throw new Error(errorData.message || errorData.error || 'Error al obtener los cursos');
+        }
+
+        return await response.json();
+    }
+
+    static async getAllStartedCourses() {
+        const response = await apiFetch('/curso/allStarted', {
+            method: "GET",
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.message || errorData.error || 'Error al obtener los cursos iniciados');
         }
 
         return await response.json();
@@ -44,7 +60,7 @@ export class CourseService {
 
         if (!response.ok) {
             const errorData = await response.json();
-            throw new Error(errorData.error || 'Error al crear el curso');
+            throw new Error(errorData.message || errorData.error || 'Error al crear el curso');
         }
 
         return await response.json();
@@ -61,7 +77,7 @@ export class CourseService {
 
         if (!response.ok) {
             const errorData = await response.json();
-            throw new Error(errorData.error || 'Error al editar el curso');
+            throw new Error(errorData.message || errorData.error || 'Error al editar el curso');
         }
 
         return await response.json();
@@ -77,7 +93,7 @@ export class CourseService {
 
         if (!response.ok) {
             const errorData = await response.json();
-            throw new Error(errorData.error || 'Error al eliminar el curso');
+            throw new Error(errorData.message || errorData.error || 'Error al eliminar el curso');
         }
 
         return await response.json();
@@ -93,7 +109,7 @@ export class CourseService {
 
         if (!response.ok) {
             const errorData = await response.json();
-            throw new Error(errorData.error || 'Error al iniciar el curso');
+            throw new Error(errorData.message || errorData.error || 'Error al iniciar el curso');
         }
 
         return await response.json();

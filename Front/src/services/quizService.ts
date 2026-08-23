@@ -10,7 +10,8 @@ export class QuizService {
         });
 
         if (!response.ok) {
-            throw new Error('Error al obtener los quizzes');
+            const errorData = await response.json();
+            throw new Error(errorData.message || errorData.error || 'Error al obtener los quizzes');
         }
 
         return await response.json();
@@ -25,7 +26,8 @@ export class QuizService {
         });
 
         if (!response.ok) {
-            throw new Error('Error al obtener el quiz');
+            const errorData = await response.json();
+            throw new Error(errorData.message || errorData.error || 'Error al obtener el quiz');
         }
 
         return await response.json();
@@ -40,7 +42,24 @@ export class QuizService {
         });
 
         if (!response.ok) {
-            throw new Error('Error al obtener los intentos de los estudiantes');
+            const errorData = await response.json();
+            throw new Error(errorData.message || errorData.error || 'Error al obtener los intentos de los estudiantes');
+        }
+
+        return await response.json();
+    }
+
+    static async getAllAttempts() {
+        const response = await apiFetch(`/quiz/allAttempts`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.message || errorData.error || 'Error al obtener los intentos del usuario');
         }
 
         return await response.json();
@@ -56,7 +75,8 @@ export class QuizService {
         });
 
         if (!response.ok) {
-            throw new Error('Error al crear el quiz');
+            const errorData = await response.json();
+            throw new Error(errorData.message || errorData.error || 'Error al crear el quiz');
         }
 
         return await response.json();
@@ -72,7 +92,8 @@ export class QuizService {
         });
 
         if (!response.ok) {
-            throw new Error('Error al actualizar el quiz');
+            const errorData = await response.json();
+            throw new Error(errorData.message || errorData.error || 'Error al actualizar el quiz');
         }
 
         return await response.json();
@@ -88,7 +109,8 @@ export class QuizService {
         });
 
         if (!response.ok) {
-            throw new Error('Error al crear el intento');
+            const errorData = await response.json();
+            throw new Error(errorData.message || errorData.error || 'Error al registrar el intento');
         }
 
         return await response.json();
@@ -103,7 +125,8 @@ export class QuizService {
         });
 
         if (!response.ok) {
-            throw new Error('Error al obtener el intento completo');
+            const errorData = await response.json();
+            throw new Error(errorData.message || errorData.error || 'Error al obtener el intento completado');
         }
 
         return await response.json();
@@ -118,14 +141,15 @@ export class QuizService {
         });
 
         if (!response.ok) {
-            throw new Error('Error al obtener el último intento');
+            const errorData = await response.json();
+            throw new Error(errorData.message || errorData.error || 'Error al obtener el último intento');
         }
 
         return await response.json();
     }
 
     static async deleteQuiz(idQuiz: number) {
-        const response = await apiFetch(`/delete/${idQuiz}`, {
+        const response = await apiFetch(`/quiz/delete/${idQuiz}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
@@ -133,7 +157,8 @@ export class QuizService {
         });
 
         if (!response.ok) {
-            throw new Error('Error al eliminar el quiz');
+            const errorData = await response.json();
+            throw new Error(errorData.message || errorData.error || 'Error al eliminar el quiz');
         }
 
         return await response.json();

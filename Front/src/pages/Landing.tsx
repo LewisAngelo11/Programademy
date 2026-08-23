@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router'
 import { C, CPlusplus, Python, Javascript, Java, CSharp } from "@dev.icons/react";
 import { Rocket, BookOpen, CodeAlt, CheckCircle, Code } from '@boxicons/react';
+import { UserService } from '../services/userService';
 import './Landing.css'
 
 // Componente para placeholder de app real
@@ -16,7 +17,6 @@ function AppPlaceholder() {
 export default function Landing() {
   const navigate = useNavigate();
   const [tokenValido, setTokenValido] = useState(false);
-  const API_URL = import.meta.env.VITE_API_URL;
 
   const languages = [
     { icon: <C size={40} />, name: "C" },
@@ -31,21 +31,17 @@ export default function Landing() {
   useEffect(() => {
     const validarToken = async () => {
       const token = localStorage.getItem("token");
-      try {
-        const response = await fetch(`${API_URL}/usuario/info`, {
-          headers: {
-            'Authorization': `Bearer ${token}`,
-          },
-        })
+      if (!token) {
+        setTokenValido(false);
+        return;
+      }
 
-        if (!response.ok) {
-          setTokenValido(false);
-          return;
-        }
+      try {
+        await UserService.getInfo();
         setTokenValido(true);
       } catch (err) {
         console.log(err);
-        setTokenValido(true);
+        setTokenValido(false);
       }
     };
 

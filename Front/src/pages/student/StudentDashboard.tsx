@@ -7,6 +7,9 @@ import CoursesList from "../../components/student/CoursesList";
 import CoursesStartedList from "../../components/student/CoursesStartedList";
 import Modal from "../../Modals/Modal";
 import ModalRangos from "../../components/student/ModalRangos";
+import { UserService } from "../../services/userService";
+import { CourseService } from "../../services/courseService";
+import { QuizService } from "../../services/quizService";
 
 interface Course {
     id_curso: number;
@@ -47,32 +50,13 @@ export default function StudentDashboard() {
     const [allRanges, setAllRanges] = useState<UserRange[]>([]);
     const [pressRange, setPressRange] = useState<boolean>(false);
 
-    const API_URL = import.meta.env.VITE_API_URL;
-    const token = localStorage.getItem("token");
-
-    // Función para manejar las solicitudes fetch y redirigir al login en caso de 401
-    const fetchData = async (url: string, headers: HeadersInit, errorMessage: string) => {
-        const response = await fetch(url, { headers });
-
-        if (response.status === 401) {
-            localStorage.clear();
+    // Obtener toda la info para el dashboard del estudiante
+    const getAllDataDashboard = async () => {
+        const token = localStorage.getItem("token");
+        if (!token) {
             navigate("/login");
             return;
         }
-
-        if (!response.ok) {
-            throw new Error(errorMessage);
-        }
-
-        return response.json();
-    };
-
-    // Obtener toda la info para el dashboard del admin
-    const getAllDataDashboard = async () => {
-        const headers = {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-        };
 
         try {
             setLoading(true);
@@ -85,15 +69,13 @@ export default function StudentDashboard() {
                 dataRanges,
                 dataAttempts
             ] = await Promise.all([
-                fetchData(`${API_URL}/usuario/info`, headers, "Error al obtener la info del usuario"),
-                fetchData(`${API_URL}/curso/allStarted`, headers, "Error al obtener los cursos iniciados"),
-                fetchData(`${API_URL}/curso/all`, headers, "Error al obtener los cursos"),
-                fetchData(`${API_URL}/usuario/getRange`, headers, "Error al obtener el rango"),
-                fetchData(`${API_URL}/usuario/getRanges`, headers, "Error al obtener los rangos"),
-                fetchData(`${API_URL}/quiz/allAttempts`, headers, "Error al obtener los intentos"),
+                UserService.getInfo(),
+                CourseService.getAllStartedCourses(),
+                CourseService.getAllCourses(),
+                UserService.getRange(),
+                UserService.getRanges(),
+                QuizService.getAllAttempts(),
             ]);
-
-            if (!dataUsuario) return; // Se redirigió al login por error 401
 
             setStudentName(dataUsuario.nombre);
             setStudentEmail(dataUsuario.email);
@@ -105,8 +87,13 @@ export default function StudentDashboard() {
             setAllRanges(dataRanges);
             setAttempts(dataAttempts);
 
-        } catch (err) {
+        } catch (err: any) {
             console.error(err);
+            if (err.message?.includes("token") || err.message?.includes("autorizado")) {
+                localStorage.clear();
+                navigate("/login");
+                return;
+            }
             setError("Ocurrió un error al obtener los datos del dashboard. Por favor, inténtalo de nuevo más tarde.");
         } finally {
             setLoading(false);

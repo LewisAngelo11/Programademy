@@ -7,7 +7,8 @@ export class UserService {
         });
 
         if (!response.ok) {
-            throw new Error("Error al obtener la información del usuario");
+            const errorData = await response.json().catch(() => ({}));
+            throw new Error(errorData.message || errorData.error || "Error al obtener la información del usuario");
         }
 
         return response.json();
@@ -19,7 +20,8 @@ export class UserService {
         });
 
         if (!response.ok) {
-            throw new Error("Error al obtener el rango del usuario");
+            const errorData = await response.json().catch(() => ({}));
+            throw new Error(errorData.message || errorData.error || "Error al obtener el rango del usuario");
         }
 
         return response.json();
@@ -31,7 +33,8 @@ export class UserService {
         });
 
         if (!response.ok) {
-            throw new Error("Error al obtener todos los rangos");
+            const errorData = await response.json();
+            throw new Error(errorData.message || errorData.error || "Error al obtener todos los rangos");
         }
 
         return response.json();
@@ -43,7 +46,21 @@ export class UserService {
         });
 
         if (!response.ok) {
-            throw new Error("Error al obtener todos los rangos de usuarios");
+            const errorData = await response.json();
+            throw new Error(errorData.message || errorData.error || "Error al obtener todos los rangos de usuarios");
+        }
+
+        return response.json();
+    }
+
+    static async getAllStudents() {
+        const response = await apiFetch('/usuario/getAll', {
+            headers: { 'Content-Type': 'application/json' }
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.message || errorData.error || "Error al obtener a los estudiantes");
         }
 
         return response.json();
@@ -57,7 +74,8 @@ export class UserService {
         });
 
         if (!response.ok) {
-            throw new Error("Error al actualizar la información del usuario");
+            const errorData = await response.json();
+            throw new Error(errorData.message || errorData.error || "Error al actualizar la información del usuario");
         }
 
         return response.json();

@@ -5,6 +5,10 @@ import "./AdminDashboard.css"
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import StudentList from "../../components/admin/StudentList";
+import { UserService } from "../../services/userService";
+import { CourseService } from "../../services/courseService";
+import { ModuloService } from "../../services/moduleService";
+import { QuizService } from "../../services/quizService";
 
 export default function AdminDashboard() {
     const navigate = useNavigate();
@@ -15,32 +19,13 @@ export default function AdminDashboard() {
     const [modulos, setModulos] = useState([]);
     const [quizzes, setQuizzes] = useState([]);
 
-    const API_URL = import.meta.env.VITE_API_URL;
-    const token = localStorage.getItem("token");
-
-    // Función para manejar las solicitudes fetch y redirigir al login en caso de 401
-    const fetchData = async (url: string, headers: HeadersInit, errorMessage: string) => {
-        const response = await fetch(url, { headers });
-
-        if (response.status === 401) {
-            localStorage.clear();
+    // Obtener toda la info para el dashboard del admin
+    const getAllDataDashboard = async () => {
+        const token = localStorage.getItem("token");
+        if (!token) {
             navigate("/login");
             return;
         }
-
-        if (!response.ok) {
-            throw new Error(errorMessage);
-        }
-
-        return response.json();
-    };
-
-    // Obtener toda la info para el dashboard del admin
-    const getAllDataDashboard = async () => {
-        const headers = {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-        };
 
         try {
             setLoading(true);
@@ -51,13 +36,11 @@ export default function AdminDashboard() {
                 dataModulos,
                 dataQuizzes,
             ] = await Promise.all([
-                fetchData(`${API_URL}/usuario/info`, headers, "Error al obtener la info del usuario"),
-                fetchData(`${API_URL}/curso/all`, headers, "Error al obtener los cursos"),
-                fetchData(`${API_URL}/modulo/all`, headers, "Error al obtener los módulos"),
-                fetchData(`${API_URL}/quiz/all`, headers, "Error al obtener los quizzes"),
+                UserService.getInfo(),
+                CourseService.getAllCourses(),
+                ModuloService.getAllModules(),
+                QuizService.getAllQuizzes(),
             ]);
-
-            if (!dataUsuario) return; // Se redirigió por 401
 
             setAdminName(dataUsuario.nombre);
             setAdminEmail(dataUsuario.email);
@@ -66,8 +49,13 @@ export default function AdminDashboard() {
             setModulos(dataModulos);
             setQuizzes(dataQuizzes);
 
-        } catch (err) {
+        } catch (err: any) {
             console.error(err);
+            if (err.message?.includes("token") || err.message?.includes("autorizado")) {
+                localStorage.clear();
+                navigate("/login");
+                return;
+            }
         } finally {
             setLoading(false);
         }

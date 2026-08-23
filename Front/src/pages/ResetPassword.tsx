@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import { AuthService } from "../services/authService";
 import "./ResetPassword.css";
 
 export default function ResetPassword() {
@@ -11,8 +12,6 @@ export default function ResetPassword() {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [loading, setLoading] = useState(false);
-
-    const API_URL = import.meta.env.VITE_API_URL;
 
     const handleSubmit = async () => {
         if (!token) {
@@ -28,25 +27,10 @@ export default function ResetPassword() {
         try {
             setLoading(true);
 
-            const response = await fetch(
-                `${API_URL}/auth/reset-password`,
-                {
-                    method: "PUT",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                        token,
-                        password,
-                    }),
-                }
-            );
-
-            const data = await response.json();
-
-            if (!response.ok) {
-                throw new Error(data.message);
-            }
+            await AuthService.resetPassword({
+                token,
+                password,
+            });
 
             toast.success("Contraseña actualizada");
             navigate("/");

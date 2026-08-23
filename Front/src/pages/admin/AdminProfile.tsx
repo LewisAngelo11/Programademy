@@ -5,6 +5,7 @@ import "./AdminProfile.css";
 import { useEffect, useState } from "react";
 import EditInfoAdmin from "../../components/admin/EditInfoAdmin";
 import Skeleton from "../../components/ui/Skeleton";
+import { UserService } from "../../services/userService";
 
 export default function AdminProfile() {
     const navigate = useNavigate();
@@ -14,39 +15,27 @@ export default function AdminProfile() {
     const [adminRegisterDate, setAdminRegisterDate] = useState<string>("");
     const [openModal, setOpenModal] = useState<boolean>(false);
 
-    const API_URL = import.meta.env.VITE_API_URL;
-
     useEffect(() => {
         const getInfoUser = async () => {
             const token = localStorage.getItem("token");
+            if (!token) {
+                navigate("/login");
+                return;
+            }
 
             try {
                 setLoading(true);
-                const response = await fetch(`${API_URL}/usuario/info`, {
-                    method: "GET",
-                    headers: {
-                        'Authorization': `Bearer ${token}`,
-                        'Content-Type': 'application/json'
-                    }
-                });
-
-                if (response.status === 401) {
-                    localStorage.clear();
-                    navigate("/login");
-                    return;
-                }
-    
-                if (!response.ok) {
-                    throw new Error("Error en la petición");
-                }
-    
-                const dataUsuario = await response.json();
+                const dataUsuario = await UserService.getInfo();
                 setAdminName(dataUsuario.nombre);
                 setAdminEmail(dataUsuario.email);
                 const dateFormat = dataUsuario.fecha_registro.split("T")[0];
                 setAdminRegisterDate(dateFormat);
-            } catch (err) {
+            } catch (err: any) {
                 console.error(err);
+                if (err.message?.includes("token") || err.message?.includes("autorizado")) {
+                    localStorage.clear();
+                    navigate("/login");
+                }
             } finally {
                 setLoading(false);
             }

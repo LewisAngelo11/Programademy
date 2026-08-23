@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { ArrowLeftStroke, BookOpen, Code, Save, X } from "@boxicons/react";
-import getAllCourses from "../../services/getCourses";
+import { ModuloService } from "../../services/moduleService";
+import { CourseService } from "../../services/courseService";
 import "./EditModule.css";
 
 type FormBasicInfo = {
@@ -54,8 +55,6 @@ export default function EditModule() {
     const [loadingModule, setLoadingModule] = useState<boolean>(true);
     const [languages, setLanguages] = useState<languagesExamples>("C");
 
-    const API_URL = import.meta.env.VITE_API_URL;
-
     const handleCodigoChange = (lenguaje: languagesExamples, field: 'explicacion_codigo' | 'codigo', value: string) => {
         setEjemplosCodigos(prev => ({
             ...prev,
@@ -76,20 +75,15 @@ export default function EditModule() {
             return;
         }
 
-        setLoadingCourses(true);
-        const result = await getAllCourses(token);
-        if (result.status === 401) {
-            navigate("/login");
-            return;
+        try {
+            setLoadingCourses(true);
+            const result = await CourseService.getAllCourses();
+            setCourses(result);
+        } catch (error: any) {
+            console.error("Error al cargar cursos:", error);
+        } finally {
+            setLoadingCourses(false);
         }
-        
-        if (result.error) {
-            console.error("Error al cargar cursos:", result.error);
-        } else if (result.data) {
-            setCourses(result.data);
-        }
-        
-        setLoadingCourses(false);
     };
 
     // Cargar los datos del módulo a editar
@@ -114,19 +108,7 @@ export default function EditModule() {
 
         try {
             setLoadingModule(true);
-            const response = await fetch(`${API_URL}/modulo/get/${idModulo}`, {
-                method: "GET",
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json'
-                }
-            });
-
-            if (!response.ok) {
-                throw new Error("Error al obtener el módulo");
-            }
-
-            const data = await response.json();
+            const data = await ModuloService.getOneModule(Number(idModulo));
             
             // Cargar los datos del módulo en el formulario
             setForm({
@@ -194,43 +176,23 @@ export default function EditModule() {
                 return;
             }
 
-            const response = await fetch(`${API_URL}/modulo/update/${idModulo}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                },
-                body: JSON.stringify({
-                    titulo: form.titulo,
-                    descripcion: form.descripcion,
-                    contenido_teorico: form.contenido,
-                    orden: form.orden,
-                    id_curso: Number(form.curso),
-                    codigo_ejemplo: ejemplosCodigos
-                })
+            const data = await ModuloService.updateModule(Number(idModulo), {
+                titulo: form.titulo,
+                descripcion: form.descripcion,
+                contenido_teorico: form.contenido,
+                orden: form.orden,
+                id_curso: Number(form.curso),
+                codigo_ejemplo: ejemplosCodigos
             });
-
-            if (response.status === 401) {
-                navigate("/login");
-                return;
-            }
-
-            const data = await response.json();
-
-            if (!response.ok) {
-                console.error('Error al actualizar módulo:', data.error);
-                alert(`Error: ${data.error}`);
-                return;
-            }
 
             console.log('Módulo actualizado exitosamente:', data);
             alert('Módulo actualizado exitosamente');
             
             navigate('/modules-admin');
 
-        } catch (error) {
+        } catch (error: any) {
             console.error('Error de conexión:', error);
-            alert('Error al conectar con el servidor');
+            alert(`Error: ${error.message || 'Error al conectar con el servidor'}`);
         }
     };
 

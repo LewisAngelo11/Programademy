@@ -1,4 +1,5 @@
 import { useState, type SetStateAction } from "react";
+import { UserService } from "../../services/userService";
 import "./EditInfoStudent.css"
 
 interface EditInfoStudentProp {
@@ -15,7 +16,6 @@ export default function EditInfoStudent({ studentName, setStudentName, studentEm
 
     const editInfoStudent = async (e: React.FormEvent) => {
         e.preventDefault();
-        const API_URL = "http://localhost:3000/usuario/update";
 
         try {
             const token = localStorage.getItem("token");
@@ -25,36 +25,21 @@ export default function EditInfoStudent({ studentName, setStudentName, studentEm
                 return;
             }
 
-            const response = await fetch(API_URL, {
-                method: "PUT",
-                headers: {
-                    "Authorization": `Bearer ${token}`,
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    nombre: localName,
-                    email: localEmail
-                })
+            const data = await UserService.updateInfo({
+                nombre: localName,
+                email: localEmail
             });
 
-            if (!response.ok) {
-                alert("Error al actualizar perfil");
-                console.error("Error al actualizar", response);
-                return;
-            }
-
-            const data = await response.json();
-
-            alert(data.message);
+            alert(data.message || "Perfil actualizado");
             // Actualiza los datos en la UI
             setStudentName(localName);
             setStudentEmail(localEmail);
 
             setOpenModal(false); // Cierra el modal
 
-        } catch (error) {
+        } catch (error: any) {
             console.error("Error en la petición:", error);
-            alert("Error del servidor");
+            alert(error.message || "Error al actualizar perfil");
         }
     };
 

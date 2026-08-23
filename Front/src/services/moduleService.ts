@@ -10,8 +10,8 @@ export class ModuloService {
         });
 
         if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.error || 'Error al obtener los módulos');
+            const errorData = await response.json().catch(() => ({}));
+            throw new Error(errorData.message || errorData.error || 'Error al obtener los módulos');
         }
 
         return await response.json();
@@ -26,8 +26,8 @@ export class ModuloService {
         });
 
         if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.error || 'Error al obtener el módulo');
+            const errorData = await response.json().catch(() => ({}));
+            throw new Error(errorData.message || errorData.error || 'Error al obtener el módulo');
         }
 
         return await response.json();
@@ -42,8 +42,42 @@ export class ModuloService {
         });
 
         if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.error || 'Error al obtener los módulos');
+            const errorData = await response.json().catch(() => ({}));
+            throw new Error(errorData.message || errorData.error || 'Error al obtener los módulos');
+        }
+
+        return await response.json();
+    }
+
+    static async createModule(data: any) {
+        const response = await apiFetch('/modulo/create', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json().catch(() => ({}));
+            throw new Error(errorData.message || errorData.error || 'Error al crear el módulo');
+        }
+
+        return await response.json();
+    }
+
+    static async updateModule(idModulo: number, data: any) {
+        const response = await apiFetch(`/modulo/update/${idModulo}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json().catch(() => ({}));
+            throw new Error(errorData.message || errorData.error || 'Error al actualizar el módulo');
         }
 
         return await response.json();
@@ -58,8 +92,8 @@ export class ModuloService {
         });
 
         if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.error || 'Error al eliminar el módulo');
+            const errorData = await response.json().catch(() => ({}));
+            throw new Error(errorData.message || errorData.error || 'Error al eliminar el módulo');
         }
 
         return await response.json();

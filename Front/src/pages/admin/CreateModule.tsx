@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { ArrowLeftStroke, BookOpen, Code, Save, X } from "@boxicons/react";
-import getAllCourses from "../../services/getCourses";
+import { ModuloService } from "../../services/moduleService";
+import { CourseService } from "../../services/courseService";
 import "./CreateModule.css";
 
 type FormBasicInfo = {
@@ -74,8 +75,6 @@ export default function CreateModule() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        const API_URL = import.meta.env.VITE_API_URL;
-
         const bodyCreateModule = {
             titulo: form.titulo,
             descripcion: form.descripcion,
@@ -83,10 +82,10 @@ export default function CreateModule() {
             orden: form.orden,
             id_curso: Number(form.curso),
             codigo_ejemplo: ejemplosCodigos
-        }
+        };
 
         try {
-            const token = localStorage.getItem('token'); // O donde guardes tu JWT
+            const token = localStorage.getItem('token');
 
             if (!token) {
                 console.error('No hay token de autenticación');
@@ -94,28 +93,7 @@ export default function CreateModule() {
                 return;
             }
 
-            const response = await fetch(`${API_URL}/modulo/create`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                },
-                body: JSON.stringify(bodyCreateModule)
-            });
-
-            if (response.status === 401) {
-                localStorage.clear();
-                navigate("/login");
-                return;
-            }
-
-            const data = await response.json();
-
-            if (!response.ok) {
-                console.error('Error al crear módulo:', data.error);
-                alert(`Error: ${data.error}`);
-                return;
-            }
+            const data = await ModuloService.createModule(bodyCreateModule);
             console.log('Módulo creado exitosamente:', data);
             alert('Módulo creado exitosamente');
             
@@ -131,9 +109,9 @@ export default function CreateModule() {
             // Redirigir a la lista de módulos
             navigate('/modules-admin');
 
-        } catch (error) {
-            console.error('Error de conexión:', error);
-            alert('Error al conectar con el servidor');
+        } catch (error: any) {
+            console.error('Error al crear módulo:', error);
+            alert(`Error: ${error.message || 'Error al conectar con el servidor'}`);
         }
     };
 
@@ -159,15 +137,15 @@ export default function CreateModule() {
             return;
         }
 
-        setLoadingCourses(true);
-        const result = await getAllCourses(token);
-        
-        if (result.error) {
-            console.error("Error al cargar cursos:", result.error);
-        } else if (result.data) {
-            setCourses(result.data);
+        try {
+            setLoadingCourses(true);
+            const result = await CourseService.getAllCourses();
+            setCourses(result);
+        } catch (error: any) {
+            console.error("Error al cargar cursos:", error);
+        } finally {
+            setLoadingCourses(false);
         }
-        setLoadingCourses(false);
     };
 
     // Cargar cursos al montar el componente
