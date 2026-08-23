@@ -8,7 +8,7 @@ import StudentList from "../../components/admin/StudentList";
 
 export default function AdminDashboard() {
     const navigate = useNavigate();
-    const [loading, setLoading] = useState<boolean>(false);
+    const [loading, setLoading] = useState<boolean>(true);
     const [adminName, setAdminName] = useState<string>("");
     const [adminEmail, setAdminEmail] = useState<string>("");
     const [cursos, setCursos] = useState([]);
@@ -92,6 +92,7 @@ export default function AdminDashboard() {
                 totalCursos={totalCursos}
                 totalModulos={totalModulos}
                 totalQuizzes={totalQuizzes}
+                loading={loading}
             />
             <QuickActions/>
             <StudentList/>

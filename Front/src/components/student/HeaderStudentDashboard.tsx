@@ -1,7 +1,8 @@
 import { ArrowOutRightSquareHalf, User } from "@boxicons/react";
 import { useNavigate } from "react-router";
-import "./HeaderStudentDashboard.css" 
+import "./HeaderStudentDashboard.css";
 import type { SetStateAction } from "react";
+import Skeleton from "../ui/Skeleton";
 
 interface UserRange {
     id_rango: number;
@@ -40,33 +41,46 @@ export default function HeaderStudentDashboard({ studentName, studentEmail, rang
                 <small>Panel de Estudiante</small>
             </div>
             <div className="data-student">
-                <div className="range-wrapper">
-                    <div
-                        onClick={() => setPressRange(true)}
-                        className={`range-student ${range?.titulo}`}
-                    >
-                        {range ? range.titulo : "Sin rango"}
+                {loading ? (
+                    <Skeleton width="80px" height="28px" borderRadius="20px" />
+                ) : (
+                    <div className="range-wrapper">
+                        <div
+                            onClick={() => setPressRange(true)}
+                            className={`range-student ${range?.titulo}`}
+                        >
+                            {range ? range.titulo : "Sin rango"}
+                        </div>
+                        <span className="range-tooltip">
+                            Rango: {range && range.titulo}
+                        </span>
                     </div>
-                    <span className="range-tooltip">
-                        Rango: {range && range.titulo}
-                    </span>
-                </div>
+                )}
                 <div className="info-student">
-                    <span>{!loading && studentName}</span>
-                    <small>{!loading && studentEmail}</small>
+                    {loading ? (
+                        <>
+                            <Skeleton width="110px" height="18px" />
+                            <Skeleton width="160px" height="13px" />
+                        </>
+                    ) : (
+                        <>
+                            <span>{studentName}</span>
+                            <small>{studentEmail}</small>
+                        </>
+                    )}
                 </div>
                 <div className="buttons-actions">
                     <button
                         onClick={() => navigate("/student/profile")}
                         className="profile-button">
-                        <User size="xs"/>
+                        <User size="xs" />
                         Perfil
                     </button>
-                    <button 
+                    <button
                         onClick={logOut}
                         className="log-out-button"
-                        >
-                        <ArrowOutRightSquareHalf size="xs"/>
+                    >
+                        <ArrowOutRightSquareHalf size="xs" />
                         Salir
                     </button>
                 </div>

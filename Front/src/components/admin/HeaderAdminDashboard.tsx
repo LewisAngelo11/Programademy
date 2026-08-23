@@ -1,6 +1,7 @@
 import "./HeaderAdminDashboard.css";
 import { useNavigate } from "react-router";
 import { ArrowOutRightSquareHalf, User } from "@boxicons/react";
+import Skeleton from "../ui/Skeleton";
 
 interface UsuarioInfoProp {
     adminName: string;
@@ -28,8 +29,17 @@ export default function HeaderAdminDashboard({ adminName, adminEmail, loading }:
             </div>
             <div className="data-admin">
                 <div className="info-admin">
-                    <span>{!loading && adminName}</span>
-                    <small>{!loading && adminEmail}</small>
+                    {loading ? (
+                        <>
+                            <Skeleton width="110px" height="18px" />
+                            <Skeleton width="160px" height="13px" />
+                        </>
+                    ) : (
+                        <>
+                            <span>{adminName}</span>
+                            <small>{adminEmail}</small>
+                        </>
+                    )}
                 </div>
                 <div className="buttons-actions">
                     <button

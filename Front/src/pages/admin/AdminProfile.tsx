@@ -1,12 +1,14 @@
 import { useNavigate } from "react-router";
 import { ArrowLeftStroke, Pencil } from "@boxicons/react";
 import Modal from "../../Modals/Modal";
-import "./AdminProfile.css"
+import "./AdminProfile.css";
 import { useEffect, useState } from "react";
 import EditInfoAdmin from "../../components/admin/EditInfoAdmin";
+import Skeleton from "../../components/ui/Skeleton";
 
 export default function AdminProfile() {
     const navigate = useNavigate();
+    const [loading, setLoading] = useState<boolean>(true);
     const [adminName, setAdminName] = useState<string>("");
     const [adminEmail, setAdminEmail] = useState<string>("");
     const [adminRegisterDate, setAdminRegisterDate] = useState<string>("");
@@ -19,6 +21,7 @@ export default function AdminProfile() {
             const token = localStorage.getItem("token");
 
             try {
+                setLoading(true);
                 const response = await fetch(`${API_URL}/usuario/info`, {
                     method: "GET",
                     headers: {
@@ -43,9 +46,11 @@ export default function AdminProfile() {
                 const dateFormat = dataUsuario.fecha_registro.split("T")[0];
                 setAdminRegisterDate(dateFormat);
             } catch (err) {
-                console.error();
+                console.error(err);
+            } finally {
+                setLoading(false);
             }
-        }
+        };
 
         getInfoUser();
     }, []);
@@ -67,22 +72,28 @@ export default function AdminProfile() {
                 </header>
                 <div className="info-admin-container">
                     <div className="container">
-                        <h2 className="name-admin">{adminName}</h2>
-                        <button
-                            onClick={() => setOpenModal(true)}
-                            className="button-edit-info"
-                        >
-                            <Pencil size="xs"/>
-                        </button>
+                        {loading ? (
+                            <Skeleton width="180px" height="24px" />
+                        ) : (
+                            <>
+                                <h2 className="name-admin">{adminName}</h2>
+                                <button
+                                    onClick={() => setOpenModal(true)}
+                                    className="button-edit-info"
+                                >
+                                    <Pencil size="xs"/>
+                                </button>
+                            </>
+                        )}
                     </div>
                     <div className="container">
                         <dl className="email-admin">
                             <dt>Correo Electrónico</dt>
-                            <dd>{adminEmail}</dd>
+                            <dd>{loading ? <Skeleton width="180px" height="18px" /> : adminEmail}</dd>
                         </dl>
                         <dl className="register-date-admin">
                             <dt>Fecha de Registro</dt>
-                            <dd>{adminRegisterDate}</dd>
+                            <dd>{loading ? <Skeleton width="120px" height="18px" /> : adminRegisterDate}</dd>
                         </dl>
                     </div>
                 </div>

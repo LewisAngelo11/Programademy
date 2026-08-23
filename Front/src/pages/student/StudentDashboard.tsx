@@ -35,7 +35,7 @@ export interface UserRange {
 
 export default function StudentDashboard() {
     const navigate = useNavigate();
-    const [loading, setLoading] = useState<boolean>(false);
+    const [loading, setLoading] = useState<boolean>(true);
     const [allCourses, setAllCourses] = useState<Course[]>([]);
     const [coursesStarted, setCoursesStarted] = useState<Course[]>([]);
     const [error, setError] = useState<string>("")
@@ -147,6 +147,7 @@ export default function StudentDashboard() {
                 totalAviableCourses={totalAviableCourses}
                 totalAverage={safeAverage}
                 quizCompleted={quizCompleted}
+                loading={loading}
             />
             <CoursesStartedList
                 coursesStarted={coursesStarted}

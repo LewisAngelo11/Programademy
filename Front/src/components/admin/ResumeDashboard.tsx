@@ -1,5 +1,6 @@
-import "./ResumeDashboard.css"
+import "./ResumeDashboard.css";
 import { BookOpen, FileDetail, ClipboardDetail } from "@boxicons/react"; 
+import Skeleton from "../ui/Skeleton";
 
 interface TotalCursosProp {
     totalCursos: number;
@@ -13,56 +14,87 @@ interface TotalQuizzesProp {
     totalQuizzes: number;
 }
 
-export default function ResumeDashboard({ totalCursos, totalModulos, totalQuizzes }: TotalCursosProp & TotalModulosProp & TotalQuizzesProp) {
+interface LoadingProp {
+    loading?: boolean;
+}
+
+export default function ResumeDashboard({ totalCursos, totalModulos, totalQuizzes, loading }: TotalCursosProp & TotalModulosProp & TotalQuizzesProp & LoadingProp) {
     return(
         <section className="resume-dashboard">
-            <TotalCourses totalCursos={totalCursos}/>
-            <TotalModules totalModulos={totalModulos}/>
-            <TotalQuizzes totalQuizzes={totalQuizzes}/>
+            <TotalCourses totalCursos={totalCursos} loading={loading} />
+            <TotalModules totalModulos={totalModulos} loading={loading} />
+            <TotalQuizzes totalQuizzes={totalQuizzes} loading={loading} />
         </section>
     );
 }
 
-function TotalCourses({totalCursos}: TotalCursosProp) {
+function TotalCourses({ totalCursos, loading }: TotalCursosProp & LoadingProp) {
     return(
         <article className="total-courses">
             <header>
                 <span>Total de Cursos</span>
                 <BookOpen fill="#3e00ff"/>
             </header>
-            <div>
-                <span className="counter-courses">{totalCursos}</span>
-                <small>Cursos activos</small>
+            <div style={{ display: "flex", flexDirection: "column" }}>
+                {loading ? (
+                    <>
+                        <Skeleton width="45px" height="28px" />
+                        <Skeleton width="100px" height="14px" style={{ marginTop: "4px" }} />
+                    </>
+                ) : (
+                    <>
+                        <span className="counter-courses">{totalCursos}</span>
+                        <small>Cursos activos</small>
+                    </>
+                )}
             </div>
         </article>
     );
 }
 
-function TotalModules({ totalModulos }: TotalModulosProp) {
+function TotalModules({ totalModulos, loading }: TotalModulosProp & LoadingProp) {
     return(
         <article className="total-modules">
             <header>
                 <span>Total de Módulos</span>
                 <FileDetail fill="#00b20a"/>
             </header>
-            <div>
-                <span className="counter-modules">{totalModulos}</span>
-                <small>Módulo creados</small>
+            <div style={{ display: "flex", flexDirection: "column" }}>
+                {loading ? (
+                    <>
+                        <Skeleton width="45px" height="28px" />
+                        <Skeleton width="100px" height="14px" style={{ marginTop: "4px" }} />
+                    </>
+                ) : (
+                    <>
+                        <span className="counter-modules">{totalModulos}</span>
+                        <small>Módulos creados</small>
+                    </>
+                )}
             </div>
         </article>
     );
 }
 
-function TotalQuizzes({ totalQuizzes }: TotalQuizzesProp) {
+function TotalQuizzes({ totalQuizzes, loading }: TotalQuizzesProp & LoadingProp) {
     return(
         <article className="total-quizzes">
             <header>
                 <span>Total de Quizzes</span>
                 <ClipboardDetail fill="#d0b800" />
             </header>
-            <div>
-                <span className="counter-quizzes">{totalQuizzes}</span>
-                <small>Evaluaciones disponibles</small>
+            <div style={{ display: "flex", flexDirection: "column" }}>
+                {loading ? (
+                    <>
+                        <Skeleton width="45px" height="28px" />
+                        <Skeleton width="100px" height="14px" style={{ marginTop: "4px" }} />
+                    </>
+                ) : (
+                    <>
+                        <span className="counter-quizzes">{totalQuizzes}</span>
+                        <small>Evaluaciones disponibles</small>
+                    </>
+                )}
             </div>
         </article>
     );

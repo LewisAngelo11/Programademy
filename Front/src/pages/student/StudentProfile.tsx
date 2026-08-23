@@ -8,9 +8,12 @@ import HeaderStudentsPages from "../../components/student/HeaderStudentsPages";
 import { useNavigate } from "react-router";
 import { UserService } from "../../services/userService";
 import type { UserRange } from "./StudentDashboard";
+import Skeleton from "../../components/ui/Skeleton";
 
 export default function StudentProfile() {
     const navigate = useNavigate();
+    const [loadingInfo, setLoadingInfo] = useState<boolean>(true);
+    const [loadingRanges, setLoadingRanges] = useState<boolean>(true);
     const [studentName, setStudentName] = useState<string>("");
     const [studentEmail, setStudentEmail] = useState<string>("");
     const [studentRegisterDate, setStudentRegisterDate] = useState<string>("");
@@ -26,6 +29,7 @@ export default function StudentProfile() {
             const token = localStorage.getItem("token");
 
             try {
+                setLoadingInfo(true);
                 const response = await fetch(`${API_URL}/usuario/info`, {
                     method: "GET",
                     headers: {
@@ -51,11 +55,14 @@ export default function StudentProfile() {
                 setTotalUserPoints(dataUsuario.puntos_totales ?? 0);
             } catch (err) {
                 console.error("Error al obtener los datos del usuario", err);
+            } finally {
+                setLoadingInfo(false);
             }
         };
 
         const getRangesInfo = async () => {
             try {
+                setLoadingRanges(true);
                 const [rangeData, allRangesData] = await Promise.all([
                     UserService.getRange(),
                     UserService.getRanges(),
@@ -65,6 +72,8 @@ export default function StudentProfile() {
                 setAllRanges(allRangesData);
             } catch (err) {
                 console.error("Error al obtener los rangos", err);
+            } finally {
+                setLoadingRanges(false);
             }
         };
 
@@ -137,25 +146,37 @@ export default function StudentProfile() {
                 <div className="info-student-container">
                     {/* Avatar con iniciales */}
                     <div className="avatar-section">
-                        <div
-                            className="student-avatar"
-                        >
-                            <span className="avatar-initials">
-                                {initials}
-                            </span>
-                        </div>
+                        {loadingInfo ? (
+                            <Skeleton width="4rem" height="4rem" borderRadius="50%" />
+                        ) : (
+                            <div className="student-avatar">
+                                <span className="avatar-initials">
+                                    {initials}
+                                </span>
+                            </div>
+                        )}
                         <div className="avatar-info">
                             <div className="container">
-                                <h2 className="name-student">{studentName}</h2>
-                                <button
-                                    onClick={() => setOpenModal(true)}
-                                    className="button-edit-info"
-                                    title="Editar información"
-                                >
-                                    <Pencil size="xs"/>
-                                </button>
+                                {loadingInfo ? (
+                                    <Skeleton width="160px" height="22px" />
+                                ) : (
+                                    <>
+                                        <h2 className="name-student">{studentName}</h2>
+                                        <button
+                                            onClick={() => setOpenModal(true)}
+                                            className="button-edit-info"
+                                            title="Editar información"
+                                        >
+                                            <Pencil size="xs"/>
+                                        </button>
+                                    </>
+                                )}
                             </div>
-                            <span className="email-label">{studentEmail}</span>
+                            {loadingInfo ? (
+                                <Skeleton width="180px" height="14px" />
+                            ) : (
+                                <span className="email-label">{studentEmail}</span>
+                            )}
                         </div>
                     </div>
 
@@ -163,11 +184,11 @@ export default function StudentProfile() {
                     <div className="profile-data-row">
                         <dl className="email-student">
                             <dt>Correo Electrónico</dt>
-                            <dd>{studentEmail}</dd>
+                            <dd>{loadingInfo ? <Skeleton width="180px" height="18px" /> : studentEmail}</dd>
                         </dl>
                         <dl className="register-date-student">
                             <dt>Fecha de Registro</dt>
-                            <dd>{studentRegisterDate}</dd>
+                            <dd>{loadingInfo ? <Skeleton width="120px" height="18px" /> : studentRegisterDate}</dd>
                         </dl>
                     </div>
                 </div>
@@ -181,7 +202,30 @@ export default function StudentProfile() {
                 </header>
 
                 <div className="rank-card">
-                    {range ? (
+                    {loadingRanges || !range ? (
+                        <>
+                            <div className="rank-badge-row">
+                                <Skeleton width="100px" height="32px" borderRadius="20px" />
+                                <Skeleton width="130px" height="18px" />
+                            </div>
+
+                            <div className="rank-progress-wrapper">
+                                <div className="rank-progress-labels">
+                                    <Skeleton width="80px" height="14px" />
+                                    <Skeleton width="90px" height="14px" />
+                                </div>
+                                <Skeleton width="100%" height="10px" borderRadius="999px" />
+                                <div className="rank-progress-info">
+                                    <Skeleton width="220px" height="14px" />
+                                    <Skeleton width="35px" height="14px" />
+                                </div>
+                            </div>
+
+                            <div className="rank-points-detail">
+                                <Skeleton width="240px" height="14px" />
+                            </div>
+                        </>
+                    ) : (
                         <>
                             <div className="rank-badge-row">
                                 <div className={`range-student ${range.titulo}`}>
@@ -232,8 +276,6 @@ export default function StudentProfile() {
                                 </small>
                             </div>
                         </>
-                    ) : (
-                        <p className="rank-loading">Cargando rango...</p>
                     )}
                 </div>
             </section>
