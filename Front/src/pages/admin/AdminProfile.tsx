@@ -17,12 +17,6 @@ export default function AdminProfile() {
 
     useEffect(() => {
         const getInfoUser = async () => {
-            const token = localStorage.getItem("token");
-            if (!token) {
-                navigate("/login");
-                return;
-            }
-
             try {
                 setLoading(true);
                 const dataUsuario = await UserService.getInfo();

@@ -57,13 +57,6 @@ function Course({ id, titulo, descripcion, fechaCreacion, onCoursesUpdate }: Cou
 
     const getModulesFromCourse = async () => {
             try {
-                const token = localStorage.getItem("token");
-
-                if (!token) {
-                    navigate("/");
-                    throw new Error("No hay token de autenticación");
-                }
-
                 const data = await ModuloService.getAllModulesFromCourse(id);
 
                 setModules(data);

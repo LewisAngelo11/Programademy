@@ -4,6 +4,7 @@ import { ArrowLeftStroke, BookOpen, Code, Save, X } from "@boxicons/react";
 import { ModuloService } from "../../services/moduleService";
 import { CourseService } from "../../services/courseService";
 import "./CreateModule.css";
+import toast from "react-hot-toast";
 
 type FormBasicInfo = {
     curso: string;
@@ -85,17 +86,9 @@ export default function CreateModule() {
         };
 
         try {
-            const token = localStorage.getItem('token');
-
-            if (!token) {
-                console.error('No hay token de autenticación');
-                navigate('/');
-                return;
-            }
-
             const data = await ModuloService.createModule(bodyCreateModule);
             console.log('Módulo creado exitosamente:', data);
-            alert('Módulo creado exitosamente');
+            toast.success('Módulo creado exitosamente');
             
             // Limpiar formulario
             setForm({
@@ -129,14 +122,6 @@ export default function CreateModule() {
     };
 
     const getALlCourses = async () => {
-        const token = localStorage.getItem("token");
-        
-        if (!token) {
-            navigate("/")
-            setLoadingCourses(false);
-            return;
-        }
-
         try {
             setLoadingCourses(true);
             const result = await CourseService.getAllCourses();

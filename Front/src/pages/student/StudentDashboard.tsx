@@ -52,12 +52,6 @@ export default function StudentDashboard() {
 
     // Obtener toda la info para el dashboard del estudiante
     const getAllDataDashboard = async () => {
-        const token = localStorage.getItem("token");
-        if (!token) {
-            navigate("/login");
-            return;
-        }
-
         try {
             setLoading(true);
 

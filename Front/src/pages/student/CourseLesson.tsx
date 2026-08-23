@@ -89,8 +89,6 @@ export default function CourseLesson() {
     };
 
     const getModulo = async () => {
-        const token = localStorage.getItem("token");
-
         // Mapa de conversión
         const lenguajeMapInverso: Record<string, languagesExamples> = {
             "C": "C",
@@ -103,17 +101,7 @@ export default function CourseLesson() {
 
         try {
             setLoading(true);
-
-            if (!token) {
-                navigate("/");
-                throw new Error("No hay token de autenticación");
-            }
-
             const data = await ModuloService.getOneModule(Number(id));
-            if (data.status === 401) {
-                navigate("/login");
-                return;
-            }
 
             setModulo(data);
             setQuizzes(data.quiz);

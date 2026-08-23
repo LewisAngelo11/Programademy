@@ -64,12 +64,6 @@ export default function InfoCourse() {
     const getModulesCourse = async () => {
         try {
             setLoading(true);
-            const token = localStorage.getItem('token');
-            
-            if (!token) {
-                throw new Error('No hay token de autenticación');
-            }
-
             const data = await ModuloService.getAllModulesFromCourse(Number(idCurso));
 
             setModulos(data);

@@ -1,6 +1,7 @@
 import { useState, type SetStateAction } from "react";
 import { UserService } from "../../services/userService";
 import "./EditInfoStudent.css"
+import toast from "react-hot-toast";
 
 interface EditInfoStudentProp {
     studentName: string;
@@ -18,19 +19,12 @@ export default function EditInfoStudent({ studentName, setStudentName, studentEm
         e.preventDefault();
 
         try {
-            const token = localStorage.getItem("token");
-
-            if (!token) {
-                alert("No estás autenticado.");
-                return;
-            }
-
             const data = await UserService.updateInfo({
                 nombre: localName,
                 email: localEmail
             });
 
-            alert(data.message || "Perfil actualizado");
+            toast.success(data.message || "Perfil actualizado");
             // Actualiza los datos en la UI
             setStudentName(localName);
             setStudentEmail(localEmail);
@@ -39,7 +33,7 @@ export default function EditInfoStudent({ studentName, setStudentName, studentEm
 
         } catch (error: any) {
             console.error("Error en la petición:", error);
-            alert(error.message || "Error al actualizar perfil");
+            toast.error(error.message || "Error al actualizar perfil");
         }
     };
 

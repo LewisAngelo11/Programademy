@@ -52,12 +52,6 @@ export default function SolveQuiz() {
     const [isCompleted, setIsCompleted] = useState<AttemptQuiz>();
 
     const getAttempsQuiz = async () => {
-        const token = localStorage.getItem("token");
-        if (!token) {
-            navigate("/");
-            return;
-        }
-
         try {
             const data = await QuizService.getAttemptComplete(Number(id));
             setIsCompleted(data);
@@ -67,19 +61,10 @@ export default function SolveQuiz() {
     }
 
     const fetchQuiz = async () => {
-        const token = localStorage.getItem("token");
-        if (!token) {
-            navigate("/");
-            return;
-        }
-
         try {
             setLoading(true);
+
             const data = await QuizService.getOneQuiz(Number(id));
-            if (data.status === 401) {
-                navigate("/login");
-                return;
-            }
             setQuiz(data);
         } catch (err: any) {
             setError(err.message || "Error al cargar el quiz");
@@ -141,12 +126,6 @@ export default function SolveQuiz() {
             const complete = pointsQuiz > 0 ? true : false;
 
             try {
-                const token = localStorage.getItem("token");
-                if (!token) {
-                    navigate("/");
-                    return;
-                }
-
                 const body = {
                     calificacion: scorePercentage,
                     puntos_otorgados: pointsQuiz,

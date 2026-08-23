@@ -4,6 +4,7 @@ import { ArrowLeftStroke, BookOpen, Save, X, NetworkChart, Trash } from "@boxico
 import { ModuloService } from "../../services/moduleService";
 import { QuizService } from "../../services/quizService";
 import "./CreateQuiz.css";
+import toast from "react-hot-toast";
 
 type OpcionForm = {
     Texto: string;
@@ -159,21 +160,9 @@ export default function CreateQuiz() {
         };
 
         try {
-            const token = localStorage.getItem('token');
-            if (!token) {
-                console.error('No hay token de autenticación');
-                navigate('/login');
-                return;
-            }
-
-            const response = await QuizService.createQuiz(bodyCreateQuiz);
-            if (response.status === 401) {
-                navigate('/login');
-                return;
-            }
-            alert('Quiz creado exitosamente');
+            await QuizService.createQuiz(bodyCreateQuiz);
+            toast.success('Quiz creado exitosamente');
             navigate('/quizzes-admin');
-
         } catch (error) {
             console.error('Error al crear el quiz:', error);
             alert('Error al conectar con el servidor: ' + error);
@@ -187,12 +176,6 @@ export default function CreateQuiz() {
     useEffect(() => {
         // Cargar los módulos
         const fetchModules = async () => {
-            const token = localStorage.getItem("token");
-            if (!token) {
-                navigate("/login");
-                return;
-            }
-
             try {
                 setLoadingModules(true);
                 const data = await ModuloService.getAllModules();

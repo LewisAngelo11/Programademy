@@ -21,12 +21,6 @@ export default function AdminDashboard() {
 
     // Obtener toda la info para el dashboard del admin
     const getAllDataDashboard = async () => {
-        const token = localStorage.getItem("token");
-        if (!token) {
-            navigate("/login");
-            return;
-        }
-
         try {
             setLoading(true);
 

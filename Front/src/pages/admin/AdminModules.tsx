@@ -44,12 +44,6 @@ export default function AdminModules() {
             setLoading(true);
             const response = await ModuloService.getAllModules();
 
-            if (response.status === 401) {
-                localStorage.clear();
-                navigate("/login");
-                return;
-            }
-
             setModulos(response);
         } catch (err) {
             setError('No se pudieron consultar los módulos');

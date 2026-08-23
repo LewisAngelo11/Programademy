@@ -5,6 +5,7 @@ import "./AdminQuizzes.css";
 import { useNavigate } from "react-router";
 import { QuizService } from "../../services/quizService";
 import { ModuloService } from "../../services/moduleService";
+import toast from "react-hot-toast";
 
 interface Quiz {
     id_quiz: number;
@@ -36,19 +37,7 @@ export default function AdminQuizzes() {
     const fetchAllQuizzes = async () => {
         try {
             setLoading(true);
-            const token = localStorage.getItem('token');
-
-            if (!token) {
-                navigate("/login");
-                return;
-            }
-
             const data = await QuizService.getAllQuizzes();
-
-            if (data.status === 401) {
-                navigate("/login");
-                return;
-            }
 
             setQuizzes(data);
         } catch (err) {
@@ -162,21 +151,9 @@ function QuizCard({ id_quiz, titulo, id_modulo, puntos_recompensa, tiempo_limite
         if (!confirmacion) return;
         setIsDeleting(true);
 
-        const token = localStorage.getItem("token");
-        if (!token) {
-            navigate("/");
-            throw new Error("No hay token de autenticación");
-        }
-
         try {
-            const response = await QuizService.deleteQuiz(id_quiz);
-
-            if (response.status === 401) {
-                navigate("/login");
-                return;
-            }
-
-            alert('Quiz eliminado exitosamente');
+            await QuizService.deleteQuiz(id_quiz);
+            toast.success('Quiz eliminado exitosamente');
             if (onDelete) onDelete(id_quiz);
         } catch (error) {
             console.error('Error al eliminar quiz:', error);

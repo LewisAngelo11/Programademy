@@ -20,8 +20,15 @@ export async function apiFetch(
         );
     }
 
-    return fetch(`${API_URL}${url}`, {
+    const response = await fetch(`${API_URL}${url}`, {
         ...options,
         headers
     });
+
+    if (response.status === 401) {
+        localStorage.removeItem("token");
+        window.location.href = "/login";
+    }
+
+    return response;
 }

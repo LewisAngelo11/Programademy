@@ -1,6 +1,7 @@
 import { useState, type SetStateAction } from "react";
 import { UserService } from "../../services/userService";
 import "./EditInfoAdmin.css";
+import toast from "react-hot-toast";
 
 interface EditInfoStudentProp {
     adminName: string;
@@ -16,16 +17,8 @@ export default function EditInfoAdmin({ adminName, setAdminName, adminEmail, set
 
     const editInfoStudent = async () => {
         try {
-            const token = localStorage.getItem("token");
-
-            if (!token) {
-                alert("No estás autenticado.");
-                return;
-            }
-
             const data = await UserService.updateInfo({ nombre: localName, email: localEmail });
-
-            alert(data.message);
+            toast.success(data.message);
             // Actualiza los datos en la UI
             setAdminName(localName);
             setAdminEmail(localEmail);
@@ -34,7 +27,7 @@ export default function EditInfoAdmin({ adminName, setAdminName, adminEmail, set
 
         } catch (error) {
             console.error("Error en la petición:", error);
-            alert("Error del servidor");
+            toast.error("Error del servidor");
         }
     };
 

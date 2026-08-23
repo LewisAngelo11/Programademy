@@ -24,12 +24,6 @@ export default function StudentProfile() {
 
     useEffect(() => {
         const getInfoUser = async () => {
-            const token = localStorage.getItem("token");
-            if (!token) {
-                navigate("/login");
-                return;
-            }
-
             try {
                 setLoadingInfo(true);
                 const dataUsuario = await UserService.getInfo();

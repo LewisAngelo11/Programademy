@@ -4,6 +4,7 @@ import { ArrowLeftStroke, BookOpen, Code, Save, X } from "@boxicons/react";
 import { ModuloService } from "../../services/moduleService";
 import { CourseService } from "../../services/courseService";
 import "./EditModule.css";
+import toast from "react-hot-toast";
 
 type FormBasicInfo = {
     curso: string;
@@ -67,14 +68,6 @@ export default function EditModule() {
 
     // Cargar los cursos disponibles
     const getAllCoursesData = async () => {
-        const token = localStorage.getItem("token");
-        
-        if (!token) {
-            console.error("No hay token disponible");
-            setLoadingCourses(false);
-            return;
-        }
-
         try {
             setLoadingCourses(true);
             const result = await CourseService.getAllCourses();
@@ -88,8 +81,6 @@ export default function EditModule() {
 
     // Cargar los datos del módulo a editar
     const fetchModuleData = async () => {
-        const token = localStorage.getItem("token");
-
         // Mapa de conversión
         const lenguajeMapInverso: Record<string, languagesExamples> = {
             "C": "C",
@@ -100,8 +91,8 @@ export default function EditModule() {
             "C_": "C#"
         };
 
-        if (!token || !idModulo) {
-            console.error("No hay token o ID del módulo");
+        if (!idModulo) {
+            console.error("No hay ID del módulo");
             setLoadingModule(false);
             return;
         }
@@ -169,13 +160,6 @@ export default function EditModule() {
         e.preventDefault();
 
         try {
-            const token = localStorage.getItem('token');
-
-            if (!token) {
-                console.error('No hay token de autenticación');
-                return;
-            }
-
             const data = await ModuloService.updateModule(Number(idModulo), {
                 titulo: form.titulo,
                 descripcion: form.descripcion,
@@ -186,7 +170,7 @@ export default function EditModule() {
             });
 
             console.log('Módulo actualizado exitosamente:', data);
-            alert('Módulo actualizado exitosamente');
+            toast.success('Módulo actualizado exitosamente');
             
             navigate('/modules-admin');
 

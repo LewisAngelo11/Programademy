@@ -4,6 +4,7 @@ import { ArrowLeftStroke, BookOpen, Save, X, NetworkChart, Trash } from "@boxico
 import { ModuloService } from "../../services/moduleService";
 import { QuizService } from "../../services/quizService";
 import "./EditQuiz.css";
+import toast from "react-hot-toast";
 
 type OpcionForm = {
     Texto: string;
@@ -146,22 +147,9 @@ export default function EditQuiz() {
         };
 
         try {
-            const token = localStorage.getItem('token');
-            if (!token) {
-                console.error('No hay token de autenticación');
-                navigate('/');
-                return;
-            }
-
-            const response = await QuizService.updateQuiz(Number(id), bodyUpdateQuiz);
-            if (response.status === 401) {
-                navigate("/login");
-                return;
-            }
-
-            alert('Quiz actualizado exitosamente');
+            await QuizService.updateQuiz(Number(id), bodyUpdateQuiz);
+            toast.success('Quiz actualizado exitosamente');
             navigate('/quizzes-admin');
-
         } catch (error) {
             console.error('Error al actualizar el quiz:', error);
             alert('Error al conectar con el servidor: ' + error);
@@ -174,31 +162,17 @@ export default function EditQuiz() {
 
     useEffect(() => {
         const fetchInitialData = async () => {
-            const token = localStorage.getItem("token");
-            if (!token || !id) {
-                navigate("/");
-                return;
-            }
-
             try {
                 setLoadingModules(true);
                 setLoadingQuiz(true);
 
                 // Fetch modules
                 const modulesData = await ModuloService.getAllModules();
-                if (modulesData.status === 401) {
-                    navigate("/login");
-                    return;
-                }
                 setModules(modulesData);
                 setLoadingModules(false);
 
                 // Fetch quiz data
                 const quizData = await QuizService.getOneQuiz(Number(id));
-                if (quizData.status === 401) {
-                    navigate("/login");
-                    return;
-                }
 
                 if (quizData) {
                     setForm({
@@ -220,7 +194,7 @@ export default function EditQuiz() {
                 }
             } catch (err) {
                 console.error("Error al cargar datos:", err);
-                alert("No se pudo cargar la información del quiz");
+                toast.error("No se pudo cargar la información del quiz");
             } finally {
                 setLoadingQuiz(false);
             }
