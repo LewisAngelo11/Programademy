@@ -5,9 +5,9 @@
 }
 
 html {
-    font-family: -apple-system, BlinkMacSystemFont, 
-            "SF Pro Text", "SF Pro Display",
-            Helvetica, Arial, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont,
+        "SF Pro Text", "SF Pro Display",
+        Helvetica, Arial, sans-serif;
 }
 
 button {
@@ -33,5 +33,19 @@ button {
 @media (max-width: 768px) {
     html {
         font-size: 10px;
+    }
+}
+
+.fade-in-skeleton {
+    animation: fade-in 0.35s ease-out;
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
     }
 }

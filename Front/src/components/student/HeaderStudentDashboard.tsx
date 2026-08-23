@@ -56,17 +56,17 @@ export default function HeaderStudentDashboard({ studentName, studentEmail, rang
                         </span>
                     </div>
                 )}
-                <div className="info-student">
+                <div>
                     {loading ? (
-                        <>
+                        <div className="info-student">
                             <Skeleton width="110px" height="18px" />
                             <Skeleton width="160px" height="13px" />
-                        </>
+                        </div>
                     ) : (
-                        <>
+                        <div className="info-student fade-in-skeleton">
                             <span>{studentName}</span>
                             <small>{studentEmail}</small>
-                        </>
+                        </div>
                     )}
                 </div>
                 <div className="buttons-actions">

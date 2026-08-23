@@ -14,7 +14,7 @@
 .list-avaible-courses {
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(4, 1fr);
     gap: 1rem;
 }
 
@@ -25,6 +25,26 @@
     border-radius: 10px;
     display: flex;
     flex-direction: column;
+}
+
+.card-no-more-courses {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    width: 100%;
+    padding: 2rem;
+}
+
+.icon-x-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #b8b8b8;
+    padding: .5rem;
+    border-radius: 50%;
+    border: 2px solid #b9b9b9ff;
 }
 
 .banner-course {
@@ -81,4 +101,10 @@
 
 .start-course:hover {
     background-color: #303030;
+}
+
+@media (max-width: 768px) {
+    .list-avaible-courses {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }

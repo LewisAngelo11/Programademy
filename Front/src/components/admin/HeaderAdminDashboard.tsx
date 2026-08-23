@@ -35,10 +35,10 @@ export default function HeaderAdminDashboard({ adminName, adminEmail, loading }:
                             <Skeleton width="160px" height="13px" />
                         </>
                     ) : (
-                        <>
+                        <div className="info-admin fade-in-skeleton">
                             <span>{adminName}</span>
                             <small>{adminEmail}</small>
-                        </>
+                        </div>
                     )}
                 </div>
                 <div className="buttons-actions">

@@ -76,7 +76,7 @@ export default function AdminProfile() {
                             <Skeleton width="180px" height="24px" />
                         ) : (
                             <>
-                                <h2 className="name-admin">{adminName}</h2>
+                                <h2 className="name-admin fade-in-skeleton">{adminName}</h2>
                                 <button
                                     onClick={() => setOpenModal(true)}
                                     className="button-edit-info"
@@ -89,11 +89,11 @@ export default function AdminProfile() {
                     <div className="container">
                         <dl className="email-admin">
                             <dt>Correo Electrónico</dt>
-                            <dd>{loading ? <Skeleton width="180px" height="18px" /> : adminEmail}</dd>
+                            <dd className="fade-in-skeleton">{loading ? <Skeleton width="180px" height="18px" /> : adminEmail}</dd>
                         </dl>
                         <dl className="register-date-admin">
                             <dt>Fecha de Registro</dt>
-                            <dd>{loading ? <Skeleton width="120px" height="18px" /> : adminRegisterDate}</dd>
+                            <dd className="fade-in-skeleton">{loading ? <Skeleton width="120px" height="18px" /> : adminRegisterDate}</dd>
                         </dl>
                     </div>
                 </div>

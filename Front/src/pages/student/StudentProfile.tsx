@@ -149,7 +149,7 @@ export default function StudentProfile() {
                         {loadingInfo ? (
                             <Skeleton width="4rem" height="4rem" borderRadius="50%" />
                         ) : (
-                            <div className="student-avatar">
+                            <div className="student-avatar fade-in-skeleton">
                                 <span className="avatar-initials">
                                     {initials}
                                 </span>
@@ -161,7 +161,7 @@ export default function StudentProfile() {
                                     <Skeleton width="160px" height="22px" />
                                 ) : (
                                     <>
-                                        <h2 className="name-student">{studentName}</h2>
+                                        <h2 className="name-student fade-in-skeleton">{studentName}</h2>
                                         <button
                                             onClick={() => setOpenModal(true)}
                                             className="button-edit-info"
@@ -175,7 +175,7 @@ export default function StudentProfile() {
                             {loadingInfo ? (
                                 <Skeleton width="180px" height="14px" />
                             ) : (
-                                <span className="email-label">{studentEmail}</span>
+                                <span className="email-label fade-in-skeleton">{studentEmail}</span>
                             )}
                         </div>
                     </div>
@@ -184,11 +184,11 @@ export default function StudentProfile() {
                     <div className="profile-data-row">
                         <dl className="email-student">
                             <dt>Correo Electrónico</dt>
-                            <dd>{loadingInfo ? <Skeleton width="180px" height="18px" /> : studentEmail}</dd>
+                            <dd className="fade-in-skeleton">{loadingInfo ? <Skeleton width="180px" height="18px" /> : studentEmail}</dd>
                         </dl>
                         <dl className="register-date-student">
                             <dt>Fecha de Registro</dt>
-                            <dd>{loadingInfo ? <Skeleton width="120px" height="18px" /> : studentRegisterDate}</dd>
+                            <dd className="fade-in-skeleton">{loadingInfo ? <Skeleton width="120px" height="18px" /> : studentRegisterDate}</dd>
                         </dl>
                     </div>
                 </div>
@@ -227,7 +227,7 @@ export default function StudentProfile() {
                         </>
                     ) : (
                         <>
-                            <div className="rank-badge-row">
+                            <div className="rank-badge-row fade-in-skeleton">
                                 <div className={`range-student ${range.titulo}`}>
                                     {range.titulo}
                                 </div>
@@ -238,7 +238,7 @@ export default function StudentProfile() {
 
                             {/* Barra de progreso */}
                             <div className="rank-progress-wrapper">
-                                <div className="rank-progress-labels">
+                                <div className="rank-progress-labels fade-in-skeleton">
                                     <span className="rank-progress-current" style={{ color: rangeColor }}>
                                         {range.titulo}
                                     </span>
@@ -248,7 +248,7 @@ export default function StudentProfile() {
                                 </div>
                                 <div className="rank-progress-bar-bg">
                                     <div
-                                        className="rank-progress-bar-fill"
+                                        className="rank-progress-bar-fill fade-in-skeleton"
                                         style={{
                                             width: `${percent}%`,
                                             background: nextRange
@@ -257,7 +257,7 @@ export default function StudentProfile() {
                                         }}
                                     />
                                 </div>
-                                <div className="rank-progress-info">
+                                <div className="rank-progress-info fade-in-skeleton">
                                     {nextRange ? (
                                         <small>
                                             Te faltan <strong>{Math.max(pointsNeeded, 0)} pts</strong> para alcanzar <span style={{ color: getRangeColor(nextRange.titulo) }}>{nextRange.titulo}</span>
@@ -270,7 +270,7 @@ export default function StudentProfile() {
                             </div>
 
                             {/* Puntos requeridos del rango actual */}
-                            <div className="rank-points-detail">
+                            <div className="rank-points-detail fade-in-skeleton">
                                 <small className={`color-info-range ${range.titulo}`}>
                                     Puntos mínimos para este rango: <strong>{range.puntos_requeridos}</strong>
                                 </small>

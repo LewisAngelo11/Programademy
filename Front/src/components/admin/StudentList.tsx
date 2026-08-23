@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { UserService } from "../../services/userService";
 import "./StudentList.css";
 import { QuizService } from "../../services/quizService";
+import Skeleton from "../ui/Skeleton";
 
 export interface Rango {
     id_rango: number;
@@ -31,7 +32,7 @@ export interface Students {
 
 export default function StudentList() {
     const [students, setStudents] = useState<Students[]>([]);
-    const [loading, setLoading] = useState<boolean>(false);
+    const [loading, setLoading] = useState<boolean>(true);
 
     const getStudentsRange = async () => {
         try {
@@ -47,13 +48,12 @@ export default function StudentList() {
         } catch (err: any) {
             console.error("Error en la petición:", err.message);
         } finally {
-            setLoading(false)
+            setLoading(false);
         }
     }
 
     const getAllStudentsAttemptsQuizzes = async () => {
-        try{
-            setLoading(true);
+        try {
             const data = await QuizService.getAllStudentsAttemptsQuizzes();
 
             setStudents(prev =>
@@ -72,8 +72,6 @@ export default function StudentList() {
 
         } catch (err: any) {
             console.error("Error en la petición:", err.error);
-        } finally {
-            setLoading(false);
         }
     }
 
@@ -85,7 +83,7 @@ export default function StudentList() {
         if (students.length > 0) {
             getAllStudentsAttemptsQuizzes();
         }
-    },[students.length]);
+    }, [students.length]);
 
     // Calcular el promedio general de cada estudiante
     const studentsFinals = students.map(student => {
@@ -101,15 +99,6 @@ export default function StudentList() {
             quizzesComplete
         }
     });
-
-    if (loading) {
-        return (
-            <section className="student-list-section">
-                <h2>Resumen de Estudiantes</h2>
-                <p>Cargando estudiantes...</p>
-            </section>
-        );
-    }
 
     return (
         <section className="student-list-section">
@@ -128,7 +117,18 @@ export default function StudentList() {
                     </thead>
 
                     <tbody>
-                        {studentsFinals.map((s) => {
+                        {loading ? (
+                            Array.from({ length: 6 }).map((_, index) => (
+                                <StudentRowSkeleton key={index} />
+                            ))
+                        ) : studentsFinals.length === 0 ? (
+                            <tr>
+                                <td className="fade-in-skeleton" colSpan={5} style={{ textAlign: "center", padding: "2rem", color: "#6b7280" }}>
+                                    No hay estudiantes registrados.
+                                </td>
+                            </tr>
+                        ) : (
+                            studentsFinals.map((s) => {
                             const average = Number(s.average) || 0;
                             let averageClass = "average-red";
 
@@ -147,7 +147,7 @@ export default function StudentList() {
                                 .join("");
 
                             return (
-                                <tr key={s.id_usuario}>
+                                <tr className="fade-in-skeleton" key={s.id_usuario}>
                                     <td>
                                         <div className="student-info">
                                             <div className="student-avatar">
@@ -210,10 +210,41 @@ export default function StudentList() {
                                     </td>
                                 </tr>
                             );
-                        })}
+                        }))}
                     </tbody>
                 </table>
             </div>
         </section>
+    );
+}
+
+function StudentRowSkeleton() {
+    return (
+        <tr>
+            <td>
+                <div className="student-info">
+                    <Skeleton width="3rem" height="3rem" borderRadius="50%" />
+                    <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
+                        <Skeleton width="130px" height="18px" />
+                        <Skeleton width="170px" height="14px" />
+                    </div>
+                </div>
+            </td>
+            <td>
+                <Skeleton width="90px" height="28px" borderRadius="999px" />
+            </td>
+            <td>
+                <div className="average-wrapper" style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
+                    <Skeleton width="45px" height="16px" />
+                    <Skeleton width="100%" height="6px" borderRadius="999px" />
+                </div>
+            </td>
+            <td>
+                <Skeleton width="75px" height="16px" />
+            </td>
+            <td>
+                <Skeleton width="75px" height="16px" />
+            </td>
+        </tr>
     );
 }

@@ -42,10 +42,10 @@ function TotalCourses({ totalCursos, loading }: TotalCursosProp & LoadingProp) {
                         <Skeleton width="100px" height="14px" style={{ marginTop: "4px" }} />
                     </>
                 ) : (
-                    <>
+                    <div className="fade-in-skeleton">
                         <span className="counter-courses">{totalCursos}</span>
                         <small>Cursos activos</small>
-                    </>
+                    </div>
                 )}
             </div>
         </article>
@@ -66,10 +66,10 @@ function TotalModules({ totalModulos, loading }: TotalModulosProp & LoadingProp)
                         <Skeleton width="100px" height="14px" style={{ marginTop: "4px" }} />
                     </>
                 ) : (
-                    <>
+                    <div className="fade-in-skeleton">
                         <span className="counter-modules">{totalModulos}</span>
                         <small>Módulos creados</small>
-                    </>
+                    </div>
                 )}
             </div>
         </article>
@@ -90,10 +90,10 @@ function TotalQuizzes({ totalQuizzes, loading }: TotalQuizzesProp & LoadingProp)
                         <Skeleton width="100px" height="14px" style={{ marginTop: "4px" }} />
                     </>
                 ) : (
-                    <>
+                    <div className="fade-in-skeleton">
                         <span className="counter-quizzes">{totalQuizzes}</span>
                         <small>Evaluaciones disponibles</small>
-                    </>
+                    </div>
                 )}
             </div>
         </article>
