@@ -3,7 +3,8 @@ import HeaderStudentsPages from "../../components/student/HeaderStudentsPages";
 import { useEffect, useState } from "react";
 import { ModuloService } from "../../services/moduleService";
 import { CourseService } from "../../services/courseService";
-import "./InfoCourse.css"
+import Skeleton from "../../components/ui/Skeleton";
+import "./InfoCourse.css";
 import toast from "react-hot-toast";
 import { Check } from "@boxicons/react/index";
 
@@ -30,7 +31,8 @@ export default function InfoCourse() {
     const [courseDescription, setCourseDescription] = useState<string>("");
     const [courseImgUrl, setCourseImgUrl] = useState<string>("");
     const [modulos, setModulos] = useState<Modulo[]>([]);
-    const [loading, setLoading] = useState(true);
+    const [loadingCourse, setLoadingCourse] = useState(true);
+    const [loadingModules, setLoadingModules] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [courseStarted, setCourseStarted] = useState<boolean>(false);
     const [courseProgress, setCourseProgress] = useState<CourseProgress | null>(null);
@@ -38,6 +40,7 @@ export default function InfoCourse() {
     // Función para obtener el curso por su ID
     const getCourse = async () => {
         try {
+            setLoadingCourse(true);
             const response = await CourseService.getCourse(Number(idCurso));
 
             setCourseTitulo(response.course.titulo);
@@ -46,8 +49,10 @@ export default function InfoCourse() {
             setCourseStarted(response.isStarted);
         } catch (err) {
             console.error("Error en la petición:", err);
+        } finally {
+            setLoadingCourse(false);
         }
-    }
+    };
 
     const startCourse = async () => {
         try {
@@ -63,7 +68,7 @@ export default function InfoCourse() {
 
     const getModulesCourse = async () => {
         try {
-            setLoading(true);
+            setLoadingModules(true);
             const data = await ModuloService.getAllModulesFromCourse(Number(idCurso));
 
             setModulos(data);
@@ -72,7 +77,7 @@ export default function InfoCourse() {
             setError(err instanceof Error ? err.message : 'Error al cargar los módulos');
             console.error('Error al obtener módulos:', err);
         } finally {
-            setLoading(false);
+            setLoadingModules(false);
         }
     };
 
@@ -83,7 +88,7 @@ export default function InfoCourse() {
         } catch (error) {
             console.error(error);
         }
-    }
+    };
 
     const totalModulos = modulos.length;
     const completedModules = modulos.filter(modulo => modulo.completed).length;
@@ -101,21 +106,32 @@ export default function InfoCourse() {
         <main className="page-info-course">
             <HeaderStudentsPages/>
             <section className="principal-info-course">
-                <header className="header-principal-info">
-                    <div className="banner-image">
-                        {courseImgUrl ? (
-                            <img src={courseImgUrl} alt="Imagen del curso" />
-                        ): (
-                            <div>Imagen no disponible</div>
-                        )}
-                    </div>
-                    <h1>{courseTitulo}</h1>
-                    <p>{courseDescription}</p>
-                </header>
+                {loadingCourse ? (
+                    <header className="header-principal-info">
+                        <Skeleton width="100%" height="250px" borderRadius="10px" />
+                        <Skeleton width="60%" height="32px" borderRadius="6px" />
+                        <div style={{ display: "flex", flexDirection: "column", gap: "8px", width: "100%" }}>
+                            <Skeleton width="100%" height="18px" borderRadius="4px" />
+                            <Skeleton width="80%" height="18px" borderRadius="4px" />
+                        </div>
+                    </header>
+                ) : (
+                    <header className="header-principal-info fade-in-skeleton">
+                        <div className="banner-image">
+                            {courseImgUrl ? (
+                                <img src={courseImgUrl} alt="Imagen del curso" />
+                            ) : (
+                                <div>Imagen no disponible</div>
+                            )}
+                        </div>
+                        <h1>{courseTitulo}</h1>
+                        <p>{courseDescription}</p>
+                    </header>
+                )}
 
-                {!courseStarted && (
+                {!loadingCourse && !courseStarted && (
                     <button
-                        className="button-start-course"
+                        className="button-start-course fade-in-skeleton"
                         onClick={startCourse}
                     >
                         Iniciar Curso
@@ -123,9 +139,13 @@ export default function InfoCourse() {
                 )}
 
                 <div className="progress-modules-course">
-                    <div className="modules-counter">
-                        {totalModulos} Módulos
-                    </div>
+                    {loadingModules ? (
+                        <Skeleton width="85px" height="28px" borderRadius="10px" />
+                    ) : (
+                        <div className="modules-counter fade-in-skeleton">
+                            {totalModulos} Módulos
+                        </div>
+                    )}
                     <div className="progress-bar">
                         <div>
                             <p>Progreso del curso</p>
@@ -145,15 +165,19 @@ export default function InfoCourse() {
                 <section className="modules-course">
                     <h2>Módulos</h2>
                     <div className="list-modules-course">
-                        {loading && <p style={{fontSize: ".9rem"}}>Cargando módulos...</p>}
+                        {loadingModules && (
+                            Array.from({ length: 4 }).map((_, index) => (
+                                <ModuleCourseSkeleton key={index} />
+                            ))
+                        )}
                         
-                        {error && <p style={{fontSize: ".9rem", color: "red"}}>{error}</p>}
+                        {!loadingModules && error && <p style={{fontSize: ".9rem", color: "red"}}>{error}</p>}
                         
-                        {!loading && !error && modulos.length === 0 && (
+                        {!loadingModules && !error && modulos.length === 0 && (
                             <p style={{fontSize: ".9rem"}}>No hay módulos disponibles en el curso</p>
                         )}
 
-                        {modulos.length > 0 && (modulos.map(m => (
+                        {!loadingModules && !error && modulos.length > 0 && (modulos.map(m => (
                             <ModuleCourse
                                 key={m.id_modulo}
                                 idModulo={m.id_modulo}
@@ -168,6 +192,19 @@ export default function InfoCourse() {
                 </section>
             </section>
         </main>
+    );
+}
+
+function ModuleCourseSkeleton() {
+    return (
+        <article className="module-course-card" style={{ pointerEvents: "none" }}>
+            <Skeleton width="80px" height="16px" borderRadius="4px" />
+            <div className="module-course-info">
+                <Skeleton width="45%" height="22px" borderRadius="4px" />
+                <Skeleton width="90%" height="16px" borderRadius="4px" />
+            </div>
+            <Skeleton width="100px" height="32px" borderRadius="10px" />
+        </article>
     );
 }
 
@@ -187,7 +224,7 @@ function ModuleCourse({ idModulo, titulo, descripcion, orden, courseStarted, com
     const navigate = useNavigate();
 
     return (
-        <article className="module-course-card">
+        <article className="module-course-card fade-in-skeleton">
             <span className="module-order">
                 Módulo {orden}
             </span>

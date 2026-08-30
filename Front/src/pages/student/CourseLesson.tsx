@@ -3,6 +3,7 @@ import React, { useState, useEffect, type SetStateAction } from "react";
 import { ModuloService } from "../../services/moduleService";
 import { QuizService } from "../../services/quizService";
 import { ArrowLeftStroke, BookOpen, Code, CheckCircle, VolumeFull, PauseCircle, PlayCircle, StopCircle, Check } from "@boxicons/react";
+import Skeleton from "../../components/ui/Skeleton";
 import "./CourseLesson.css";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
@@ -162,7 +163,7 @@ export default function CourseLesson() {
         setCodeCopied(true);
         toast.success("¡Código Copiado!");
         setTimeout(() => setCodeCopied(false), 3000);
-    }
+    };
 
     // Obtener voces narradoras
     const getBestVoice = () => {
@@ -173,7 +174,6 @@ export default function CourseLesson() {
             "Google español",
             "Sabina"
         ];
-
 
         return voices.find(voice =>
             preferredNames.some(name =>
@@ -188,7 +188,6 @@ export default function CourseLesson() {
             voices.find(voice =>
                 voice.lang.startsWith("es")
             );
-
     };
 
     // Preparar el texto para una mejor narración
@@ -263,196 +262,316 @@ export default function CourseLesson() {
         setIsPause(false);
     };
 
-    if (!modulo) return <div>No se encontró el módulo</div>;
-
     return (
         <main className="course-lesson-page">
             <header className="header-course-lesson">
                 <button
                     className="button-back-course-lesson"
-                    onClick={() => navigate(`/info-course/${modulo.id_curso}`)}>
+                    onClick={() => {
+                        if (modulo?.id_curso) {
+                            navigate(`/info-course/${modulo.id_curso}`);
+                        } else {
+                            navigate(-1);
+                        }
+                    }}>
                     <ArrowLeftStroke />
                     Volver al Contenido Teórico
                 </button>
             </header>
 
-            {loading && (
-                <div className="loading-state">
-                    <p>Cargando módulo...</p>
-                </div>
-            )}
-
             {error && (
-                <div className="error-state">
+                <div className="error-state" style={{ padding: "2rem" }}>
                     <p style={{ color: 'red' }}>{error}</p>
                 </div>
             )}
 
-            {!loading && !error && modulo && (
+            {!loading && !error && !modulo && (
+                <div className="error-state" style={{ padding: "2rem" }}>
+                    <p>No se encontró el módulo</p>
+                </div>
+            )}
+
+            {(loading || modulo) && !error && (
                 <section className="module-info-lesson">
-                    <header className="header-module-info-lesson">
-                        <div className="div-order-module">Módulo {modulo.orden}</div>
-                        <h1>{modulo.titulo}</h1>
-                        <p>{modulo.descripcion}</p>
-                    </header>
+                    {loading ? (
+                        <header className="header-module-info-lesson">
+                            <Skeleton width="90px" height="24px" borderRadius="8px" />
+                            <Skeleton width="50%" height="28px" borderRadius="6px" />
+                            <Skeleton width="80%" height="18px" borderRadius="4px" />
+                        </header>
+                    ) : (
+                        <header className="header-module-info-lesson fade-in-skeleton">
+                            <div className="div-order-module">Módulo {modulo!.orden}</div>
+                            <h1>{modulo!.titulo}</h1>
+                            <p>{modulo!.descripcion}</p>
+                        </header>
+                    )}
+
                     <ToggleMenuLesson
                         theme={theme}
                         setTheme={setTheme} />
 
-                    {theme === "Teoria" &&
-                        <section className="modulo-contenido-teorico">
-                            <header>
-                                <div>
-                                    <h2>Contenido Teórico</h2>
-                                    <p>Conceptos fundamentales de {modulo.titulo}</p>
-                                </div>
-                                <div>
-                                    {!isReading ? (
-                                        <button className="btn-speaker" onClick={readText}>
-                                            <VolumeFull />
-                                        </button>
-                                    ) : (
-                                        <div className="btns-speakers">
-                                            {!isPause ? (
-                                                <button className="btn-speaker" onClick={() => {
-                                                    if (window.speechSynthesis.speaking) {
-                                                        window.speechSynthesis.pause();
-                                                        setIsPause(true);
-                                                    }
-                                                }}
-                                                >
-                                                    <PauseCircle />
-                                                </button>
-                                            ) : (
-                                                <button className="btn-speaker" onClick={() => { window.speechSynthesis.resume(); setIsPause(false) }}>
-                                                    <PlayCircle />
-                                                </button>
-                                            )}
-                                            <button className="btn-speaker" onClick={stopReading}>
-                                                <StopCircle />
+                    {theme === "Teoria" && (
+                        loading ? (
+                            <TeoriaSkeleton />
+                        ) : (
+                            <section className="modulo-contenido-teorico fade-in-skeleton">
+                                <header>
+                                    <div>
+                                        <h2>Contenido Teórico</h2>
+                                        <p>Conceptos fundamentales de {modulo!.titulo}</p>
+                                    </div>
+                                    <div>
+                                        {!isReading ? (
+                                            <button className="btn-speaker" onClick={readText}>
+                                                <VolumeFull />
                                             </button>
-                                        </div>
-                                    )}
-                                </div>
-                            </header>
-                            <p>{modulo.contenido_teorico}</p>
-                        </section>
-                    }
-                    {theme === "Codigo" &&
-                        <section className="modulo-codigo-ejemplo">
-                            <header>
-                                <h2>Ejemplos de Código</h2>
-                                <p>Visualiza cómo se implementa en diferentes lenguajes</p>
-                            </header>
-
-                            <span className="label-select-language">Seleccione un lenguaje:</span>
-                            <div className="buttons-languages-selector">
-                                {languagesList.map((lang) => (
-                                    <button
-                                        key={lang}
-                                        className={`btn-language ${lang === languages ? "select" : ""}`}
-                                        onClick={() => setLanguages(lang)}
-                                    >
-                                        {lang}
-                                    </button>
-                                ))}
-                            </div>
-
-                            {ejemplosCodigos[languages].explicacion_codigo === "" && ejemplosCodigos[languages].codigo === "" ? (
-                                <p>No hay ejemplo disponible para {languages}</p>
-                            ) : (
-                                <>
-                                    <span className="label-explain-code">
-                                        Explicación del Código:
-                                    </span>
-                                    <div className="code-explain-code">
-                                        {ejemplosCodigos[languages].explicacion_codigo}
-                                    </div>
-                                    <div className="code-block-container">
-                                        <div className="code-header">
-                                            <span>{languages}</span>
-                                            {!codeCopied ? (
-                                                <button
-                                                    className="copy-code-btn"
-                                                    onClick={copyCode}
-                                                >
-                                                    Copiar
-                                                </button>
-                                            ) : (
-                                                <button
-                                                    className="copied-code-btn"
-                                                    onClick={copyCode}
-                                                    disabled
-                                                >
-                                                    Copiado
-                                                </button>
-                                            )}
-                                        </div>
-                                        <SyntaxHighlighter
-                                            language={languages.toLowerCase()}
-                                            style={vscDarkPlus}
-                                            showLineNumbers
-                                            customStyle={{
-                                                margin: 0,
-                                                padding: "20px",
-                                                background: "#1e1e1e",
-                                                fontSize: "12px",
-                                                borderRadius: "0 0 14px 14px",
-                                            }}
-                                        >
-                                            {ejemplosCodigos[languages].codigo}
-                                        </SyntaxHighlighter>
-                                    </div>
-                                </>
-                            )}
-                        </section>
-                    }
-                    {theme === "Evaluacion" && (
-                        <section className="modulo-quizzes">
-                            {quizzes.map(m => (
-                                <article
-                                    key={m.id_quiz}
-                                    className="quiz-card"
-                                >
-                                    <div className="quiz-card-header">
-                                        <small>Número de Quiz: {m.id_quiz}</small>
-                                        {lastAttempts[m.id_quiz] ? (
-                                            <span
-                                                className={`quiz-last-attempt ${lastAttempts[m.id_quiz]?.correctas === lastAttempts[m.id_quiz]?.total_preguntas
-                                                        ? "completed"
-                                                        : ""
-                                                    }`}
-                                            >
-                                                {lastAttempts[m.id_quiz]?.correctas === lastAttempts[m.id_quiz]?.total_preguntas
-                                                    ? "Completado"
-                                                    : `Último intento: ${lastAttempts[m.id_quiz]?.correctas}/${lastAttempts[m.id_quiz]?.total_preguntas}`}
-                                            </span>
                                         ) : (
-                                            <span className="quiz-last-attempt no-attempt">
-                                                Sin intentos
-                                            </span>
+                                            <div className="btns-speakers">
+                                                {!isPause ? (
+                                                    <button className="btn-speaker" onClick={() => {
+                                                        if (window.speechSynthesis.speaking) {
+                                                            window.speechSynthesis.pause();
+                                                            setIsPause(true);
+                                                        }
+                                                    }}
+                                                    >
+                                                        <PauseCircle />
+                                                    </button>
+                                                ) : (
+                                                    <button className="btn-speaker" onClick={() => { window.speechSynthesis.resume(); setIsPause(false) }}>
+                                                        <PlayCircle />
+                                                    </button>
+                                                )}
+                                                <button className="btn-speaker" onClick={stopReading}>
+                                                    <StopCircle />
+                                                </button>
+                                            </div>
                                         )}
                                     </div>
-                                    <h2>{m.titulo}</h2>
-                                    {lastAttempts[m.id_quiz]?.completado_100
-                                    ? <span style={{ fontSize: ".8rem", color: "#10c452", fontWeight: 300, display: "flex", alignItems: "center", gap: ".5rem" }}>
-                                            <Check size="xs" /> Puntos obtenidos: {m.puntos_recompensa} Pts.
-                                        </span> 
-                                    : <span style={{ fontSize: ".8rem", }}>Puntos por completarlo: {m.puntos_recompensa} Pts.</span>}
-                                    
-                                    <button
-                                        className="start-quiz"
-                                        onClick={() => navigate(`/quiz/solve/${m.id_quiz}`)}
+                                </header>
+                                <p>{modulo!.contenido_teorico}</p>
+                            </section>
+                        )
+                    )}
+
+                    {theme === "Codigo" && (
+                        loading ? (
+                            <CodigoSkeleton />
+                        ) : (
+                            <section className="modulo-codigo-ejemplo fade-in-skeleton">
+                                <header>
+                                    <h2>Ejemplos de Código</h2>
+                                    <p>Visualiza cómo se implementa en diferentes lenguajes</p>
+                                </header>
+
+                                <span className="label-select-language">Seleccione un lenguaje:</span>
+                                <div className="buttons-languages-selector">
+                                    {languagesList.map((lang) => (
+                                        <button
+                                            key={lang}
+                                            className={`btn-language ${lang === languages ? "select" : ""}`}
+                                            onClick={() => setLanguages(lang)}
+                                        >
+                                            {lang}
+                                        </button>
+                                    ))}
+                                </div>
+
+                                {ejemplosCodigos[languages].explicacion_codigo === "" && ejemplosCodigos[languages].codigo === "" ? (
+                                    <p>No hay ejemplo disponible para {languages}</p>
+                                ) : (
+                                    <>
+                                        <span className="label-explain-code">
+                                            Explicación del Código:
+                                        </span>
+                                        <div className="code-explain-code">
+                                            {ejemplosCodigos[languages].explicacion_codigo}
+                                        </div>
+                                        <div className="code-block-container">
+                                            <div className="code-header">
+                                                <span>{languages}</span>
+                                                {!codeCopied ? (
+                                                    <button
+                                                        className="copy-code-btn"
+                                                        onClick={copyCode}
+                                                    >
+                                                        Copiar
+                                                    </button>
+                                                ) : (
+                                                    <button
+                                                        className="copied-code-btn"
+                                                        onClick={copyCode}
+                                                        disabled
+                                                    >
+                                                        Copiado
+                                                    </button>
+                                                )}
+                                            </div>
+                                            <SyntaxHighlighter
+                                                language={languages.toLowerCase()}
+                                                style={vscDarkPlus}
+                                                showLineNumbers
+                                                customStyle={{
+                                                    margin: 0,
+                                                    padding: "20px",
+                                                    background: "#1e1e1e",
+                                                    fontSize: "12px",
+                                                    borderRadius: "0 0 14px 14px",
+                                                }}
+                                            >
+                                                {ejemplosCodigos[languages].codigo}
+                                            </SyntaxHighlighter>
+                                        </div>
+                                    </>
+                                )}
+                            </section>
+                        )
+                    )}
+
+                    {theme === "Evaluacion" && (
+                        loading ? (
+                            <section className="modulo-quizzes">
+                                {Array.from({ length: 4 }).map((_, index) => (
+                                    <QuizCardSkeleton key={index} />
+                                ))}
+                            </section>
+                        ) : (
+                            <section className="modulo-quizzes fade-in-skeleton">
+                                {quizzes.length === 0 && (
+                                    <p style={{ fontSize: ".9rem", color: "#636363" }}>No hay evaluaciones disponibles para este módulo.</p>
+                                )}
+                                {quizzes.map(m => (
+                                    <article
+                                        key={m.id_quiz}
+                                        className="quiz-card"
                                     >
-                                        {lastAttempts[m.id_quiz]?.completado_100 ? 'Completado' : 'Comenzar'}
-                                    </button>
-                                </article>
-                            ))}
-                        </section>
+                                        <div className="quiz-card-header">
+                                            <small>Número de Quiz: {m.id_quiz}</small>
+                                            {lastAttempts[m.id_quiz] ? (
+                                                <span
+                                                    className={`quiz-last-attempt ${lastAttempts[m.id_quiz]?.correctas === lastAttempts[m.id_quiz]?.total_preguntas
+                                                            ? "completed"
+                                                            : ""
+                                                        }`}
+                                                >
+                                                    {lastAttempts[m.id_quiz]?.correctas === lastAttempts[m.id_quiz]?.total_preguntas
+                                                        ? "Completado"
+                                                        : `Último intento: ${lastAttempts[m.id_quiz]?.correctas}/${lastAttempts[m.id_quiz]?.total_preguntas}`}
+                                                </span>
+                                            ) : (
+                                                <span className="quiz-last-attempt no-attempt">
+                                                    Sin intentos
+                                                </span>
+                                            )}
+                                        </div>
+                                        <h2>{m.titulo}</h2>
+                                        {lastAttempts[m.id_quiz]?.completado_100
+                                        ? <span style={{ fontSize: ".8rem", color: "#10c452", fontWeight: 300, display: "flex", alignItems: "center", gap: ".5rem" }}>
+                                                <Check size="xs" /> Puntos obtenidos: {m.puntos_recompensa} Pts.
+                                            </span> 
+                                        : <span style={{ fontSize: ".8rem", }}>Puntos por completarlo: {m.puntos_recompensa} Pts.</span>}
+                                        
+                                        <button
+                                            className="start-quiz"
+                                            onClick={() => navigate(`/quiz/solve/${m.id_quiz}`)}
+                                        >
+                                            {lastAttempts[m.id_quiz]?.completado_100 ? 'Completado' : 'Comenzar'}
+                                        </button>
+                                    </article>
+                                ))}
+                            </section>
+                        )
                     )}
                 </section>
             )}
         </main>
+    );
+}
+
+function TeoriaSkeleton() {
+    return (
+        <section className="modulo-contenido-teorico">
+            <header>
+                <div style={{ display: "flex", flexDirection: "column", gap: "6px", width: "100%" }}>
+                    <Skeleton width="180px" height="22px" borderRadius="4px" />
+                    <Skeleton width="260px" height="16px" borderRadius="4px" />
+                </div>
+            </header>
+            <div style={{ display: "flex", flexDirection: "column", gap: "10px", width: "100%", marginTop: "0.5rem" }}>
+                <Skeleton width="100%" height="16px" borderRadius="4px" />
+                <Skeleton width="100%" height="16px" borderRadius="4px" />
+                <Skeleton width="92%" height="16px" borderRadius="4px" />
+                <Skeleton width="96%" height="16px" borderRadius="4px" />
+                <Skeleton width="75%" height="16px" borderRadius="4px" />
+            </div>
+        </section>
+    );
+}
+
+function CodigoSkeleton() {
+    return (
+        <section className="modulo-codigo-ejemplo">
+            <header>
+                <Skeleton width="180px" height="22px" borderRadius="4px" />
+                <Skeleton width="300px" height="16px" borderRadius="4px" />
+            </header>
+
+            <span className="label-select-language">
+                <Skeleton width="150px" height="16px" borderRadius="4px" />
+            </span>
+            <div className="buttons-languages-selector">
+                {languagesList.map((lang) => (
+                    <Skeleton key={lang} width="50px" height="32px" borderRadius="8px" />
+                ))}
+            </div>
+
+            <span className="label-explain-code">
+                <Skeleton width="170px" height="16px" borderRadius="4px" />
+            </span>
+            <div className="code-explain-code" style={{ padding: "0.5rem 0", display: "flex", flexDirection: "column", gap: "8px" }}>
+                <Skeleton width="100%" height="16px" borderRadius="4px" />
+                <Skeleton width="100%" height="16px" borderRadius="4px" />
+                <Skeleton width="85%" height="16px" borderRadius="4px" />
+            </div>
+
+            <div className="code-block-container">
+                <div className="code-header" style={{ background: "#2a2a2a" }}>
+                    <Skeleton width="80px" height="18px" borderRadius="4px" />
+                    <Skeleton width="65px" height="28px" borderRadius="8px" />
+                </div>
+                <div style={{
+                    margin: 0,
+                    padding: "20px",
+                    background: "#1e1e1e",
+                    borderRadius: "0 0 14px 14px",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "10px"
+                }}>
+                    <Skeleton width="60%" height="16px" borderRadius="4px" style={{ background: "#2d2d2d" }} />
+                    <Skeleton width="85%" height="16px" borderRadius="4px" style={{ background: "#2d2d2d" }} />
+                    <Skeleton width="40%" height="16px" borderRadius="4px" style={{ background: "#2d2d2d" }} />
+                    <Skeleton width="70%" height="16px" borderRadius="4px" style={{ background: "#2d2d2d" }} />
+                    <Skeleton width="50%" height="16px" borderRadius="4px" style={{ background: "#2d2d2d" }} />
+                    <Skeleton width="30%" height="16px" borderRadius="4px" style={{ background: "#2d2d2d" }} />
+                </div>
+            </div>
+        </section>
+    );
+}
+
+function QuizCardSkeleton() {
+    return (
+        <article className="quiz-card" style={{ pointerEvents: "none" }}>
+            <div className="quiz-card-header">
+                <Skeleton width="130px" height="16px" borderRadius="4px" />
+                <Skeleton width="90px" height="22px" borderRadius="6px" />
+            </div>
+            <Skeleton width="55%" height="22px" borderRadius="4px" />
+            <Skeleton width="190px" height="16px" borderRadius="4px" />
+            <Skeleton width="100px" height="34px" borderRadius="10px" />
+        </article>
     );
 }
 

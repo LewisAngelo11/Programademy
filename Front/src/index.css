@@ -30,6 +30,12 @@ button {
     color: inherit;
 }
 
+hr {
+    border: none;
+    border: 1px solid #ccc;
+    border-radius: 30px;
+}
+
 @media (max-width: 768px) {
     html {
         font-size: 10px;
