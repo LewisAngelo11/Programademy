@@ -35,12 +35,19 @@ router.post('/login', async (req: Request, res: Response) => {
         // Se crea el token JWT
         const token = jwt.sign({ id:usuario?.id_usuario }, secret, { expiresIn: '1h' });
 
+        // Manda las Cookies al front
+        res.cookie("access_token", token, {
+            httpOnly: true, // Solo accedible en el back
+            secure: process.env.NODE_ENV === "production", // HTTPS solo en producción
+            sameSite: "lax",
+            maxAge: 60 * 60 * 1000, // Expiración 1 hora
+        });
+
         // Crea una copia del objeto usuario pero sin la contraseña para devolverla al cliente
         const { password, ...userWithoutPassw } = usuario;
 
         res.json({
             message: "¡¡Bienvenido!!",
-            token,
             user: userWithoutPassw,
         });
 
@@ -196,6 +203,18 @@ router.put('/reset-password', async (req: Request, res: Response) => {
             message: "Error interno",
         });
     }
+});
+
+// Método para cerrar sesión y eliminar las cookies
+router.post('/logout', (req: Request, res: Response) => {
+    res.clearCookie("access_token", {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "lax",
+    });
+    res.json({
+        message: "Sesión cerrada correctamente."
+    });
 });
 
 export default router;

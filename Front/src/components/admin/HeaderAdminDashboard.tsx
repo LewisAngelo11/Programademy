@@ -2,6 +2,7 @@ import "./HeaderAdminDashboard.css";
 import { useNavigate } from "react-router";
 import { ArrowOutRightSquareHalf, User } from "@boxicons/react";
 import Skeleton from "../ui/Skeleton";
+import { useAuth } from "../../context/AuthContext";
 
 interface UsuarioInfoProp {
     adminName: string;
@@ -14,11 +15,10 @@ interface LoadingProp {
 
 export default function HeaderAdminDashboard({ adminName, adminEmail, loading }: UsuarioInfoProp & LoadingProp) {
     const navigate = useNavigate();
+    const { logout } = useAuth();
 
-    const logOut = () => {
-        localStorage.removeItem("token");
-
-        navigate("/");
+    const logOut = async () => {
+        await logout();
     };
 
     return(

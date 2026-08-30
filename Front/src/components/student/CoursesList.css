@@ -108,3 +108,9 @@
         grid-template-columns: repeat(2, 1fr);
     }
 }
+
+@media (max-width: 425px) {
+    .list-avaible-courses {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}

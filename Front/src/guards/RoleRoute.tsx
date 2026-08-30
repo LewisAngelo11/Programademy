@@ -1,28 +1,48 @@
-import { Navigate, Outlet } from 'react-router';
+import { Navigate, Outlet } from "react-router";
+import { useAuth } from "../context/AuthContext";
 
 interface RoleRouteProps {
-  allowedRole: 'admin' | 'student'
+    allowedRole: "admin" | "student";
 }
 
 /**
- * RoleRoute: Verifica que el usuario autenticado tenga el rol requerido.
- * Si el rol no coincide, redirige al dashboard que le corresponde.
- * Si no hay token, redirige al login.
-*/
+ * RoleRoute: Verifica que el usuario autenticado
+ * tenga el rol requerido.
+ *
+ * Si no está autenticado → login.
+ * Si está autenticado pero tiene otro rol → su dashboard.
+ */
 const RoleRoute = ({ allowedRole }: RoleRouteProps) => {
-  const token = localStorage.getItem('token');
-  const rol = localStorage.getItem('rol');
 
-  if (!token) {
-    return <Navigate to="/login" replace />;
-  }
+    const { usuario, loading } = useAuth();
 
-  if (rol !== allowedRole) {
-    const destination = rol === 'admin' ? '/admin/dashboard' : '/student/dashboard';
-    return <Navigate to={destination} replace />;
-  }
+    // Todavía estamos comprobando la sesión
+    if (loading) {
+        return <div>Cargando...</div>;
+    }
 
-  return <Outlet />;
-}
+    // No hay usuario autenticado
+    if (!usuario) {
+        return <Navigate to="/login" replace />;
+    }
+
+    // Usuario autenticado pero con rol incorrecto
+    if (usuario.rol !== allowedRole) {
+
+        const destination =
+            usuario.rol === "admin"
+                ? "/admin/dashboard"
+                : "/student/dashboard";
+
+        return (
+            <Navigate
+                to={destination}
+                replace
+            />
+        );
+    }
+
+    return <Outlet />;
+};
 
 export default RoleRoute;

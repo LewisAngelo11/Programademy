@@ -5,7 +5,8 @@ export class AuthService {
         const response = await apiFetch('/auth/login', {
             method: "POST",
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(credentials)
+            body: JSON.stringify(credentials),
+            skipAuthRedirect: true // Si da error 401, no redireccionar al login
         });
 
         const data = await response.json();
@@ -60,6 +61,22 @@ export class AuthService {
 
         if (!response.ok) {
             throw new Error(data.message || data.error || "Error al actualizar contraseña");
+        }
+
+        return data;
+    }
+
+    static async logout() {
+        const response = await apiFetch('/auth/logout', {
+            method: "POST"
+        });
+
+        const data = await response.json().catch(() => ({}));
+
+        if (!response.ok) {
+            throw new Error(
+                data.message || data.error || "Error al cerrar sesión"
+            );
         }
 
         return data;

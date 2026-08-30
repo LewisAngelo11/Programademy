@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { CodeAlt, BookOpen } from "@boxicons/react";
-import { AuthService } from "../services/authService";
+import { AuthService } from "../services/authService"
+import { useAuth } from "../context/AuthContext";
 import toast from 'react-hot-toast';
 import "./Login.css"
 
@@ -28,16 +29,18 @@ function LoginForm() {
     const [password, setPassword] = useState<string>("");
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
+    const { setUsuario } = useAuth(); // se utiliza el contexto para guardar el usuario autenticado
     const navigate = useNavigate();
 
-    const signIn = async () => {
+    const signIn = async (e: React.SyntheticEvent<HTMLFormElement>) => {
+        e.preventDefault();
         try {
             setLoading(true);
             setError(null);
             const data = await AuthService.signIn({ email: email, passw: password });
 
-            localStorage.setItem("token", data.token); // Guarda el token en local storage
-            localStorage.setItem("rol", data.user.rol);
+            // Se guarda el usuario en el AuthContext
+            setUsuario(data.user);
 
             // Simula la protección de rutas de admin y student
             if (data.user.rol === "admin") {
@@ -60,7 +63,7 @@ function LoginForm() {
     };
 
     return (
-        <form onSubmit={(e) => {e.preventDefault(); signIn()}} className="login-form">
+        <form onSubmit={(e) => signIn(e)} className="login-form">
             <header className="login-form-header">
                 <h2>Iniciar Sesión</h2>
                 <small>Ingrese sus credenciales para comenzar</small>

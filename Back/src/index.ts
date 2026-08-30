@@ -3,6 +3,7 @@ import type { Request, Response } from 'express';
 import dotenv from "dotenv";
 import morgan from 'morgan';
 import cors from 'cors';
+import cookieParser from "cookie-parser";
 
 // Importar las rutas
 import auth from './routes/auth.routes'
@@ -16,8 +17,12 @@ dotenv.config();
 const app = express();
 
 app.use(morgan('dev'));
-app.use(cors());
+app.use(cors({
+    origin: "http://localhost:5173",
+    credentials: true
+}));
 app.use(express.json());
+app.use(cookieParser()); // Para las cookies
 
 // Implementación de las rutas en la app
 app.use('/auth', auth);

@@ -1,17 +1,23 @@
-import { Navigate, Outlet } from 'react-router';
+import { Navigate, Outlet } from "react-router";
+import { useAuth } from "../context/AuthContext";
 
 /**
  * PrivateRoute: Protege rutas que requieren autenticación.
- * Si no hay token en localStorage, redirige al login.
-*/
+ * Si no hay un usuario autenticado, redirige al login.
+ */
 const PrivateRoute = () => {
-  const token = localStorage.getItem('token');
+    const { usuario, loading } = useAuth();
 
-  if (!token) {
-    return <Navigate to="/login" replace />
-  }
+    // Esperamos a que AuthContext compruebe la sesión
+    if (loading) {
+        return <div>Cargando...</div>;
+    }
 
-  return <Outlet />;
-}
+    if (!usuario) {
+        return <Navigate to="/login" replace />;
+    }
+
+    return <Outlet />;
+};
 
 export default PrivateRoute;

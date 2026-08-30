@@ -1,5 +1,6 @@
 import { ArrowOutRightSquareHalf, User } from "@boxicons/react";
 import { useNavigate } from "react-router";
+import { useAuth } from "../../context/AuthContext";
 import "./HeaderStudentDashboard.css";
 import type { SetStateAction } from "react";
 import Skeleton from "../ui/Skeleton";
@@ -27,11 +28,10 @@ interface SetPressRangeProp {
 
 export default function HeaderStudentDashboard({ studentName, studentEmail, range, loading, setPressRange }: UsuarioInfoProp & LoadingProp & SetPressRangeProp) {
     const navigate = useNavigate();
+    const { logout } = useAuth();
 
-    const logOut = () => {
-        localStorage.removeItem("token");
-
-        navigate("/");
+    const logOut = async () => {
+        await logout();
     };
 
     return (
