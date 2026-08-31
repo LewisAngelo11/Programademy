@@ -40,6 +40,7 @@
     gap: .4rem;
     color: #ffff;
     transition: all .1s ease;
+    white-space: nowrap;
 }
 
 .add-new-quiz:hover {

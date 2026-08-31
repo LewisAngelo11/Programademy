@@ -6,11 +6,11 @@
 }
 
 .form-create-quiz {
-    padding: 1rem 0;
+    padding: 1rem 2rem;
     height: 100%;
     display: flex;
     flex-direction: column;
-    width: 80%;
+    width: 100%;;
     gap: 1rem;
 }
 
@@ -207,8 +207,8 @@
 
 .btn-add-question {
     margin-top: .4rem;
-    width: 25%;
-    padding: .4rem;
+    width: fit-content;
+    padding: .6rem 1rem;
     background-color: #191919;
     border: none;
     border-radius: 10px;
@@ -218,6 +218,7 @@
     gap: .4rem;
     color: #ffff;
     transition: all .1s ease;
+    white-space: nowrap;
 }
 
 .btns-options-quiz {
