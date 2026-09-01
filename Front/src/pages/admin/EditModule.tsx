@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { ArrowLeftStroke, BookOpen, Code, Save, X } from "@boxicons/react";
 import { ModuloService } from "../../services/moduleService";
 import { CourseService } from "../../services/courseService";
+import Skeleton from "../../components/ui/Skeleton";
 import "./EditModule.css";
 import toast from "react-hot-toast";
 
@@ -187,9 +188,7 @@ export default function EditModule() {
 
     if (loadingModule || loadingCourses) {
         return (
-            <main className="page-edit-module">
-                <p>Cargando datos del módulo...</p>
-            </main>
+            <SkeletonLoaderForm />
         );
     }
 
@@ -203,7 +202,7 @@ export default function EditModule() {
                     Volver a los módulos
                 </button>
             </header>
-            <form onSubmit={handleSubmit} className="form-edit-module">
+            <form onSubmit={handleSubmit} className="form-edit-module fade-in-skeleton">
                 <header className="header-edit-module">
                     <h1>Editar Módulo</h1>
                     <p>Modifica la información del módulo de aprendizaje</p>
@@ -302,9 +301,52 @@ interface FormCodesExamplesProps {
     handleCodigoChange: (language: languagesExamples, field: 'explicacion_codigo' | 'codigo', value: string) => void;
 }
 
+function SkeletonLoaderForm() {
+    const navigate = useNavigate();
+
+    return (
+        <main className="page-edit-module">
+            <header className="header-admin-pages">
+                <button
+                    className="button-back-modules"
+                    onClick={() => navigate("/modules-admin")}>
+                    <ArrowLeftStroke />
+                    Volver a los módulos
+                </button>
+            </header>
+            <div className="form-edit-module">
+                {/* Sección 1: Información Básica */}
+                <section className="principal-info-module">
+                    <Skeleton width="35%" height={24} borderRadius={4} />
+                    <Skeleton width="45%" height={14} borderRadius={4} />
+                    <div className="more-info-container">
+                        <Skeleton width={250} height={40} borderRadius={10} />
+                        <Skeleton width={250} height={40} borderRadius={10} />
+                    </div>
+                    <Skeleton width="100%" height={40} borderRadius={10} />
+                    <Skeleton width="100%" height={60} borderRadius={10} />
+                    <Skeleton width="100%" height={150} borderRadius={10} />
+                </section>
+                {/* Sección 2: Ejemplos de Código */}
+                <section className="codes-examples">
+                    <Skeleton width="35%" height={24} borderRadius={4} />
+                    <Skeleton width="50%" height={14} borderRadius={4} />
+                    <div className="code-examples-buttons">
+                        {Array.from({ length: 6 }).map((_, i) => (
+                            <Skeleton key={i} height={30} borderRadius={20} />
+                        ))}
+                    </div>
+                    <Skeleton width="100%" height={200} borderRadius={10} />
+                    <Skeleton width="100%" height={200} borderRadius={10} />
+                </section>
+            </div>
+        </main>
+    );
+}
+
 function FormCodesExamples({ languages, setLanguages, ejemplosCodigos, handleCodigoChange }: FormCodesExamplesProps) {
     return (
-        <div className="codes-examples">
+        <div className="codes-examples fade-in-skeleton">
             <header>
                 <h2><Code size="sm"/> Ejemplos de Código</h2>
                 <small>Agrega ejemplos en los 6 lenguajes soportados (0/6 completados)</small>
@@ -321,7 +363,7 @@ function FormCodesExamples({ languages, setLanguages, ejemplosCodigos, handleCod
                     </button>
                 ))}
             </div>
-            <section className="form-codes-examples">
+            <section className="form-codes-examples fade-in-skeleton">
                 <div className="code-explain-container">
                     <label htmlFor="code-explain">Explicación teórica del {languages}</label>
                     <textarea

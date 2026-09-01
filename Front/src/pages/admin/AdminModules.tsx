@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import "./AdminModules.css";
 import { useNavigate } from "react-router";
 import { ModuloService } from "../../services/moduleService";
+import Skeleton from "../../components/ui/Skeleton";
 
 interface Modulo {
     id_modulo: number;
@@ -85,7 +86,9 @@ export default function AdminModules() {
                 </div>
                 <div className="modules-grid">
                     {loading && (
-                        <div className="empty-state">Cargando módulos...</div>
+                        Array.from({ length: 16 }).map((_, index) => (
+                            <ModuleSkeleton key={index} />
+                        ))
                     )}
 
                     {error && (
@@ -164,7 +167,7 @@ function Module({ id_modulo, titulo, descripcion, orden, curso, onDelete }: Modu
     };
 
     return (
-        <article className="module-container">
+        <article className="module-container fade-in-skeleton">
             <div className="secundary-module-info">
                 <span className="orden-modulo">Módulo {orden}</span>
                 <span className="curso-modulo">{curso.titulo}</span>
@@ -188,6 +191,25 @@ function Module({ id_modulo, titulo, descripcion, orden, curso, onDelete }: Modu
                 >
                     <Trash fill="#ff3b30" size="xs"/>
                 </button>
+            </div>
+        </article>
+    );
+}
+
+function ModuleSkeleton() {
+    return (
+        <article className="module-container">
+            <div className="secundary-module-info">
+                <Skeleton width={70} height={24} borderRadius={8} />
+                <Skeleton width={90} height={24} borderRadius={8} />
+            </div>
+            <div className="primary-module-info">
+                <Skeleton width="60%" height={20} borderRadius={4} />
+                <Skeleton width="90%" height={14} borderRadius={4} style={{ marginTop: "0.5rem" }} />
+            </div>
+            <div className="buttons-actions-module">
+                <Skeleton className="edit-btn" height={40} borderRadius={8} />
+                <Skeleton width={48} height={40} borderRadius={8} />
             </div>
         </article>
     );

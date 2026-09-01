@@ -6,6 +6,7 @@ import { useNavigate } from "react-router";
 import { QuizService } from "../../services/quizService";
 import { ModuloService } from "../../services/moduleService";
 import toast from "react-hot-toast";
+import Skeleton from "../../components/ui/Skeleton";
 
 interface Quiz {
     id_quiz: number;
@@ -80,7 +81,9 @@ export default function AdminQuizzes() {
                 </div>
                 <div className="quizzes-grid">
                     {loading && (
-                        <div className="empty-state">Cargando quizzes...</div>
+                        Array.from({ length: 12 }).map((_, index) => (
+                            <QuizSkeleton key={index} />
+                        ))
                     )}
 
                     {error && (
@@ -164,7 +167,7 @@ function QuizCard({ id_quiz, titulo, id_modulo, puntos_recompensa, tiempo_limite
     };
 
     return (
-        <article className="quiz-container">
+        <article className="quiz-container fade-in-skeleton">
             <div className="secundary-quiz-info">
                 <span className="puntos-quiz">{puntos_recompensa} pts</span>
                 <span className="modulo-quiz">Módulo: {moduleName || id_modulo}</span>
@@ -188,6 +191,25 @@ function QuizCard({ id_quiz, titulo, id_modulo, puntos_recompensa, tiempo_limite
                 >
                     <Trash fill="#ff3b30" size="xs" />
                 </button>
+            </div>
+        </article>
+    );
+}
+
+function QuizSkeleton() {
+    return (
+        <article className="quiz-container">
+            <div className="secundary-quiz-info">
+                <Skeleton width={70} height={24} borderRadius={8} />
+                <Skeleton width={110} height={24} borderRadius={8} />
+            </div>
+            <div className="primary-quiz-info">
+                <Skeleton width="60%" height={20} borderRadius={4} />
+                <Skeleton width={90} height={14} borderRadius={4} style={{ marginTop: "0.5rem" }} />
+            </div>
+            <div className="buttons-actions-quiz">
+                <Skeleton className="edit-btn" height={40} borderRadius={8} />
+                <Skeleton width={48} height={40} borderRadius={8} />
             </div>
         </article>
     );

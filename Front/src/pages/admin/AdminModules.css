@@ -102,12 +102,14 @@
 
 .orden-modulo {
     display: inline-block;
+    height: fit-content;
     padding: 0.2rem 0.6rem;
     background-color: #e5e5e7;
     font-size: .8rem;
     border-radius: 8px;
     font-weight: 400;
     color: #1d1d1f;
+    white-space: nowrap;
 }
 
 .curso-modulo {
@@ -118,6 +120,7 @@
     font-size: .8rem;
     font-weight: 500;
     display: inline-block;
+    width: fit-content;
 }
 
 .module-container h2 {

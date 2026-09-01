@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { ArrowLeftStroke, Plus } from "@boxicons/react";
 import { CourseService } from "../../services/courseService";
 import AdminCoursesList from "../../components/admin/CoursesPage/AdminCoursesList";
+import Skeleton from "../../components/ui/Skeleton";
 import "./AdminCourses.css"
 
 interface Course {
@@ -62,7 +63,39 @@ export default function AdminCourses() {
                     </button>
                 </header>
 
-                {loading && <p>Cargando cursos...</p>}
+                {loading && (
+                    <div className="courses-list">
+                        {Array.from({ length: 4 }).map((_, index) => (
+                            <div key={index} className="courses-container">
+                                <header className="header-container">
+                                    <div className="info-course" style={{ gap: ".4rem" }}>
+                                        <div className="principal-info">
+                                            <Skeleton width={160} height={16} />
+                                            <Skeleton width={80} height={20} borderRadius={10} />
+                                        </div>
+                                        <Skeleton width={260} height={12} />
+                                    </div>
+                                    <div className="buttons-container">
+                                        <Skeleton width={80} height={30} borderRadius={8} />
+                                        <Skeleton width={30} height={30} borderRadius={8} />
+                                    </div>
+                                </header>
+                                <div className="more-info">
+                                    <Skeleton width={120} height={12} />
+                                    <Skeleton width={90} height={12} />
+                                </div>
+                                <div className="module-container-list">
+                                    <Skeleton width={70} height={12} />
+                                    <div className="modules-course-list">
+                                        <Skeleton width={100} height={22} borderRadius={8} />
+                                        <Skeleton width={90} height={22} borderRadius={8} />
+                                        <Skeleton width={110} height={22} borderRadius={8} />
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                )}
                 {error && <p style={{ color: 'red' }}>{error}</p>}
                 {!loading && !error && courses.length === 0 && (
                     <p>No hay cursos disponibles. ¡Crea uno nuevo!</p>

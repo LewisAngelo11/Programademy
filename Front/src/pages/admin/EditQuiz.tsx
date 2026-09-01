@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router";
 import { ArrowLeftStroke, BookOpen, Save, X, NetworkChart, Trash } from "@boxicons/react";
 import { ModuloService } from "../../services/moduleService";
 import { QuizService } from "../../services/quizService";
+import Skeleton from "../../components/ui/Skeleton";
 import "./EditQuiz.css";
 import toast from "react-hot-toast";
 
@@ -205,9 +206,7 @@ export default function EditQuiz() {
 
     if(loadingQuiz) {
         return (
-            <main className="page-edit-quiz">
-                <p style={{ textAlign: 'center', marginTop: '2rem' }}>Cargando datos del quiz...</p>
-            </main>
+            <SkeletonLoaderForm />
         )
     }
 
@@ -221,13 +220,13 @@ export default function EditQuiz() {
                     Volver a los quizzes
                 </button>
             </header>
-            <form onSubmit={handleSubmit} className="form-edit-quiz">
+            <form onSubmit={handleSubmit} className="form-edit-quiz fade-in-skeleton">
                 <header className="header-edit-quiz">
                     <h1>Editar Quiz</h1>
                     <p>Modifica el cuestionario de validación para un módulo de aprendizaje</p>
                 </header>
 
-                <section className="principal-info-quiz">
+                <section className="principal-info-quiz fade-in-skeleton">
                     <header>
                         <h2> <BookOpen size="sm"/> Información Básica</h2>
                         <small>Datos generales del quiz</small>
@@ -287,7 +286,7 @@ export default function EditQuiz() {
                     </div>
                 </section>
 
-                <section className="questions-quiz-section">
+                <section className="questions-quiz-section fade-in-skeleton">
                     <header>
                         <h2> <NetworkChart size="sm"/> Preguntas Dinámicas</h2>
                         <small>Estructura las preguntas y opciones de tu quiz</small>
@@ -373,6 +372,65 @@ export default function EditQuiz() {
                     <button type="button" className="button-cancel-quiz" onClick={handleCancel}><X size="xs"/> Cancelar</button>
                 </div>
             </form>
+        </main>
+    );
+}
+
+function SkeletonLoaderForm() {
+    const navigate = useNavigate();
+
+    return (
+        <main className="page-edit-quiz">
+            <header className="header-admin-pages">
+                <button
+                    className="button-back-modules"
+                    onClick={() => navigate("/quizzes-admin")}>
+                    <ArrowLeftStroke />
+                    Volver a los quizzes
+                </button>
+            </header>
+            <div className="form-edit-quiz">
+                <div className="header-edit-quiz">
+                    <Skeleton width="30%" height={28} borderRadius={4} />
+                    <Skeleton width="55%" height={16} borderRadius={4} />
+                </div>
+
+                {/* Sección 1: Información Básica */}
+                <section className="principal-info-quiz">
+                    <Skeleton width="35%" height={24} borderRadius={4} />
+                    <Skeleton width="45%" height={14} borderRadius={4} />
+                    <div className="title-quiz">
+                        <Skeleton width={120} height={14} borderRadius={4} />
+                        <Skeleton width="100%" height={40} borderRadius={10} />
+                    </div>
+                    <div className="div-modulo-select">
+                        <Skeleton width={130} height={14} borderRadius={4} />
+                        <Skeleton width="100%" height={40} borderRadius={10} />
+                    </div>
+                    <div className="more-data-quiz">
+                        <div className="div-tiempo-quiz">
+                            <Skeleton width={110} height={14} borderRadius={4} />
+                            <Skeleton width="100%" height={40} borderRadius={10} />
+                        </div>
+                        <div className="div-puntos-quiz">
+                            <Skeleton width={120} height={14} borderRadius={4} />
+                            <Skeleton width="100%" height={40} borderRadius={10} />
+                        </div>
+                    </div>
+                </section>
+
+                {/* Sección 2: Preguntas Dinámicas */}
+                <section className="questions-quiz-section">
+                    <Skeleton width="40%" height={24} borderRadius={4} />
+                    <Skeleton width="50%" height={14} borderRadius={4} />
+                    <div className="question-item">
+                        <Skeleton width={120} height={18} borderRadius={4} />
+                        <Skeleton width="100%" height={60} borderRadius={10} />
+                        <Skeleton width="100%" height={40} borderRadius={10} />
+                        <Skeleton width="100%" height={40} borderRadius={10} />
+                    </div>
+                </section>
+            </div>
         </main>
     );
 }

@@ -4,6 +4,7 @@ import "./AdminCoursesList.css";
 import { useNavigate } from "react-router";
 import { ModuloService } from "../../../services/moduleService";
 import { CourseService } from "../../../services/courseService";
+import Skeleton from "../../ui/Skeleton";
 import toast from "react-hot-toast";
 
 interface Course {
@@ -53,15 +54,19 @@ interface CourseProp {
 
 function Course({ id, titulo, descripcion, fechaCreacion, onCoursesUpdate }: CourseProp) {
     const [modules, setModules] = useState<Module[]>([]);
+    const [loadingModules, setLoadingModules] = useState<boolean>(true);
     const navigate = useNavigate();
 
     const getModulesFromCourse = async () => {
             try {
+                setLoadingModules(true);
                 const data = await ModuloService.getAllModulesFromCourse(id);
 
                 setModules(data);
             } catch (err) {
                 console.log("Error en la petición:", err);
+            } finally {
+                setLoadingModules(false);
             }
         }
 
@@ -103,7 +108,7 @@ function Course({ id, titulo, descripcion, fechaCreacion, onCoursesUpdate }: Cou
     }, []);
 
     return (
-        <article className="courses-container">
+        <article className="courses-container fade-in-skeleton">
             <header className="header-container">
                 <div className="info-course">
                     <div className="principal-info">
@@ -128,9 +133,16 @@ function Course({ id, titulo, descripcion, fechaCreacion, onCoursesUpdate }: Cou
             <div className="module-container-list">
                 <span>Módulos: </span>
                 <div className="modules-course-list">
-                    {modules.length === 0 && <div style={{fontSize: ".8rem"}}>Sin módulos asignados</div>}
-                    {modules.length > 0 && modules.map(m => (
-                        <div key={m.id_modulo} className="module-object-list">{m.orden}. {m.titulo}</div>
+                    {loadingModules &&
+                        <>
+                            <Skeleton width={100} height={22} borderRadius={8} />
+                            <Skeleton width={90} height={22} borderRadius={8} />
+                            <Skeleton width={110} height={22} borderRadius={8} />
+                        </>
+                    }
+                    {!loadingModules && modules.length === 0 && <div style={{fontSize: ".8rem"}}>Sin módulos asignados</div>}
+                    {!loadingModules && modules.length > 0 && modules.map(m => (
+                        <div key={m.id_modulo} className="module-object-list fade-in-skeleton">{m.orden}. {m.titulo}</div>
                     ))}
                 </div>
             </div>
