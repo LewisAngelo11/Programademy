@@ -5,8 +5,6 @@ import "./StudentDashboard.css";
 import ResumeHome from "../../components/student/ResumeHome";
 import CoursesList from "../../components/student/CoursesList";
 import CoursesStartedList from "../../components/student/CoursesStartedList";
-import Modal from "../../Modals/Modal";
-import ModalRangos from "../../components/student/ModalRangos";
 import { UserService } from "../../services/userService";
 import { CourseService } from "../../services/courseService";
 import { QuizService } from "../../services/quizService";
@@ -121,7 +119,10 @@ export default function StudentDashboard() {
                 studentEmail={studentEmail}
                 loading={loading}
                 range={range}
+                pressRange={pressRange}
                 setPressRange={setPressRange}
+                allRanges={allRanges}
+                totalUserPoints={totalUserPoints}
             />
             <ResumeHome
                 totalStartedCourses={totalStartedCourses}
@@ -140,18 +141,6 @@ export default function StudentDashboard() {
                 loading={loading} 
                 error={error}
             />
-            {pressRange && (
-                <Modal 
-                    children={
-                        <ModalRangos
-                            range={range}
-                            allRanges={allRanges}
-                            totalUserPoints={totalUserPoints}
-                        />
-                    }
-                    setOpenModal={setPressRange}
-                />
-            )}
         </main>
     );
 }

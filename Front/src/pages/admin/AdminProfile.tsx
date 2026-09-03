@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router";
 import { ArrowLeftStroke, Pencil } from "@boxicons/react";
-import Modal from "../../Modals/Modal";
+import AnimatedEditModal from "../../components/ui/AnimatedEditModal";
 import "./AdminProfile.css";
 import { useEffect, useState } from "react";
 import EditInfoAdmin from "../../components/admin/EditInfoAdmin";
@@ -60,12 +60,22 @@ export default function AdminProfile() {
                         ) : (
                             <>
                                 <h2 className="name-admin fade-in-skeleton">{adminName}</h2>
-                                <button
-                                    onClick={() => setOpenModal(true)}
-                                    className="button-edit-info"
+                                <AnimatedEditModal
+                                    isOpen={openModal}
+                                    onOpen={() => setOpenModal(true)}
+                                    onClose={() => setOpenModal(false)}
+                                    layoutId="edit-trigger-admin"
+                                    title="Editar Perfil"
+                                    trigger={<Pencil size="xs" />}
                                 >
-                                    <Pencil size="xs"/>
-                                </button>
+                                    <EditInfoAdmin
+                                        adminName={adminName}
+                                        setAdminName={setAdminName}
+                                        adminEmail={adminEmail}
+                                        setAdminEmail={setAdminEmail}
+                                        setOpenModal={setOpenModal}
+                                    />
+                                </AnimatedEditModal>
                             </>
                         )}
                     </div>
@@ -81,15 +91,6 @@ export default function AdminProfile() {
                     </div>
                 </div>
             </section>
-            {openModal && <Modal children={
-                    <EditInfoAdmin
-                        adminName={adminName}
-                        setAdminName={setAdminName}
-                        adminEmail={adminEmail}
-                        setAdminEmail={setAdminEmail}
-                        setOpenModal={setOpenModal}
-                        />
-                } setOpenModal={setOpenModal}/>}
         </main>
     );
 }

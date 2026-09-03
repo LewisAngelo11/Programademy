@@ -1,5 +1,5 @@
 import { Pencil } from "@boxicons/react";
-import Modal from "../../Modals/Modal";
+import AnimatedEditModal from "../../components/ui/AnimatedEditModal";
 import "./StudentProfile.css";
 import "../../components/student/ModalRangos.css";
 import { useEffect, useState } from "react";
@@ -145,13 +145,22 @@ export default function StudentProfile() {
                                 ) : (
                                     <>
                                         <h2 className="name-student fade-in-skeleton">{studentName}</h2>
-                                        <button
-                                            onClick={() => setOpenModal(true)}
-                                            className="button-edit-info"
-                                            title="Editar información"
+                                        <AnimatedEditModal
+                                            isOpen={openModal}
+                                            onOpen={() => setOpenModal(true)}
+                                            onClose={() => setOpenModal(false)}
+                                            layoutId="edit-trigger-student"
+                                            title="Editar Perfil"
+                                            trigger={<Pencil size="xs" />}
                                         >
-                                            <Pencil size="xs" />
-                                        </button>
+                                            <EditInfoStudent
+                                                studentName={studentName}
+                                                setStudentName={setStudentName}
+                                                studentEmail={studentEmail}
+                                                setStudentEmail={setStudentEmail}
+                                                setOpenModal={setOpenModal}
+                                            />
+                                        </AnimatedEditModal>
                                     </>
                                 )}
                             </div>
@@ -262,16 +271,6 @@ export default function StudentProfile() {
                     )}
                 </div>
             </section>
-
-            {openModal && <Modal children={
-                <EditInfoStudent
-                    studentName={studentName}
-                    setStudentName={setStudentName}
-                    studentEmail={studentEmail}
-                    setStudentEmail={setStudentEmail}
-                    setOpenModal={setOpenModal}
-                />
-            } setOpenModal={setOpenModal} />}
         </main>
     );
 }

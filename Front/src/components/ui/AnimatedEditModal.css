@@ -1,0 +1,74 @@
+.edit-modal-wrapper {
+    position: relative;
+    display: inline-flex;
+    z-index: 20;
+}
+
+.edit-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+}
+
+.edit-dropdown {
+    position: fixed;
+    top: 120px;
+    left: 4%;
+    right: 4%;
+    width: auto;
+    max-width: 420px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.700);
+    backdrop-filter: blur(12px);
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, .12);
+    z-index: 1000;
+    overflow: hidden;
+}
+
+@media (min-width: 768px) {
+    .edit-dropdown {
+        position: absolute;
+        top: 0%;
+        right: 0;
+        width: 420px;
+        max-width: none;
+        margin: 0;
+    }
+}
+
+.edit-dropdown-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: .8rem 1rem;
+    border-bottom: 1px solid #eee;
+}
+
+.edit-trigger-copy {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: .5rem;
+    border-radius: 8px;
+    background: transparent;
+}
+
+.edit-trigger-copy:hover {
+    background: #f4f4f4;
+}
+
+.edit-dropdown-body {
+    display: flex;
+    flex-direction: column;
+    gap: .6rem;
+    padding: 1rem;
+    max-height: calc(100vh - 180px);
+    overflow-y: auto;
+}
+
+.edit-dropdown-body h3 {
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin: 0;
+}

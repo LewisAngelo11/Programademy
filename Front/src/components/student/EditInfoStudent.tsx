@@ -39,7 +39,6 @@ export default function EditInfoStudent({ studentName, setStudentName, studentEm
 
     return (
         <section className="edit-info-student">
-            <h1>Editar Perfil</h1>
             <form onSubmit={editInfoStudent} className="form-edit-student">
                 <div className="input-name-student">
                     <label htmlFor="student-name">Nombre Completo</label>

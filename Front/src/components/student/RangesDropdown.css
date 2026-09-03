@@ -1,0 +1,144 @@
+.ranges-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+}
+
+.ranges-dropdown {
+    position: fixed;
+    top: 5px;   
+    left: 4%;
+    right: 4%;
+    width: auto;
+    max-width: 340px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.700);
+    backdrop-filter: blur(12px);
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, .12);
+    z-index: 1000;
+    overflow: hidden;
+}
+
+@media (min-width: 768px) {
+    .ranges-dropdown {
+        position: absolute;
+        top: calc(100% - 30px);
+        right: 0;
+        left: auto;
+        width: 340px;
+        max-width: none;
+        margin: 0;
+    }
+}
+
+.ranges-dropdown-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: .8rem 1rem;
+    border-bottom: 1px solid #eee;
+}
+
+.button-close-dropdown {
+    border: none;
+    background: transparent;
+    padding: .3rem;
+    cursor: pointer;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background .15s;
+}
+
+.button-close-dropdown:hover {
+    background: #f4f4f4;
+}
+
+.ranges-dropdown-content {
+    display: flex;
+    flex-direction: column;
+    gap: .8rem;
+    padding: 1rem;
+    max-height: calc(100vh - 140px);
+    overflow-y: auto;
+}
+
+.ranges-dropdown-title {
+    font-weight: 600;
+    color: #333;
+}
+
+.ranges-dropdown-content h3 {
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin: 0;
+}
+
+.ranges-dropdown-content > small {
+    color: #777;
+}
+
+.ranges-dropdown-content .card-range {
+    display: flex;
+    flex-direction: column;
+    gap: .3rem;
+}
+
+.ranges-dropdown-content .range-student {
+    display: inline-flex;
+    width: fit-content;
+    padding: .25rem .55rem;
+    font-size: .85rem;
+}
+
+.ranges-dropdown-content .min-points {
+    display: flex;
+    justify-content: space-between;
+}
+
+.ranges-dropdown-content .color-info-range,
+.ranges-dropdown-content .points-info-range {
+    border: none;
+    background: transparent;
+    border-radius: 0;
+    animation: none;
+}
+
+.ranges-dropdown-content .current-range {
+    display: flex;
+    flex-direction: column;
+    gap: .4rem;
+}
+
+.ranges-dropdown-content .current-range h3 {
+    font-size: 1rem;
+    font-weight: 500;
+    margin: 0;
+}
+
+.ranges-dropdown-content .current-range .range-student {
+    display: inline-flex;
+    width: fit-content;
+}
+
+.ranges-dropdown-content hr {
+    width: 100%;
+    border: none;
+    border-top: 1px solid #eee;
+}
+
+.ranges-dropdown-content .modal-footer small {
+    color: #777;
+    font-size: .8rem;
+}
+
+.ranges-dropdown-content::-webkit-scrollbar {
+    width: 4px;
+}
+
+.ranges-dropdown-content::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+}

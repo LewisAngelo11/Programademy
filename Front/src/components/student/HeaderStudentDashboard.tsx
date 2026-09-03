@@ -1,6 +1,8 @@
 import { ArrowOutRightSquareHalf, User } from "@boxicons/react";
 import { useNavigate } from "react-router";
 import { useAuth } from "../../context/AuthContext";
+import { motion } from "motion/react";
+import RangesDropdown from "./RangesDropdown";
 import "./HeaderStudentDashboard.css";
 import type { SetStateAction } from "react";
 import Skeleton from "../ui/Skeleton";
@@ -23,10 +25,13 @@ interface LoadingProp {
 }
 
 interface SetPressRangeProp {
+    pressRange: boolean;
     setPressRange: React.Dispatch<SetStateAction<boolean>>;
+    allRanges: UserRange[];
+    totalUserPoints: number;
 }
 
-export default function HeaderStudentDashboard({ studentName, studentEmail, range, loading, setPressRange }: UsuarioInfoProp & LoadingProp & SetPressRangeProp) {
+export default function HeaderStudentDashboard({ studentName, studentEmail, range, loading, pressRange, setPressRange, allRanges, totalUserPoints }: UsuarioInfoProp & LoadingProp & SetPressRangeProp) {
     const navigate = useNavigate();
     const { logout } = useAuth();
 
@@ -45,13 +50,21 @@ export default function HeaderStudentDashboard({ studentName, studentEmail, rang
                     <Skeleton width="80px" height="28px" borderRadius="20px" />
                 ) : (
                     <div className="range-wrapper">
-                        <div
+                        <motion.div
+                            layoutId="range-trigger"
                             onClick={() => setPressRange(true)}
                             className={`range-student ${range?.titulo}`}
                         >
                             {range ? range.titulo : "Sin rango"}
-                        </div>
-                        <span className="range-tooltip">
+                        </motion.div>
+                        <RangesDropdown
+                            isOpen={pressRange}
+                            onClose={() => setPressRange(false)}
+                            range={range}
+                            allRanges={allRanges}
+                            totalUserPoints={totalUserPoints}
+                        />
+                        <span className={`range-tooltip ${pressRange ? "hidden" : ""}`}>
                             Rango: {range && range.titulo}
                         </span>
                     </div>

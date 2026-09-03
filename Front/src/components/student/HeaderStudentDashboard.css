@@ -24,6 +24,7 @@
 .range-wrapper {
     position: relative;
     display: inline-block;
+    z-index: 1001;
 }
 
 .range-tooltip {
@@ -46,6 +47,11 @@
 .range-wrapper:hover .range-tooltip {
     opacity: 1;
     bottom: -35px;
+}
+
+.range-tooltip.hidden {
+    opacity: 0 !important;
+    pointer-events: none;
 }
 
 .range-student {

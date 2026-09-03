@@ -15,7 +15,8 @@ export default function EditInfoAdmin({ adminName, setAdminName, adminEmail, set
     const [localName, setLocalName] = useState<string>(adminName);
     const [localEmail, setLocalEmail] = useState<string>(adminEmail);
 
-    const editInfoStudent = async () => {
+    const editInfoStudent = async (e: React.FormEvent) => {
+        e.preventDefault();
         try {
             const data = await UserService.updateInfo({ nombre: localName, email: localEmail });
             toast.success(data.message);
@@ -33,8 +34,7 @@ export default function EditInfoAdmin({ adminName, setAdminName, adminEmail, set
 
     return (
         <section className="edit-info-admin">
-            <h1>Editar Perfil</h1>
-            <form action={editInfoStudent} className="form-edit-admin">
+            <form onSubmit={editInfoStudent} className="form-edit-admin">
                 <div className="input-name-admin">
                     <label htmlFor="admin-name">Nombre Completo</label>
                     <input
