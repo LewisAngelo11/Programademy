@@ -3,13 +3,14 @@ import { useNavigate } from 'react-router'
 import { C, CPlusplus, Python, Javascript, Java, CSharp } from "@dev.icons/react";
 import { Rocket, BookOpen, CodeAlt, CheckCircle, Code } from '@boxicons/react';
 import { UserService } from '../services/userService';
+import previewImg from '../assets/Programademy-Preview.png';
 import './Landing.css'
 
 // Componente para placeholder de app real
 function AppPlaceholder() {
   return (
     <div className="app-placeholder">
-      <img src="./src/assets/Programademy-Preview.png" alt="Vista previa de Programademy" />
+      <img src={previewImg} alt="Vista previa de Programademy" />
     </div>
   )
 }
