@@ -120,7 +120,11 @@ router.post('/forgot-password', async (req: Request, res: Response) => {
         });
 
         // Envía el link para restablecer la contraseña al front
-        const resetLink = `${process.env.FRONTEND_URL}/reset-password/${token}`;
+        // En producción back y front comparten dominio, así que usamos el host
+        // desde donde se hace la petición. Se puede sobreescribir con FRONTEND_URL.
+        const baseUrl = process.env.FRONTEND_URL
+            || `${req.protocol}://${req.get('host')}`;
+        const resetLink = `${baseUrl}/reset-password/${token}`;
 
         await sendEmail({
             to: usuario.email,
