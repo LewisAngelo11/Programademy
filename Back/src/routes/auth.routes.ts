@@ -39,7 +39,7 @@ router.post('/login', async (req: Request, res: Response) => {
         res.cookie("access_token", token, {
             httpOnly: true, // Solo accedible en el back
             secure: process.env.NODE_ENV === "production", // HTTPS solo en producción
-            sameSite: "lax",
+            sameSite: "none", // Necesario para cross-site (front en Vercel, back en Render)
             maxAge: 60 * 60 * 1000, // Expiración 1 hora
         });
 
@@ -210,7 +210,7 @@ router.post('/logout', (req: Request, res: Response) => {
     res.clearCookie("access_token", {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
-        sameSite: "lax",
+        sameSite: "none",
     });
     res.json({
         message: "Sesión cerrada correctamente."
