@@ -131,15 +131,12 @@ function QuizCard({ id_quiz, titulo, id_modulo, puntos_recompensa, tiempo_limite
         // En caso de que el quiz no incluya el titulo del módulo por defecto
         if (!moduloTitulo) {
             const fetchModuleName = async () => {
-                const token = localStorage.getItem("token");
-                if (token) {
-                    try {
-                        const mods = await ModuloService.getAllModules();
-                        const mod = mods.find((m: any) => m.id_modulo === id_modulo);
-                        if (mod) setModuleName(mod.titulo);
-                    } catch (e) {
-                        // Fallback silencioso
-                    }
+                try {
+                    const mods = await ModuloService.getAllModules();
+                    const mod = mods.find((m: any) => m.id_modulo === id_modulo);
+                    if (mod) setModuleName(mod.titulo);
+                } catch (e) {
+                    // Fallback silencioso
                 }
             }
             fetchModuleName();

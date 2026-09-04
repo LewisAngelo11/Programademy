@@ -141,12 +141,6 @@ function Module({ id_modulo, titulo, descripcion, orden, curso, onDelete }: Modu
         if (!confirmacion) return;
         setIsDeleting(true);
 
-        const token = localStorage.getItem("token");
-        if (!token) {
-            navigate("/");
-            throw new Error("No hay token de autenticación");
-        }
-
         try {
             await ModuloService.deleteModulo(id_modulo);
 

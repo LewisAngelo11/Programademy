@@ -28,15 +28,9 @@ export default function Landing() {
     { icon: <CSharp size={40} />, name: "C#" },
   ];
 
-  // Validar si el token está expirado o no
+  // Validar si el usuario tiene sesión válida (desde la cookie)
   useEffect(() => {
     const validarToken = async () => {
-      const token = localStorage.getItem("token");
-      if (!token) {
-        setTokenValido(false);
-        return;
-      }
-
       try {
         await UserService.getInfo();
         setTokenValido(true);
