@@ -7,13 +7,11 @@
     "dev": "vite",
     "build": "npm install --include=dev && tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview",
-    "start": "node server.js"
+    "preview": "vite preview"
   },
   "dependencies": {
     "@boxicons/react": "^1.0.3",
     "@dev.icons/react": "^1.1.0",
-    "express": "^5.2.1",
     "motion": "^13.2.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
