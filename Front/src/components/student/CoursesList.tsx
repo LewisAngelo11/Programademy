@@ -1,7 +1,9 @@
 import "./CoursesList.css";
-import { useNavigate } from "react-router";
 import Skeleton from "../ui/Skeleton";
+import { AnimatePresence, motion, LayoutGroup } from "motion/react";
 import { X } from "@boxicons/react";
+import { useState } from "react";
+import { CourseInfo } from "../ui/CourseInfo";
 
 interface Course {
     id_curso: number;
@@ -14,6 +16,7 @@ interface Course {
 
 interface CoursesProp {
     courses: Course[];
+    onCourseStarted?: () => void;
 }
 
 interface ManageFetching {
@@ -21,7 +24,9 @@ interface ManageFetching {
     error: string;
 }
 
-export default function CoursesList({ courses, loading, error }: CoursesProp & ManageFetching) {
+export default function CoursesList({ courses, loading, error, onCourseStarted }: CoursesProp & ManageFetching) {
+    const [showInfoCourse, setShowInfoCourse] = useState<number | null>(null);
+
     return (
         <section className="courses-list-section">
             <header className="header-courses-list">
@@ -48,19 +53,46 @@ export default function CoursesList({ courses, loading, error }: CoursesProp & M
                 </div>
             )}
 
-            {!loading && !error && courses.length > 0 && (
-                <div className="list-avaible-courses">
-                    {courses.map(c => (
-                        <Course
-                            key={c.id_curso}
-                            idCurso={c.id_curso}
-                            titulo={c.titulo}
-                            descripcion={c.descripcion}
-                            imagen_url={c.imagen_url}
-                            />
-                    ))}
-                </div>
-            )}
+            <LayoutGroup>
+                <AnimatePresence>
+                    {!loading && !error && courses.length > 0 && (
+                        <div className="list-avaible-courses">
+                            {courses.map(c => (
+                                <Course
+                                    key={c.id_curso}
+                                    idCurso={c.id_curso}
+                                    titulo={c.titulo}
+                                    descripcion={c.descripcion}
+                                    imagen_url={c.imagen_url}
+                                    isActive={showInfoCourse === c.id_curso}
+                                    setShowInfoCourse={setShowInfoCourse}
+                                />
+                            ))}
+                        </div>
+                    )}
+
+                    {showInfoCourse !== null && (
+                        <motion.div
+                            className="course-info-backdrop"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            onClick={() => setShowInfoCourse(null)}
+                        />
+                    )}
+
+                    {showInfoCourse !== null && (
+                        <CourseInfo
+                            idCurso={showInfoCourse}
+                            titulo={courses.find(c => c.id_curso === showInfoCourse)?.titulo || ''}
+                            descripcion={courses.find(c => c.id_curso === showInfoCourse)?.descripcion || ''}
+                            imagen_url={courses.find(c => c.id_curso === showInfoCourse)?.imagen_url || ''}
+                            setShowInfoCourse={setShowInfoCourse}
+                            onCourseStarted={onCourseStarted}
+                        />
+                    )}
+                </AnimatePresence>
+            </LayoutGroup>
         </section>
     );
 }
@@ -88,23 +120,38 @@ interface CourseProp {
     titulo: string;
     descripcion: string;
     imagen_url: string;
+    isActive: boolean;
+    setShowInfoCourse: React.Dispatch<React.SetStateAction<number | null>>;
 }
 
-function Course({ idCurso, titulo, descripcion, imagen_url }: CourseProp) {
-    const navigate = useNavigate();
-
+function Course({ idCurso, titulo, descripcion, imagen_url, isActive, setShowInfoCourse }: CourseProp) {
     return (
-        <article className="course-container fade-in-skeleton">
-            <div className="banner-course">
+        <motion.article
+            layoutId={`course-${idCurso}`}
+            className="course-container fade-in-skeleton"
+            style={isActive ? { pointerEvents: "none" } : undefined}
+        >
+            <motion.div
+                className="banner-course"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: isActive ? 0 : 1 }}
+                exit={{ opacity: 0 }}
+            >
                 <img src={imagen_url} alt="Imagen previa del curso" />
-            </div>
-            <div className="course-info">
+            </motion.div>
+            <motion.div
+                className="course-info"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: isActive ? 0 : 1 }}
+                exit={{ opacity: 0 }}
+            >
                 <span>{titulo}</span>
                 <p>{descripcion}</p>
                 <button
                     className="start-course"
-                    onClick={() => navigate(`/info-course/${idCurso}`)}>Ver Curso</button>
-            </div>
-        </article>
+                    onClick={() => setShowInfoCourse(idCurso)}>Ver Curso
+                </button>
+            </motion.div>
+        </motion.article>
     );
 }

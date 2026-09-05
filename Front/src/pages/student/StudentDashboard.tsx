@@ -140,6 +140,7 @@ export default function StudentDashboard() {
                 courses={aviableCourses}
                 loading={loading} 
                 error={error}
+                onCourseStarted={getAllDataDashboard}
             />
         </main>
     );

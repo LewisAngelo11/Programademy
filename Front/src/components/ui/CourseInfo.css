@@ -1,0 +1,122 @@
+/* Estilos para el contenedor de información del curso */
+.course-info-container {
+    position: fixed;
+    background: rgba(255, 255, 255, 0.800);
+    backdrop-filter: blur(12px);
+    border-radius: 12px;
+    width: 96%;
+    height: 90%;
+    bottom: 5px;
+    left: 2%;
+    right: 2%;
+    overflow-y: auto;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+}
+
+/* Velo de fondo: cierra el modal al hacer clic afuera */
+.course-info-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+    background: rgba(15, 15, 26, 0.40);
+}
+
+.header-principal-info-course {
+    display: flex;
+    flex-direction: column;
+    gap: .8rem;
+}
+
+.banner-image-course {
+    background: #dddddd;
+    width: 100%;
+    height: 250px;
+    text-align: center;
+    overflow: hidden;
+}
+
+.banner-image-course img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.course-info-text {
+    padding: 1rem;
+}
+
+/* Botón para cerrar el modal */
+.button-close-course-info {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: .3rem;
+    border: none;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.9);
+    color: #555;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    transition: background .15s ease, color .15s ease;
+}
+
+.button-close-course-info:hover {
+    background: #ffffff;
+    color: #000;
+}
+
+.button-start-course-modal {
+    margin-left: 1rem;
+    width: fit-content;
+    padding: .4rem .8rem;
+    background-color: #191919;
+    border: none;
+    border-radius: 10px;
+    color: #ffff;
+    transition: all .1s ease;
+}
+
+.button-start-course-modal:hover {
+    background-color: #303030;
+}
+
+.modules-course-modal {
+    margin-bottom: 1rem;
+    padding: 0 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.module-course-card-modal {
+    width: 100%;
+    border-radius: 10px;
+    border: 1px solid #cdcdcd;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: .8rem;
+}
+
+@media (max-width: 640px) {
+    .course-info-container {
+        width: 100%;
+        height: 100%;
+        inset: 0;
+        border-radius: 0;
+    }
+
+    .banner-image-course {
+        height: 200px;
+    }
+}
