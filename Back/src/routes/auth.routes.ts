@@ -34,12 +34,13 @@ router.post('/login', async (req: Request, res: Response) => {
 
         // Se crea el token JWT
         const token = jwt.sign({ id:usuario?.id_usuario }, secret, { expiresIn: '1h' });
+        const isProd = process.env.NODE_ENV === "production";
 
         // Manda las Cookies al front
         res.cookie("access_token", token, {
             httpOnly: true, // Solo accedible en el back
-            secure: process.env.NODE_ENV === "production", // HTTPS solo en producción
-            sameSite: "none", // Necesario para cross-site (front en Vercel, back en Render)
+            secure: isProd, // HTTPS solo en producción
+            sameSite: isProd ? "none" : "lax", // Necesario para cross-site (front en Vercel, back en Render)
             maxAge: 60 * 60 * 1000, // Expiración 1 hora
         });
 
