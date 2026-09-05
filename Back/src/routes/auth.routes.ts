@@ -212,10 +212,11 @@ router.put('/reset-password', async (req: Request, res: Response) => {
 
 // Método para cerrar sesión y eliminar las cookies
 router.post('/logout', (req: Request, res: Response) => {
+    const isProd = process.env.NODE_ENV === "production";
     res.clearCookie("access_token", {
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "none",
+        secure: isProd,
+        sameSite: isProd ? "none" : "lax",
     });
     res.json({
         message: "Sesión cerrada correctamente."
