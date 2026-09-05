@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { AuthService } from "../services/authService";
+import SubtleAuthBackground from "../components/ui/SubtleAuthBackground";
+import PasswordInput from "../components/ui/PasswordInput";
 import "./ResetPassword.css";
 
 export default function ResetPassword() {
@@ -42,26 +44,26 @@ export default function ResetPassword() {
     };
 
     return (
-        <main className="reset-passw-page">
+        <SubtleAuthBackground className="reset-passw-page">
             <form className="reset-passw-form" action={handleSubmit}>
                 <h2>Restablecer contraseña</h2>
                 <p>Ingresa tu nueva contraseña</p>
                 <div className="input-group">
                     <label>Nueva contraseña</label>
-                    <input
-                        type="password"
+                    <PasswordInput
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         required
+                        autoComplete="new-password"
                     />
                 </div>
                 <div className="input-group">
                     <label>Confirmar contraseña</label>
-                    <input
-                        type="password"
+                    <PasswordInput
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
                         required
+                        autoComplete="new-password"
                     />
                 </div>
                 <button
@@ -72,6 +74,6 @@ export default function ResetPassword() {
                     {loading ? "Actualizando..." : "Cambiar contraseña"}
                 </button>
             </form>
-        </main>
+        </SubtleAuthBackground>
     );
 }

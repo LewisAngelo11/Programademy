@@ -1,0 +1,109 @@
+.auth-background {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+    background-color: #f9fafb;
+}
+
+.auth-blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(90px);
+    will-change: transform;
+}
+
+.auth-blob--1 {
+    width: min(60vw, 620px);
+    height: min(60vw, 620px);
+    top: -12%;
+    left: -14%;
+    background: radial-gradient(circle at center,
+        rgba(124, 58, 237, 0.42) 0%,
+        rgba(124, 58, 237, 0.16) 45%,
+        transparent 70%);
+    animation: authBlobFloat1 14s ease-in-out infinite alternate;
+}
+
+.auth-blob--2 {
+    width: min(70vw, 720px);
+    height: min(70vw, 720px);
+    top: 38%;
+    right: -22%;
+    background: radial-gradient(circle at center,
+        rgba(226, 121, 255, 0.32) 0%,
+        rgba(124, 58, 237, 0.14) 45%,
+        transparent 70%);
+    animation: authBlobFloat2 18s ease-in-out infinite alternate;
+}
+
+.auth-blob--3 {
+    width: min(50vw, 520px);
+    height: min(50vw, 520px);
+    bottom: -20%;
+    left: 20%;
+    background: radial-gradient(circle at center,
+        rgba(62, 0, 255, 0.36) 0%,
+        rgba(124, 58, 237, 0.14) 45%,
+        transparent 70%);
+    animation: authBlobFloat3 12s ease-in-out infinite alternate;
+}
+
+.auth-blob--4 {
+    width: min(38vw, 400px);
+    height: min(38vw, 400px);
+    top: 6%;
+    left: 55%;
+    background: radial-gradient(circle at center,
+        rgba(168, 85, 247, 0.3) 0%,
+        rgba(124, 58, 237, 0.12) 50%,
+        transparent 75%);
+    animation: authBlobFloat4 16s ease-in-out infinite alternate;
+}
+
+@keyframes authBlobFloat1 {
+    from {
+        transform: translate(0, 0) scale(1);
+    }
+
+    to {
+        transform: translate(100px, 70px) scale(1.14);
+    }
+}
+
+@keyframes authBlobFloat2 {
+    from {
+        transform: translate(0, 0) scale(1.06);
+    }
+
+    to {
+        transform: translate(-90px, -60px) scale(0.94);
+    }
+}
+
+@keyframes authBlobFloat3 {
+    from {
+        transform: translate(0, 0) scale(1);
+    }
+
+    to {
+        transform: translate(-80px, 60px) scale(1.12);
+    }
+}
+
+@keyframes authBlobFloat4 {
+    from {
+        transform: translate(0, 0) scale(0.98);
+    }
+
+    to {
+        transform: translate(60px, -40px) scale(1.1);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .auth-blob {
+        animation: none;
+    }
+}

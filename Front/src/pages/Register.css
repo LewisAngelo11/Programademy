@@ -1,13 +1,3 @@
-.register-page {
-    height: 100dvh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 1.6em;
-    background-color: #f9fafb;
-}
-
 .register-header {
     display: flex;
     flex-direction: column;

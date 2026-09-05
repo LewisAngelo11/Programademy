@@ -2,11 +2,12 @@ import { useState } from "react";
 import { CodeAlt, BookOpen } from "@boxicons/react";
 import toast from 'react-hot-toast';
 import { AuthService } from "../services/authService";
+import SubtleAuthBackground from "../components/ui/SubtleAuthBackground";
 import "./ForgotPassw.css";
 
 export default function ForgotPassw() {
     return (
-        <main className="forgot-passw-page">
+        <SubtleAuthBackground className="forgot-passw-page">
             <header className="recover-passw-header">
                 <div className="logo">
                     <div className="bg-logo">
@@ -18,7 +19,7 @@ export default function ForgotPassw() {
                 <small>Plataforma de Aprendizaje de Lógica de Programación</small>
             </header>   
             <RecoverPasswForm/>
-        </main>
+        </SubtleAuthBackground>
     );
 }
 

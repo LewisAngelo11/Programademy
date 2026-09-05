@@ -4,11 +4,13 @@ import { CodeAlt, BookOpen } from "@boxicons/react";
 import { AuthService } from "../services/authService"
 import { useAuth } from "../context/AuthContext";
 import toast from 'react-hot-toast';
+import SubtleAuthBackground from "../components/ui/SubtleAuthBackground";
+import PasswordInput from "../components/ui/PasswordInput";
 import "./Login.css"
 
 export default function Login() {
     return (
-        <main className="login-page">
+        <SubtleAuthBackground className="login-page">
             <header className="login-header">
                 <div className="logo">
                     <div className="bg-logo">
@@ -20,7 +22,7 @@ export default function Login() {
                 <small>Plataforma de Aprendizaje de Lógica de Programación</small>
             </header>
             <LoginForm />
-        </main>
+        </SubtleAuthBackground>
     );
 }
 
@@ -86,13 +88,14 @@ function LoginForm() {
             </div>
             <div className="passw-container">
                 <label htmlFor="password">Contraseña</label>
-                <input
-                    type="password"
+                <PasswordInput
                     id="password"
-                    placeholder="Tu contraseña"
                     value={password}
                     onChange={(e) => { setPassword(e.target.value); setError(null); }}
-                    required />
+                    placeholder="Tu contraseña"
+                    required
+                    autoComplete="current-password"
+                />
                 <a href="/forgotPassw" className="forgot-passw">¿Olvidó su Contraseña?</a>
             </div>
             <button className="login-button" disabled={loading}>{!loading ? "Iniciar Sesión" : "Validando..."}</button>

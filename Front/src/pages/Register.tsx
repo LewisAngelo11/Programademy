@@ -4,10 +4,13 @@ import "./Register.css";
 import { useNavigate } from "react-router";
 import { AuthService } from "../services/authService";
 import toast from 'react-hot-toast';
+import SubtleAuthBackground from "../components/ui/SubtleAuthBackground";
+import PasswordInput from "../components/ui/PasswordInput";
+import "./Register.css";
 
 export default function Register() {
     return (
-        <main className="register-page">
+        <SubtleAuthBackground className="register-page">
             <header className="register-header">
                 <div className="logo">
                     <div className="bg-logo">
@@ -19,7 +22,7 @@ export default function Register() {
                 <small>Plataforma de Aprendizaje de Lógica de Programación</small>
             </header>
             <RegisterForm/>
-        </main>
+        </SubtleAuthBackground>
     );
 }
 
@@ -79,13 +82,14 @@ function RegisterForm() {
             </div>
             <div className="passw-container">
                 <label htmlFor="passw">Contraseña *</label>
-                <input
-                    type="password"
+                <PasswordInput
                     id="passw"
-                    placeholder="Tu contraseña"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    required/>
+                    placeholder="Tu contraseña"
+                    required
+                    autoComplete="new-password"
+                />
             </div>
             <button className="register-button" disabled={loading}>{!loading ? "Registrarse" : "En Proceso..."}</button>
             <hr />
